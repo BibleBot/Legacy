@@ -18,5 +18,7 @@ Bot Owner Commands:
 * `+eval <code>` - execute javascript code
 * `+setGlobal <var> <value>` - set a temporary global value while the bot is running
 * `+getGlobal <var>` - get a temporary global value
+
+Originally created by Elliott Pardee (@vypr).
 # BibleBot
 # BibleBot
