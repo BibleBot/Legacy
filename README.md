@@ -20,5 +20,3 @@ Bot Owner Commands:
 * `+getGlobal <var>` - get a temporary global value
 
 Originally created by Elliott Pardee (@vypr).
-# BibleBot
-# BibleBot
