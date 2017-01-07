@@ -245,6 +245,13 @@ bot.on("message", raw => {
         } catch(e) {
             // do nothing
         }
+    } else if (msg.startsWith("+leave") && sender == "UnimatrixZeroOne#7501") {
+        logMessage("info", sender, source, "+leave");
+        try {
+            leave();
+        } catch(e) {
+            // do nothing
+        }
     } else if (msg.startsWith("+setGlobal") && sender == "UnimatrixZeroOne#7501") {
         logMessage("info", sender, source, "+setGlobal");
         var item = msg.split(" ")[1];
