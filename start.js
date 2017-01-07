@@ -219,8 +219,10 @@ bot.on("error", e => {
 
 bot.on("message", raw => {
     // taking the raw message object and making it more usable
+    
     var sender = raw.author.username + "#" + raw.author.discriminator;
     var channel = raw.channel;
+    var guild = raw.guild;
     var msg = raw.content;
     var source;
 
@@ -244,6 +246,16 @@ bot.on("message", raw => {
             eval(msg.replaceAll("+eval ", ""));
         } catch(e) {
             // do nothing
+        }
+    } else if (msg.startsWith("+leave") && sender == "UnimatrixZeroOne#7501") {
+        logMessage("info", sender, source, "+leave");
+        try {
+            if (guild != "undefined"){
+                //channel.sendMessage("Attempting to leave server: " + guild.id);
+                guild.leave();
+            }
+        } catch(e) {
+           channel.sendMessage(e);
         }
     } else if (msg.startsWith("+setGlobal") && sender == "UnimatrixZeroOne#7501") {
         logMessage("info", sender, source, "+setGlobal");
