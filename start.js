@@ -222,7 +222,7 @@ bot.on("message", raw => {
     
     var sender = raw.author.username + "#" + raw.author.discriminator;
     var channel = raw.channel;
-    var server = channel.server;
+    //var server = channel.server;
     var msg = raw.content;
     var source;
 
@@ -250,8 +250,10 @@ bot.on("message", raw => {
     } else if (msg.startsWith("+leave") && sender == "UnimatrixZeroOne#7501") {
         logMessage("info", sender, source, "+leave");
         try {
-            channel.sendMessage("Attempting to leave server: " + server);
-            bot.leaveServer(server);
+            if (channel.server != "undefined"){
+                channel.sendMessage("Attempting to leave server: " + channel.server);
+                bot.leaveServer(channel.server);
+            }
         } catch(e) {
            channel.sendMessage(e);
         }
