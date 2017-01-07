@@ -60,7 +60,7 @@ function getRandomVerse(version) {
             var $ = cheerio.load(body);
             verse = $(".bibleChapter a").first().text();
 
-            bibleGateway.getResult(verse, version).then(function (result) {
+            bibleGateway.getResult(verse, version, headings, verseNumbers).then(function (result) {
                 result.forEach(function (object) {
                     var purifiedObjectText = object.text.replaceAll("“", " \"")
                                                         .replaceAll("[", " [")
@@ -112,7 +112,7 @@ function getVOTD(version) {
             var $ = cheerio.load(body);
             verse = $(".rp-passage-display").text();
 
-            bibleGateway.getResult(verse, version).then(function (result) {
+            bibleGateway.getResult(verse, version, headings, verseNumbers).then(function (result) {
                 result.forEach(function (object) {
                     var purifiedObjectText = object.text.replaceAll("“", " \"")
                                                         .replaceAll("[", " [")
@@ -186,6 +186,38 @@ function setVersion(user, version, callback) {
     });
 }
 
+function setHeadings(user, headings, callback) {
+    var headings = headings.toLowerCase()
+    if (headings != "enable" && headings != "disable") { return callback(null); }
+    db.find({"user": user}, function (err, doc) {
+        if (doc.length > 0) {
+            db.update({"user": user}, {$set: {"headings":headings}}, {"multi": true}, function (err, docs) {
+                return callback(docs);
+            });
+        } else {
+            db.insert({"user": user,"headings":headings}, function (err, docs) {
+                return callback(docs);
+            });
+        }
+    });
+}
+
+function setVerseNumbers(user, verseNumbers, callback) {
+    var verseNumbers = verseNumbers.toLowerCase()
+    if (verseNumbers != "enable" && verseNumbers != "disable") { return callback(null); }
+    db.find({"user": user}, function (err, doc) {
+        if (doc.length > 0) {
+            db.update({"user": user}, {$set: {"verseNumbers":verseNumbers}}, {"multi": true}, function (err, docs) {
+                return callback(docs);
+            });
+        } else {
+            db.insert({"user": user,"verseNumbers":verseNumbers}, function (err, docs) {
+                return callback(docs);
+            });
+        }
+    });
+}
+
 function getVersion(user, callback) {
     db.find({"user": user}, function (err, docs) {
         if (docs.length > 0) {
@@ -228,8 +260,8 @@ bot.on("message", raw => {
         source = channel.guild.name + "#" + channel.name;
     } else { source = "unknown"; }
 
-    if (sender == "BibleBot#0842" || sender == "Cathobot#6788") return;
-    if (source.includes("Discord Bots") && sender != "UnimatrixZeroOne#7501") return;
+    if (sender == "BibleBot#0739") return;
+    if (source.includes("Discord Bots") && sender != "redpanda#7299") return;
 
     // for verse arrays
     var alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l",
@@ -238,24 +270,24 @@ bot.on("message", raw => {
                     "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V",
                     "W", "X", "Y", "Z"];
 
-    if (msg.startsWith("+eval") && sender == "UnimatrixZeroOne#7501") {
+    if (msg.startsWith("+eval") && sender == "redpanda#7299") {
         logMessage("info", sender, source, "+eval");
         try {
             eval(msg.replaceAll("+eval ", ""));
         } catch(e) {
             // do nothing
         }
-    } else if (msg.startsWith("+setGlobal") && sender == "UnimatrixZeroOne#7501") {
+    } else if (msg.startsWith("+setGlobal") && sender == "redpanda#7299") {
         logMessage("info", sender, source, "+setGlobal");
         var item = msg.split(" ")[1];
         var value = msg.replaceAll("+setGlobal " + item + " ", "");
         setGlobal(item, value)
 
         channel.sendMessage("set");
-    } else if (msg.startsWith("+getGlobal") && sender == "UnimatrixZeroOne#7501") {
+    } else if (msg.startsWith("+getGlobal") && sender == "redpanda#7299") {
         logMessage("info", sender, source, "+getGlobal");
         channel.sendMessage(getGlobal(msg.replaceAll("+getGlobal ", "")));
-    } else if (msg.startsWith("+puppet") && sender == "UnimatrixZeroOne#7501") {
+    } else if (msg.startsWith("+puppet") && sender == "redpanda#7299") {
         raw.delete();
         logMessage("info", sender, source, "+puppet");
         channel.sendMessage(msg.replaceAll("+puppet ", ""));
@@ -265,12 +297,21 @@ bot.on("message", raw => {
     } else if (msg == "+random") {
         getVersion(sender, function (data) {
             var version = "ESV";
-
+            var headings = "enable";
+            var verseNumbers = "enable";
             if (data) {
-                version = data[0].version;
-            }
+                if (data[0].hasOwnProperty('version')){
+                  version = data[0].version;
+                }
+                if (data[0].hasOwnProperty('headings')){
+                  headings = data[0].headings;
+                }
+                if (data[0].hasOwnProperty('verseNumbers')){
+                  verseNumbers = data[0].verseNumbers;
+                }
+             }
 
-            getRandomVerse(version).then(function (result) {
+            getRandomVerse(version,headings,verseNumbers).then(function (result) {
                 logMessage("info", sender, source, "+random");
                 channel.sendMessage(result);
             });
@@ -278,12 +319,20 @@ bot.on("message", raw => {
     } else if (msg == "+verseoftheday" || msg == "+votd") {
         getVersion(sender, function (data) {
             var version = "ESV";
-
+            var headings = "enable";
+            var verseNumbers = "enable";
             if (data) {
-                version = data[0].version;
-            }
-
-            getVOTD(version).then(function (result) {
+                if (data[0].hasOwnProperty('version')){
+                  version = data[0].version;
+                }
+                if (data[0].hasOwnProperty('headings')){
+                  headings = data[0].headings;
+                }
+                if (data[0].hasOwnProperty('verseNumbers')){
+                  verseNumbers = data[0].verseNumbers;
+                }
+             }
+            getVOTD(version,headings,verseNumbers).then(function (result) {
                 logMessage("info", sender, source, "+votd");
                 channel.sendMessage(result);
             });
@@ -320,6 +369,40 @@ bot.on("message", raw => {
         }
 
         return;
+      } else if (msg.startsWith("+headings")) {
+          if (msg.split(" ").length != 2) {
+                  logMessage("info", sender, source, "empty +headings sent");
+                  raw.reply("**Use +headings enable OR +headings disable**");
+          } else {
+              setHeadings(sender, msg.split(" ")[1], function (data) {
+                  if (data) {
+                      logMessage("info", sender, source, "+headings " + msg.split(" ")[1]);
+                      raw.reply("**Set headings successfully.**");
+                  } else {
+                          logMessage("info", sender, source, "failed +headings");
+                          raw.reply("**Use +headings enable OR +headings disable**");
+                  }
+              });
+          }
+
+          return;
+        } else if (msg.startsWith("+versenumbers")) {
+            if (msg.split(" ").length != 2) {
+                    logMessage("info", sender, source, "empty +versenumbers sent");
+                    raw.reply("**Use +versenumbers enable OR +versenumbers disable**");
+            } else {
+                setVerseNumbers(sender, msg.split(" ")[1], function (data) {
+                    if (data) {
+                        logMessage("info", sender, source, "+versenumbers " + msg.split(" ")[1]);
+                        raw.reply("**Set versenumbers successfully.**");
+                    } else {
+                            logMessage("info", sender, source, "failed +versenumbers");
+                            raw.reply("**Use +versenumbers enable OR +versenumbers disable**");
+                    }
+                });
+            }
+
+            return;
     } else if (msg == "+version") {
         getVersion(sender, function (data) {
             logMessage("info", sender, source, "+version");
@@ -342,7 +425,7 @@ bot.on("message", raw => {
             raw.reply("**I support:**\n\n```" + chatString.slice(0, -2) + "```");
         });
     } else if (msg.startsWith("+addversion") || msg.startsWith("+av")) {
-        if (sender == "UnimatrixZeroOne#7501" || sender == "stupiddroid#6140") {
+        if (sender == "redpanda#7299") {
             var argv = msg.split(" ");
             var argc = argv.length;
             var name = "";
@@ -594,7 +677,19 @@ bot.on("message", raw => {
 
             getVersion(sender, function (data) {
                 var version = "ESV";
-                if (data) { version = data[0].version; }
+                var headings = "enable";
+                var verseNumbers = "enable";
+                if (data) {
+                    if (data[0].hasOwnProperty('version')){
+                      version = data[0].version;
+                    }
+                    if (data[0].hasOwnProperty('headings')){
+                      headings = data[0].headings;
+                    }
+                    if (data[0].hasOwnProperty('verseNumbers')){
+                      verseNumbers = data[0].verseNumbers;
+                    }
+                 }
 
                 versionDB.find({"abbv": version}, function (err, docs) {
                     if(docs) {
@@ -643,7 +738,7 @@ bot.on("message", raw => {
                             }
                         });
 
-                        bibleGateway.getResult(properString, version).then(function (result) {
+                        bibleGateway.getResult(properString, version, headings, verseNumbers).then(function (result) {
                             result.forEach(function (object) {
                                 var purifiedObjectText = object.text.replaceAll("“", " \"")
                                                                     .replaceAll("[", " [")
@@ -690,4 +785,3 @@ bot.on("message", raw => {
 
 
     bot.login("");
-

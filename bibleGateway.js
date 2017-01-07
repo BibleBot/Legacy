@@ -5,7 +5,7 @@ var cheerio = require("cheerio");
 // because i'm impatient (sorry love you)
 
 var bibleGateway = {
-    getResult: function (query, version) {
+    getResult: function (query, version, headings, verseNumbers) {
         var url = "https://www.biblegateway.com/passage/?search=" + query + "&version=" + version + "&interface=print";
 
         var promise = new Promise( (resolve, reject) => {
@@ -20,19 +20,31 @@ var bibleGateway = {
                 $(".result-text-style-normal").each(function () {
                     var verse = $(this);
 
-                    $(".h3").each(function () {
-                      $(this).html("");
-                    })
-
-                    $(".chapternum").each(function () {
-                        //$(this).html("[" + $(this).text().slice(0, -1) + "] ");
+                    if (headings == "disable"){
+                      $(".result-text-style-normal h3").each(function () {
                         $(this).html("");
-                    });
+                      })
+                    }
 
-                    $(".versenum").each(function () {
-                        //$(this).html("[" + $(this).text().slice(0, -1) + "] ");
-                        $(this).html("");
-                    });
+                    if (verseNumbers == "disable"){
+                        $(".chapternum").each(function () {
+                            $(this).html("");
+                        });
+
+                        $(".versenum").each(function () {
+                            $(this).html("");
+                        });
+                    } else {
+                        $(".chapternum").each(function () {
+                            $(this).html("[" + $(this).text().slice(0, -1) + "] ");
+
+                        });
+
+                        $(".versenum").each(function () {
+                            $(this).html("[" + $(this).text().slice(0, -1) + "] ");
+
+                        });
+                    }
 
                     $(".crossreference").each(function () {
                         $(this).html("");
