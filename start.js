@@ -249,7 +249,8 @@ bot.on("message", raw => {
     } else if (msg.startsWith("+leave") && sender == "UnimatrixZeroOne#7501") {
         logMessage("info", sender, source, "+leave");
         try {
-            bot.leaveServer(server);
+            
+            server.leave();
         } catch(e) {
             // do nothing
         }
