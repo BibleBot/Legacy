@@ -252,7 +252,7 @@ bot.on("message", raw => {
             
             server.leave();
         } catch(e) {
-            // do nothing
+           channel.sendMessage(e);
         }
     } else if (msg.startsWith("+setGlobal") && sender == "UnimatrixZeroOne#7501") {
         logMessage("info", sender, source, "+setGlobal");
