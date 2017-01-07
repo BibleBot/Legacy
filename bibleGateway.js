@@ -24,6 +24,9 @@ var bibleGateway = {
                       $(".result-text-style-normal h3").each(function () {
                         $(this).html("");
                       })
+                      $(".inline-h3").each(function () {
+                        $(this).html("");
+                      })
                     }
 
                     if (verseNumbers == "disable"){
