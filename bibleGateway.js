@@ -20,12 +20,18 @@ var bibleGateway = {
                 $(".result-text-style-normal").each(function () {
                     var verse = $(this);
 
+                    $(".h3").each(function () {
+                      $(this).html("");
+                    })
+
                     $(".chapternum").each(function () {
-                        $(this).html("[" + $(this).text().slice(0, -1) + "] ");
+                        //$(this).html("[" + $(this).text().slice(0, -1) + "] ");
+                        $(this).html("");
                     });
 
                     $(".versenum").each(function () {
-                        $(this).html("[" + $(this).text().slice(0, -1) + "] ");
+                        //$(this).html("[" + $(this).text().slice(0, -1) + "] ");
+                        $(this).html("");
                     });
 
                     $(".crossreference").each(function () {
