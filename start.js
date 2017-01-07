@@ -260,8 +260,8 @@ bot.on("message", raw => {
         source = channel.guild.name + "#" + channel.name;
     } else { source = "unknown"; }
 
-    if (sender == "BibleBot#0739") return;
-    if (source.includes("Discord Bots") && sender != "redpanda#7299") return;
+    if (sender == "BibleBot#0842" || sender == "Cathobot#6788") return;
+    if (source.includes("Discord Bots") && sender != "UnimatrixZeroOne#7501") return;
 
     // for verse arrays
     var alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l",
@@ -270,24 +270,24 @@ bot.on("message", raw => {
                     "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V",
                     "W", "X", "Y", "Z"];
 
-    if (msg.startsWith("+eval") && sender == "redpanda#7299") {
+    if (msg.startsWith("+eval") && sender == "UnimatrixZeroOne#7501") {
         logMessage("info", sender, source, "+eval");
         try {
             eval(msg.replaceAll("+eval ", ""));
         } catch(e) {
             // do nothing
         }
-    } else if (msg.startsWith("+setGlobal") && sender == "redpanda#7299") {
+    } else if (msg.startsWith("+setGlobal") && sender == "UnimatrixZeroOne#7501") {
         logMessage("info", sender, source, "+setGlobal");
         var item = msg.split(" ")[1];
         var value = msg.replaceAll("+setGlobal " + item + " ", "");
         setGlobal(item, value)
 
         channel.sendMessage("set");
-    } else if (msg.startsWith("+getGlobal") && sender == "redpanda#7299") {
+    } else if (msg.startsWith("+getGlobal") && sender == "UnimatrixZeroOne#7501") {
         logMessage("info", sender, source, "+getGlobal");
         channel.sendMessage(getGlobal(msg.replaceAll("+getGlobal ", "")));
-    } else if (msg.startsWith("+puppet") && sender == "redpanda#7299") {
+    } else if (msg.startsWith("+puppet") && sender == "UnimatrixZeroOne#7501") {
         raw.delete();
         logMessage("info", sender, source, "+puppet");
         channel.sendMessage(msg.replaceAll("+puppet ", ""));
@@ -425,7 +425,7 @@ bot.on("message", raw => {
             raw.reply("**I support:**\n\n```" + chatString.slice(0, -2) + "```");
         });
     } else if (msg.startsWith("+addversion") || msg.startsWith("+av")) {
-        if (sender == "redpanda#7299") {
+        if (sender == "UnimatrixZeroOne#7501" || sender == "stupiddroid#6140") {
             var argv = msg.split(" ");
             var argc = argv.length;
             var name = "";
