@@ -9,6 +9,7 @@
 {"name":"Orthodox Jewish Bible (OJB)","abbv":"OJB","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"9NL0xgEb3ZoMkx1a"}
 {"name":"Nueva Version Internacional (NVI)","abbv":"NVI","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"AKDYalQK6Hqpd7kO"}
 {"name":"Amplified Bible (AMP)","abbv":"AMP","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"BVPhrPLAal7wHUtO"}
+{"name":"Het Boek (HTB)","abbv":"HTB","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"BxYqeCNcVRhxl9z3"}
 {"name":"Le Bible du Semeur (BDS)","abbv":"BDS","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"CNViF6lIW9JmWUES"}
 {"name":"Biblia Sacra Vulgata (VULGATE)","abbv":"VULGATE","hasOT":true,"hasNT":true,"hasAPO":true,"_id":"CNcuc3M5Lnte5JMH"}
 {"name":"New Revised Standard Version, Anglicised Catholic Edition (NRSVACE)","abbv":"NRSVACE","hasOT":true,"hasNT":true,"hasAPO":true,"_id":"CUqMraqg4oxTk56n"}
@@ -17,6 +18,7 @@
 {"name":"Le Bible du Semeur","abbv":"(BDS)","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"J6roRsMlszKKqyGd"}
 {"name":"Good News Translation (GNT)","abbv":"GNT","hasOT":true,"hasNT":true,"hasAPO":true,"_id":"LPgbjZ0oV9sisjbc"}
 {"name":"Worldwide English (New Testament) (WE)","abbv":"WE","hasOT":false,"hasNT":true,"hasAPO":false,"_id":"Llknltw05Qx3kYmW"}
+{"name":"Modern Heresy Version (MHV)","abbv":"MHV","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"MEHpjE1exKDQbWtD"}
 {"name":"Revised Standard Version (RSV)","abbv":"RSV","hasOT":true,"hasNT":true,"hasAPO":true,"_id":"MQUhAl2Ke5sSQfkW"}
 {"name":"New Life Version (NLV)","abbv":"NLV","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"NNAfB3TYENn9subX"}
 {"name":"Lexham English Bible (LEB)","abbv":"LEB","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"NQGwUYrDynpOOjxH"}
@@ -40,6 +42,7 @@
 {"name":"New International Reader's Version (NIRV)","abbv":"NIRV","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"YEV3CQ3N9pmm0XVM"}
 {"name":"New International Version (NIV)","abbv":"NIV","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"bKrdc3ZCX6vF6T5c"}
 {"name":"Jubilee Bible 2000 (JUB)","abbv":"JUB","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"ba5fe2Y2Azj9MnPD"}
+{"name":"New English Translation of the Septuagint (NETS)","abbv":"NETS","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"cyaS83cKRSXzloWx"}
 {"name":"American Standard Version (ASV)","abbv":"ASV","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"dGmdLGdywGLSMqDf"}
 {"name":"BRG Bible (BRG)","abbv":"BRG","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"dZeRZ7Q9hoT567QA"}
 {"name":"King James Version (KJV)","abbv":"KJV","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"dfOZWff7mAvQimSS"}
@@ -57,6 +60,8 @@
 {"name":"International Children’s Bible (ICB)","abbv":"ICB","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"p246DMDpCIm29vOI"}
 {"name":"International Standard Version (ISV)","abbv":"ISV","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"p4KsV1AUtNZx6N2I"}
 {"name":"","hasOT":false,"hasNT":false,"hasAPO":false,"_id":"rKX9Ahv9kg1DMW71"}
+{"name":"Brenton Septuagint Translation (BST)","abbv":"BST","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"tPvRn4LjbwrTcYvn"}
+{"name":"NOVA VERSÃO INTERNACIONAL (NVI-PT)","abbv":"NVI-PT","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"u6pK04zlI8bwYIE9"}
 {"name":"Tree of Life Version (TLV)","abbv":"TLV","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"v1Hf1QuEeekPNM60"}
 {"name":"Mounce Reverse-Interlinear New Testament (MOUNCE)","abbv":"MOUNCE","hasOT":false,"hasNT":true,"hasAPO":false,"_id":"vgDN8BGnSJ6vcOxJ"}
 {"name":"Beibl William Morgan (BWM)","abbv":"BWM","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"vhAORHtAhxeSqhAb"}
@@ -65,8 +70,3 @@
 {"name":"Young's Literal Translation (YLT)","abbv":"YLT","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"xIvbnNmwq3oboT4Q"}
 {"name":"Common English Bible (CEB)","abbv":"CEB","hasOT":true,"hasNT":true,"hasAPO":true,"_id":"zrKunS7hYYrW61LI"}
 {"name":"Dios Habla Hoy (DHH)","abbv":"DHH","hasOT":true,"hasNT":true,"hasAPO":true,"_id":"zwxYRzg9DO3RFf1V"}
-{"name":"NOVA VERSÃO INTERNACIONAL (NVI-PT)","abbv":"NVI-PT","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"u6pK04zlI8bwYIE9"}
-{"name":"Modern Heresy Version (MHV)","abbv":"MHV","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"MEHpjE1exKDQbWtD"}
-{"name":"New English Translation of the Septuagint (NETS)","abbv":"NETS","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"cyaS83cKRSXzloWx"}
-{"name":"Het Boek (HTB)","abbv":"HTB","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"BxYqeCNcVRhxl9z3"}
-{"name":"Brenton Septuagint Translation (BST)","abbv":"BST","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"tPvRn4LjbwrTcYvn"}

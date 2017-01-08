@@ -3,6 +3,8 @@ var Discord = require("discord.js");
 var bot = new Discord.Client();
 var request = require("request");
 
+var owner = "ReplaceMeWithDiscordID";
+
 // For user version preferences
 var dataStore = require("nedb");
 var db = new dataStore({ filename: 'db', autoload: true, corruptAlertThreshold: 1 });
@@ -272,14 +274,14 @@ bot.on("message", raw => {
                     "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V",
                     "W", "X", "Y", "Z"];
 
-    if (msg.startsWith("+eval") && sender == "UnimatrixZeroOne#7501") {
+    if (msg.startsWith("+eval") && sender == owner) {
         logMessage("info", sender, source, "+eval");
         try {
             eval(msg.replaceAll("+eval ", ""));
         } catch(e) {
             // do nothing
         }
-    } else if (msg.startsWith("+leave") && sender == "UnimatrixZeroOne#7501") {
+    } else if (msg.startsWith("+leave") && sender == owner) {
         logMessage("info", sender, source, "+leave");
         try {
             if (guild != "undefined"){
@@ -289,23 +291,23 @@ bot.on("message", raw => {
         } catch(e) {
            channel.sendMessage(e);
         }
-    } else if (msg.startsWith("+setGlobal") && sender == "UnimatrixZeroOne#7501") {
+    } else if (msg.startsWith("+setGlobal") && sender == owner) {
         logMessage("info", sender, source, "+setGlobal");
         var item = msg.split(" ")[1];
         var value = msg.replaceAll("+setGlobal " + item + " ", "");
         setGlobal(item, value)
 
         channel.sendMessage("set");
-    } else if (msg.startsWith("+getGlobal") && sender == "UnimatrixZeroOne#7501") {
+    } else if (msg.startsWith("+getGlobal") && sender == owner) {
         logMessage("info", sender, source, "+getGlobal");
         channel.sendMessage(getGlobal(msg.replaceAll("+getGlobal ", "")));
-    } else if (msg.startsWith("+puppet") && sender == "UnimatrixZeroOne#7501") {
+    } else if (msg.startsWith("+puppet") && sender == owner) {
         raw.delete();
         logMessage("info", sender, source, "+puppet");
         channel.sendMessage(msg.replaceAll("+puppet ", ""));
-    } else if (msg == "+holybot") {
-        logMessage("info", sender, source, "+holybot");
-        channel.sendMessage("**HolyBot by Elliott Pardee (vipr#4035)** - code: https://github.com/vypr/holybot-dc\n\n```commands:\n* `+setversion ABBV` - set preferred version to ABBV\n* `+version` - see what version you've set\n* `+versions` - see the supported versions\n* `+random` - get a random Bible verse\n* `+verseoftheday` (`+votd`) - get the verse of the day```\n**To use it, just say a Bible verse. I'll handle the rest. :smiley:**");
+    } else if (msg == "+biblebot") {
+        logMessage("info", sender, source, "+biblebot");
+        channel.sendMessage("**BibleBot by UnimatrixZeroOne** - code: https://github.com/UnimatrixZeroOne/BibleBot\n\n```commands:\n* `+setversion ABBV` - set preferred version to ABBV\n* `+version` - see what version you've set\n* `+versions` - see the supported versions\n* `+random` - get a random Bible verse\n* `+verseoftheday` (`+votd`) - get the verse of the day```\n**To use it, just say a Bible verse. I'll handle the rest.**");
     } else if (msg == "+random") {
         getVersion(sender, function (data) {
             var version = "ESV";
@@ -437,7 +439,7 @@ bot.on("message", raw => {
             raw.reply("**I support:**\n\n```" + chatString.slice(0, -2) + "```");
         });
     } else if (msg.startsWith("+addversion") || msg.startsWith("+av")) {
-        if (sender == "UnimatrixZeroOne#7501" || sender == "stupiddroid#6140") {
+        if (sender == owner || sender == "stupiddroid#6140") {
             var argv = msg.split(" ");
             var argc = argv.length;
             var name = "";
