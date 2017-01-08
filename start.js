@@ -60,7 +60,7 @@ function getRandomVerse(version) {
             var $ = cheerio.load(body);
             verse = $(".bibleChapter a").first().text();
 
-            bibleGateway.getResult(verse, version).then(function (result) {
+            bibleGateway.getResult(verse, version, headings, verseNumbers).then(function (result) {
                 result.forEach(function (object) {
                     var purifiedObjectText = object.text.replaceAll("“", " \"")
                                                         .replaceAll("[", " [")
@@ -112,7 +112,7 @@ function getVOTD(version) {
             var $ = cheerio.load(body);
             verse = $(".rp-passage-display").text();
 
-            bibleGateway.getResult(verse, version).then(function (result) {
+            bibleGateway.getResult(verse, version, headings, verseNumbers).then(function (result) {
                 result.forEach(function (object) {
                     var purifiedObjectText = object.text.replaceAll("“", " \"")
                                                         .replaceAll("[", " [")
@@ -183,6 +183,38 @@ function setVersion(user, version, callback) {
                 });
             }
         });
+    });
+}
+
+function setHeadings(user, headings, callback) {
+    var headings = headings.toLowerCase()
+    if (headings != "enable" && headings != "disable") { return callback(null); }
+    db.find({"user": user}, function (err, doc) {
+        if (doc.length > 0) {
+            db.update({"user": user}, {$set: {"headings":headings}}, {"multi": true}, function (err, docs) {
+                return callback(docs);
+            });
+        } else {
+            db.insert({"user": user,"headings":headings}, function (err, docs) {
+                return callback(docs);
+            });
+        }
+    });
+}
+
+function setVerseNumbers(user, verseNumbers, callback) {
+    var verseNumbers = verseNumbers.toLowerCase()
+    if (verseNumbers != "enable" && verseNumbers != "disable") { return callback(null); }
+    db.find({"user": user}, function (err, doc) {
+        if (doc.length > 0) {
+            db.update({"user": user}, {$set: {"verseNumbers":verseNumbers}}, {"multi": true}, function (err, docs) {
+                return callback(docs);
+            });
+        } else {
+            db.insert({"user": user,"verseNumbers":verseNumbers}, function (err, docs) {
+                return callback(docs);
+            });
+        }
     });
 }
 
@@ -277,12 +309,21 @@ bot.on("message", raw => {
     } else if (msg == "+random") {
         getVersion(sender, function (data) {
             var version = "ESV";
-
+            var headings = "enable";
+            var verseNumbers = "enable";
             if (data) {
-                version = data[0].version;
-            }
+                if (data[0].hasOwnProperty('version')){
+                  version = data[0].version;
+                }
+                if (data[0].hasOwnProperty('headings')){
+                  headings = data[0].headings;
+                }
+                if (data[0].hasOwnProperty('verseNumbers')){
+                  verseNumbers = data[0].verseNumbers;
+                }
+             }
 
-            getRandomVerse(version).then(function (result) {
+            getRandomVerse(version,headings,verseNumbers).then(function (result) {
                 logMessage("info", sender, source, "+random");
                 channel.sendMessage(result);
             });
@@ -290,12 +331,20 @@ bot.on("message", raw => {
     } else if (msg == "+verseoftheday" || msg == "+votd") {
         getVersion(sender, function (data) {
             var version = "ESV";
-
+            var headings = "enable";
+            var verseNumbers = "enable";
             if (data) {
-                version = data[0].version;
-            }
-
-            getVOTD(version).then(function (result) {
+                if (data[0].hasOwnProperty('version')){
+                  version = data[0].version;
+                }
+                if (data[0].hasOwnProperty('headings')){
+                  headings = data[0].headings;
+                }
+                if (data[0].hasOwnProperty('verseNumbers')){
+                  verseNumbers = data[0].verseNumbers;
+                }
+             }
+            getVOTD(version,headings,verseNumbers).then(function (result) {
                 logMessage("info", sender, source, "+votd");
                 channel.sendMessage(result);
             });
@@ -332,6 +381,40 @@ bot.on("message", raw => {
         }
 
         return;
+      } else if (msg.startsWith("+headings")) {
+          if (msg.split(" ").length != 2) {
+                  logMessage("info", sender, source, "empty +headings sent");
+                  raw.reply("**Use +headings enable OR +headings disable**");
+          } else {
+              setHeadings(sender, msg.split(" ")[1], function (data) {
+                  if (data) {
+                      logMessage("info", sender, source, "+headings " + msg.split(" ")[1]);
+                      raw.reply("**Set headings successfully.**");
+                  } else {
+                          logMessage("info", sender, source, "failed +headings");
+                          raw.reply("**Use +headings enable OR +headings disable**");
+                  }
+              });
+          }
+
+          return;
+        } else if (msg.startsWith("+versenumbers")) {
+            if (msg.split(" ").length != 2) {
+                    logMessage("info", sender, source, "empty +versenumbers sent");
+                    raw.reply("**Use +versenumbers enable OR +versenumbers disable**");
+            } else {
+                setVerseNumbers(sender, msg.split(" ")[1], function (data) {
+                    if (data) {
+                        logMessage("info", sender, source, "+versenumbers " + msg.split(" ")[1]);
+                        raw.reply("**Set versenumbers successfully.**");
+                    } else {
+                            logMessage("info", sender, source, "failed +versenumbers");
+                            raw.reply("**Use +versenumbers enable OR +versenumbers disable**");
+                    }
+                });
+            }
+
+            return;
     } else if (msg == "+version") {
         getVersion(sender, function (data) {
             logMessage("info", sender, source, "+version");
@@ -606,7 +689,19 @@ bot.on("message", raw => {
 
             getVersion(sender, function (data) {
                 var version = "ESV";
-                if (data) { version = data[0].version; }
+                var headings = "enable";
+                var verseNumbers = "enable";
+                if (data) {
+                    if (data[0].hasOwnProperty('version')){
+                      version = data[0].version;
+                    }
+                    if (data[0].hasOwnProperty('headings')){
+                      headings = data[0].headings;
+                    }
+                    if (data[0].hasOwnProperty('verseNumbers')){
+                      verseNumbers = data[0].verseNumbers;
+                    }
+                 }
 
                 versionDB.find({"abbv": version}, function (err, docs) {
                     if(docs) {
@@ -655,7 +750,7 @@ bot.on("message", raw => {
                             }
                         });
 
-                        bibleGateway.getResult(properString, version).then(function (result) {
+                        bibleGateway.getResult(properString, version, headings, verseNumbers).then(function (result) {
                             result.forEach(function (object) {
                                 var purifiedObjectText = object.text.replaceAll("“", " \"")
                                                                     .replaceAll("[", " [")
@@ -702,4 +797,3 @@ bot.on("message", raw => {
 
 
     bot.login("");
-
