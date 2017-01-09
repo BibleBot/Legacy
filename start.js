@@ -50,7 +50,7 @@ function getGlobal(item) {
     return global[item];
 }
 
-function getRandomVerse(version) {
+function getRandomVerse(version, headings, verseNumbers) {
     var url = "https://dailyverses.net/random-bible-verse";
 
     var promise = new Promise( (resolve, reject) => {
@@ -102,7 +102,7 @@ function getRandomVerse(version) {
     return promise;
 }
 
-function getVOTD(version) {
+function getVOTD(version, headings, verseNumbers) {
     var url = "https://www.biblegateway.com/reading-plans/verse-of-the-day/next";
 
     var promise = new Promise( (resolve, reject) => {
