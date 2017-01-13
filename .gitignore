@@ -3,7 +3,7 @@ logs
 *.log
 npm-debug.log*
 
-#Node.js Modules
+# Node.js Modules
 node_modules
 
 # Runtime data
@@ -38,3 +38,6 @@ jspm_packages
 
 # Optional REPL history
 .node_repl_history
+
+# Config file
+config.js

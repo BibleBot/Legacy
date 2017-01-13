@@ -54,12 +54,14 @@
 {"name":"Expanded Bible (EXB)","abbv":"EXB","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"hB3vKXoTnGdNqyxi"}
 {"name":"New King James Version (NKJV)","abbv":"NKJV","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"iIBMR4x0eUvorx67"}
 {"name":"La Biblia de las Américas (LBLA)","abbv":"LBLA","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"jjmhdl9C1HN56fvT"}
+{"name":"The Message (MSG)","abbv":"MSG","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"k8NmOILVMe4ji9Nc"}
 {"name":"The Westminster Leningrad Codex (WLC)","abbv":"WLC","hasOT":true,"hasNT":false,"hasAPO":false,"_id":"lG2PLRIBKx19btp4"}
 {"name":"Authorized (King James) Version (AKJV)","abbv":"AKJV","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"nqQQuUrK6aUhZ8DK"}
 {"name":"Biblia Sacra Vulgata","abbv":"(VULGATE)","hasOT":true,"hasNT":true,"hasAPO":true,"_id":"o2u9RyjyqulM1h85"}
 {"name":"International Children’s Bible (ICB)","abbv":"ICB","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"p246DMDpCIm29vOI"}
 {"name":"International Standard Version (ISV)","abbv":"ISV","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"p4KsV1AUtNZx6N2I"}
 {"name":"","hasOT":false,"hasNT":false,"hasAPO":false,"_id":"rKX9Ahv9kg1DMW71"}
+{"name":"The Message (MSG)","abbv":"MSG","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"sohnEpiXYeol1EPS"}
 {"name":"Brenton Septuagint Translation (BST)","abbv":"BST","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"tPvRn4LjbwrTcYvn"}
 {"name":"NOVA VERSÃO INTERNACIONAL (NVI-PT)","abbv":"NVI-PT","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"u6pK04zlI8bwYIE9"}
 {"name":"Tree of Life Version (TLV)","abbv":"TLV","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"v1Hf1QuEeekPNM60"}

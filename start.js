@@ -3,7 +3,8 @@ var Discord = require("discord.js");
 var bot = new Discord.Client();
 var request = require("request");
 
-var owner = "ReplaceMeWithDiscordID";
+// For owner-specific configuration
+var options = require("./config.js")
 
 // For user version preferences
 var dataStore = require("nedb");
@@ -264,7 +265,7 @@ bot.on("message", raw => {
         source = channel.guild.name + "#" + channel.name;
     } else { source = "unknown"; }
 
-    if (sender == "BibleBot#0842" || sender == "Cathobot#6788") return;
+    if (sender == options.botname) return;
     if (source.includes("Discord Bots") && sender != "UnimatrixZeroOne#7501") return;
 
     // for verse arrays
@@ -274,14 +275,14 @@ bot.on("message", raw => {
                     "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V",
                     "W", "X", "Y", "Z"];
 
-    if (msg.startsWith("+eval") && sender == owner) {
+    if (msg.startsWith("+eval") && sender == options.owner) {
         logMessage("info", sender, source, "+eval");
         try {
             eval(msg.replaceAll("+eval ", ""));
         } catch(e) {
             // do nothing
         }
-    } else if (msg.startsWith("+leave") && sender == owner) {
+    } else if (msg.startsWith("+leave") && sender == options.owner) {
         logMessage("info", sender, source, "+leave");
         try {
             if (guild != "undefined"){
@@ -291,17 +292,17 @@ bot.on("message", raw => {
         } catch(e) {
            channel.sendMessage(e);
         }
-    } else if (msg.startsWith("+setGlobal") && sender == owner) {
+    } else if (msg.startsWith("+setGlobal") && sender == options.owner) {
         logMessage("info", sender, source, "+setGlobal");
         var item = msg.split(" ")[1];
         var value = msg.replaceAll("+setGlobal " + item + " ", "");
         setGlobal(item, value)
 
         channel.sendMessage("set");
-    } else if (msg.startsWith("+getGlobal") && sender == owner) {
+    } else if (msg.startsWith("+getGlobal") && sender == options.owner) {
         logMessage("info", sender, source, "+getGlobal");
         channel.sendMessage(getGlobal(msg.replaceAll("+getGlobal ", "")));
-    } else if (msg.startsWith("+puppet") && sender == owner) {
+    } else if (msg.startsWith("+puppet") && sender == options.owner) {
         raw.delete();
         logMessage("info", sender, source, "+puppet");
         channel.sendMessage(msg.replaceAll("+puppet ", ""));
@@ -439,7 +440,7 @@ bot.on("message", raw => {
             raw.reply("**I support:**\n\n```" + chatString.slice(0, -2) + "```");
         });
     } else if (msg.startsWith("+addversion") || msg.startsWith("+av")) {
-        if (sender == owner || sender == "stupiddroid#6140") {
+        if (sender == options.owner || sender == options.versionadders) {
             var argv = msg.split(" ");
             var argc = argv.length;
             var name = "";
@@ -798,4 +799,4 @@ bot.on("message", raw => {
 });
 
 
-    bot.login("");
+    bot.login(options.token);
