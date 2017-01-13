@@ -3,8 +3,6 @@ A Discord bot for Bible verses.
 
 To use it, just say a Bible verse.
 
-Invite the bot to your server: https://discordapp.com/api/oauth2/authorize?client_id=269407897178472448&scope=bot&permissions=0
-
 Commands:
 
 * `+versions` - show all Bible translations you can set
@@ -22,5 +20,7 @@ Bot Owner Commands:
 * `+eval <code>` - execute javascript code
 * `+setGlobal <var> <value>` - set a temporary global value while the bot is running
 * `+getGlobal <var>` - get a temporary global value
+
+Invite BibleBot to your server! https://discordapp.com/api/oauth2/authorize?client_id=269407897178472448&scope=bot&permissions=0
 
 Originally created by Elliott Pardee (@vypr).
