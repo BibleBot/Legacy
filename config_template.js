@@ -6,7 +6,7 @@ owner: "",
 token: "",
 //Discord ID of bot user
 botname: "",
-//(Optiona) Discord ID of extra version adder
+//(Optional) Discord ID of extra version adder
 versionadders: ""
 };
 module.exports = config;
