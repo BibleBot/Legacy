@@ -4,13 +4,101 @@ var cheerio = require("cheerio");
 // code partially ripped from @toffebjorkskog's node-biblegateway-api
 // because i'm impatient (sorry love you)
 
+function purifyText(object) {
+    return object.text.replaceAll("“", " \"")
+                      .replaceAll("[", " [")
+                      .replaceAll("]", "] ")
+                      .replaceAll("”", "\" ")
+                      .replaceAll("‘", "'")
+                      .replaceAll("’", "'")
+                      .replaceAll(",", ", ")
+                      .replaceAll(".", ". ")
+                      .replaceAll(". \"", ".\"")
+                      .replaceAll(". '", ".'")
+                      .replaceAll(", \"", ",\"")
+                      .replaceAll(", '", ",'")
+                      .replaceAll("!", "! ")
+                      .replaceAll("! \"", "!\"")
+                      .replaceAll("! '", "!'")
+                      .replaceAll("?", "? ")
+                      .replaceAll("? \"", "?\"")
+                      .replaceAll("? '", "?'")
+                      .replaceAll(/\s+/g, ' ');
+}
+
 var bibleGateway = {
+    getRandomVerse: function (version, headings, verseNumbers) {
+        var url = "https://dailyverses.net/random-bible-verse";
+
+        var promise = new Promise( (resolve, reject) => {
+            request(url, function (err, resp, body) {
+                if (err !== null) {
+                    reject(err);
+                }
+
+                var $ = cheerio.load(body);
+                verse = $(".bibleChapter a").first().text();
+
+                this.getResult(verse, version, headings, verseNumbers).then(function (result) {
+                    result.forEach(function (object) {
+                        var purifiedObjectText = purifyText(object);
+
+                        var content = "```" + object.title + "\n\n" + purifiedObjectText + "```";
+                        var responseString = "**" + object.passage + " - " + object.version + "**\n\n" + content;
+
+                        if (responseString.length < 2000) {
+                            resolve(responseString);
+                        } else {
+                            getRandomVerse(version);
+                        }
+                    });
+                }).catch(function (err) {
+                    logMessage("err", "global", "bibleGateway", err);
+                });
+            });
+        });
+
+        return promise;
+    },
+    getVOTD: function (version, headings, verseNumbers) {
+        var url = "https://www.biblegateway.com/reading-plans/verse-of-the-day/next";
+
+        var promise = new Promise( (resolve, reject) => {
+            request(url, function (err, resp, body) {
+                if (err !== null) {
+                    reject(err);
+                }
+
+                var $ = cheerio.load(body);
+                verse = $(".rp-passage-display").text();
+
+                bibleGateway.getResult(verse, version, headings, verseNumbers).then(function (result) {
+                    result.forEach(function (object) {
+                        var purifiedObjectText = purifyText(object);
+
+                        var content = "```" + object.title + "\n\n" + purifiedObjectText + "```";
+                        var responseString = "**" + object.passage + " - " + object.version + "**\n\n" + content;
+
+                        if (responseString.length < 2000) {
+                            resolve(responseString);
+                        } else {
+                            getVOTD(version);
+                        }
+                    });
+                }).catch(function (err) {
+                    logMessage("err", "global", "bibleGateway", err);
+                });
+            });
+        });
+
+        return promise;
+    },
     getResult: function (query, version, headings, verseNumbers) {
         var url = "https://www.biblegateway.com/passage/?search=" + query + "&version=" + version + "&interface=print";
 
         var promise = new Promise( (resolve, reject) => {
             request(url, function (err, resp, body) {
-                if (err != null) {
+                if (err !== null) {
                     reject(err);
                 }
 
