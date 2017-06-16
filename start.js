@@ -76,6 +76,32 @@ function logMessage(level, sender, channel, message) {
     }
 }
 
+function isUnmigrated(user) {
+    db.find({
+        "user": user
+    }, function(err, docs) {
+        if (docs.length === 0) {
+            return false;
+        } else {
+            return true;
+        }
+    });
+}
+
+function migrateUserToID(userObject) {
+    var username = userObject.username + "#" + userObject.discriminator;
+    db.update({
+        "user": username
+    }, {
+        $set: {
+            "id": userObject.id
+        },
+        $unset: {
+            "user": username
+        }
+    });
+}
+
 function setVersion(user, version, callback) {
     version = version.toUpperCase();
 
@@ -86,11 +112,11 @@ function setVersion(user, version, callback) {
             return callback(null);
         }
         db.find({
-            "user": user
+            "id": user.id
         }, function(err, doc) {
             if (doc.length > 0) {
                 db.update({
-                    "user": user
+                    "id": user.id
                 }, {
                     $set: {
                         "version": version
@@ -102,7 +128,7 @@ function setVersion(user, version, callback) {
                 });
             } else {
                 db.insert({
-                    "user": user,
+                    "id": user.id,
                     "version": version
                 }, function(err, docs) {
                     return callback(docs);
@@ -119,11 +145,11 @@ function setHeadings(user, headings, callback) {
         return callback(null);
     }
     db.find({
-        "user": user
+        "id": user.id
     }, function(err, doc) {
         if (doc.length > 0) {
             db.update({
-                "user": user
+                "id": user.id
             }, {
                 $set: {
                     "headings": headings
@@ -135,7 +161,7 @@ function setHeadings(user, headings, callback) {
             });
         } else {
             db.insert({
-                "user": user,
+                "id": user.id,
                 "headings": headings
             }, function(err, docs) {
                 return callback(docs);
@@ -151,11 +177,11 @@ function setVerseNumbers(user, verseNumbers, callback) {
         return callback(null);
     }
     db.find({
-        "user": user
+        "id": user.id
     }, function(err, doc) {
         if (doc.length > 0) {
             db.update({
-                "user": user
+                "id": user.id
             }, {
                 $set: {
                     "verseNumbers": verseNumbers
@@ -167,7 +193,7 @@ function setVerseNumbers(user, verseNumbers, callback) {
             });
         } else {
             db.insert({
-                "user": user,
+                "id": user.id,
                 "verseNumbers": verseNumbers
             }, function(err, docs) {
                 return callback(docs);
@@ -178,7 +204,7 @@ function setVerseNumbers(user, verseNumbers, callback) {
 
 function getVersion(user, callback) {
     db.find({
-        "user": user
+        "id": user.id
     }, function(err, docs) {
         if (docs.length > 0) {
             return callback(docs);
@@ -212,11 +238,16 @@ bot.on("error", e => {
 bot.on("message", raw => {
     // taking the raw message object and making it more usable
 
-    var sender = raw.author.username + "#" + raw.author.discriminator;
+    var rawSender = raw.author;
+    var sender = rawSender.username + "#" + rawSender.discriminator;
     var channel = raw.channel;
     var guild = raw.guild;
     var msg = raw.content;
     var source;
+
+    if (isUnmigrated(sender)) {
+        migrateUserToID(rawSender);
+    }
 
     if ((typeof channel.guild != "undefined") && (typeof channel.name != "undefined")) {
         source = channel.guild.name + "#" + channel.name;
@@ -253,7 +284,7 @@ bot.on("message", raw => {
         logMessage("info", sender, source, "+biblebot");
         channel.sendMessage("**BibleBot by UnimatrixZeroOne** - code: https://github.com/UnimatrixZeroOne/BibleBot\n\n```commands:\n* `+setversion ABBV` - set preferred version to ABBV\n* `+version` - see what version you've set\n* `+versions` - see the supported versions\n* `+random` - get a random Bible verse\n* `+verseoftheday` (`+votd`) - get the verse of the day\n* `+headings enable/disable` - enable or disable topic headings\n* `+versenumbers enable/disable` - enable or disable verse numbers from showing on each line```\n**To use it, just say a Bible verse. I'll handle the rest.**\nOriginally created by Elliott Pardee (@vypr).");
     } else if (msg == "+random") {
-        getVersion(sender, function(data) {
+        getVersion(rawSender, function(data) {
             var version = "ESV";
             var headings = "enable";
             var verseNumbers = "enable";
@@ -269,13 +300,13 @@ bot.on("message", raw => {
                 }
             }
 
-            getRandomVerse(version, headings, verseNumbers).then(function(result) {
+            bibleGateway.getRandomVerse(version, headings, verseNumbers).then(function(result) {
                 logMessage("info", sender, source, "+random");
                 channel.sendMessage(result);
             });
         });
     } else if (msg == "+verseoftheday" || msg == "+votd") {
-        getVersion(sender, function(data) {
+        getVersion(rawSender, function(data) {
             var version = "ESV";
             var headings = "enable";
             var verseNumbers = "enable";
@@ -290,7 +321,7 @@ bot.on("message", raw => {
                     verseNumbers = data[0].verseNumbers;
                 }
             }
-            getVOTD(version, headings, verseNumbers).then(function(result) {
+            bibleGateway.getVOTD(version, headings, verseNumbers).then(function(result) {
                 logMessage("info", sender, source, "+votd");
                 channel.sendMessage(result);
             });
@@ -308,7 +339,7 @@ bot.on("message", raw => {
             });
             return;
         } else {
-            setVersion(sender, msg.split(" ")[1], function(data) {
+            setVersion(rawSender, msg.split(" ")[1], function(data) {
                 if (data) {
                     logMessage("info", sender, source, "+setversion " + msg.split(" ")[1]);
                     raw.reply("**Set version successfully.**");
@@ -362,7 +393,7 @@ bot.on("message", raw => {
 
         return;
     } else if (msg == "+version") {
-        getVersion(sender, function(data) {
+        getVersion(rawSender, function(data) {
             logMessage("info", sender, source, "+version");
             if (data) {
                 raw.reply("**You are using " + data[0].version + ". Use `+setversion` to set a different version.**");
@@ -633,7 +664,7 @@ bot.on("message", raw => {
             }
 
 
-            getVersion(sender, function(data) {
+            getVersion(rawSender, function(data) {
                 var version = "ESV";
                 var headings = "enable";
                 var verseNumbers = "enable";
@@ -720,6 +751,9 @@ bot.on("message", raw => {
         });
     }
 });
+
+
+bot.login(options.token);
 
 
 bot.login(options.token);
