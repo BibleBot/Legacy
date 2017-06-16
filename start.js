@@ -1,19 +1,32 @@
 // Discord API
 var Discord = require("discord.js");
 var bot = new Discord.Client();
-var request = require("request");
+var config;
 
 // For owner-specific configuration
-var options = require("./config.js")
+fs.stat("config.js", function(err, stat) {
+    if (err === null) {
+        logMessage("info", "global", "global", "reading configuration file");
+        config = require("config.js");
+    } else {
+        logMessage("err", "global", "global", "configuration file cannot be accessed, does config.js exist?");
+        process.exit(1);
+    }
+});
 
 // For user version preferences
 var dataStore = require("nedb");
-var db = new dataStore({ filename: 'db', autoload: true, corruptAlertThreshold: 1 });
+var db = new dataStore({
+    filename: 'db',
+    autoload: true,
+    corruptAlertThreshold: 1
+});
 
 // Version database
-var versionDB = new dataStore({filename: 'versiondb', autoload: true });
-
-var globals = {};
+var versionDB = new dataStore({
+    filename: 'versiondb',
+    autoload: true
+});
 
 // for async calls
 var async = require("async");
@@ -23,15 +36,20 @@ var books = require("./books");
 var Version = require("./version");
 var bibleGateway = require("./bibleGateway");
 
-// for getRandomVerse
-var cheerio = require("cheerio");
-
 // for logging
 var log4js = require('log4js');
-log4js.configure({ appenders: [
-    { type: "console" },
-    { type: "dateFile", filename: "logs/loggerrino.log", pattern: "-yyyy-MM-dd", alwaysIncludePattern: false }
-]});
+log4js.configure({
+    appenders: [{
+            type: "console"
+        },
+        {
+            type: "dateFile",
+            filename: "logs/loggerrino.log",
+            pattern: "-yyyy-MM-dd",
+            alwaysIncludePattern: false
+        }
+    ]
+});
 
 var logger = log4js.getLogger();
 
@@ -41,118 +59,6 @@ String.prototype.replaceAll = function(target, replacement) {
 
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
-function setGlobal(item, value) {
-    global[item] = value;
-}
-
-function getGlobal(item) {
-    return global[item];
-}
-
-function getRandomVerse(version, headings, verseNumbers) {
-    var url = "https://dailyverses.net/random-bible-verse";
-
-    var promise = new Promise( (resolve, reject) => {
-        request(url, function (err, resp, body) {
-            if (err != null) {
-                reject(err);
-            }
-
-            var $ = cheerio.load(body);
-            verse = $(".bibleChapter a").first().text();
-
-            bibleGateway.getResult(verse, version, headings, verseNumbers).then(function (result) {
-                result.forEach(function (object) {
-                    var purifiedObjectText = object.text.replaceAll("“", " \"")
-                                                        .replaceAll("[", " [")
-                                                        .replaceAll("]", "] ")
-                                                        .replaceAll("”", "\" ")
-                                                        .replaceAll("‘", "'")
-                                                        .replaceAll("’", "'")
-                                                        .replaceAll(",", ", ")
-                                                        .replaceAll(".", ". ")
-                                                        .replaceAll(". \"", ".\"")
-                                                        .replaceAll(". '", ".'")
-                                                        .replaceAll(", \"", ",\"")
-                                                        .replaceAll(", '", ",'")
-                                                        .replaceAll("!", "! ")
-                                                        .replaceAll("! \"", "!\"")
-                                                        .replaceAll("! '", "!'")
-                                                        .replaceAll("?", "? ")
-                                                        .replaceAll("? \"", "?\"")
-                                                        .replaceAll("? '", "?'")
-                                                        .replaceAll(/\s+/g, ' ');
-
-                    var content = "```" + object.title + "\n\n" + purifiedObjectText + "```";
-                    var responseString = "**" + object.passage + " - " + object.version + "**\n\n" + content;
-
-                    if (responseString.length < 2000) {
-                        resolve(responseString);
-                    } else {
-                        getRandomVerse(version);
-                    }
-                });
-            }).catch(function (err) {
-                logMessage("err", "global", "bibleGateway", err);
-            });
-        });
-    });
-
-    return promise;
-}
-
-function getVOTD(version, headings, verseNumbers) {
-    var url = "https://www.biblegateway.com/reading-plans/verse-of-the-day/next";
-
-    var promise = new Promise( (resolve, reject) => {
-        request(url, function (err, resp, body) {
-            if (err != null) {
-                reject(err);
-            }
-
-            var $ = cheerio.load(body);
-            verse = $(".rp-passage-display").text();
-
-            bibleGateway.getResult(verse, version, headings, verseNumbers).then(function (result) {
-                result.forEach(function (object) {
-                    var purifiedObjectText = object.text.replaceAll("“", " \"")
-                                                        .replaceAll("[", " [")
-                                                        .replaceAll("]", "] ")
-                                                        .replaceAll("”", "\" ")
-                                                        .replaceAll("‘", "'")
-                                                        .replaceAll("’", "'")
-                                                        .replaceAll(",", ", ")
-                                                        .replaceAll(".", ". ")
-                                                        .replaceAll(". \"", ".\"")
-                                                        .replaceAll(". '", ".'")
-                                                        .replaceAll(", \"", ",\"")
-                                                        .replaceAll(", '", ",'")
-                                                        .replaceAll("!", "! ")
-                                                        .replaceAll("! \"", "!\"")
-                                                        .replaceAll("! '", "!'")
-                                                        .replaceAll("?", "? ")
-                                                        .replaceAll("? \"", "?\"")
-                                                        .replaceAll("? '", "?'")
-                                                        .replaceAll(/\s+/g, ' ');
-
-                    var content = "```" + object.title + "\n\n" + purifiedObjectText + "```";
-                    var responseString = "**" + object.passage + " - " + object.version + "**\n\n" + content;
-
-                    if (responseString.length < 2000) {
-                        resolve(responseString);
-                    } else {
-                        getVOTD(version);
-                    }
-                });
-            }).catch(function (err) {
-                logMessage("err", "global", "bibleGateway", err);
-            });
-        });
-    });
-
-    return promise;
 }
 
 function logMessage(level, sender, channel, message) {
@@ -170,18 +76,61 @@ function logMessage(level, sender, channel, message) {
     }
 }
 
-function setVersion(user, version, callback) {
-    var version = version.toUpperCase();
+function isUnmigrated(user) {
+    db.find({
+        "user": user
+    }, function(err, docs) {
+        if (docs.length === 0) {
+            return false;
+        } else {
+            return true;
+        }
+    });
+}
 
-    versionDB.find({"abbv": version}, function (err, docs) {
-        if (docs.length == 0) { return callback(null); }
-        db.find({"user": user}, function (err, doc) {
+function migrateUserToID(userObject) {
+    var username = userObject.username + "#" + userObject.discriminator;
+    db.update({
+        "user": username
+    }, {
+        $set: {
+            "id": userObject.id
+        },
+        $unset: {
+            "user": username
+        }
+    });
+}
+
+function setVersion(user, version, callback) {
+    version = version.toUpperCase();
+
+    versionDB.find({
+        "abbv": version
+    }, function(err, docs) {
+        if (docs.length === 0) {
+            return callback(null);
+        }
+        db.find({
+            "id": user.id
+        }, function(err, doc) {
             if (doc.length > 0) {
-                db.update({"user": user}, {$set: {"version":version}}, {"multi": true}, function (err, docs) {
+                db.update({
+                    "id": user.id
+                }, {
+                    $set: {
+                        "version": version
+                    }
+                }, {
+                    "multi": true
+                }, function(err, docs) {
                     return callback(docs);
                 });
             } else {
-                db.insert({"user": user,"version":version}, function (err, docs) {
+                db.insert({
+                    "id": user.id,
+                    "version": version
+                }, function(err, docs) {
                     return callback(docs);
                 });
             }
@@ -190,15 +139,31 @@ function setVersion(user, version, callback) {
 }
 
 function setHeadings(user, headings, callback) {
-    var headings = headings.toLowerCase()
-    if (headings != "enable" && headings != "disable") { return callback(null); }
-    db.find({"user": user}, function (err, doc) {
+    headings = headings.toLowerCase();
+
+    if (headings != "enable" && headings != "disable") {
+        return callback(null);
+    }
+    db.find({
+        "id": user.id
+    }, function(err, doc) {
         if (doc.length > 0) {
-            db.update({"user": user}, {$set: {"headings":headings}}, {"multi": true}, function (err, docs) {
+            db.update({
+                "id": user.id
+            }, {
+                $set: {
+                    "headings": headings
+                }
+            }, {
+                "multi": true
+            }, function(err, docs) {
                 return callback(docs);
             });
         } else {
-            db.insert({"user": user,"headings":headings}, function (err, docs) {
+            db.insert({
+                "id": user.id,
+                "headings": headings
+            }, function(err, docs) {
                 return callback(docs);
             });
         }
@@ -206,15 +171,31 @@ function setHeadings(user, headings, callback) {
 }
 
 function setVerseNumbers(user, verseNumbers, callback) {
-    var verseNumbers = verseNumbers.toLowerCase()
-    if (verseNumbers != "enable" && verseNumbers != "disable") { return callback(null); }
-    db.find({"user": user}, function (err, doc) {
+    verseNumbers = verseNumbers.toLowerCase();
+
+    if (verseNumbers != "enable" && verseNumbers != "disable") {
+        return callback(null);
+    }
+    db.find({
+        "id": user.id
+    }, function(err, doc) {
         if (doc.length > 0) {
-            db.update({"user": user}, {$set: {"verseNumbers":verseNumbers}}, {"multi": true}, function (err, docs) {
+            db.update({
+                "id": user.id
+            }, {
+                $set: {
+                    "verseNumbers": verseNumbers
+                }
+            }, {
+                "multi": true
+            }, function(err, docs) {
                 return callback(docs);
             });
         } else {
-            db.insert({"user": user,"verseNumbers":verseNumbers}, function (err, docs) {
+            db.insert({
+                "id": user.id,
+                "verseNumbers": verseNumbers
+            }, function(err, docs) {
                 return callback(docs);
             });
         }
@@ -222,7 +203,9 @@ function setVerseNumbers(user, verseNumbers, callback) {
 }
 
 function getVersion(user, callback) {
-    db.find({"user": user}, function (err, docs) {
+    db.find({
+        "id": user.id
+    }, function(err, docs) {
         if (docs.length > 0) {
             return callback(docs);
         } else {
@@ -254,109 +237,100 @@ bot.on("error", e => {
 
 bot.on("message", raw => {
     // taking the raw message object and making it more usable
-    
-    var sender = raw.author.username + "#" + raw.author.discriminator;
+
+    var rawSender = raw.author;
+    var sender = rawSender.username + "#" + rawSender.discriminator;
     var channel = raw.channel;
     var guild = raw.guild;
     var msg = raw.content;
     var source;
 
+    if (isUnmigrated(sender)) {
+        migrateUserToID(rawSender);
+    }
+
     if ((typeof channel.guild != "undefined") && (typeof channel.name != "undefined")) {
         source = channel.guild.name + "#" + channel.name;
-    } else { source = "unknown"; }
+    } else {
+        source = "unknown";
+    }
 
     if (sender == options.botname) return;
     if (source.includes("Discord Bots") && sender != "UnimatrixZeroOne#7501") return;
 
     // for verse arrays
     var alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l",
-                    "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x",
-                    "y", "z", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J",
-                    "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V",
-                    "W", "X", "Y", "Z"];
+        "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x",
+        "y", "z", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J",
+        "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V",
+        "W", "X", "Y", "Z"
+    ];
 
-    if (msg.startsWith("+eval") && sender == options.owner) {
-        logMessage("info", sender, source, "+eval");
-        try {
-            eval(msg.replaceAll("+eval ", ""));
-        } catch(e) {
-            // do nothing
-        }
-    } else if (msg.startsWith("+leave") && sender == options.owner) {
+    if (msg.startsWith("+leave") && sender == options.owner) {
         logMessage("info", sender, source, "+leave");
         try {
-            if (guild != "undefined"){
+            if (guild != "undefined") {
                 //channel.sendMessage("Attempting to leave server: " + guild.id);
                 guild.leave();
             }
-        } catch(e) {
-           channel.sendMessage(e);
+        } catch (e) {
+            channel.sendMessage(e);
         }
-    } else if (msg.startsWith("+setGlobal") && sender == options.owner) {
-        logMessage("info", sender, source, "+setGlobal");
-        var item = msg.split(" ")[1];
-        var value = msg.replaceAll("+setGlobal " + item + " ", "");
-        setGlobal(item, value)
-
-        channel.sendMessage("set");
-    } else if (msg.startsWith("+getGlobal") && sender == options.owner) {
-        logMessage("info", sender, source, "+getGlobal");
-        channel.sendMessage(getGlobal(msg.replaceAll("+getGlobal ", "")));
     } else if (msg.startsWith("+puppet") && sender == options.owner) {
         raw.delete();
         logMessage("info", sender, source, "+puppet");
         channel.sendMessage(msg.replaceAll("+puppet ", ""));
     } else if (msg == "+biblebot") {
         logMessage("info", sender, source, "+biblebot");
-        channel.sendMessage("**BibleBot by UnimatrixZeroOne** - code: https://github.com/UnimatrixZeroOne/BibleBot\n\n```commands:\n* `+setversion ABBV` - set preferred version to ABBV\n* `+version` - see what version you've set\n* `+versions` - see the supported versions\n* `+random` - get a random Bible verse\n* `+verseoftheday` (`+votd`) - get the verse of the day\n* `+headings enable/disable` - enable or disable topic headings\n* `+versenumbers enable/disable` - enable or disable verse numbers from showing on each line```\n**To use it, just say a Bible verse. I'll handle the rest.**\nOriginally created by Elliott Pardee (@vypr).");
+        channel.sendMessage("**BibleBot (formerly known as HolyBot) by vipr and UnimatrixZeroOne** - code: <https://github.com/UnimatrixZeroOne/BibleBot>\n\n```commands:\n* `+setversion ABBV` - set preferred version to ABBV\n* `+version` - see what version you've set\n* `+versions` - see the supported versions\n* `+random` - get a random Bible verse\n* `+verseoftheday` (`+votd`) - get the verse of the day\n* `+headings enable/disable` - enable or disable topic headings\n* `+versenumbers enable/disable` - enable or disable verse numbers from showing on each line```\n**To use it, just say a Bible verse. I'll handle the rest.**");
     } else if (msg == "+random") {
-        getVersion(sender, function (data) {
+        getVersion(rawSender, function(data) {
             var version = "ESV";
             var headings = "enable";
             var verseNumbers = "enable";
             if (data) {
-                if (data[0].hasOwnProperty('version')){
-                  version = data[0].version;
+                if (data[0].hasOwnProperty('version')) {
+                    version = data[0].version;
                 }
-                if (data[0].hasOwnProperty('headings')){
-                  headings = data[0].headings;
+                if (data[0].hasOwnProperty('headings')) {
+                    headings = data[0].headings;
                 }
-                if (data[0].hasOwnProperty('verseNumbers')){
-                  verseNumbers = data[0].verseNumbers;
+                if (data[0].hasOwnProperty('verseNumbers')) {
+                    verseNumbers = data[0].verseNumbers;
                 }
-             }
+            }
 
-            getRandomVerse(version,headings,verseNumbers).then(function (result) {
+            bibleGateway.getRandomVerse(version, headings, verseNumbers).then(function(result) {
                 logMessage("info", sender, source, "+random");
                 channel.sendMessage(result);
             });
         });
     } else if (msg == "+verseoftheday" || msg == "+votd") {
-        getVersion(sender, function (data) {
+        getVersion(rawSender, function(data) {
             var version = "ESV";
             var headings = "enable";
             var verseNumbers = "enable";
             if (data) {
-                if (data[0].hasOwnProperty('version')){
-                  version = data[0].version;
+                if (data[0].hasOwnProperty('version')) {
+                    version = data[0].version;
                 }
-                if (data[0].hasOwnProperty('headings')){
-                  headings = data[0].headings;
+                if (data[0].hasOwnProperty('headings')) {
+                    headings = data[0].headings;
                 }
-                if (data[0].hasOwnProperty('verseNumbers')){
-                  verseNumbers = data[0].verseNumbers;
+                if (data[0].hasOwnProperty('verseNumbers')) {
+                    verseNumbers = data[0].verseNumbers;
                 }
-             }
-            getVOTD(version,headings,verseNumbers).then(function (result) {
+            }
+            bibleGateway.getVOTD(version, headings, verseNumbers).then(function(result) {
                 logMessage("info", sender, source, "+votd");
                 channel.sendMessage(result);
             });
         });
     } else if (msg.startsWith("+setversion")) {
         if (msg.split(" ").length != 2) {
-            versionDB.find({}, function (err, docs) {
+            versionDB.find({}, function(err, docs) {
                 var chatString = "";
-                for (i in docs) {
+                for (var i in docs) {
                     chatString += docs[i].abbv + ", ";
                 }
 
@@ -365,14 +339,14 @@ bot.on("message", raw => {
             });
             return;
         } else {
-            setVersion(sender, msg.split(" ")[1], function (data) {
+            setVersion(rawSender, msg.split(" ")[1], function(data) {
                 if (data) {
                     logMessage("info", sender, source, "+setversion " + msg.split(" ")[1]);
                     raw.reply("**Set version successfully.**");
                 } else {
-                    versionDB.find({}, function (err, docs) {
+                    versionDB.find({}, function(err, docs) {
                         var chatString = "";
-                        for (i in docs) {
+                        for (var i in docs) {
                             chatString += docs[i].abbv + ", ";
                         }
 
@@ -384,42 +358,42 @@ bot.on("message", raw => {
         }
 
         return;
-      } else if (msg.startsWith("+headings")) {
-          if (msg.split(" ").length != 2) {
-                  logMessage("info", sender, source, "empty +headings sent");
-                  raw.reply("**Use +headings enable OR +headings disable**");
-          } else {
-              setHeadings(sender, msg.split(" ")[1], function (data) {
-                  if (data) {
-                      logMessage("info", sender, source, "+headings " + msg.split(" ")[1]);
-                      raw.reply("**Set headings successfully.**");
-                  } else {
-                          logMessage("info", sender, source, "failed +headings");
-                          raw.reply("**Use +headings enable OR +headings disable**");
-                  }
-              });
-          }
+    } else if (msg.startsWith("+headings")) {
+        if (msg.split(" ").length != 2) {
+            logMessage("info", sender, source, "empty +headings sent");
+            raw.reply("**Use +headings enable OR +headings disable**");
+        } else {
+            setHeadings(sender, msg.split(" ")[1], function(data) {
+                if (data) {
+                    logMessage("info", sender, source, "+headings " + msg.split(" ")[1]);
+                    raw.reply("**Set headings successfully.**");
+                } else {
+                    logMessage("info", sender, source, "failed +headings");
+                    raw.reply("**Use +headings enable OR +headings disable**");
+                }
+            });
+        }
 
-          return;
-        } else if (msg.startsWith("+versenumbers")) {
-            if (msg.split(" ").length != 2) {
-                    logMessage("info", sender, source, "empty +versenumbers sent");
+        return;
+    } else if (msg.startsWith("+versenumbers")) {
+        if (msg.split(" ").length != 2) {
+            logMessage("info", sender, source, "empty +versenumbers sent");
+            raw.reply("**Use +versenumbers enable OR +versenumbers disable**");
+        } else {
+            setVerseNumbers(sender, msg.split(" ")[1], function(data) {
+                if (data) {
+                    logMessage("info", sender, source, "+versenumbers " + msg.split(" ")[1]);
+                    raw.reply("**Set versenumbers successfully.**");
+                } else {
+                    logMessage("info", sender, source, "failed +versenumbers");
                     raw.reply("**Use +versenumbers enable OR +versenumbers disable**");
-            } else {
-                setVerseNumbers(sender, msg.split(" ")[1], function (data) {
-                    if (data) {
-                        logMessage("info", sender, source, "+versenumbers " + msg.split(" ")[1]);
-                        raw.reply("**Set versenumbers successfully.**");
-                    } else {
-                            logMessage("info", sender, source, "failed +versenumbers");
-                            raw.reply("**Use +versenumbers enable OR +versenumbers disable**");
-                    }
-                });
-            }
+                }
+            });
+        }
 
-            return;
+        return;
     } else if (msg == "+version") {
-        getVersion(sender, function (data) {
+        getVersion(rawSender, function(data) {
             logMessage("info", sender, source, "+version");
             if (data) {
                 raw.reply("**You are using " + data[0].version + ". Use `+setversion` to set a different version.**");
@@ -430,9 +404,9 @@ bot.on("message", raw => {
 
         return;
     } else if (msg == "+versions") {
-        versionDB.find({}, function (err, docs) {
+        versionDB.find({}, function(err, docs) {
             var chatString = "";
-            for (i in docs) {
+            for (var i in docs) {
                 chatString += docs[i].abbv + ", ";
             }
 
@@ -440,7 +414,7 @@ bot.on("message", raw => {
             raw.reply("**I support:**\n\n```" + chatString.slice(0, -2) + "```");
         });
     } else if (msg.startsWith("+addversion") || msg.startsWith("+av")) {
-        if (sender == options.owner || sender == options.versionadders) {
+        if (sender == options.owner || (options.versionadders.indexOf(sender) != -1)) {
             var argv = msg.split(" ");
             var argc = argv.length;
             var name = "";
@@ -451,10 +425,10 @@ bot.on("message", raw => {
             }
 
             name = name.slice(0, -1); // remove trailing space
-            var abbv = argv[argc-4];
-            var hasOT = argv[argc-3];
-            var hasNT = argv[argc-2];
-            var hasAPO = argv[argc-1];
+            var abbv = argv[argc - 4];
+            var hasOT = argv[argc - 3];
+            var hasNT = argv[argc - 2];
+            var hasAPO = argv[argc - 1];
 
             var object = new Version(name, abbv, hasOT, hasNT, hasAPO);
             versionDB.insert(object.toObject(), function(err, doc) {
@@ -507,124 +481,124 @@ bot.on("message", raw => {
             switch (spaceSplit[i]) {
                 case "Sam":
                     var temp = spaceSplit[i];
-                    spaceSplit[i] = spaceSplit[i-1] + temp;
+                    spaceSplit[i] = spaceSplit[i - 1] + temp;
                     break;
                 case "Sm":
                     var temp = spaceSplit[i];
-                    spaceSplit[i] = spaceSplit[i-1] + temp;
+                    spaceSplit[i] = spaceSplit[i - 1] + temp;
                     break;
                 case "Shmuel":
                     var temp = spaceSplit[i];
-                    spaceSplit[i] = spaceSplit[i-1] + temp;
+                    spaceSplit[i] = spaceSplit[i - 1] + temp;
                     break;
                 case "Kgs":
                     var temp = spaceSplit[i];
-                    spaceSplit[i] = spaceSplit[i-1] + temp;
+                    spaceSplit[i] = spaceSplit[i - 1] + temp;
                     break;
                 case "Melachim":
                     var temp = spaceSplit[i];
-                    spaceSplit[i] = spaceSplit[i-1] + temp;
+                    spaceSplit[i] = spaceSplit[i - 1] + temp;
                     break;
                 case "Chron":
                     var temp = spaceSplit[i];
-                    spaceSplit[i] = spaceSplit[i-1] + temp;
+                    spaceSplit[i] = spaceSplit[i - 1] + temp;
                     break;
                 case "Chr":
                     var temp = spaceSplit[i];
-                    spaceSplit[i] = spaceSplit[i-1] + temp;
+                    spaceSplit[i] = spaceSplit[i - 1] + temp;
                     break;
                 case "Cor":
                     var temp = spaceSplit[i];
-                    spaceSplit[i] = spaceSplit[i-1] + temp;
+                    spaceSplit[i] = spaceSplit[i - 1] + temp;
                     break;
                 case "Thess":
                     var temp = spaceSplit[i];
-                    spaceSplit[i] = spaceSplit[i-1] + temp;
+                    spaceSplit[i] = spaceSplit[i - 1] + temp;
                     break;
                 case "Thes":
                     var temp = spaceSplit[i];
-                    spaceSplit[i] = spaceSplit[i-1] + temp;
+                    spaceSplit[i] = spaceSplit[i - 1] + temp;
                     break;
                 case "Tim":
                     var temp = spaceSplit[i];
-                    spaceSplit[i] = spaceSplit[i-1] + temp;
+                    spaceSplit[i] = spaceSplit[i - 1] + temp;
                     break;
                 case "Tm":
                     var temp = spaceSplit[i];
-                    spaceSplit[i] = spaceSplit[i-1] + temp;
+                    spaceSplit[i] = spaceSplit[i - 1] + temp;
                     break;
                 case "Pet":
                     var temp = spaceSplit[i];
-                    spaceSplit[i] = spaceSplit[i-1] + temp;
+                    spaceSplit[i] = spaceSplit[i - 1] + temp;
                     break;
                 case "Pt":
                     var temp = spaceSplit[i];
-                    spaceSplit[i] = spaceSplit[i-1] + temp;
+                    spaceSplit[i] = spaceSplit[i - 1] + temp;
                     break;
                 case "Macc":
                     var temp = spaceSplit[i];
-                    spaceSplit[i] = spaceSplit[i-1] + temp;
+                    spaceSplit[i] = spaceSplit[i - 1] + temp;
                     break;
                 case "Mac":
                     var temp = spaceSplit[i];
-                    spaceSplit[i] = spaceSplit[i-1] + temp;
+                    spaceSplit[i] = spaceSplit[i - 1] + temp;
                     break;
                 case "Esd":
                     var temp = spaceSplit[i];
-                    spaceSplit[i] = spaceSplit[i-1] + temp;
+                    spaceSplit[i] = spaceSplit[i - 1] + temp;
                     break;
                 case "Jn":
-                    var num = Number(spaceSplit[i-1]);
-                    var bnum = typeof Number(spaceSplit[i-1]) == "number";
+                    var num = Number(spaceSplit[i - 1]);
+                    var bnum = typeof Number(spaceSplit[i - 1]) == "number";
 
-                    if (spaceSplit[i-1] && bnum && typeof num == "number" && num > 0 && num < 4) {
+                    if (spaceSplit[i - 1] && bnum && typeof num == "number" && num > 0 && num < 4) {
                         var temp = spaceSplit[i];
-                        spaceSplit[i] = spaceSplit[i-1] + temp;
+                        spaceSplit[i] = spaceSplit[i - 1] + temp;
                     }
                     break;
                 case "Samuel":
                     var temp = spaceSplit[i];
-                    spaceSplit[i] = spaceSplit[i-1] + temp;
+                    spaceSplit[i] = spaceSplit[i - 1] + temp;
                     break;
                 case "Kings":
                     var temp = spaceSplit[i];
-                    spaceSplit[i] = spaceSplit[i-1] + temp;
+                    spaceSplit[i] = spaceSplit[i - 1] + temp;
                     break;
                 case "Chronicles":
                     var temp = spaceSplit[i];
-                    spaceSplit[i] = spaceSplit[i-1] + temp;
+                    spaceSplit[i] = spaceSplit[i - 1] + temp;
                     break;
                 case "Esdras":
                     var temp = spaceSplit[i];
-                    spaceSplit[i] = spaceSplit[i-1] + temp;
+                    spaceSplit[i] = spaceSplit[i - 1] + temp;
                     break;
                 case "Maccabees":
                     var temp = spaceSplit[i];
-                    spaceSplit[i] = spaceSplit[i-1] + temp;
+                    spaceSplit[i] = spaceSplit[i - 1] + temp;
                     break;
                 case "Corinthians":
                     var temp = spaceSplit[i];
-                    spaceSplit[i] = spaceSplit[i-1] + temp;
+                    spaceSplit[i] = spaceSplit[i - 1] + temp;
                     break;
                 case "Thessalonians":
                     var temp = spaceSplit[i];
-                    spaceSplit[i] = spaceSplit[i-1] + temp;
+                    spaceSplit[i] = spaceSplit[i - 1] + temp;
                     break;
                 case "Timothy":
                     var temp = spaceSplit[i];
-                    spaceSplit[i] = spaceSplit[i-1] + temp;
+                    spaceSplit[i] = spaceSplit[i - 1] + temp;
                     break;
                 case "Peter":
                     var temp = spaceSplit[i];
-                    spaceSplit[i] = spaceSplit[i-1] + temp;
+                    spaceSplit[i] = spaceSplit[i - 1] + temp;
                     break;
                 case "John":
-                    var num = Number(spaceSplit[i-1]);
-                    var bnum = typeof Number(spaceSplit[i-1]) == "number";
+                    var num = Number(spaceSplit[i - 1]);
+                    var bnum = typeof Number(spaceSplit[i - 1]) == "number";
 
-                    if (spaceSplit[i-1] && bnum && typeof num == "number" && num > 0 && num < 4) {
+                    if (spaceSplit[i - 1] && bnum && typeof num == "number" && num > 0 && num < 4) {
                         var temp = spaceSplit[i];
-                        spaceSplit[i] = spaceSplit[i-1] + temp;
+                        spaceSplit[i] = spaceSplit[i - 1] + temp;
                     }
                     break;
             }
@@ -690,30 +664,32 @@ bot.on("message", raw => {
             }
 
 
-            getVersion(sender, function (data) {
+            getVersion(rawSender, function(data) {
                 var version = "ESV";
                 var headings = "enable";
                 var verseNumbers = "enable";
                 if (data) {
-                    if (data[0].hasOwnProperty('version')){
-                      version = data[0].version;
+                    if (data[0].hasOwnProperty('version')) {
+                        version = data[0].version;
                     }
-                    if (data[0].hasOwnProperty('headings')){
-                      headings = data[0].headings;
+                    if (data[0].hasOwnProperty('headings')) {
+                        headings = data[0].headings;
                     }
-                    if (data[0].hasOwnProperty('verseNumbers')){
-                      verseNumbers = data[0].verseNumbers;
+                    if (data[0].hasOwnProperty('verseNumbers')) {
+                        verseNumbers = data[0].verseNumbers;
                     }
-                 }
+                }
 
-                versionDB.find({"abbv": version}, function (err, docs) {
-                    if(docs) {
-                        bookNames.forEach(function (book) {
+                versionDB.find({
+                    "abbv": version
+                }, function(err, docs) {
+                    if (docs) {
+                        bookNames.forEach(function(book) {
                             var isOT = false;
                             var isNT = false;
                             var isAPO = false;
 
-                            for (index in books.ot) {
+                            for (var index in books.ot) {
                                 if (books.ot[index] == book) {
                                     isOT = true;
                                 }
@@ -726,7 +702,7 @@ bot.on("message", raw => {
                                 return;
                             }
 
-                            for (index in books.nt) {
+                            for (var index in books.nt) {
                                 if (books.nt[index] == book) {
                                     isNT = true;
                                 }
@@ -739,7 +715,7 @@ bot.on("message", raw => {
                                 return;
                             }
 
-                            for (index in books.apo) {
+                            for (var index in books.apo) {
                                 if (books.apo[index] == book) {
                                     isAPO = true;
                                 }
@@ -753,31 +729,9 @@ bot.on("message", raw => {
                             }
                         });
 
-                        bibleGateway.getResult(properString, version, headings, verseNumbers).then(function (result) {
-                            result.forEach(function (object) {
-                                var purifiedObjectText = object.text.replaceAll("“", " \"")
-                                                                    .replaceAll("[", " [")
-                                                                    .replaceAll("]", "] ")
-                                                                    .replaceAll("”", "\" ")
-                                                                    .replaceAll("‘", "'")
-                                                                    .replaceAll("’", "'")
-                                                                    .replaceAll(",", ", ")
-                                                                    .replaceAll(".", ". ")
-                                                                    .replaceAll(". \"", ".\"")
-                                                                    .replaceAll(". '", ".'")
-                                                                    .replaceAll(", \"", ",\"")
-                                                                    .replaceAll(", '", ",'")
-                                                                    .replaceAll(". )", ".)")
-                                                                    .replaceAll(", )", ",)")
-                                                                    .replaceAll("!", "! ")
-                                                                    .replaceAll("! \"", "!\"")
-                                                                    .replaceAll("! '", "!'")
-                                                                    .replaceAll("?", "? ")
-                                                                    .replaceAll("? \"", "?\"")
-                                                                    .replaceAll("? '", "?'")
-                                                                    .replaceAll(/\s+/g, ' ');
-
-                                var content = "```" + object.title + "\n\n" + purifiedObjectText + "```";
+                        bibleGateway.getResult(properString, version, headings, verseNumbers).then(function(result) {
+                            result.forEach(function(object) {
+                                var content = "```" + object.title + "\n\n" + object.text + "```";
                                 var responseString = "**" + object.passage + " - " + object.version + "**\n\n" + content;
 
                                 if (responseString.length < 2000) {
@@ -788,7 +742,7 @@ bot.on("message", raw => {
                                     channel.sendMessage("The passage is too long for me to grab, sorry.");
                                 }
                             });
-                        }).catch(function (err) {
+                        }).catch(function(err) {
                             logMessage("err", "global", "bibleGateway", err);
                         });
                     }
@@ -799,4 +753,7 @@ bot.on("message", raw => {
 });
 
 
-    bot.login(options.token);
+bot.login(options.token);
+
+
+bot.login(options.token);
