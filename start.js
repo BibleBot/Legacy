@@ -1,7 +1,6 @@
 // Discord API
 var Discord = require("discord.js");
 var bot = new Discord.Client();
-var request = require("request");
 var config;
 
 // For owner-specific configuration
@@ -36,9 +35,6 @@ var async = require("async");
 var books = require("./books");
 var Version = require("./version");
 var bibleGateway = require("./bibleGateway");
-
-// for getRandomVerse
-var cheerio = require("cheerio");
 
 // for logging
 var log4js = require('log4js');
@@ -387,7 +383,7 @@ bot.on("message", raw => {
             raw.reply("**I support:**\n\n```" + chatString.slice(0, -2) + "```");
         });
     } else if (msg.startsWith("+addversion") || msg.startsWith("+av")) {
-        if (sender == options.owner || sender == options.versionadders) {
+        if (sender == options.owner || (options.versionadders.indexOf(sender) != -1)) {
             var argv = msg.split(" ");
             var argc = argv.length;
             var name = "";
