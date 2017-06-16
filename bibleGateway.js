@@ -4,34 +4,34 @@ var cheerio = require("cheerio");
 // code partially ripped from @toffebjorkskog's node-biblegateway-api
 // because i'm impatient (sorry love you)
 
-function purifyText(object) {
-    return object.text.replaceAll("“", " \"")
-                      .replaceAll("[", " [")
-                      .replaceAll("]", "] ")
-                      .replaceAll("”", "\" ")
-                      .replaceAll("‘", "'")
-                      .replaceAll("’", "'")
-                      .replaceAll(",", ", ")
-                      .replaceAll(".", ". ")
-                      .replaceAll(". \"", ".\"")
-                      .replaceAll(". '", ".'")
-                      .replaceAll(", \"", ",\"")
-                      .replaceAll(", '", ",'")
-                      .replaceAll("!", "! ")
-                      .replaceAll("! \"", "!\"")
-                      .replaceAll("! '", "!'")
-                      .replaceAll("?", "? ")
-                      .replaceAll("? \"", "?\"")
-                      .replaceAll("? '", "?'")
-                      .replaceAll(/\s+/g, ' ');
+function purifyText(text) {
+    return text.replaceAll("“", " \"")
+        .replaceAll("[", " [")
+        .replaceAll("]", "] ")
+        .replaceAll("”", "\" ")
+        .replaceAll("‘", "'")
+        .replaceAll("’", "'")
+        .replaceAll(",", ", ")
+        .replaceAll(".", ". ")
+        .replaceAll(". \"", ".\"")
+        .replaceAll(". '", ".'")
+        .replaceAll(", \"", ",\"")
+        .replaceAll(", '", ",'")
+        .replaceAll("!", "! ")
+        .replaceAll("! \"", "!\"")
+        .replaceAll("! '", "!'")
+        .replaceAll("?", "? ")
+        .replaceAll("? \"", "?\"")
+        .replaceAll("? '", "?'")
+        .replaceAll(/\s+/g, ' ');
 }
 
 var bibleGateway = {
-    getRandomVerse: function (version, headings, verseNumbers) {
+    getRandomVerse: function(version, headings, verseNumbers) {
         var url = "https://dailyverses.net/random-bible-verse";
 
-        var promise = new Promise( (resolve, reject) => {
-            request(url, function (err, resp, body) {
+        var promise = new Promise((resolve, reject) => {
+            request(url, function(err, resp, body) {
                 if (err !== null) {
                     reject(err);
                 }
@@ -39,9 +39,9 @@ var bibleGateway = {
                 var $ = cheerio.load(body);
                 verse = $(".bibleChapter a").first().text();
 
-                this.getResult(verse, version, headings, verseNumbers).then(function (result) {
-                    result.forEach(function (object) {
-                        var purifiedObjectText = purifyText(object);
+                this.getResult(verse, version, headings, verseNumbers).then(function(result) {
+                    result.forEach(function(object) {
+                        var purifiedObjectText = purifyText(object.text);
 
                         var content = "```" + object.title + "\n\n" + purifiedObjectText + "```";
                         var responseString = "**" + object.passage + " - " + object.version + "**\n\n" + content;
@@ -52,7 +52,7 @@ var bibleGateway = {
                             getRandomVerse(version);
                         }
                     });
-                }).catch(function (err) {
+                }).catch(function(err) {
                     logMessage("err", "global", "bibleGateway", err);
                 });
             });
@@ -60,11 +60,11 @@ var bibleGateway = {
 
         return promise;
     },
-    getVOTD: function (version, headings, verseNumbers) {
+    getVOTD: function(version, headings, verseNumbers) {
         var url = "https://www.biblegateway.com/reading-plans/verse-of-the-day/next";
 
-        var promise = new Promise( (resolve, reject) => {
-            request(url, function (err, resp, body) {
+        var promise = new Promise((resolve, reject) => {
+            request(url, function(err, resp, body) {
                 if (err !== null) {
                     reject(err);
                 }
@@ -72,9 +72,9 @@ var bibleGateway = {
                 var $ = cheerio.load(body);
                 verse = $(".rp-passage-display").text();
 
-                bibleGateway.getResult(verse, version, headings, verseNumbers).then(function (result) {
-                    result.forEach(function (object) {
-                        var purifiedObjectText = purifyText(object);
+                this.getResult(verse, version, headings, verseNumbers).then(function(result) {
+                    result.forEach(function(object) {
+                        var purifiedObjectText = purifyText(object.text);
 
                         var content = "```" + object.title + "\n\n" + purifiedObjectText + "```";
                         var responseString = "**" + object.passage + " - " + object.version + "**\n\n" + content;
@@ -85,7 +85,7 @@ var bibleGateway = {
                             getVOTD(version);
                         }
                     });
-                }).catch(function (err) {
+                }).catch(function(err) {
                     logMessage("err", "global", "bibleGateway", err);
                 });
             });
@@ -93,11 +93,11 @@ var bibleGateway = {
 
         return promise;
     },
-    getResult: function (query, version, headings, verseNumbers) {
+    getResult: function(query, version, headings, verseNumbers) {
         var url = "https://www.biblegateway.com/passage/?search=" + query + "&version=" + version + "&interface=print";
 
-        var promise = new Promise( (resolve, reject) => {
-            request(url, function (err, resp, body) {
+        var promise = new Promise((resolve, reject) => {
+            request(url, function(err, resp, body) {
                 if (err !== null) {
                     reject(err);
                 }
@@ -105,61 +105,61 @@ var bibleGateway = {
                 var verses = [];
 
                 var $ = cheerio.load(body);
-                $(".result-text-style-normal").each(function () {
+                $(".result-text-style-normal").each(function() {
                     var verse = $(this);
 
-                    if (headings == "disable"){
-                      $(".result-text-style-normal h3").each(function () {
-                        $(this).html("");
-                      })
-                      $(".inline-h3").each(function () {
-                        $(this).html("");
-                      })
-                    }
-
-                    if (verseNumbers == "disable"){
-                        $(".chapternum").each(function () {
+                    if (headings == "disable") {
+                        $(".result-text-style-normal h3").each(function() {
                             $(this).html("");
                         });
 
-                        $(".versenum").each(function () {
+                        $(".inline-h3").each(function() {
+                            $(this).html("");
+                        });
+                    }
+
+                    if (verseNumbers == "disable") {
+                        $(".chapternum").each(function() {
+                            $(this).html("");
+                        });
+
+                        $(".versenum").each(function() {
                             $(this).html("");
                         });
                     } else {
-                        $(".chapternum").each(function () {
+                        $(".chapternum").each(function() {
                             $(this).html("[" + $(this).text().slice(0, -1) + "] ");
 
                         });
 
-                        $(".versenum").each(function () {
+                        $(".versenum").each(function() {
                             $(this).html("[" + $(this).text().slice(0, -1) + "] ");
 
                         });
                     }
 
-                    $(".crossreference").each(function () {
+                    $(".crossreference").each(function() {
                         $(this).html("");
                     });
 
-                    $(".footnote").each(function () {
+                    $(".footnote").each(function() {
                         $(this).html("");
                     });
 
                     var title = "";
-                    verse.find("h3").each(function () {
+                    verse.find("h3").each(function() {
                         title += $(this).text() + " / ";
                     });
 
-
-                    $(".crossrefs").html("")
+                    $(".crossrefs").html("");
                     $(".footnotes").html("");
 
                     var verseObject = {
                         "passage": verse.find(".passage-display-bcv").text(),
                         "version": verse.find(".passage-display-version").text(),
                         "title": title.slice(0, -3),
-                        "text": verse.find("p").text()
-                    }
+                        "text": purifyText(verse.find("p").text())
+                    };
 
                     verses.push(verseObject);
                 });
@@ -170,6 +170,6 @@ var bibleGateway = {
 
         return promise;
     }
-}
+};
 
 module.exports = bibleGateway;

@@ -1,12 +1,16 @@
 //Rename to config.js
 var config = {
-//Discord ID of bot owner
-owner: "",
-//Bot Token
-token: "",
-//Discord ID of bot user
-botname: "",
-//(Optional) Discord ID of extra version adder
-versionadders: ""
+    // owner's username + discriminator
+    owner: "",
+
+    // API token
+    token: "",
+
+    // bot's username + discriminator
+    botname: "",
+
+    // username + discriminator of various version adders (optional)
+    versionAdders: []
 };
+
 module.exports = config;

@@ -25,10 +25,16 @@ module.exports = class Version {
     }
 
     toObject() {
-        return {"name": this.name, "abbv": this.abbv, "hasOT": this.hasOT, "hasNT": this.hasNT, "hasAPO": this.hasAPO}
+        return {
+            "name": this.name,
+            "abbv": this.abbv,
+            "hasOT": this.hasOT,
+            "hasNT": this.hasNT,
+            "hasAPO": this.hasAPO
+        };
     }
 
     toString() {
         return JSON.stringify(this.toObject());
     }
-}
+};
