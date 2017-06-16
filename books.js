@@ -247,7 +247,7 @@ var books = {
         "belandthedragon": "Bel and the Dragon",
         "bel": "Bel and the Dragon"
     }
-}
+};
 
 books.isBook = function(book) {
     if (books[book]) {
@@ -255,6 +255,6 @@ books.isBook = function(book) {
     }
 
     return false;
-}
+};
 
 module.exports = books;
