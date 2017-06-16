@@ -29,8 +29,6 @@ var versionDB = new dataStore({
     autoload: true
 });
 
-var globals = {};
-
 // for async calls
 var async = require("async");
 
@@ -65,14 +63,6 @@ String.prototype.replaceAll = function(target, replacement) {
 
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
-function setGlobal(item, value) {
-    global[item] = value;
-}
-
-function getGlobal(item) {
-    return global[item];
 }
 
 function logMessage(level, sender, channel, message) {
@@ -249,14 +239,7 @@ bot.on("message", raw => {
         "W", "X", "Y", "Z"
     ];
 
-    if (msg.startsWith("+eval") && sender == options.owner) {
-        logMessage("info", sender, source, "+eval");
-        try {
-            eval(msg.replaceAll("+eval ", ""));
-        } catch (e) {
-            // do nothing
-        }
-    } else if (msg.startsWith("+leave") && sender == options.owner) {
+    if (msg.startsWith("+leave") && sender == options.owner) {
         logMessage("info", sender, source, "+leave");
         try {
             if (guild != "undefined") {
@@ -266,16 +249,6 @@ bot.on("message", raw => {
         } catch (e) {
             channel.sendMessage(e);
         }
-    } else if (msg.startsWith("+setGlobal") && sender == options.owner) {
-        logMessage("info", sender, source, "+setGlobal");
-        var item = msg.split(" ")[1];
-        var value = msg.replaceAll("+setGlobal " + item + " ", "");
-        setGlobal(item, value);
-
-        channel.sendMessage("set");
-    } else if (msg.startsWith("+getGlobal") && sender == options.owner) {
-        logMessage("info", sender, source, "+getGlobal");
-        channel.sendMessage(getGlobal(msg.replaceAll("+getGlobal ", "")));
     } else if (msg.startsWith("+puppet") && sender == options.owner) {
         raw.delete();
         logMessage("info", sender, source, "+puppet");
