@@ -2,9 +2,18 @@
 var Discord = require("discord.js");
 var bot = new Discord.Client();
 var request = require("request");
+var config;
 
 // For owner-specific configuration
-var options = require("./config.js")
+fs.stat("config.js", function(err, stat) {
+    if(err === null) {
+        logMessage("info", "global", "global", "reading configuration file");
+        config = require("config.js");
+    } else {
+        logMessage("err", "global", "global", "configuration file cannot be accessed, does config.js exist?");
+        process.exit(1);
+    }
+});
 
 // For user version preferences
 var dataStore = require("nedb");
@@ -254,7 +263,7 @@ bot.on("error", e => {
 
 bot.on("message", raw => {
     // taking the raw message object and making it more usable
-    
+
     var sender = raw.author.username + "#" + raw.author.discriminator;
     var channel = raw.channel;
     var guild = raw.guild;
