@@ -1,5 +1,6 @@
 # Logs
 logs
+
 *.log
 npm-debug.log*
 
@@ -40,4 +41,7 @@ jspm_packages
 .node_repl_history
 
 # Config file
-config.js
+src/config.js
+
+# build directory
+build

@@ -3,6 +3,20 @@ A Discord bot for Bible verses.
 
 To use it, just say a Bible verse.
 
+---
+
+Installation:
+```sh
+git clone https://github.com/UnimatrixZeroOne/BibleBot.git;
+npm install;
+mv src/config.example.js src/config.js;
+$EDITOR src/config.js;
+npm run build;
+npm run start;
+```
+
+---
+
 Commands:
 
 * `+versions` - show all Bible translations you can set
@@ -20,4 +34,4 @@ Bot Owner Commands:
 
 Invite BibleBot to your server! https://discordapp.com/api/oauth2/authorize?client_id=269407897178472448&scope=bot&permissions=0
 
-Originally created by Elliott Pardee (@vypr).
+Originally created by Elliott Pardee (@[vypr](https://github.com/vypr)).

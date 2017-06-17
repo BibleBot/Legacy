@@ -1,4 +1,4 @@
-//Rename to config.js
+// rename to config.js
 var config = {
     // owner's username + discriminator
     owner: "",
