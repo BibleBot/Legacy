@@ -266,7 +266,7 @@ bot.on("message", raw => {
         "W", "X", "Y", "Z"
     ];
 
-    if (msg.startsWith("+leave") && sender == options.owner) {
+    if (msg == "+leave" && sender == options.owner) {
         logMessage("info", sender, source, "+leave");
         try {
             if (guild != "undefined") {
