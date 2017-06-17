@@ -4,14 +4,14 @@
   "description": "A Discord bot for Bible verses.",
   "main": "start.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon start.js"
+    "build": "babel src -d build",
+    "start": "nodemon build/start.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/UnimatrixZeroOne/BibleBot"
   },
-  "author": "UnimatrixZeroOne",
+  "author": "vypr and UnimatrixZeroOne",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/UnimatrixZeroOne/BibleBot/issues"
@@ -25,5 +25,9 @@
     "nedb": "^1.8.0",
     "nodemon": "^1.11.0",
     "request": "^2.79.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-preset-env": "^1.5.2"
   }
 }

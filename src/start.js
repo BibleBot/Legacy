@@ -1,5 +1,5 @@
 // Discord API
-var Discord = require("discord.js");
+import * as Discord from "discord.js";
 var bot = new Discord.Client();
 var config;
 
@@ -15,7 +15,7 @@ fs.stat("config.js", function(err, stat) {
 });
 
 // For user version preferences
-var dataStore = require("nedb");
+import * as dataStore from "nedb";
 var db = new dataStore({
     filename: 'db',
     autoload: true,
@@ -29,15 +29,15 @@ var versionDB = new dataStore({
 });
 
 // for async calls
-var async = require("async");
+import * as async from "async";
 
 // Other stuff
-var books = require("./books");
-var Version = require("./version");
-var bibleGateway = require("./bibleGateway");
+import * as books from "./books";
+import * as Version from "./version";
+import * as bibleGateway from "./bibleGateway";
 
 // for logging
-var log4js = require('log4js');
+import * as log4js from "log4js";
 log4js.configure({
     appenders: [{
             type: "console"
