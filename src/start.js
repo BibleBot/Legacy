@@ -433,8 +433,8 @@ bot.on("message", raw => {
             var object = new Version(name, abbv, hasOT, hasNT, hasAPO);
             versionDB.insert(object.toObject(), function(err, doc) {
                 if (err) {
-                    console.log("[err] versiondb error - ");
-                    console.error(err);
+                    logMessage("err", "versiondb", "global", err);
+                    raw.reply("**[error] failed to add version");
                 } else {
                     raw.reply("**Version added successfully.**");
                 }
@@ -478,6 +478,7 @@ bot.on("message", raw => {
                 spaceSplit[i] = capitalizeFirstLetter(spaceSplit[i]);
             } catch (e) { /* it'll probably be a number anyways, if this fails */ }
 
+            // TODO: Rewrite/refactor this.
             switch (spaceSplit[i]) {
                 case "Sam":
                     var temp = spaceSplit[i];
@@ -600,6 +601,14 @@ bot.on("message", raw => {
                         var temp = spaceSplit[i];
                         spaceSplit[i] = spaceSplit[i - 1] + temp;
                     }
+                    break;
+                case "Solomon":
+                    var temp = spaceSplit[i];
+                    spaceSplit[i] = spaceSplit[i - 2] + spaceSplit[i - 1] + temp;
+                    break;
+                case "Songs":
+                    var temp = spaceSplit[i];
+                    spaceSplit[i] = spaceSplit[i - 2] + spaceSplit[i - 1] + temp;
                     break;
             }
 
@@ -751,9 +760,6 @@ bot.on("message", raw => {
         });
     }
 });
-
-
-bot.login(options.token);
 
 
 bot.login(options.token);
