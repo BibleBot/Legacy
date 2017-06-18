@@ -602,6 +602,14 @@ bot.on("message", raw => {
                         spaceSplit[i] = spaceSplit[i - 1] + temp;
                     }
                     break;
+                case "Solomon":
+                    var temp = spaceSplit[i];
+                    spaceSplit[i] = spaceSplit[i - 2] + spaceSplit[i - 1] + temp;
+                    break;
+                case "Songs":
+                    var temp = spaceSplit[i];
+                    spaceSplit[i] = spaceSplit[i - 2] + spaceSplit[i - 1] + temp;
+                    break;
             }
 
             if (books.ot[spaceSplit[i].toLowerCase()]) {
@@ -752,9 +760,6 @@ bot.on("message", raw => {
         });
     }
 });
-
-
-bot.login(options.token);
 
 
 bot.login(options.token);
