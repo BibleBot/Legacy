@@ -1,6 +1,6 @@
 {
   "name": "BibleBot",
-  "version": "1.0.0",
+  "version": "2.5.8",
   "description": "A Discord bot for Bible verses.",
   "main": "start.js",
   "scripts": {
