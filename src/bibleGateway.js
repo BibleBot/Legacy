@@ -4,6 +4,11 @@ import * as cheerio from "cheerio";
 // code partially ripped from @toffebjorkskog's node-biblegateway-api
 // because i'm impatient (sorry love you)
 
+String.prototype.replaceAll = function(target, replacement) {
+    return this.split(target).join(replacement);
+};
+
+
 function purifyText(text) {
     return text.replaceAll("“", " \"")
         .replaceAll("[", " [")
