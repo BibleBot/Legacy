@@ -771,5 +771,5 @@ bot.on("message", raw => {
     }
 });
 
-
+_version();
 bot.login(options.token);
