@@ -43,9 +43,10 @@ add 1 to the second number of the version. If the result of the second number is
 add 1 to the first number of the version.
 
 
-Examples: 2.8.9 --> Commit --> 2.9.0
-          2.9.8 --> Commit --> 2.9.9
-          2.9.9 --> Commit --> 3.0.0
+Examples: 
+2.8.9 --> Commit --> 2.9.0  
+2.9.8 --> Commit --> 2.9.9  
+2.9.9 --> Commit --> 3.0.0  
 
 ---
 
