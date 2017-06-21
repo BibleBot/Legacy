@@ -47,4 +47,8 @@ Examples:
 2.9.8 --> Commit --> 2.9.9  
 2.9.9 --> Commit --> 3.0.0  
 
+Every commit done involving the code itself must have the version number updated.   
+Commits done to the README, the package.json file (except when adding dependencies),   
+and the dotfiles do not need to have the version number updated.   
+
 Originally a fork of "HolyBot" created by Elliott Pardee (@[vypr](https://github.com/vypr)).
