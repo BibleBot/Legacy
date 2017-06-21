@@ -42,12 +42,9 @@ Every commit, add 1 to the last number of the version, if the result is 10,
 add 1 to the second number of the version. If the result of the second number is 10,
 add 1 to the first number of the version.
 
-
 Examples:  
 2.8.9 --> Commit --> 2.9.0  
 2.9.8 --> Commit --> 2.9.9  
 2.9.9 --> Commit --> 3.0.0  
-
----
 
 Originally a fork of "HolyBot" created by Elliott Pardee (@[vypr](https://github.com/vypr)).
