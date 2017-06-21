@@ -62,7 +62,7 @@ var _versionNumber;
 function _version() {
     fs.stat(__dirname + "/package.json", function(err, stat) {
         if (err === null) {
-            pack = require(_dirname + "/package.json");
+            pack = require(__dirname + "/package.json");
             _versionNumber = pack.version;
         }
     });
