@@ -12,7 +12,7 @@ npm install;
 mv src/config.example.js src/config.js;
 $EDITOR src/config.js;
 npm run build;
-npm run start;
+npm start;
 ```
 
 ---
