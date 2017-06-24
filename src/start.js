@@ -287,7 +287,7 @@ bot.on("message", raw => {
         channel.sendMessage(msg.replaceAll("+puppet ", ""));
     } else if (msg == "+biblebot") {
         logMessage("info", sender, source, "+biblebot");
-        channel.sendMessage("**BibleBot " + process.env.npm_package_version + " (formerly known as HolyBot) by vipr and UnimatrixZeroOne** - code: <https://github.com/UnimatrixZeroOne/BibleBot>\n\n```commands:\n* `+setversion ABBV` - set preferred version to ABBV\n* `+version` - see what version you've set\n* `+versions` - see the supported versions\n* `+random` - get a random Bible verse\n* `+verseoftheday` (`+votd`) - get the verse of the day\n* `+headings enable/disable` - enable or disable topic headings\n* `+versenumbers enable/disable` - enable or disable verse numbers from showing on each line```\n**To use it, just say a Bible verse. I'll handle the rest.**");
+        channel.sendMessage("**BibleBot v" + process.env.npm_package_version + " (formerly known as HolyBot) by vipr and UnimatrixZeroOne** - code: <https://github.com/UnimatrixZeroOne/BibleBot>\n\n```commands:\n* `+setversion ABBV` - set preferred version to ABBV\n* `+version` - see what version you've set\n* `+versions` - see the supported versions\n* `+random` - get a random Bible verse\n* `+verseoftheday` (`+votd`) - get the verse of the day\n* `+headings enable/disable` - enable or disable topic headings\n* `+versenumbers enable/disable` - enable or disable verse numbers from showing on each line```\n**To use it, just say a Bible verse. I'll handle the rest.**");
     } else if (msg == "+random") {
         getVersion(rawSender, function(data) {
             var version = "ESV";
