@@ -7,7 +7,7 @@ var config;
 import * as fs from "fs";
 
 // For owner-specific configuration
-fs.stat("config.js", function(err, stat) {
+/*fs.stat("config.js", function(err, stat) {
     if (err === null) {
         logMessage("info", "global", "global", "reading configuration file");
         config = require("config.js");
@@ -15,19 +15,19 @@ fs.stat("config.js", function(err, stat) {
         logMessage("err", "global", "global", "configuration file cannot be accessed, does config.js exist?");
         process.exit(1);
     }
-});
+});*/
 
 // For user version preferences
 var Datastore = require("nedb"); // for some reason this is unimportable
 var db = new Datastore({
-    filename: 'db',
+    filename: './databases/db',
     autoload: true,
     corruptAlertThreshold: 1
 });
 
 // Version database
 var versionDB = new Datastore({
-    filename: 'versiondb',
+    filename: './databases/versiondb',
     autoload: true
 });
 
@@ -60,23 +60,13 @@ String.prototype.replaceAll = function(target, replacement) {
     return this.split(target).join(replacement);
 };
 
-var _versionNumber;
-
-function _version() {
-    fs.stat(__dirname + "/package.json", function(err, stat) {
-        if (err === null) {
-            pack = require(__dirname + "/package.json");
-            _versionNumber = pack.version;
-        }
-    });
-}
-
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 function logMessage(level, sender, channel, message) {
     var content = "<" + sender + "@" + channel + "> " + message;
+
     switch (level) {
         case "info":
             logger.info(content);
@@ -104,6 +94,7 @@ function isUnmigrated(user) {
 
 function migrateUserToID(userObject) {
     var username = userObject.username + "#" + userObject.discriminator;
+
     db.update({
         "user": username
     }, {
@@ -158,6 +149,7 @@ function setHeadings(user, headings, callback) {
     if (headings != "enable" && headings != "disable") {
         return callback(null);
     }
+
     db.find({
         "id": user.id
     }, function(err, doc) {
@@ -190,6 +182,7 @@ function setVerseNumbers(user, verseNumbers, callback) {
     if (verseNumbers != "enable" && verseNumbers != "disable") {
         return callback(null);
     }
+
     db.find({
         "id": user.id
     }, function(err, doc) {
@@ -232,7 +225,6 @@ bot.on("ready", () => {
     logMessage("info", "global", "global", "connected");
 });
 
-
 bot.on("reconnecting", () => {
     logMessage("info", "global", "global", "attempting to reconnect");
 });
@@ -251,7 +243,6 @@ bot.on("error", e => {
 
 bot.on("message", raw => {
     // taking the raw message object and making it more usable
-
     var rawSender = raw.author;
     var sender = rawSender.username + "#" + rawSender.discriminator;
     var channel = raw.channel;
@@ -282,8 +273,9 @@ bot.on("message", raw => {
 
     if (msg == "+leave" && sender == config.owner) {
         logMessage("info", sender, source, "+leave");
+
         try {
-            if (guild != "undefined") {
+            if (guild !== undefined) {
                 guild.leave();
             }
         } catch (e) {
@@ -295,7 +287,7 @@ bot.on("message", raw => {
         channel.sendMessage(msg.replaceAll("+puppet ", ""));
     } else if (msg == "+biblebot") {
         logMessage("info", sender, source, "+biblebot");
-        channel.sendMessage("**BibleBot " + _versionNumber + " (formerly known as HolyBot) by vipr and UnimatrixZeroOne** - code: <https://github.com/UnimatrixZeroOne/BibleBot>\n\n```commands:\n* `+setversion ABBV` - set preferred version to ABBV\n* `+version` - see what version you've set\n* `+versions` - see the supported versions\n* `+random` - get a random Bible verse\n* `+verseoftheday` (`+votd`) - get the verse of the day\n* `+headings enable/disable` - enable or disable topic headings\n* `+versenumbers enable/disable` - enable or disable verse numbers from showing on each line```\n**To use it, just say a Bible verse. I'll handle the rest.**");
+        channel.sendMessage("**BibleBot " + process.env.npm_package_version + " (formerly known as HolyBot) by vipr and UnimatrixZeroOne** - code: <https://github.com/UnimatrixZeroOne/BibleBot>\n\n```commands:\n* `+setversion ABBV` - set preferred version to ABBV\n* `+version` - see what version you've set\n* `+versions` - see the supported versions\n* `+random` - get a random Bible verse\n* `+verseoftheday` (`+votd`) - get the verse of the day\n* `+headings enable/disable` - enable or disable topic headings\n* `+versenumbers enable/disable` - enable or disable verse numbers from showing on each line```\n**To use it, just say a Bible verse. I'll handle the rest.**");
     } else if (msg == "+random") {
         getVersion(rawSender, function(data) {
             var version = "ESV";
@@ -334,6 +326,7 @@ bot.on("message", raw => {
                     verseNumbers = data[0].verseNumbers;
                 }
             }
+
             bibleGateway.getVOTD(version, headings, verseNumbers).then(function(result) {
                 logMessage("info", sender, source, "+votd");
                 channel.sendMessage(result);
@@ -679,6 +672,7 @@ bot.on("message", raw => {
                     verse[i] = verse[i].replaceAll(/[^a-zA-Z0-9:]/g, "");
                 }
             }
+
             if (verse.length < 4) {
                 var properString = verse[0] + " " + verse[1] + ":" + verse[2];
             } else {
@@ -690,6 +684,7 @@ bot.on("message", raw => {
                 var version = "ESV";
                 var headings = "enable";
                 var verseNumbers = "enable";
+
                 if (data) {
                     if (data[0].hasOwnProperty('version')) {
                         version = data[0].version;
@@ -774,5 +769,9 @@ bot.on("message", raw => {
     }
 });
 
-_version();
-bot.login(config.token);
+async.series([
+    function() {
+        logMessage("info", "global", "global", "BibleBot v" + process.env.npm_package_version + " by vipr and UnimatrixZeroOne");
+    }
+    //bot.login(config.token)
+]);
