@@ -3,6 +3,9 @@ import * as Discord from "discord.js";
 var bot = new Discord.Client();
 var config;
 
+// in order to check file info
+import * as fs from "fs";
+
 // For owner-specific configuration
 fs.stat("config.js", function(err, stat) {
     if (err === null) {
@@ -15,15 +18,15 @@ fs.stat("config.js", function(err, stat) {
 });
 
 // For user version preferences
-import * as dataStore from "nedb";
-var db = new dataStore({
+var Datastore = require("nedb"); // for some reason this is unimportable
+var db = new Datastore({
     filename: 'db',
     autoload: true,
     corruptAlertThreshold: 1
 });
 
 // Version database
-var versionDB = new dataStore({
+var versionDB = new Datastore({
     filename: 'versiondb',
     autoload: true
 });
@@ -266,7 +269,7 @@ bot.on("message", raw => {
         source = "unknown";
     }
 
-    if (sender == options.botname) return;
+    if (sender == config.botname) return;
     if (source.includes("Discord Bots") && sender != "UnimatrixZeroOne#7501") return;
 
     // for verse arrays
@@ -277,7 +280,7 @@ bot.on("message", raw => {
         "W", "X", "Y", "Z"
     ];
 
-    if (msg == "+leave" && sender == options.owner) {
+    if (msg == "+leave" && sender == config.owner) {
         logMessage("info", sender, source, "+leave");
         try {
             if (guild != "undefined") {
@@ -286,7 +289,7 @@ bot.on("message", raw => {
         } catch (e) {
             channel.sendMessage(e);
         }
-    } else if (msg.startsWith("+puppet") && sender == options.owner) {
+    } else if (msg.startsWith("+puppet") && sender == config.owner) {
         raw.delete();
         logMessage("info", sender, source, "+puppet");
         channel.sendMessage(msg.replaceAll("+puppet ", ""));
@@ -424,7 +427,7 @@ bot.on("message", raw => {
             raw.reply("**I support:**\n\n```" + chatString.slice(0, -2) + "```");
         });
     } else if (msg.startsWith("+addversion") || msg.startsWith("+av")) {
-        if (sender == options.owner || (options.versionadders.indexOf(sender) != -1)) {
+        if (sender == config.owner || (config.versionadders.indexOf(sender) != -1)) {
             var argv = msg.split(" ");
             var argc = argv.length;
             var name = "";
@@ -772,4 +775,4 @@ bot.on("message", raw => {
 });
 
 _version();
-bot.login(options.token);
+bot.login(config.token);
