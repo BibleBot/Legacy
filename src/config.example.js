@@ -10,7 +10,9 @@ var config = {
     botname: "",
 
     // username + discriminator of various version adders (optional)
-    versionAdders: []
+    versionAdders: [],
+
+    debug: false
 };
 
 module.exports = config;

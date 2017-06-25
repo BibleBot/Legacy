@@ -68,6 +68,9 @@ function logMessage(level, sender, channel, message) {
     var content = "<" + sender + "@" + channel + "> " + message;
 
     switch (level) {
+        case "debug":
+            logger.debug(content);
+            break;
         case "info":
             logger.info(content);
             break;
@@ -225,12 +228,16 @@ bot.on("ready", () => {
     logMessage("info", "global", "global", "connected");
 });
 
+bot.on("debug", debug => {
+    logMessage("debug", "global", "global", debug);
+});
+
 bot.on("reconnecting", () => {
     logMessage("info", "global", "global", "attempting to reconnect");
 });
 
-bot.on("disconnect", () => {
-    logMessage("info", "global", "global", "disconnected");
+bot.on("disconnect", event => {
+    logMessage("info", "global", "global", "disconnected - closeevent code: " + event.code);
 });
 
 bot.on("warning", warn => {
