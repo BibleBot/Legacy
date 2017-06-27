@@ -42,7 +42,7 @@ var bibleGateway = {
                 }
 
                 var $ = cheerio.load(body);
-                verse = $(".bibleChapter a").first().text();
+                var verse = $(".bibleChapter a").first().text();
 
                 this.getResult(verse, version, headings, verseNumbers).then(function(result) {
                     result.forEach(function(object) {
