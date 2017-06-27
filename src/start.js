@@ -1,20 +1,7 @@
 // Discord API
 import * as Discord from "discord.js";
 var bot = new Discord.Client();
-var config;
-
-// in order to check file info
-import * as fs from "fs";
-
-fs.stat(__dirname + "/config.js", function(err, stat) {
-    if (err === null) {
-        logMessage("info", "global", "global", "reading configuration file");
-        config = require(__dirname + "/config.js");
-    } else {
-        logMessage("err", "global", "global", "configuration file cannot be accessed, does config.js exist?");
-        process.exit(1);
-    }
-});
+var config = require(__dirname + "/config.js");
 
 // For user version preferences
 var Datastore = require("nedb"); // for some reason this is unimportable
