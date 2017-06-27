@@ -75,7 +75,7 @@ var bibleGateway = {
                 }
 
                 var $ = cheerio.load(body);
-                verse = $(".rp-passage-display").text();
+                var verse = $(".rp-passage-display").text();
 
                 bibleGateway.getResult(verse, version, headings, verseNumbers).then(function(result) {
                     result.forEach(function(object) {
