@@ -362,7 +362,7 @@ bot.on("message", raw => {
             logMessage("info", sender, source, "empty +headings sent");
             raw.reply("**Use +headings enable OR +headings disable**");
         } else {
-            setHeadings(sender, msg.split(" ")[1], function(data) {
+            setHeadings(rawSender, msg.split(" ")[1], function(data) {
                 if (data) {
                     logMessage("info", sender, source, "+headings " + msg.split(" ")[1]);
                     raw.reply("**Set headings successfully.**");
@@ -379,7 +379,7 @@ bot.on("message", raw => {
             logMessage("info", sender, source, "empty +versenumbers sent");
             raw.reply("**Use +versenumbers enable OR +versenumbers disable**");
         } else {
-            setVerseNumbers(sender, msg.split(" ")[1], function(data) {
+            setVerseNumbers(rawSender, msg.split(" ")[1], function(data) {
                 if (data) {
                     logMessage("info", sender, source, "+versenumbers " + msg.split(" ")[1]);
                     raw.reply("**Set versenumbers successfully.**");
