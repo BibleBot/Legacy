@@ -1,5 +1,5 @@
-import * as request from "request";
-import * as cheerio from "cheerio";
+var request = require("request");
+var cheerio = require("cheerio");
 
 // code partially ripped from @toffebjorkskog's node-biblegateway-api
 // because i'm impatient (sorry love you)
