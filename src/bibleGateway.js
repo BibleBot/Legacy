@@ -44,7 +44,7 @@ var bibleGateway = {
                 var $ = cheerio.load(body);
                 var verse = $(".bibleChapter a").first().text();
 
-                this.getResult(verse, version, headings, verseNumbers).then(function(result) {
+                bibleGateway.getResult(verse, version, headings, verseNumbers).then(function(result) {
                     result.forEach(function(object) {
                         var purifiedObjectText = purifyText(object.text);
 
@@ -77,7 +77,7 @@ var bibleGateway = {
                 var $ = cheerio.load(body);
                 verse = $(".rp-passage-display").text();
 
-                this.getResult(verse, version, headings, verseNumbers).then(function(result) {
+                bibleGateway.getResult(verse, version, headings, verseNumbers).then(function(result) {
                     result.forEach(function(object) {
                         var purifiedObjectText = purifyText(object.text);
 
