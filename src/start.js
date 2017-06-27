@@ -766,10 +766,11 @@ bot.on("message", raw => {
 });
 
 async.series([function() {
-    fs.stat("config.js", function(err, stat) {
+    console.log(__dirname);
+    fs.stat(__dirname + "/config.js", function(err, stat) {
         if (err === null) {
             logMessage("info", "global", "global", "reading configuration file");
-            config = require("config.js");
+            config = require(__dirname + "/config.js");
         } else {
             logMessage("err", "global", "global", "configuration file cannot be accessed, does config.js exist?");
             process.exit(1);
