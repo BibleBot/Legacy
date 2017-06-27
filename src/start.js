@@ -6,17 +6,6 @@ var config;
 // in order to check file info
 import * as fs from "fs";
 
-// For owner-specific configuration
-fs.stat("config.js", function(err, stat) {
-    if (err === null) {
-        logMessage("info", "global", "global", "reading configuration file");
-        config = require("config.js");
-    } else {
-        logMessage("err", "global", "global", "configuration file cannot be accessed, does config.js exist?");
-        process.exit(1);
-    }
-});
-
 // For user version preferences
 var Datastore = require("nedb"); // for some reason this is unimportable
 var db = new Datastore({
@@ -776,5 +765,17 @@ bot.on("message", raw => {
     }
 });
 
-logMessage("info", "global", "global", "BibleBot v" + process.env.npm_package_version + " by vipr and UnimatrixZeroOne");
-bot.login(config.token);
+async.series([function() {
+    fs.stat("config.js", function(err, stat) {
+        if (err === null) {
+            logMessage("info", "global", "global", "reading configuration file");
+            config = require("config.js");
+        } else {
+            logMessage("err", "global", "global", "configuration file cannot be accessed, does config.js exist?");
+            process.exit(1);
+        }
+    });
+}, function() {
+    logMessage("info", "global", "global", "BibleBot v" + process.env.npm_package_version + " by vipr and UnimatrixZeroOne");
+    bot.login(config.token);
+}]);
