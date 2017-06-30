@@ -360,7 +360,7 @@ bot.on("message", raw => {
     } else if (msg.startsWith("+headings")) {
         if (msg.split(" ").length != 2) {
             logMessage("info", sender, source, "empty +headings sent");
-            raw.reply("**Use +headings enable OR +headings disable**");
+            raw.reply("**Use +headings enable or +headings disable.**");
         } else {
             setHeadings(rawSender, msg.split(" ")[1], function(data) {
                 if (data) {
@@ -368,7 +368,7 @@ bot.on("message", raw => {
                     raw.reply("**Set headings successfully.**");
                 } else {
                     logMessage("info", sender, source, "failed +headings");
-                    raw.reply("**Use +headings enable OR +headings disable**");
+                    raw.reply("**Use +headings enable or +headings disable.**");
                 }
             });
         }
@@ -377,7 +377,7 @@ bot.on("message", raw => {
     } else if (msg.startsWith("+versenumbers")) {
         if (msg.split(" ").length != 2) {
             logMessage("info", sender, source, "empty +versenumbers sent");
-            raw.reply("**Use +versenumbers enable OR +versenumbers disable**");
+            raw.reply("**Use +versenumbers enable or +versenumbers disable.**");
         } else {
             setVerseNumbers(rawSender, msg.split(" ")[1], function(data) {
                 if (data) {
@@ -385,7 +385,7 @@ bot.on("message", raw => {
                     raw.reply("**Set versenumbers successfully.**");
                 } else {
                     logMessage("info", sender, source, "failed +versenumbers");
-                    raw.reply("**Use +versenumbers enable OR +versenumbers disable**");
+                    raw.reply("**Use +versenumbers enable or +versenumbers disable.**");
                 }
             });
         }
@@ -433,7 +433,7 @@ bot.on("message", raw => {
             versionDB.insert(object.toObject(), function(err, doc) {
                 if (err) {
                     logMessage("err", "versiondb", "global", err);
-                    raw.reply("**[error] failed to add version");
+                    raw.reply("**Failed to add version.**");
                 } else {
                     raw.reply("**Version added successfully.**");
                 }
