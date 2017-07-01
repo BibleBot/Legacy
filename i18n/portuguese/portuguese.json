@@ -16,7 +16,7 @@
   "languageused":"You are using <the default language (replace with the language name)>. Use `+<setlanguage>` to set a different language.",
   "nolanguageused":"I couldn't find your name in my database, have you used `+<setlanguage>` yet?",
   "languages":"Eu suporto",
-  "otnotsupported":"The version <version> doesn't support the Old Testament.",
+  "otnotsupported":"A versão <version> não suporta o Antigo Testamento.",
   "ntnotsupported":"A versão <version> não suporta o Novo Testamento.",
   "aponotsupported":"A versão <version> não suporta o Apócrifo/os Deuterocanônicos.",
   "otnotsupported2":"Se queres usar o Antigo Testamento, usar `+<setversion>` para mudar a uma versão que tem-lo.",
