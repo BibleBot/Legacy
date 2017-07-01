@@ -1,8 +1,8 @@
 {
   "biblebot":"**BibleBot v<biblebotversion> (formerly known as HolyBot) by vipr and UnimatrixZeroOne** - code: <https://github.com/UnimatrixZeroOne/BibleBot>\n\n```commands:\n* `+<setversion> ABBV` - set preferred version to ABBV\n* `+<version>` - see what version you've set\n* `+<versions>` - see the supported versions\n* `+<random>` - get a random Bible verse\n* `+<verseoftheday>` (`+<votd>`) - get the verse of the day\n* `+<headings> <enable>/<disable>` - enable or disable topic headings\n* `+<versenumbers> <enable>/<disable>` - enable or disable verse numbers from showing on each line\n* `+<language>` - see your current language, if one is set (default: english)\n* `+<setlanguage> LANG` - set preferred language to LANG\n* `+<languages>` - see the supported languages```\n**To use it, just say a Bible verse. I'll handle the rest.**",
   "versions":"Je soutiens",
-  "setversionsuccess":"Set version successfully.",
-  "setversionfail":"Failed to set version, I only support",
+  "setversionsuccess":"Mis le version avec succès.",
+  "setversionfail":"Raté à mettre le version; je ne soutiens que",
   "versionused":"Tu utilises <version>. Utilise `+<setversion>` à mettre un autre version.",
   "noversionused":"Je ne pouvais pas trouver ton nom dans ma base de données, est-ce que tu as déja utilisé `+<setversion>` ?",
   "addversionsuccess":"Ajouté le version avec succès.",
@@ -29,7 +29,7 @@
     "versions":"versions",
     "votd":"votd",
     "verseoftheday":"verseoftheday",
-    "random":"random",
+    "random":"au hasard",
     "biblebot":"biblebot",
     "addversion":"addversion",
     "av":"av",
@@ -39,7 +39,7 @@
     "leave":"partir",
     "setlanguage":"setlanguage",
     "language":"langue",
-    "languages":"les langues"
+    "languages":"langues"
   },
   "arguments":{
     "enable":"enable",
