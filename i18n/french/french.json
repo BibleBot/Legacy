@@ -36,10 +36,10 @@
     "versenumbers":"versenumbers",
     "headings":"headings",
     "puppet":"puppet",
-    "leave":"leave",
+    "leave":"partir",
     "setlanguage":"setlanguage",
-    "language":"language",
-    "languages":"languages"
+    "language":"langue",
+    "languages":"les langues"
   },
   "arguments":{
     "enable":"enable",
