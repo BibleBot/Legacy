@@ -35,14 +35,14 @@
     "av":"av",
     "versenumbers":"versajnombroj",
     "headings":"titoloj",
-    "puppet":"puppet",
-    "leave":"leave",
-    "setlanguage":"setlanguage",
-    "language":"language",
-    "languages":"languages"
+    "puppet":"pupo",
+    "leave":"foriri",
+    "setlanguage":"metilingvo",
+    "language":"lingvo",
+    "languages":"lingvoj"
   },
   "arguments":{
-    "enable":"enable",
-    "disable":"disable"
+    "enable":"ebligi",
+    "disable":"malvalidigi"
   }
 }
