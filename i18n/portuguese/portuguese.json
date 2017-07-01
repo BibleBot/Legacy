@@ -6,7 +6,7 @@
   "versionused":"Tu estás usando <version>. Usa '+<setversion>' para definir uma versão diferente",
   "noversionused":"Não encontrei seu nome no meu banco de dados. Usou `+<setversion>` ainda?",
   "addversionsuccess":"Versão adivionado com sucesso.",
-  "addversionfail":"Failed to add version.",
+  "addversionfail":"Falha em adicionar a versão.",
   "versenumberssuccess":"Defina <versenumbers>com sucesso.",
   "versenumbersfail":"Usa `+<versenumbers> <enable>` ou `+<versenumbers> <disable>.`",
   "headingssuccess":"Defina <headings> com sucesso.",
