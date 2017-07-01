@@ -202,8 +202,6 @@ var books = {
         "judith": "Judith", // Apocrypha
         "judeth": "Judith",
         "jdt": "Judith",
-        "wisdom": "Wisdom",
-        "wis": "Wisdom",
         "wisdomofsolomon": "Wisdom",
         "tobit": "Tobit",
         "tob": "Tobit",
