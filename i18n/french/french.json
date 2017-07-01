@@ -1,5 +1,5 @@
 {
-  "biblebot":"**BotBible v<biblebotversion> (précédemment connu comme HolyBot) par vipr et UnimatrixZeroOne** - code: <https://github.com/UnimatrixZeroOne/BibleBot>\n\n```commandements:\n* `+<misversion> ABBV` - mettre version préféré à ABBV\n* `+<version>` - voir le version que tu as mis\n* `+<versions>` - voir les versions soutenu\n* `+<auhasard>` - obtenir un verset aléatoire du bible\n* `+<versetdujour>` (`+<vduj>`) - obtenir le verset du jour\n* `+<rubriques> <active>/<désactive>` - activer ou désactiver les titres des sections\n* `+<versetsnombres> <active>/<désactive>` - activer or désactiver les nombres des verset de showing on each line\n* `+<language>` - see your current language, if one is set (default: english)\n* `+<setlanguage> LANG` - set preferred language to LANG\n* `+<languages>` - see the supported languages```\n**To use it, just say a Bible verse. I'll handle the rest.**",
+  "biblebot":"**BotBible v<biblebotversion> (précédemment connu comme HolyBot) par vipr et UnimatrixZeroOne** - code: <https://github.com/UnimatrixZeroOne/BibleBot>\n\n```commandements:\n* `+<setversion> ABBV` - mettre version préféré à ABBV\n* `+<version>` - voir le version que tu as mis\n* `+<versions>` - voir les versions soutenu\n* `+<random>` - obtenir un verset aléatoire du bible\n* `+<verseoftheday>` (`+<votd>`) - obtenir le verset du jour\n* `+<headings> <enable>/<disable>` - activer ou désactiver les titres des sections\n* `+<versenumbers> <enable>/<disable>` - activer or désactiver les nombres des verset de showing on each line\n* `+<language>` - see your current language, if one is set (default: english)\n* `+<setlanguage> LANG` - set preferred language to LANG\n* `+<languages>` - see the supported languages```\n**To use it, just say a Bible verse. I'll handle the rest.**",
   "versions":"Je soutiens",
   "setversionsuccess":"Mis le version avec succès.",
   "setversionfail":"Raté à mettre le version; je ne soutiens que",
@@ -29,7 +29,7 @@
     "versions":"versions",
     "votd":"votd",
     "verseoftheday":"verseoftheday",
-    "random":"au hasard",
+    "random":"hasard",
     "biblebot":"biblebot",
     "addversion":"addversion",
     "av":"av",
