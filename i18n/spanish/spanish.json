@@ -28,21 +28,21 @@
     "version":"version",
     "versions":"versiones",
     "votd":"vdd",
-    "verseoftheday":"verseoftheday",
-    "random":"random",
+    "verseoftheday":"versodeldia",
+    "random":"aleatorio",
     "biblebot":"biblebot",
-    "addversion":"addversion",
+    "addversion":"agregarversion",
     "av":"av",
-    "versenumbers":"versenumbers",
-    "headings":"headings",
-    "puppet":"puppet",
-    "leave":"leave",
-    "setlanguage":"setlanguage",
-    "language":"language",
-    "languages":"languages"
+    "versenumbers":"versonumero",
+    "headings":"titulos",
+    "puppet":"titere",
+    "leave":"salir",
+    "setlanguage":"defidioma",
+    "language":"idioma",
+    "languages":"idiomas"
   },
   "arguments":{
-    "enable":"enable",
-    "disable":"disable"
+    "enable":"habilitar",
+    "disable":"deshabilitar"
   }
 }
