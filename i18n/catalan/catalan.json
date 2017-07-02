@@ -3,7 +3,7 @@
   "versions":"Jo suporto",
   "setversionsuccess":"Versió seleccionada correctament.",
   "setversionfail":"S'ha fallat al seleccionar la versió, només suporto",
-  "versionused":"You are using <version>. Use `+<setversion>` to set a different version",
+  "versionused":"Esteu fent servir <version>. Useu `+<setversion>` per a fer servir una versió diferent",
   "noversionused":"I couldn't find your name in my database, have you used `+<setversion>` yet?",
   "addversionsuccess":"Added version successfully.",
   "addversionfail":"Failed to add version.",
