@@ -632,8 +632,8 @@ bot.on("message", raw => {
 
             // make sure that its proper verse structure
             // Book chapterNum:chapterVerse
-            if (typeof Number(spaceSplit[index + 1]) != "number" ||
-                typeof Number(spaceSplit[index + 2]) != "number") {
+            if (isNaN(spaceSplit[index + 1]) ||
+                isNaN(spaceSplit[index + 2])) {
                 return;
             }
 
