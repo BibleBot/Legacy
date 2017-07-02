@@ -38,11 +38,11 @@
     "puppet":"titella",
     "leave":"sortir",
     "setlanguage":"defidioma",
-    "language":"language",
-    "languages":"languages"
+    "language":"idioma",
+    "languages":"idiomes"
   },
   "arguments":{
-    "enable":"enable",
-    "disable":"disable"
+    "enable":"habilitar",
+    "disable":"deshabilitar"
   }
 }
