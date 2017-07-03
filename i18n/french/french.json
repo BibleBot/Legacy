@@ -9,7 +9,7 @@
   "addversionfail":"Raté d'ajouter le version.",
   "versenumberssuccess":"Mis <versenumbers> avec succès.",
   "versenumbersfail":"Utilise `+<versenumbers><enable>` ou `+<versenumbers><disable>.`",
-  "headingssuccess":"Set <headings> successfully.",
+  "headingssuccess":"Variable <headings> réglée avec succès.",
   "headingsfail":"Use `+<headings> <enable>` or `+<headings> <disable>.`",
   "setlanguagesuccess":"Set language successfully.",
   "setlanguagefail":"Failed to set language, I only support",
