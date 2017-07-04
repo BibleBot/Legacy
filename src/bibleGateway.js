@@ -125,11 +125,11 @@ var bibleGateway = {
 
                     if (verseNumbers == "disable") {
                         $(".chapternum").each(function() {
-                            $(this).html("");
+                            $(this).html(" ");
                         });
 
                         $(".versenum").each(function() {
-                            $(this).html("");
+                            $(this).html(" ");
                         });
                     } else {
                         $(".chapternum").each(function() {
@@ -152,9 +152,11 @@ var bibleGateway = {
                     });
 
                     var title = "";
-                    verse.find("h3").each(function() {
-                        title += $(this).text() + " / ";
-                    });
+                    if (headings == "enable") {
+                        verse.find("h3").each(function() {
+                            title += $(this).text() + " / ";
+                        });
+                    }
 
                     $(".crossrefs").html("");
                     $(".footnotes").html("");
