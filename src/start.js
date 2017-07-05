@@ -222,8 +222,8 @@ bot.on("reconnecting", () => {
     logMessage("info", "global", "global", "attempting to reconnect");
 });
 
-bot.on("disconnect", event => {
-    logMessage("info", "global", "global", "disconnected - closeevent code: " + event.code);
+bot.on("disconnect", () => {
+    logMessage("info", "global", "global", "disconnected");
 });
 
 bot.on("warning", warn => {
@@ -360,7 +360,7 @@ bot.on("message", raw => {
     } else if (msg.startsWith("+headings")) {
         if (msg.split(" ").length != 2) {
             logMessage("info", sender, source, "empty +headings sent");
-            raw.reply("**Use +headings enable OR +headings disable**");
+            raw.reply("**Use +headings enable or +headings disable.**");
         } else {
             setHeadings(rawSender, msg.split(" ")[1], function(data) {
                 if (data) {
@@ -368,7 +368,7 @@ bot.on("message", raw => {
                     raw.reply("**Set headings successfully.**");
                 } else {
                     logMessage("info", sender, source, "failed +headings");
-                    raw.reply("**Use +headings enable OR +headings disable**");
+                    raw.reply("**Use +headings enable or +headings disable.**");
                 }
             });
         }
@@ -377,7 +377,7 @@ bot.on("message", raw => {
     } else if (msg.startsWith("+versenumbers")) {
         if (msg.split(" ").length != 2) {
             logMessage("info", sender, source, "empty +versenumbers sent");
-            raw.reply("**Use +versenumbers enable OR +versenumbers disable**");
+            raw.reply("**Use +versenumbers enable or +versenumbers disable.**");
         } else {
             setVerseNumbers(rawSender, msg.split(" ")[1], function(data) {
                 if (data) {
@@ -385,7 +385,7 @@ bot.on("message", raw => {
                     raw.reply("**Set versenumbers successfully.**");
                 } else {
                     logMessage("info", sender, source, "failed +versenumbers");
-                    raw.reply("**Use +versenumbers enable OR +versenumbers disable**");
+                    raw.reply("**Use +versenumbers enable or +versenumbers disable.**");
                 }
             });
         }
@@ -433,7 +433,7 @@ bot.on("message", raw => {
             versionDB.insert(object.toObject(), function(err, doc) {
                 if (err) {
                     logMessage("err", "versiondb", "global", err);
-                    raw.reply("**[error] failed to add version");
+                    raw.reply("**Failed to add version.**");
                 } else {
                     raw.reply("**Version added successfully.**");
                 }
@@ -632,8 +632,8 @@ bot.on("message", raw => {
 
             // make sure that its proper verse structure
             // Book chapterNum:chapterVerse
-            if (typeof Number(spaceSplit[index + 1]) != "number" ||
-                typeof Number(spaceSplit[index + 2]) != "number") {
+            if (Number.isNaN(spaceSplit[index + 1]) ||
+                Number.isNaN(spaceSplit[index + 2])) {
                 return;
             }
 
@@ -641,7 +641,7 @@ bot.on("message", raw => {
             verse.push(spaceSplit[index + 1]); // book chapter
             verse.push(spaceSplit[index + 2]); // starting verse
 
-            if (!isNaN(parseFloat(spaceSplit[index + 3]))) {
+            if (!Number.isNaN(spaceSplit[index + 3])) {
                 verse.push(spaceSplit[index + 3]); // ending verse
             }
 
@@ -664,6 +664,10 @@ bot.on("message", raw => {
                 if (typeof verse[i] != "undefined") {
                     verse[i] = verse[i].replaceAll(/[^a-zA-Z0-9:]/g, "");
                 }
+            }
+
+            if (Number.isNaN(verse[1]) || Number.isNaN(verse[2])) {
+                return;
             }
 
             if (verse.length < 4) {
