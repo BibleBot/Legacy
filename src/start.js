@@ -745,7 +745,7 @@ bot.on("message", raw => {
 
                         bibleGateway.getResult(properString, version, headings, verseNumbers).then(function(result) {
                             result.forEach(function(object) {
-                                var content = "```" + object.title + "\n\n" + object.text + "```";
+                                var content = "```" + object.title + "\n\n" + object.text + "```\n**" + object.copyright + "**";
                                 var responseString = "**" + object.passage + " - " + object.version + "**\n\n" + content;
 
                                 if (responseString.length < 2000) {
