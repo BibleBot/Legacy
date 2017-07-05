@@ -222,8 +222,8 @@ bot.on("reconnecting", () => {
     logMessage("info", "global", "global", "attempting to reconnect");
 });
 
-bot.on("disconnect", event => {
-    logMessage("info", "global", "global", "disconnected - closeevent code: " + event.code);
+bot.on("disconnect", () => {
+    logMessage("info", "global", "global", "disconnected");
 });
 
 bot.on("warning", warn => {
