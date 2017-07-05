@@ -1,6 +1,8 @@
 var request = require("request");
 var cheerio = require("cheerio");
 
+import * as copyrights from "./copyrights";
+
 // code partially ripped from @toffebjorkskog's node-biblegateway-api
 // because i'm impatient (sorry love you)
 
@@ -165,7 +167,8 @@ var bibleGateway = {
                         "passage": verse.find(".passage-display-bcv").text(),
                         "version": verse.find(".passage-display-version").text(),
                         "title": title.slice(0, -3),
-                        "text": purifyText(verse.find("p").text())
+                        "text": purifyText(verse.find("p").text()),
+                        "copyright": copyrights.contains(version) ? copyrights[version] : "Unknown copyright."
                     };
 
                     verses.push(verseObject);
