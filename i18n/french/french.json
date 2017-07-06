@@ -18,10 +18,10 @@
   "languages":"Je soutiens",
   "otnotsupported":"La version <version> ne comprend pas l'Ancien Testament.",
   "ntnotsupported":"La version <version> ne comprend pas le Nouveau Testament.",
-  "aponotsupported":"Cette version <version> ne soutient pas l'Apocryphe/le Deutérocanon.",
+  "aponotsupported":"Cette version <version> ne contient pas l'Apocryphe/le Deutérocanon.",
   "otnotsupported2":"Si vous souhaitez consulter l'Ancien Testament, entrez la commande `+<setversion>` pour choisir une version qui le contient.",
   "ntnotsupported2":"Si vous souhaitez consulter le Nouveau Testament, entrez la commande `+<setversion>` pour choisir une version qui le contient.",
-  "aponotsupported2":"Si vous voulez utiliser l'Apocryphe/le Deutérocanon, entrez `+<setversion>`pour choisir une version qui le contient.",
+  "aponotsupported2":"Si vous voulez consulter l'Apocryphe/le Deutérocanon, entrez `+<setversion>`pour choisir une version qui le contient.",
   "passagetoolong":"Ce passage est trop long pour que je le cite, désolé.",
   "commands":{
     "setversion":"choisirversion",
