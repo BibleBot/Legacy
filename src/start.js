@@ -393,6 +393,11 @@ bot.on("message", raw => {
                 }
 
                 bibleGateway.getVOTD(version, headings, verseNumbers).then(function(result) {
+                    if (result == "too long") {
+                        channel.sendMessage(language.rawobj.passagetoolong);
+                        return;
+                    }
+
                     logMessage("info", sender, source, "+votd");
                     channel.sendMessage(result);
                 });
