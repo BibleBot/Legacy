@@ -1,27 +1,27 @@
 {
-  "biblebot":"**BibleBot v<biblebotversion> (précédemment connu sous le nom de HolyBot) par vipr et UnimatrixZeroOne** - code: <https://github.com/UnimatrixZeroOne/BibleBot>\n\n```commandes:\n* `+<setversion> ABBV` - mettre version préférée à ABBV\n* `+<version>` - voir la version que tu as mise\n* `+<versions>` - voir les versions existantes\n* `+<random>` - obtenir un verset aléatoire de la Bible\n* `+<verseoftheday>` (`+<votd>`) - obtenir le verset du jour\n* `+<headings> <enable>/<disable>` - activer ou désactiver les titres des sections\n* `+<versenumbers> <enable>/<disable>` - afficher ou ne pas afficher les numéros des versets \n* `+<language>` - voir la langue actuellement utilisée (langue par défaut : anglais)\n* `+<setlanguage> LANG` - paramétrer la langue préférée \n* `+<languages>` - voir la liste des langues existantes```\n**To use it, just say a Bible verse. I'll handle the rest.**",
-  "versions":"Je soutiens",
+  "biblebot":"**BibleBot v<biblebotversion> (précédemment connu sous le nom de HolyBot) par vipr et UnimatrixZeroOne** - code: <https://github.com/UnimatrixZeroOne/BibleBot>\n\n```commandes:\n* `+<setversion> ABBV` - mettre version préférée à ABBV\n* `+<version>` - voir la version que tu as mise\n* `+<versions>` - voir les versions existantes\n* `+<random>` - obtenir un verset aléatoire de la Bible\n* `+<verseoftheday>` (`+<votd>`) - obtenir le verset du jour\n* `+<headings> <enable>/<disable>` - activer ou désactiver les titres des sections\n* `+<versenumbers> <enable>/<disable>` - afficher ou ne pas afficher les numéros des versets \n* `+<language>` - voir la langue actuellement utilisée (langue par défaut : anglais)\n* `+<setlanguage> LANG` - paramétrer la langue préférée \n* `+<languages>` - voir la liste des langues existantes```\n**Pour m'utiliser, marquez juste une référence de verset. Je me charge du reste.**",
+  "versions":"Versions supportées",
   "setversionsuccess":"Version paramétrée avec succès.",
-  "setversionfail":"Raté à mettre le version; je ne soutiens que",
-  "versionused":"Tu utilises <version>. Utilise `+<setversion>` à mettre un autre version.",
+  "setversionfail":"Échec du paramétrage de la version, je ne connais que",
+  "versionused":"Tu utilises <version>. Utilise `+<setversion>` pour choisir une autre version",
   "noversionused":"Je ne pouvais pas trouver ton nom dans ma base de données, est-ce que tu as déja utilisé `+<setversion>` ?",
-  "addversionsuccess":"Ajouté le version avec succès.",
-  "addversionfail":"Raté d'ajouter le version.",
-  "versenumberssuccess":"Mis <versenumbers> avec succès.",
-  "versenumbersfail":"Utilise `+<versenumbers><enable>` ou `+<versenumbers><disable>.`",
+  "addversionsuccess":"Version ajoutée avec succès.",
+  "addversionfail":"Échec de l'ajout de version.",
+  "versenumberssuccess":"<versenumbers> paramétré avec succès.",
+  "versenumbersfail":"Utilise `+<versenumbers> <enable>` ou `+<versenumbers> <disable>.`",
   "headingssuccess":"Variable <headings> réglée avec succès.",
   "headingsfail":"Entrez la commande `+<headings><enable>` ou `+<headings><disable>`",
   "setlanguagesuccess":"Langue paramétrée avec succès.",
   "setlanguagefail":"Impossible de paramétrer cette langue, je n'accepte que",
   "languageused":"Vous utilisez actuellement <the default language (replace by the language name)>. Entrez la commande `+<setlanguage>` pour choisir un autre langue.",
-  "nolanguageused":"I couldn't find your name in my database, have you used `+<setlanguage>` yet?",
-  "languages":"I support",
+  "nolanguageused":"Je ne pouvais pas trouver ton nom dans ma base de données, est-ce que tu as déja utilisé `+<setlanguage>` ?",
+  "languages":"Je parle",
   "otnotsupported":"La version <version> ne comprend pas l'Ancien Testament.",
   "ntnotsupported":"La version <version> ne comprend pas le Nouveau Testament.",
-  "aponotsupported":"The version <version> doesn't support the Apocrypha/Deuterocanon.",
+  "aponotsupported":"Cette version <version> ne contient pas l'Apocryphe/le Deutérocanon.",
   "otnotsupported2":"Si vous souhaitez consulter l'Ancien Testament, entrez la commande `+<setversion>` pour choisir une version qui le contient.",
   "ntnotsupported2":"Si vous souhaitez consulter le Nouveau Testament, entrez la commande `+<setversion>` pour choisir une version qui le contient.",
-  "aponotsupported2":"If you want to use the Apocrypha/Deuterocanon, `+<setversion>` to a version that has it.",
+  "aponotsupported2":"Si vous voulez consulter l'Apocryphe/le Deutérocanon, entrez `+<setversion>`pour choisir une version qui le contient.",
   "passagetoolong":"Ce passage est trop long pour que je le cite, désolé.",
   "commands":{
     "setversion":"choisirversion",
@@ -30,7 +30,7 @@
     "votd":"vdj",
     "verseoftheday":"versetdujour",
     "random":"hasard",
-    "biblebot":"bibliste",
+    "biblebot":"biblebot",
     "addversion":"ajouterversion",
     "av":"av",
     "versenumbers":"n°deverset",
@@ -42,7 +42,7 @@
     "languages":"langues"
   },
   "arguments":{
-    "enable":"enable",
-    "disable":"disable"
+    "enable":"afficher",
+    "disable":"désactiver"
   }
 }
