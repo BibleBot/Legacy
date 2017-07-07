@@ -50,7 +50,7 @@ var bibleGateway = {
                     result.forEach(function(object) {
                         var purifiedObjectText = purifyText(object.text);
 
-                        var content = "```" + object.title + "\n\n" + purifiedObjectText + "```";
+                        var content = "```Dust\n" + object.title + "\n\n" + object.text + "```\n*" + object.copyright + "*";
                         var responseString = "**" + object.passage + " - " + object.version + "**\n\n" + content;
 
                         if (responseString.length < 2000) {
@@ -83,13 +83,13 @@ var bibleGateway = {
                     result.forEach(function(object) {
                         var purifiedObjectText = purifyText(object.text);
 
-                        var content = "```" + object.title + "\n\n" + purifiedObjectText + "```";
+                        var content = "```Dust\n" + object.title + "\n\n" + object.text + "```\n*" + object.copyright + "*";
                         var responseString = "**" + object.passage + " - " + object.version + "**\n\n" + content;
 
                         if (responseString.length < 2000) {
                             resolve(responseString);
                         } else {
-                            getVOTD(version, headings, verseNumbers);
+                            resolve("too long");
                         }
                     });
                 }).catch(function(err) {
