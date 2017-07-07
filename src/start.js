@@ -286,8 +286,6 @@ bot.on("message", raw => {
     var msg = raw.content;
     var source;
 
-    if (sender != "vipr#4035") return;
-
     if (isUnmigrated(sender)) {
         migrateUserToID(rawSender);
     }
