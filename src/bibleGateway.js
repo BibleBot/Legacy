@@ -13,8 +13,8 @@ String.prototype.replaceAll = function(target, replacement) {
 
 function purifyText(text) {
     return text.replaceAll("“", " \"")
-        .replaceAll("[", " [")
-        .replaceAll("]", "] ")
+        .replaceAll("[", " <")
+        .replaceAll("]", "> ")
         .replaceAll("”", "\" ")
         .replaceAll("‘", "'")
         .replaceAll("’", "'")
