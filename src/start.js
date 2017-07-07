@@ -246,7 +246,7 @@ function getLanguage(user, callback) {
         if (docs.length > 0) {
             return callback(languages[docs[0].language]);
         } else {
-            return callback(languages["english_us"]);
+            return callback(languages.english_us);
         }
     });
 }
@@ -286,11 +286,12 @@ bot.on("message", raw => {
     var msg = raw.content;
     var source;
 
+
     if (isUnmigrated(sender)) {
         migrateUserToID(rawSender);
     }
 
-    getLanguage(rawSender, function (language) {
+    getLanguage(rawSender, function(language) {
         if ((typeof channel.guild != "undefined") && (typeof channel.name != "undefined")) {
             source = channel.guild.name + "#" + channel.name;
         } else {
@@ -308,7 +309,7 @@ bot.on("message", raw => {
             "W", "X", "Y", "Z"
         ];
 
-        if (msg == "+" + language.rawobj.commands["leave"] && sender == config.owner) {
+        if (msg == "+" + language.rawobj.commands.leave && sender == config.owner) {
             logMessage("info", sender, source, "+leave");
 
             try {
@@ -318,42 +319,42 @@ bot.on("message", raw => {
             } catch (e) {
                 channel.sendMessage(e);
             }
-        } else if (msg.startsWith("+" + language.rawobj.commands["puppet"]) && sender == config.owner) {
+        } else if (msg.startsWith("+" + language.rawobj.commands.puppet) && sender == config.owner) {
             // requires manage messages permission (and possibly administrator)
             raw.delete();
             logMessage("info", sender, source, "+puppet");
             channel.sendMessage(msg.replaceAll("+puppet ", ""));
-        } else if (msg == "+" + language.rawobj.commands["biblebot"]) {
+        } else if (msg == "+" + language.rawobj.commands.biblebot) {
             logMessage("info", sender, source, "+biblebot");
 
             var response = language.rawobj.biblebot;
             response = response.replace("<biblebotversion>", process.env.npm_package_version);
 
-            response = response.replace("<setversion>", language.rawobj.commands["setversion"]);
-            response = response.replace("<version>", language.rawobj.commands["version"]);
-            response = response.replace("<versions>", language.rawobj.commands["versions"]);
-            response = response.replace("<votd>", language.rawobj.commands["votd"]);
-            response = response.replace("<verseoftheday>", language.rawobj.commands["verseoftheday"]);
-            response = response.replace("<random>", language.rawobj.commands["random"]);
-            response = response.replace("<biblebot>", language.rawobj.commands["biblebot"]);
-            response = response.replace("<addversion>", language.rawobj.commands["addversion"]);
-            response = response.replace("<av>", language.rawobj.commands["av"]);
-            response = response.replace("<versenumbers>", language.rawobj.commands["versenumbers"]);
-            response = response.replace("<headings>", language.rawobj.commands["headings"]);
-            response = response.replace("<puppet>", language.rawobj.commands["puppet"]);
-            response = response.replace("<setlanguage>", language.rawobj.commands["setlanguage"]);
-            response = response.replace("<language>", language.rawobj.commands["language"]);
-            response = response.replace("<languages>", language.rawobj.commands["languages"]);
-            response = response.replace("<enable>", language.rawobj.arguments["enable"]);
-            response = response.replace("<disable>", language.rawobj.arguments["disable"]);
-            response = response.replace("<enable>", language.rawobj.arguments["enable"]);
-            response = response.replace("<disable>", language.rawobj.arguments["disable"]);
+            response = response.replace("<setversion>", language.rawobj.commands.setversion);
+            response = response.replace("<version>", language.rawobj.commands.version);
+            response = response.replace("<versions>", language.rawobj.commands.versions);
+            response = response.replace("<votd>", language.rawobj.commands.votd);
+            response = response.replace("<verseoftheday>", language.rawobj.commands.verseoftheday);
+            response = response.replace("<random>", language.rawobj.commands.random);
+            response = response.replace("<biblebot>", language.rawobj.commands.biblebot);
+            response = response.replace("<addversion>", language.rawobj.commands.addversion);
+            response = response.replace("<av>", language.rawobj.commands.av);
+            response = response.replace("<versenumbers>", language.rawobj.commands.versenumbers);
+            response = response.replace("<headings>", language.rawobj.commands.headings);
+            response = response.replace("<puppet>", language.rawobj.commands.puppet);
+            response = response.replace("<setlanguage>", language.rawobj.commands.setlanguage);
+            response = response.replace("<language>", language.rawobj.commands.language);
+            response = response.replace("<languages>", language.rawobj.commands.languages);
+            response = response.replace("<enable>", language.rawobj.arguments.enable);
+            response = response.replace("<disable>", language.rawobj.arguments.disable);
+            response = response.replace("<enable>", language.rawobj.arguments.enable);
+            response = response.replace("<disable>", language.rawobj.arguments.disable);
 
 
             channel.sendMessage(response);
-        } else if (msg == "+" + language.rawobj.commands["random"]) {
+        } else if (msg == "+" + language.rawobj.commands.random) {
             getVersion(rawSender, function(data) {
-                var version = language["defversion"];
+                var version = language.defversion;
                 var headings = "enable";
                 var verseNumbers = "enable";
 
@@ -374,9 +375,9 @@ bot.on("message", raw => {
                     channel.sendMessage(result);
                 });
             });
-        } else if (msg == "+" + language.rawobj.commands["verseoftheday"] || msg == "+" + language.rawobj.commands["votd"]) {
+        } else if (msg == "+" + language.rawobj.commands.verseoftheday || msg == "+" + language.rawobj.commands.votd) {
             getVersion(rawSender, function(data) {
-                var version = language["defversion"];
+                var version = language.defversion;
                 var headings = "enable";
                 var verseNumbers = "enable";
 
@@ -402,7 +403,7 @@ bot.on("message", raw => {
                     channel.sendMessage(result);
                 });
             });
-        } else if (msg.startsWith("+" + language.rawobj.commands["setversion"])) {
+        } else if (msg.startsWith("+" + language.rawobj.commands.setversion)) {
             if (msg.split(" ").length != 2) {
                 versionDB.find({}, function(err, docs) {
                     var chatString = "";
@@ -434,16 +435,16 @@ bot.on("message", raw => {
             }
 
             return;
-        } else if (msg.startsWith("+" + language.rawobj.commands["headings"])) {
+        } else if (msg.startsWith("+" + language.rawobj.commands.headings)) {
             if (msg.split(" ").length != 2) {
                 logMessage("info", sender, source, "empty +headings sent");
 
                 var response = language.rawobj.headingsfail;
 
-                response = response.replace("<headings>", language.rawobj.commands["headings"]);
-                response = response.replace("<headings>", language.rawobj.commands["headings"]);
-                response = response.replace("<enable>", language.rawobj.arguments["enable"]);
-                response = response.replace("<disable>", language.rawobj.arguments["disable"]);
+                response = response.replace("<headings>", language.rawobj.commands.headings);
+                response = response.replace("<headings>", language.rawobj.commands.headings);
+                response = response.replace("<enable>", language.rawobj.arguments.enable);
+                response = response.replace("<disable>", language.rawobj.arguments.disable);
 
                 raw.reply("**" + response + "**");
             } else {
@@ -451,7 +452,7 @@ bot.on("message", raw => {
                     if (data) {
                         logMessage("info", sender, source, "+headings " + msg.split(" ")[1]);
                         var response = language.rawobj.headingssuccess;
-                        response = response.replace("<headings>", language.rawobj.commands["headings"]);
+                        response = response.replace("<headings>", language.rawobj.commands.headings);
 
                         raw.reply("**" + response + "**");
                     } else {
@@ -459,10 +460,10 @@ bot.on("message", raw => {
 
                         var response = language.rawobj.headingsfail;
 
-                        response = response.replace("<headings>", language.rawobj.commands["headings"]);
-                        response = response.replace("<headings>", language.rawobj.commands["headings"]);
-                        response = response.replace("<enable>", language.rawobj.arguments["enable"]);
-                        response = response.replace("<disable>", language.rawobj.arguments["disable"]);
+                        response = response.replace("<headings>", language.rawobj.commands.headings);
+                        response = response.replace("<headings>", language.rawobj.commands.headings);
+                        response = response.replace("<enable>", language.rawobj.arguments.enable);
+                        response = response.replace("<disable>", language.rawobj.arguments.disable);
 
                         raw.reply("**" + response + "**");
                     }
@@ -470,16 +471,16 @@ bot.on("message", raw => {
             }
 
             return;
-        } else if (msg.startsWith("+" + language.rawobj.commands["versenumbers"])) {
+        } else if (msg.startsWith("+" + language.rawobj.commands.versenumbers)) {
             if (msg.split(" ").length != 2) {
                 logMessage("info", sender, source, "empty +versenumbers sent");
 
                 var response = language.rawobj.versenumbersfail;
 
-                response = response.replace("<versenumbers>", language.rawobj.commands["versenumbers"]);
-                response = response.replace("<versenumbers>", language.rawobj.commands["versenumbers"]);
-                response = response.replace("<enable>", language.rawobj.arguments["enable"]);
-                response = response.replace("<disable>", language.rawobj.arguments["disable"]);
+                response = response.replace("<versenumbers>", language.rawobj.commands.versenumbers);
+                response = response.replace("<versenumbers>", language.rawobj.commands.versenumbers);
+                response = response.replace("<enable>", language.rawobj.arguments.enable);
+                response = response.replace("<disable>", language.rawobj.arguments.disable);
 
                 raw.reply("**" + response + "**");
             } else {
@@ -488,7 +489,7 @@ bot.on("message", raw => {
                         logMessage("info", sender, source, "+versenumbers " + msg.split(" ")[1]);
 
                         var response = language.rawobj.versenumberssuccess;
-                        response = response.replace("<versenumbers>", language.rawobj.commands["versenumbers"]);
+                        response = response.replace("<versenumbers>", language.rawobj.commands.versenumbers);
 
                         raw.reply("**" + response + "**");
                     } else {
@@ -496,10 +497,10 @@ bot.on("message", raw => {
 
                         var response = language.rawobj.versenumbersfail;
 
-                        response = response.replace("<versenumbers>", language.rawobj.commands["versenumbers"]);
-                        response = response.replace("<versenumbers>", language.rawobj.commands["versenumbers"]);
-                        response = response.replace("<enable>", language.rawobj.arguments["enable"]);
-                        response = response.replace("<disable>", language.rawobj.arguments["disable"]);
+                        response = response.replace("<versenumbers>", language.rawobj.commands.versenumbers);
+                        response = response.replace("<versenumbers>", language.rawobj.commands.versenumbers);
+                        response = response.replace("<enable>", language.rawobj.arguments.enable);
+                        response = response.replace("<disable>", language.rawobj.arguments.disable);
 
                         raw.reply("**" + response + "**");
                     }
@@ -507,7 +508,7 @@ bot.on("message", raw => {
             }
 
             return;
-        } else if (msg == "+" + language.rawobj.commands["version"]) {
+        } else if (msg == "+" + language.rawobj.commands.version) {
             getVersion(rawSender, function(data) {
                 logMessage("info", sender, source, "+version");
 
@@ -516,27 +517,27 @@ bot.on("message", raw => {
                         var response = language.rawobj.versionused;
 
                         response = response.replace("<version>", data[0].version);
-                        response = response.replace("<setversion>", language.rawobj.commands["setversion"]);
+                        response = response.replace("<setversion>", language.rawobj.commands.setversion);
 
                         raw.reply("**" + response + ".**");
                     } else {
                         var response = language.rawobj.noversionused;
 
-                        response = response.replace("<setversion>", language.rawobj.commands["setversion"]);
+                        response = response.replace("<setversion>", language.rawobj.commands.setversion);
 
                         raw.reply("**" + response + "**");
                     }
                 } else {
                     var response = language.rawobj.noversionused;
 
-                    response = response.replace("<setversion>", language.rawobj.commands["setversion"]);
+                    response = response.replace("<setversion>", language.rawobj.commands.setversion);
 
                     raw.reply("**" + response + "**");
                 }
             });
 
             return;
-        } else if (msg == "+" + language.rawobj.commands["versions"]) {
+        } else if (msg == "+" + language.rawobj.commands.versions) {
             versionDB.find({}, function(err, docs) {
                 var chatString = "";
                 for (var i in docs) {
@@ -546,7 +547,7 @@ bot.on("message", raw => {
                 logMessage("info", sender, source, "+versions");
                 raw.reply("**" + language.rawobj.versions + ":**\n```" + chatString.slice(0, -2) + "```");
             });
-        } else if (msg.startsWith("+" + language.rawobj.commands["setlanguage"])) {
+        } else if (msg.startsWith("+" + language.rawobj.commands.setlanguage)) {
             if (msg.split(" ").length != 2) {
                 var chatString = "";
                 Object.keys(languages).forEach(function(key) {
@@ -555,7 +556,6 @@ bot.on("message", raw => {
                         case "isLanguage":
                         case "isIncomplete":
                             return;
-                            break;
                         default:
                             chatString += languages[key].name + " [" + key + "], ";
                             break;
@@ -578,7 +578,6 @@ bot.on("message", raw => {
                                 case "isLanguage":
                                 case "isIncomplete":
                                     return;
-                                    break;
                                 default:
                                     chatString += languages[key].name + " [" + key + "], ";
                                     break;
@@ -592,20 +591,20 @@ bot.on("message", raw => {
             }
 
             return;
-        } else if (msg == "+" + language.rawobj.commands["language"]) {
+        } else if (msg == "+" + language.rawobj.commands.language) {
             getLanguage(rawSender, function(data) {
                 logMessage("info", sender, source, "+language");
 
                 if (data) {
                     var response = language.rawobj.languageused;
 
-                    response = response.replace("<setlanguage>", language.rawobj.commands["setlanguage"]);
+                    response = response.replace("<setlanguage>", language.rawobj.commands.setlanguage);
 
                     raw.reply("**" + response + "**");
                 } else {
                     var response = language.rawobj.languageused;
 
-                    response = response.replace("<setlanguage>", language.rawobj.commands["setlanguage"]);
+                    response = response.replace("<setlanguage>", language.rawobj.commands.setlanguage);
 
                     raw.reply("**" + response + "**");
                 }
@@ -613,7 +612,7 @@ bot.on("message", raw => {
             });
 
             return;
-        } else if (msg == "+" + language.rawobj.commands["languages"]) {
+        } else if (msg == "+" + language.rawobj.commands.languages) {
             var chatString = "";
             Object.keys(languages).forEach(function(key) {
                 switch (key) {
@@ -621,7 +620,6 @@ bot.on("message", raw => {
                     case "isLanguage":
                     case "isIncomplete":
                         return;
-                        break;
                     default:
                         chatString += languages[key].name + " [" + key + "], ";
                         break;
@@ -631,7 +629,7 @@ bot.on("message", raw => {
             logMessage("info", sender, source, "+languages");
             raw.reply("**" + language.rawobj.languages + ":**\n```" + chatString.slice(0, -2) + "```");
             return;
-        } else if (msg.startsWith("+" + language.rawobj.commands["addversion"]) || msg.startsWith("+" + language.rawobj.commands["av"])) {
+        } else if (msg.startsWith("+" + language.rawobj.commands.addversion) || msg.startsWith("+" + language.rawobj.commands.av)) {
             if (sender == config.owner || (config.versionadders.indexOf(sender) != -1)) {
                 var argv = msg.split(" ");
                 var argc = argv.length;
@@ -901,7 +899,7 @@ bot.on("message", raw => {
 
 
                 getVersion(rawSender, function(data) {
-                    var version = language["defversion"];
+                    var version = language.defversion;
                     var headings = "enable";
                     var verseNumbers = "enable";
 
@@ -939,7 +937,7 @@ bot.on("message", raw => {
                                     response = response.replace("<version>", docs[0].name);
 
                                     var response2 = language.rawobj.otnotsupported2;
-                                    response2 = response2.replace("<setversion>", language.rawobj.commands["setversion"]);
+                                    response2 = response2.replace("<setversion>", language.rawobj.commands.setversion);
 
                                     channel.sendMessage(response);
                                     channel.sendMessage(response2);
@@ -960,7 +958,7 @@ bot.on("message", raw => {
                                     response = response.replace("<version>", docs[0].name);
 
                                     var response2 = language.rawobj.ntnotsupported2;
-                                    response2 = response2.replace("<setversion>", language.rawobj.commands["setversion"]);
+                                    response2 = response2.replace("<setversion>", language.rawobj.commands.setversion);
 
                                     channel.sendMessage(response);
                                     channel.sendMessage(response2);
@@ -981,7 +979,7 @@ bot.on("message", raw => {
                                     response = response.replace("<version>", docs[0].name);
 
                                     var response2 = language.rawobj.aponotsupported2;
-                                    response2 = response2.replace("<setversion>", language.rawobj.commands["setversion"]);
+                                    response2 = response2.replace("<setversion>", language.rawobj.commands.setversion);
 
                                     channel.sendMessage(response);
                                     channel.sendMessage(response2);
