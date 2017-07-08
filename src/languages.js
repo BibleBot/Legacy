@@ -4,6 +4,7 @@ var english_uk = require(__dirname + "/../i18n/english_uk/english_uk.json");
 var english_us = require(__dirname + "/../i18n/english_us/english_us.json");
 var esperanto = require(__dirname + "/../i18n/esperanto/esperanto.json");
 var french = require(__dirname + "/../i18n/french/french.json");
+var german = require(__dirname + "/../i18n/german/german.json");
 var norwegian = require(__dirname + "/../i18n/norwegian/norwegian.json");
 var portuguese = require(__dirname + "/../i18n/portuguese/portuguese.json");
 var portuguese_br = require(__dirname +
@@ -59,6 +60,12 @@ var languages = {
         "name": "Français",
         "rawobj": french,
         "defversion": "BDS",
+        "complete": true
+    },
+    "german": {
+        "name": "Deutsch",
+        "rawobj": german,
+        "defversion": "LUTH1545",
         "complete": true
     },
     "norwegian": {
