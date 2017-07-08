@@ -32,17 +32,17 @@
     "random":"zufällig",
     "biblebot":"bibelbot",
     "addversion":"versionhinzufügen",
-    "av":"",
-    "versenumbers":"",
-    "headings":"",
-    "puppet":"",
-    "leave":"",
-    "setlanguage":"",
-    "language":"",
-    "languages":""
+    "av":"av",
+    "versenumbers":"versnummern",
+    "headings":"überschrift",
+    "puppet":"puppe",
+    "leave":"verlassen",
+    "setlanguage":"spracheeinstellen",
+    "language":"sprache",
+    "languages":"sprachen"
   },
   "arguments":{
-    "enable":"",
-    "disable":""
+    "enable":"aktivieren",
+    "disable":"deaktivieren"
   }
 }
