@@ -47,26 +47,26 @@ var bibleGateway = {
                 var verse = $(".bibleChapter a").first().text();
 
                 bibleGateway.getResult(verse, version, headings, verseNumbers)
-                            .then(function(result) {
-                    result.forEach(function(object) {
-                        var purifiedObjectText = purifyText(object.text);
+                    .then(function(result) {
+                        result.forEach(function(object) {
+                            var purifiedObjectText = purifyText(object.text);
 
-                        var content = "```Dust\n" + object.title + "\n\n" +
-                                      object.text + "```\n*" + object.copyright
-                                      + "*";
-                        var responseString = "**" + object.passage + " - " +
-                                             object.version + "**\n\n" +
-                                             content;
+                            var content = "```Dust\n" + object.title + "\n\n" +
+                                object.text + "```\n*" + object.copyright +
+                                "*";
+                            var responseString = "**" + object.passage + " - " +
+                                object.version + "**\n\n" +
+                                content;
 
-                        if (responseString.length < 2000) {
-                            resolve(responseString);
-                        } else {
-                            getRandomVerse(version, headings, verseNumbers);
-                        }
+                            if (responseString.length < 2000) {
+                                resolve(responseString);
+                            } else {
+                                getRandomVerse(version, headings, verseNumbers);
+                            }
+                        });
+                    }).catch(function(err) {
+                        logMessage("err", "global", "bibleGateway", err);
                     });
-                }).catch(function(err) {
-                    logMessage("err", "global", "bibleGateway", err);
-                });
             });
         });
 
@@ -74,7 +74,7 @@ var bibleGateway = {
     },
     getVOTD: function(version, headings, verseNumbers) {
         var url =
-          "https://www.biblegateway.com/reading-plans/verse-of-the-day/next";
+            "https://www.biblegateway.com/reading-plans/verse-of-the-day/next";
 
         var promise = new Promise((resolve, reject) => {
             request(url, function(err, resp, body) {
@@ -86,26 +86,26 @@ var bibleGateway = {
                 var verse = $(".rp-passage-display").text();
 
                 bibleGateway.getResult(verse, version, headings, verseNumbers)
-                            .then(function(result) {
-                    result.forEach(function(object) {
-                        var purifiedObjectText = purifyText(object.text);
+                    .then(function(result) {
+                        result.forEach(function(object) {
+                            var purifiedObjectText = purifyText(object.text);
 
-                        var content = "```Dust\n" + object.title + "\n\n" +
-                                      object.text + "```\n*" + object.copyright
-                                      + "*";
-                        var responseString = "**" + object.passage + " - " +
-                                             object.version + "**\n\n" +
-                                             content;
+                            var content = "```Dust\n" + object.title + "\n\n" +
+                                object.text + "```\n*" + object.copyright +
+                                "*";
+                            var responseString = "**" + object.passage + " - " +
+                                object.version + "**\n\n" +
+                                content;
 
-                        if (responseString.length < 2000) {
-                            resolve(responseString);
-                        } else {
-                            resolve("too long");
-                        }
+                            if (responseString.length < 2000) {
+                                resolve(responseString);
+                            } else {
+                                resolve("too long");
+                            }
+                        });
+                    }).catch(function(err) {
+                        logMessage("err", "global", "bibleGateway", err);
                     });
-                }).catch(function(err) {
-                    logMessage("err", "global", "bibleGateway", err);
-                });
             });
         });
 
@@ -113,7 +113,7 @@ var bibleGateway = {
     },
     getResult: function(query, version, headings, verseNumbers) {
         var url = "https://www.biblegateway.com/passage/?search=" + query +
-                  "&version=" + version + "&interface=print";
+            "&version=" + version + "&interface=print";
 
         var promise = new Promise((resolve, reject) => {
             request(url, function(err, resp, body) {
@@ -148,13 +148,13 @@ var bibleGateway = {
                     } else {
                         $(".chapternum").each(function() {
                             $(this).html(
-                              "[" + $(this).text().slice(0, -1) + "] ");
+                                "[" + $(this).text().slice(0, -1) + "] ");
 
                         });
 
                         $(".versenum").each(function() {
                             $(this).html(
-                              "[" + $(this).text().slice(0, -1) + "] ");
+                                "[" + $(this).text().slice(0, -1) + "] ");
 
                         });
                     }
@@ -179,13 +179,11 @@ var bibleGateway = {
 
                     var verseObject = {
                         "passage": verse.find(".passage-display-bcv").text(),
-                        "version":
-                          verse.find(".passage-display-version").text(),
+                        "version": verse.find(".passage-display-version").text(),
                         "title": title.slice(0, -3),
                         "text": purifyText(verse.find("p").text()),
-                        "copyright":
-                          copyrights.contains(version) ?
-                          copyrights[version] : "Unknown copyright."
+                        "copyright": copyrights.contains(version) ?
+                            copyrights[version] : "Unknown copyright."
                     };
 
                     verses.push(verseObject);
