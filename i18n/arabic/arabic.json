@@ -1,9 +1,9 @@
 {
   "biblebot":"",
-  "versions":"",
-  "setversionsuccess":"",
-  "setversionfail":"",
-  "versionused":"",
+  "versions":"ادعم",
+  "setversionsuccess":"تم تعيين الإصدار بنجاح.",
+  "setversionfail":"فشلت في تعيين الإصدار، ادعم فقط",
+  "versionused":"إنك تستخدم <version>. إستخدم '+ <setversion>' لتعيين إصدار مختلف",
   "noversionused":"",
   "addversionsuccess":"",
   "addversionfail":"",
