@@ -286,6 +286,17 @@ bot.on("message", raw => {
     var msg = raw.content;
     var source;
 
+    if (config.debug) {
+        switch (sender) {
+            case "vipr#4035":
+            case "mimi_jean#6467":
+            case "UnimatrixZeroOne#7501":
+            case "redpanda#7299":
+                break;
+            default:
+                return;
+        }
+    }
 
     if (isUnmigrated(sender)) {
         migrateUserToID(rawSender);
