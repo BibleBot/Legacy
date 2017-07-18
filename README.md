@@ -26,6 +26,9 @@ Commands:
 * `+verseoftheday` (`+votd`) - get the verse of the day
 * `+headings enable/disable` - enable or disable the headings that display on certain verses
 * `+versenumbers enable/disable` - enable or disable verse numbers from showing on each line
+* `+languages` - show all available language translations you can set
+* `+setlanguage <language>` - set a preferred language
+* `+language` - display your current language
 
 Bot Owner Commands:
 
@@ -53,7 +56,7 @@ and the dotfiles do not need to have the version number updated.
 
 ---
 
-Special thanks to those who helped translate BibleBot to other languages:
-Bonaventure Sissokovitch, buggyrcobra, Coal, Manelic, Raven Melodie, topras.gr, Tuonela, Viva98, xnkmevaou
+Special thanks to those who helped translate BibleBot to other languages:   
+Blubb, Bonaventure Sissokovitch, Buggyrcobra, Coal, Manelic, Raven Melodie, topras.gr, Tuonela, Viva98, xnkmevaou
 
 Originally a fork of "HolyBot" created by Elliott Pardee (@[vypr](https://github.com/vypr)).
