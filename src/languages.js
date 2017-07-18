@@ -1,3 +1,4 @@
+var arabic = require(__dirname + "/../i18n/arabic/arabic.json")
 var catalan = require(__dirname + "/../i18n/catalan/catalan.json");
 var deflang = require(__dirname + "/../i18n/default/default.json");
 var english_uk = require(__dirname + "/../i18n/english_uk/english_uk.json");
@@ -23,6 +24,12 @@ var languages = {
         }
     */
 
+    "arabic": {
+      "name": "Arabic",
+      "rawobj": arabic,
+      "defversion": "NAV",
+      "complete": true
+    },
     // no catalan versions on BibleGateway, yet
     "catalan": {
         "name": "Català",
