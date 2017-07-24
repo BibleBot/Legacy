@@ -302,10 +302,11 @@ bot.on("message", raw => {
         migrateUserToID(rawSender);
     }
 
-    console.log(raw);
-    console.log(msg);
-
     getLanguage(rawSender, function(language) {
+        if (typeof language == "undefined") {
+            language = languages.english_us;
+        }
+
         if ((typeof channel.guild != "undefined") &&
             (typeof channel.name != "undefined")) {
             source = channel.guild.name + "#" + channel.name;
