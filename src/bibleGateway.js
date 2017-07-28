@@ -50,7 +50,7 @@ var bibleGateway = {
                             var purifiedObjectText = purifyText(object.text);
 
                             var content = "```Dust\n" + object.title + "\n\n" +
-                                object.text + "```\n*See <https://github.com/UnimatrixZeroOne/BibleBot/wiki/Copyrights> for copyright info.*";
+                                object.text + "```";
                             var responseString = "**" + object.passage + " - " +
                                 object.version + "**\n\n" +
                                 content;
@@ -88,7 +88,7 @@ var bibleGateway = {
                             var purifiedObjectText = purifyText(object.text);
 
                             var content = "```Dust\n" + object.title + "\n\n" +
-                                object.text + "```\n*See <https://github.com/UnimatrixZeroOne/BibleBot/wiki/Copyrights> for copyright info.*";
+                                object.text + "```";
                             var responseString = "**" + object.passage + " - " +
                                 object.version + "**\n\n" +
                                 content;
@@ -177,8 +177,7 @@ var bibleGateway = {
                         "passage": verse.find(".passage-display-bcv").text(),
                         "version": verse.find(".passage-display-version").text(),
                         "title": title.slice(0, -3),
-                        "text": purifyText(verse.find("p").text()),
-                        "copyright": "See <https://github.com/UnimatrixZeroOne/BibleBot/wiki/Copyrights> for copyright info."
+                        "text": purifyText(verse.find("p").text())
                     };
 
                     verses.push(verseObject);
