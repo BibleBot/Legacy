@@ -389,6 +389,7 @@ bot.on("message", raw => {
             response = response.replace(
                 "<disable>", language.rawobj.arguments.disable);
 
+            response += "\n\nSee <https://github.com/UnimatrixZeroOne/BibleBot/wiki/Copyrights> for copyright on Bible translations.";
 
             channel.sendMessage(response);
         } else if (msg == "+" + language.rawobj.commands.random) {
@@ -1133,8 +1134,8 @@ bot.on("message", raw => {
                                     result.forEach(function(object) {
                                         var content =
                                             "```Dust\n" + object.title + "\n\n" +
-                                            object.text + "```\n*" + object.copyright +
-                                            "*";
+                                            object.text + "```";
+
                                         var responseString =
                                             "**" + object.passage + " - " +
                                             object.version + "**\n\n" + content;
