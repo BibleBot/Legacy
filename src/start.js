@@ -294,7 +294,11 @@ bot.on("message", raw => {
             case "redpanda#7299":
                 break;
             default:
-                return;
+                if (config.versionadders.indexOf(sender) != -1) {
+                    break;
+                } else {
+                    return;
+                }
         }
     }
 
