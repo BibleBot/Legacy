@@ -23,7 +23,7 @@
   "ntnotsupported2":"Se vi volas uzi la Novan Testamenton, `+<setversion>` al versio ke enhavas ĝin.",
   "aponotsupported2":"Se vi volas uzi la Apokrifon/Duakanonon, `+<setversion>` al versio ke enhavas ĝin.",
   "passagetoolong":"La legaĵo estas tro longa ekkapti por mi, mi pardonpetas.",
-  "votdcantprocess":"",
+  "votdcantprocess":"La VDLT ne estas pretigita, vidu <https://www.biblegateway.com/> por la VDLT.",
   "commands":{
     "setversion":"metiversio",
     "version":"versio",
