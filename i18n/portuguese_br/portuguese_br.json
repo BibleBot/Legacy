@@ -23,6 +23,7 @@
   "ntnotsupported2":"Se você quer usar o Novo Testamento, usa `+<setversion>`para mudar a uma versão que tem-lo.",
   "aponotsupported2":"Se você quer usar o Apócrifo/os Deuterocanônicos, usa `+<setversion>`para mudar a uma versão que tem-lo.",
   "passagetoolong":"A passagem é demasiado longo para citar, desculpa.",
+  "votdcantprocess":"",
   "commands":{
     "setversion":"defversao",
     "version":"versao",
