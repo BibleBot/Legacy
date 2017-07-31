@@ -439,8 +439,6 @@ bot.on("message", raw => {
                     }
                 }
 
-                var sent = false;
-
                 bibleGateway.getVOTD(version, headings, verseNumbers)
                     .then(function(result) {
                         if (result == "too long") {
@@ -450,13 +448,7 @@ bot.on("message", raw => {
 
                         logMessage("info", sender, source, "+votd");
                         channel.sendMessage(result);
-                        sent = true;
                     });
-
-                if (!sent) {
-                    channel.sendMessage("Today's VOTD can't be processed, see" +
-                        " <https://www.biblegateway.com/> for the VOTD.");
-                }
             });
         } else if (msg.startsWith("+" + language.rawobj.commands.setversion)) {
             if (msg.split(" ").length != 2) {
@@ -784,7 +776,9 @@ bot.on("message", raw => {
                         var tempTempSplit = item.split(" ");
 
                         tempTempSplit.forEach(function(item) {
-                            item = item.replaceAll(/[^a-zA-Z0-9:]/g, "");
+                            console.log(item);
+                            item = item.replaceAll(/[^a-zA-Z0-9:()"'<>|\\/;*&^%$#@!.+_?=]/g, "");
+                            console.log(item);
 
                             spaceSplit.push(item);
                         });
@@ -804,6 +798,14 @@ bot.on("message", raw => {
             // must be done to ensure that its not duping itself.
             for (var i = 0; i < spaceSplit.length; i++) {
                 try {
+                    console.log(spaceSplit[i]);
+                    spaceSplit[i] = spaceSplit[i].replaceAll("(", "");
+                    spaceSplit[i] = spaceSplit[i].replaceAll(")", "");
+                    spaceSplit[i] = spaceSplit[i].replaceAll("[", "");
+                    spaceSplit[i] = spaceSplit[i].replaceAll("]", "");
+                    spaceSplit[i] = spaceSplit[i].replaceAll("<", "");
+                    spaceSplit[i] = spaceSplit[i].replaceAll(">", "");
+                    console.log(spaceSplit[i]);
                     spaceSplit[i] = capitalizeFirstLetter(spaceSplit[i]);
                 } catch (e) {
                     /* it'll probably be a number anyways, if this fails */

@@ -1,12 +1,12 @@
 {
   "name": "BibleBot",
-  "version": "3.1.7",
+  "version": "3.1.9",
   "description": "A Discord bot for Bible verses.",
   "main": "start.js",
   "scripts": {
     "build": "babel src -d build",
-    "dev": "babel src -d build;nodemon build/start.js",
-    "start": "nodemon build/start.js"
+    "dev": "babel src -d build;nodemon --exec 'node build/start.js'",
+    "start": "nodemon --exec 'node build/start.js'"
   },
   "repository": {
     "type": "git",
