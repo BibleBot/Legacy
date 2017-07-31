@@ -294,7 +294,7 @@ bot.on("message", raw => {
             case "redpanda#7299":
                 break;
             default:
-                if (config.versionadders.indexOf(sender) != -1) {
+                if (config.versionAdders.indexOf(sender) != -1) {
                     break;
                 } else {
                     return;
@@ -420,8 +420,8 @@ bot.on("message", raw => {
                         channel.sendMessage(result);
                     });
             });
-        } else if (msg == "+" + language.rawobj.commands.verseoftheday ||
-            msg == "+" + language.rawobj.commands.votd) {
+        } else if (msg == ("+" + language.rawobj.commands.verseoftheday) ||
+            msg == ("+" + language.rawobj.commands.votd)) {
             getVersion(rawSender, function(data) {
                 var version = language.defversion;
                 var headings = "enable";
@@ -439,6 +439,8 @@ bot.on("message", raw => {
                     }
                 }
 
+                var sent = false;
+
                 bibleGateway.getVOTD(version, headings, verseNumbers)
                     .then(function(result) {
                         if (result == "too long") {
@@ -448,7 +450,13 @@ bot.on("message", raw => {
 
                         logMessage("info", sender, source, "+votd");
                         channel.sendMessage(result);
+                        sent = true;
                     });
+
+                if (!sent) {
+                    channel.sendMessage("Today's VOTD can't be processed, see" +
+                        " <https://www.biblegateway.com/> for the VOTD.");
+                }
             });
         } else if (msg.startsWith("+" + language.rawobj.commands.setversion)) {
             if (msg.split(" ").length != 2) {
