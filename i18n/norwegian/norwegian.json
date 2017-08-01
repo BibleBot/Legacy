@@ -23,6 +23,7 @@
   "ntnotsupported2":"Visst du ønsker å bruke det nye testamentet, `+<setversion>` til en versjon som har det.",
   "aponotsupported2":"Visst du ønsker å bruke Apokryfene/Deuterokanoniske bøker, `+<setversion>` til en versjon som har det.",
   "passagetoolong":"Passasjen er alt for lang til å hentes, beklager.",
+  "votdcantprocess":"Dagens vers kunne ikke bli hentet, se <https://www.biblegateway.com/> for dagens vers.",
   "commands":{
     "setversion":"velgversjon",
     "version":"versjon",

@@ -294,7 +294,7 @@ bot.on("message", raw => {
             case "redpanda#7299":
                 break;
             default:
-                if (config.versionadders.indexOf(sender) != -1) {
+                if (config.versionAdders.indexOf(sender) != -1) {
                     break;
                 } else {
                     return;
@@ -420,8 +420,8 @@ bot.on("message", raw => {
                         channel.sendMessage(result);
                     });
             });
-        } else if (msg == "+" + language.rawobj.commands.verseoftheday ||
-            msg == "+" + language.rawobj.commands.votd) {
+        } else if (msg == ("+" + language.rawobj.commands.verseoftheday) ||
+            msg == ("+" + language.rawobj.commands.votd)) {
             getVersion(rawSender, function(data) {
                 var version = language.defversion;
                 var headings = "enable";
@@ -776,7 +776,7 @@ bot.on("message", raw => {
                         var tempTempSplit = item.split(" ");
 
                         tempTempSplit.forEach(function(item) {
-                            item = item.replaceAll(/[^a-zA-Z0-9:]/g, "");
+                            item = item.replaceAll(/[^a-zA-Z0-9:()"'<>|\\/;*&^%$#@!.+_?=]/g, "");
 
                             spaceSplit.push(item);
                         });
@@ -796,6 +796,12 @@ bot.on("message", raw => {
             // must be done to ensure that its not duping itself.
             for (var i = 0; i < spaceSplit.length; i++) {
                 try {
+                    spaceSplit[i] = spaceSplit[i].replaceAll("(", "");
+                    spaceSplit[i] = spaceSplit[i].replaceAll(")", "");
+                    spaceSplit[i] = spaceSplit[i].replaceAll("[", "");
+                    spaceSplit[i] = spaceSplit[i].replaceAll("]", "");
+                    spaceSplit[i] = spaceSplit[i].replaceAll("<", "");
+                    spaceSplit[i] = spaceSplit[i].replaceAll(">", "");
                     spaceSplit[i] = capitalizeFirstLetter(spaceSplit[i]);
                 } catch (e) {
                     /* it'll probably be a number anyways, if this fails */
