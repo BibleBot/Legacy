@@ -23,6 +23,7 @@
   "ntnotsupported2":"",
   "aponotsupported2":"",
   "passagetoolong":"",
+  "votdcantprocess":"",
   "commands":{
     "setversion":"",
     "version":"",

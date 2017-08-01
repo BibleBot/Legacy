@@ -23,6 +23,7 @@
   "ntnotsupported2":"Um das Neue Testament zu verwenden benutzen Sie `+<setversion>` und stellen Sie eine Version ein die es hat.",
   "aponotsupported2":"Falls sie die Apokryphen/Deuterokanonischen Bücher verwenden möchten benutzen Sie `+<setversion>` und stellen Sie eine Version ein die es hat.",
   "passagetoolong":"Es tut mir leide diese Passage ist zu lang für mich.",
+  "votdcantprocess":"",
   "commands":{
     "setversion":"versioneinstellen",
     "version":"version",

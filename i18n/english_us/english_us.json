@@ -23,6 +23,7 @@
   "ntnotsupported2":"If you want to use the New Testament, `+<setversion>` to a version that has it.",
   "aponotsupported2":"If you want to use the Apocrypha/Deuterocanon, `+<setversion>` to a version that has it.",
   "passagetoolong":"The passage is too long for me to grab, sorry.",
+  "votdcantprocess":"Today's VOTD can't be processed, see <https://www.biblegateway.com/> for the VOTD.",
   "commands":{
     "setversion":"setversion",
     "version":"version",
