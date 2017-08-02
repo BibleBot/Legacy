@@ -1,4 +1,5 @@
 # BibleBot
+[![Feature Requests](http://feathub.com/UnimatrixZeroOne/BibleBot?format=svg)](http://feathub.com/UnimatrixZeroOne/BibleBot)
 A Discord bot for Bible verses.
 
 To use it, just say a Bible verse.
