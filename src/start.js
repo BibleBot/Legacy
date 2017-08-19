@@ -352,6 +352,8 @@ bot.on("message", raw => {
             logMessage("info", sender, source, "+biblebot");
 
             var response = language.rawobj.biblebot;
+            response = response.replace("vipr", "vipr#4035 (creator/developer)");
+            response = response.replace("UnimatrixZeroOne", "UnimatrixZeroOne#7501 (sysadmin)");
             response = response.replace(
                 "<biblebotversion>", process.env.npm_package_version);
             response = response.replace(
