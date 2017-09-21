@@ -1218,5 +1218,5 @@ bot.on("message", raw => {
 
 logMessage(
     "info", "global", "global", "BibleBot v" + process.env.npm_package_version +
-    " by vipr and UnimatrixZeroOne");
+    " by vipr, UnimatrixZeroOne, et al.");
 bot.login(config.token);
