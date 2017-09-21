@@ -8,7 +8,7 @@
   "addversionsuccess":"puzi jmina le xe fanva",
   "addversionfail":"puzi fliba lenu jmina le xe fanva",
   "versenumberssuccess":"",
-  "versenumbersfail":"",
+  "versenumbersfail":"ko samci'a zoi gy. `+<versenumbers> <enable>` .gy. a zoi gy. `+<versenumbers> <disable>` .gy.",
   "headingssuccess":"",
   "headingsfail":"",
   "setlanguagesuccess":"",
