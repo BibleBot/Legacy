@@ -24,8 +24,8 @@
   "aponotsupported2":"If you want to use the Apocrypha/Deuterocanon, `+<setversion>` to a version that has it.",
   "passagetoolong":"The passage is too long for me to grab, sorry.",
   "votdcantprocess":"Today's VOTD can't be processed, see <https://www.biblegateway.com/> for the VOTD.",
-  "versioninfo":"",
-  "versioninfofailed":"",
+  "versioninfo": "\n**<versionname>**\n\nContains Old Testament: <hasOT>\nContains New Testament: <hasNT>\nContains Apocrypha/Deuterocanon: <hasAPO>",
+  "versioninfofailed": "I couldn't find that version, are you sure you used the right acronym?",
   "commands":{
     "setversion":"setversion",
     "version":"version",
@@ -36,7 +36,7 @@
     "biblebot":"biblebot",
     "addversion":"addversion",
     "av":"av",
-    "versioninfo":"",
+    "versioninfo": "versioninfo",
     "versenumbers":"versenumbers",
     "headings":"headings",
     "puppet":"puppet",
@@ -46,8 +46,8 @@
     "languages":"languages"
   },
   "arguments":{
-    "yes":"",
-    "no":"",
+    "yes": "Yes",
+    "no": "No",
     "enable":"enable",
     "disable":"disable"
   }

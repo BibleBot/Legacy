@@ -1,0 +1,3 @@
+[submodule "verse-reference-regex"]
+	path = verse-reference-regex
+	url = git@github.com:vypr/verse-reference-regex.git

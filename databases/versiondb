@@ -1,70 +1,257 @@
+{"name":"Svenska Folkbibeln 2015 (SFB15)","abbv":"SFB15","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"0GLj3ihtr2wVXkO2"}
+{"name":"International Standard Version (ISV)","abbv":"ISV","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"0OPd0zjCZ5Ws4lzV"}
 {"name":"World English Bible (WEB)","abbv":"WEB","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"0tHWHGAVinxknazY"}
+{"name":"Albanian Bible (ALB)","abbv":"ALB","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"22UbmSputwgI0GfA"}
 {"name":"Douay-Rheims 1899 American Edition (DRA)","abbv":"DRA","hasOT":true,"hasNT":true,"hasAPO":true,"_id":"2Bgf5sIgDBtSFYV2"}
+{"name":"Reina-Valera Antigua (RVA)","abbv":"RVA","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"2NZ0w2UaO4atv40j"}
+{"name":"Marathi Bible: Easy-to-Read Version (ERV-MR)","abbv":"ERV-MR","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"2g4E8CEzcocV1m36"}
 {"name":"New American Standard Bible (NASB)","abbv":"NASB","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"2uavbKlRlzFaSFGS"}
+{"name":"1599 Geneva Bible (GNV)","abbv":"GNV","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"34jiC1T22jD78Ksz"}
 {"name":"New Revised Standard Version Catholic Edition (NRSVCE)","abbv":"NRSVCE","hasOT":true,"hasNT":true,"hasAPO":true,"_id":"3POdrpGbeCYpPZRG"}
+{"name":"Complete Jewish Bible (CJB)","abbv":"CJB","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"3T3q4MjSxo43vi38"}
+{"name":"Disciples’ Literal New Testament (DLNT)","abbv":"DLNT","hasOT":false,"hasNT":true,"hasAPO":false,"_id":"40JMuTXvLBXdselT"}
+{"name":"Schlachter 1951 (SCH1951)","abbv":"SCH1951","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"43YwJGbjQHc4tW3f"}
+{"name":"Revised Standard Version (RSV)","abbv":"RSV","hasOT":true,"hasNT":true,"hasAPO":true,"_id":"4CCuilnZkvZ61SsH"}
+{"name":"New Century Version (NCV)","abbv":"NCV","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"5A6ibt4Df7lk1pjX"}
+{"name":"Mam, Central (MVC)","abbv":"MVC","hasOT":false,"hasNT":true,"hasAPO":false,"_id":"5Ph3U40Whnn2cnvq"}
+{"name":"Orthodox Jewish Bible (OJB)","abbv":"OJB","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"5PpvFzNPAzTyzPbs"}
+{"name":"Библия, нов превод от оригиналните езици (с неканоничните книги) (CBT)","abbv":"CBT","hasOT":true,"hasNT":true,"hasAPO":true,"_id":"5xAcoc6pDi8khkNE"}
 {"name":"Reina-Valera Antigua (RVA)","abbv":"RVA","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"5yO92NShJsNfBKVq"}
+{"name":"Macedonian New Testament (MNT)","abbv":"MNT","hasOT":false,"hasNT":true,"hasAPO":false,"_id":"5yjYU7PoRAlr6LfJ"}
 {"name":"The Message (MSG)","abbv":"MSG","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"6JP0B3uX68Ir3F2c"}
+{"name":"Nouvelle Edition de Genève – NEG1979 (NEG1979)","abbv":"NEG1979","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"6daTLUTJGFKuvpDx"}
+{"name":"Good News Translation (GNT)","abbv":"GNT","hasOT":true,"hasNT":true,"hasAPO":true,"_id":"6dcazUrIM8zTBwcc"}
 {"name":"Amplified Bible, Classic Edition (AMPC)","abbv":"AMPC","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"6u6TZANMMkcmr9dD"}
+{"name":"La Palabra (Hispanoamérica) (BLPH)","abbv":"BLPH","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"6xwKktLyufeSUAsu"}
+{"name":"Chinese New Version (Simplified) (CNVS)","abbv":"CNVS","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"6zshf7ojy4qhSdSz"}
+{"name":"Expanded Bible (EXB)","abbv":"EXB","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"74uJC4Tmip8WEqD6"}
+{"name":"Amplified Bible (AMP)","abbv":"AMP","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"7mGvRdy6g0sfsk3J"}
 {"name":"Wycliffe Bible (WYC)","abbv":"WYC","hasOT":true,"hasNT":true,"hasAPO":true,"_id":"8uMRnj2fMw0TNcQY"}
 {"name":"Orthodox Jewish Bible (OJB)","abbv":"OJB","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"9NL0xgEb3ZoMkx1a"}
+{"name":"Holman Christian Standard Bible (HCSB)","abbv":"HCSB","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"9WlbZuhv2h8T3a5N"}
+{"name":"Cornilescu 1924 - Revised 2010, 2014 (RMNN)","abbv":"RMNN","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"9hwNHegTL248Sevz"}
 {"name":"Nueva Version Internacional (NVI)","abbv":"NVI","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"AKDYalQK6Hqpd7kO"}
+{"name":"Tamil Bible: Easy-to-Read Version (ERV-TA)","abbv":"ERV-TA","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"AkWdwRBJuOvYkb5U"}
+{"name":"Hungarian Bible: Easy-to-Read Version (ERV-HU)","abbv":"ERV-HU","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"Az6xhAsJWp7PKLPe"}
+{"name":"Reina-Valera 1995 (RVR1995)","abbv":"RVR1995","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"B35xhfCnjxNVcYSW"}
+{"name":"New International Version - UK (NIVUK)","abbv":"NIVUK","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"BMp4nakEed6w9fYG"}
 {"name":"Amplified Bible (AMP)","abbv":"AMP","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"BVPhrPLAal7wHUtO"}
+{"name":"La Nuova Diodati (LND)","abbv":"LND","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"BaG6380lQP2K9HoS"}
+{"name":"Nouă Traducere În Limba Română (NTLR)","abbv":"NTLR","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"Bm0i7mivgG7GMWUy"}
 {"name":"Het Boek (HTB)","abbv":"HTB","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"BxYqeCNcVRhxl9z3"}
+{"name":"Bible 21 (B21)","abbv":"B21","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"BxrTw9KBEJcsMn8y"}
 {"name":"Le Bible du Semeur (BDS)","abbv":"BDS","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"CNViF6lIW9JmWUES"}
 {"name":"Biblia Sacra Vulgata (VULGATE)","abbv":"VULGATE","hasOT":true,"hasNT":true,"hasAPO":true,"_id":"CNcuc3M5Lnte5JMH"}
 {"name":"New Revised Standard Version, Anglicised Catholic Edition (NRSVACE)","abbv":"NRSVACE","hasOT":true,"hasNT":true,"hasAPO":true,"_id":"CUqMraqg4oxTk56n"}
+{"name":"Schlachter 2000 (SCH2000)","abbv":"SCH2000","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"CbZVuT7uAvYoRZXu"}
+{"name":"Nádej pre kazdého (NPK)","abbv":"NPK","hasOT":false,"hasNT":true,"hasAPO":false,"_id":"CeTt5kcEuLJ926AD"}
+{"name":"Священное Писание (Восточный перевод), версия с «Аллахом» (CARSA)","abbv":"CARSA","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"ChBlAIW8h5YFCtcy"}
+{"name":"GOD’S WORD Translation (GW)","abbv":"GW","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"CvW59uOVhD1sOx9q"}
+{"name":"Slovo na cestu (SNC)","abbv":"SNC","hasOT":false,"hasNT":true,"hasAPO":false,"_id":"DEr3mBR9WqU6BBlA"}
+{"name":"Wycliffe Bible (WYC)","abbv":"WYC","hasOT":true,"hasNT":true,"hasAPO":true,"_id":"DZSXlPn6UQTtl3AQ"}
+{"name":"Contemporary English Version (CEV)","abbv":"CEV","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"DwSsP0RvU2gXQjRR"}
+{"name":"Słowo Życia (SZ-PL)","abbv":"SZ-PL","hasOT":false,"hasNT":true,"hasAPO":false,"_id":"EL2iJRYDtddfc7Ab"}
+{"name":"Reina Valera 1977 (RVR1977)","abbv":"RVR1977","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"EYGuYz8fSfU018SB"}
+{"name":"Chinese Union Version Modern Punctuation (Simplified) (CUVMPS)","abbv":"CUVMPS","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"EaloW3BxZ6GGF4lW"}
+{"name":"Chinese New Testament: Easy-to-Read Version (ERV-ZH)","abbv":"ERV-ZH","hasOT":false,"hasNT":true,"hasAPO":false,"_id":"Ev9J9kaGSQh51AxV"}
+{"name":"New Revised Standard Version Catholic Edition (NRSVCE)","abbv":"NRSVCE","hasOT":true,"hasNT":true,"hasAPO":true,"_id":"EvexGg1m8whFovtB"}
+{"name":"Nueva Versión Internacional (Castilian) (CST)","abbv":"CST","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"FDhil8zqBW6wpMMG"}
 {"name":"New American Bible (Revised Edition) (NABRE)","abbv":"NABRE","hasOT":true,"hasNT":true,"hasAPO":true,"_id":"FJJOP5Z4ZCg1ldTY"}
+{"name":"Ang Bagong Tipan: Filipino Standard Version (FSV)","abbv":"FSV","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"FWqJtce7n4xU1Qu6"}
+{"name":"Punjabi Bible: Easy-to-Read Version (ERV-PA)","abbv":"ERV-PA","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"G3BWtWK75moXGKU1"}
+{"name":"New Vietnamese Bible (NVB)","abbv":"NVB","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"GfdXXhwlejIAswfb"}
+{"name":"English Standard Version Anglicised (ESVUK)","abbv":"ESVUK","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"GoMNEoL3jB8oCOmm"}
+{"name":"Reimer 2001 (REIMER)","abbv":"REIMER","hasOT":false,"hasNT":true,"hasAPO":false,"_id":"GxAyl4mmtCVHpCsK"}
+{"name":"Náhuatl de Guerrero (NGU)","abbv":"NGU","hasOT":false,"hasNT":true,"hasAPO":false,"_id":"HCucdxoJpCXSEhHJ"}
+{"name":"English Standard Version (ESV)","abbv":"ESV","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"HQDI5xtPrNejXJsV"}
+{"name":"Vietnamese Bible: Easy-to-Read Version (BPT)","abbv":"BPT","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"HTcpQjy6i7l7sixC"}
+{"name":"New Living Translation (NLT)","abbv":"NLT","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"HpDOVeHtWgIRLrxn"}
+{"name":"1550 Stephanus New Testament (TR1550)","abbv":"TR1550","hasOT":false,"hasNT":true,"hasAPO":false,"_id":"IHseHJDfJ93JTcgc"}
 {"name":"English Standard Version (ESV)","abbv":"ESV","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"IfYgYIjhL3ZmWkdd"}
+{"name":"1934 Vietnamese Bible (VIET)","abbv":"VIET","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"J21ZCR1cVbeckCLj"}
+{"name":"Palabra de Dios para Todos (PDT)","abbv":"PDT","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"Jgnfx0K3gbeuUSRR"}
+{"name":"Korean Living Bible (KLB)","abbv":"KLB","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"JqDY26aDWhtHirs1"}
+{"name":"Russian New Testament: Easy-to-Read Version (ERV-RU)","abbv":"ERV-RU","hasOT":false,"hasNT":true,"hasAPO":false,"_id":"KJHlgC0oxQqIGqWO"}
+{"name":"The Voice (VOICE)","abbv":"VOICE","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"L95k5vtjYqMfuMz7"}
+{"name":"Ne Bibliaj Tik Nawat (NBTN)","abbv":"NBTN","hasOT":false,"hasNT":true,"hasAPO":false,"_id":"LJqvqbzY4N2bdBdH"}
 {"name":"Almeida Revista e Corrigida 2009 (ARC)","abbv":"ARC","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"LN6lYDPfl1aoTX4l"}
+{"name":"Cakchiquel Occidental (CKW)","abbv":"CKW","hasOT":false,"hasNT":true,"hasAPO":false,"_id":"LPAptKxnvGRZfiER"}
 {"name":"Good News Translation (GNT)","abbv":"GNT","hasOT":true,"hasNT":true,"hasAPO":true,"_id":"LPgbjZ0oV9sisjbc"}
+{"name":"Living Bible (TLB)","abbv":"TLB","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"LXXi4gviKsro0Lm1"}
+{"name":"Chinese Contemporary Bible (Simplified) (CCB)","abbv":"CCB","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"LdCz0rUJ0Wuq7Cjp"}
 {"name":"Worldwide English (New Testament) (WE)","abbv":"WE","hasOT":false,"hasNT":true,"hasAPO":false,"_id":"Llknltw05Qx3kYmW"}
+{"name":"Bản Dịch 2011 (BD2011)","abbv":"BD2011","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"LloCbCn3Tsmco6tR"}
+{"name":"Nova Traduҫão na Linguagem de Hoje 2000 (NTLH)","abbv":"NTLH","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"M7SNL7JqjNqXGs30"}
+{"name":"Священное Писание (Восточный перевод), версия для Таджикистана (CARST)","abbv":"CARST","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"MMXftMrmttSvk71I"}
 {"name":"Revised Standard Version (RSV)","abbv":"RSV","hasOT":true,"hasNT":true,"hasAPO":true,"_id":"MQUhAl2Ke5sSQfkW"}
+{"name":"La Palabra (España) (BLP)","abbv":"BLP","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"MYB7GG8hjd11B5YS"}
+{"name":"Icelandic Bible (ICELAND)","abbv":"ICELAND","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"MhkdLvDXstKxcMtr"}
+{"name":"Dios Habla Hoy (DHH)","abbv":"DHH","hasOT":true,"hasNT":true,"hasAPO":true,"_id":"MqZ7Xe40NFFUUhKL"}
+{"name":"Chinese Union Version Modern Punctuation (Traditional) (CUVMPT)","abbv":"CUVMPT","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"MtCFU7IPcN7lXmnc"}
 {"name":"New Life Version (NLV)","abbv":"NLV","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"NNAfB3TYENn9subX"}
 {"name":"Lexham English Bible (LEB)","abbv":"LEB","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"NQGwUYrDynpOOjxH"}
+{"name":"Chinese Union Version (Traditional) (CUV)","abbv":"CUV","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"NVAa3MMpKPWm34Zy"}
+{"name":"Ukrainian New Testament: Easy-to-Read Version (ERV-UK)","abbv":"ERV-UK","hasOT":false,"hasNT":true,"hasAPO":false,"_id":"NYLI0AvabCWwfZkm"}
+{"name":"Oriya Bible: Easy-to-Read Version (ERV-OR)","abbv":"ERV-OR","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"NjkaZqe385uo4tY6"}
+{"name":"Nuova Riveduta 1994 (NR1994)","abbv":"NR1994","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"NmezyYe0wFMdjpGV"}
 {"name":"Nova Versão Internacional (NVI-PT)","abbv":"NVI-PT","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"OOy0yBrmlXdUlhOT"}
+{"name":"New Russian Translation (NRT)","abbv":"NRT","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"OnzU7ufGH8R7gQlK"}
 {"name":"Hawai'i Pidgin (HWP)","abbv":"HWP","hasOT":false,"hasNT":true,"hasAPO":false,"_id":"OztA58vvsz9UgYZv"}
+{"name":"Magandang Balita Biblia (MBBTAG)","abbv":"MBBTAG","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"P7bpvX3NoNow7yk8"}
+{"name":"New American Standard Bible (NASB)","abbv":"NASB","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"PTltIySbfy6N10aL"}
+{"name":"New Revised Standard Version (NRSV)","abbv":"NRSV","hasOT":true,"hasNT":true,"hasAPO":true,"_id":"PeT7Z4MvSfC1zwAJ"}
+{"name":"La Bibbia della Gioia (BDG)","abbv":"BDG","hasOT":false,"hasNT":true,"hasAPO":false,"_id":"Ps0q9BqiZibuBgxT"}
 {"name":"J.B. Phillips New Testament (PHILLIPS)","abbv":"PHILLIPS","hasOT":false,"hasNT":true,"hasAPO":false,"_id":"Q5ADp9W653SS5xP4"}
+{"name":"Tree of Life Version (TLV)","abbv":"TLV","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"QCjC0cihZAVqIkE0"}
+{"name":"Ukrainian Bible (UKR)","abbv":"UKR","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"QJUY2pXuTVpvvgoj"}
 {"name":"New Living Translation (NLT)","abbv":"NLT","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"QSOkVmqT1rz334Hl"}
-{"name":"New English Translation (NET Bible)","abbv":"NET","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"RCLuhS7wvfxCsJ6x"}
+{"name":"Chinese Contemporary Bible (Traditional) (CCBT)","abbv":"CCBT","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"QViLZ9Ju5irO5CsQ"}
+{"name":"La Bible du Semeur (BDS)","abbv":"BDS","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"QcXXpsaTKoWld7u8"}
+{"name":"Darby Translation (DARBY)","abbv":"DARBY","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"QtwrwXKDUBuJ3MZ1"}
+{"name":"King James Version (KJV)","abbv":"KJV","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"QyD5N98lfzvSxBi3"}
+{"name":"Neue Genfer Übersetzung (NGU-DE)","abbv":"NGU-DE","hasOT":false,"hasNT":true,"hasAPO":false,"_id":"R3WBfLLM2ADp8Dse"}
+{"name":"Serbian New Testament: Easy-to-Read Version (ERV-SR)","abbv":"ERV-SR","hasOT":false,"hasNT":true,"hasAPO":false,"_id":"RCKM4XZYoaKYcsEm"}
+{"name":"Ang Dating Biblia (1905) (ADB1905)","abbv":"ADB1905","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"RCxAEQXqW97vvY9h"}
 {"name":"Revised Standard Version Catholic Edition (RSVCE)","abbv":"RSVCE","hasOT":true,"hasNT":true,"hasAPO":true,"_id":"RUomvbZIATiwt4e3"}
+{"name":"New Revised Standard Version, Anglicised (NRSVA)","abbv":"NRSVA","hasOT":true,"hasNT":true,"hasAPO":true,"_id":"RUtXQUjRW23c7Gh2"}
 {"name":"Contemporary English Version (CEV)","abbv":"CEV","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"Rbry6LH1wMnro1gl"}
 {"name":"GOD'S WORD Translation (GW)","abbv":"GW","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"RskBL0RkxeDN2ayq"}
+{"name":"Jubilee Bible 2000 (JUB)","abbv":"JUB","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"S2MZNAv9nHaFh16Z"}
+{"name":"Reina Valera Contemporánea (RVC)","abbv":"RVC","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"S30zcw3rOsdEDdh9"}
 {"name":"1599 Geneva Bible (GNV)","abbv":"GNV","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"SO2qCoMpclWgu1D1"}
 {"name":"The Voice (VOICE)","abbv":"VOICE","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"SPnEMDYwpDPGStTY"}
+{"name":"Common English Bible (CEB)","abbv":"CEB","hasOT":true,"hasNT":true,"hasAPO":true,"_id":"SSK8i1XqOWjSel26"}
+{"name":"Biblia Sacra Vulgata (VULGATE)","abbv":"VULGATE","hasOT":true,"hasNT":true,"hasAPO":true,"_id":"SSnhWu1pVLQq5GDk"}
 {"name":"Disciples' Literal New Testament (DLNT)","abbv":"DLNT","hasOT":false,"hasNT":true,"hasAPO":false,"_id":"SXTYC8o5GXKXsUiS"}
+{"name":"Nueva Versión Internacional (NVI)","abbv":"NVI","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"SXzO5vgKmVqqTOaf"}
+{"name":"Ang Salita ng Diyos (SND)","abbv":"SND","hasOT":false,"hasNT":true,"hasAPO":false,"_id":"Szjd7TZOEzukFrXb"}
 {"name":"New Century Version (NCV)","abbv":"NCV","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"TChoX3sjCF1CPOzl"}
+{"name":"Reina-Valera 1960 (RVR1960)","abbv":"RVR1960","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"TMXcodBKpA4l5Z2v"}
+{"name":"BRG Bible (BRG)","abbv":"BRG","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"TfW2mMP1c5L3IE8K"}
+{"name":"Het Boek (HTB)","abbv":"HTB","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"UIElRLI70oCUhRgQ"}
+{"name":"Hrvatski Novi Zavjet – Rijeka 2001 (HNZ-RI)","abbv":"HNZ-RI","hasOT":false,"hasNT":true,"hasAPO":false,"_id":"UaB2IyQARThWn5TV"}
+{"name":"Maori Bible (MAORI)","abbv":"MAORI","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"UfkyabsGQ4sZ2oh2"}
+{"name":"Библия, синодално издание (BOB)","abbv":"BOB","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"UiXlG7nCZMw1K6RY"}
+{"name":"Nowe Przymierze (NP)","abbv":"NP","hasOT":false,"hasNT":true,"hasAPO":false,"_id":"Ul1XZlwUtDc3JrGn"}
 {"name":"Modern English Version (MEV)","abbv":"MEV","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"UusE8WH7L8qDJacY"}
+{"name":"Det Norsk Bibelselskap 1930 (DNB1930)","abbv":"DNB1930","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"V2GmM7jR6OkFNbDH"}
+{"name":"Chinese New Version (Traditional) (CNVT)","abbv":"CNVT","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"VHF1sWFnCwRVRHKV"}
+{"name":"New English Translation (NET)","abbv":"NET","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"Vt6tuOJVeVXp05vC"}
+{"name":"Bulgarian New Testament: Easy-to-Read Version (ERV-BG)","abbv":"ERV-BG","hasOT":false,"hasNT":true,"hasAPO":false,"_id":"VzBdWVSGGGOysPyl"}
+{"name":"Hungarian Károli (KAR)","abbv":"KAR","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"WN6X5iuF58lAmyP9"}
+{"name":"Raamattu 1933/38 (R1933)","abbv":"R1933","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"WPn0twtiOt248p3A"}
+{"name":"Douay-Rheims 1899 American Edition (DRA)","abbv":"DRA","hasOT":true,"hasNT":true,"hasAPO":true,"_id":"WtN19f6dMl2V7lr8"}
+{"name":"New International Reader's Version (NIRV)","abbv":"NIRV","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"X2iZ0EbPTQzvjPrH"}
 {"name":"Names of God Bible (NOG)","abbv":"NOG","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"X3LHqgqXP0Fz9t8q"}
 {"name":"English Standard Version Anglicised (ESVUK)","abbv":"ESVUK","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"Xc6GiCS3z8Y5EvqE"}
 {"name":"New International Version - UK (NIVUK)","abbv":"NIVUK","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"XiIPgevvug91CJxz"}
 {"name":"Complete Jewish Bible (CJB)","abbv":"CJB","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"Xlie3qpBXRIK4Uf7"}
+{"name":"Bulgarian Bible (BULG)","abbv":"BULG","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"XzuGG2dzcH2jjnwt"}
 {"name":"Darby Translation (DARBY)","abbv":"DARBY","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"Y3XcQngWM612ZAzP"}
+{"name":"Dette er Biblen på dansk (DN1933)","abbv":"DN1933","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"Y6ie2r1UCDdeCWse"}
 {"name":"New International Reader's Version (NIRV)","abbv":"NIRV","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"YEV3CQ3N9pmm0XVM"}
 {"name":"SBL Greek New Testament (SBLGNT)","abbv":"SBLGNT","hasOT":false,"hasNT":true,"hasAPO":false,"_id":"YOUOm73Qv5RSdAih"}
+{"name":"Nepali Bible: Easy-to-Read Version (ERV-NE)","abbv":"ERV-NE","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"ZIqhBIpJDyC9zCdt"}
+{"name":" Magandang Balita Biblia (with Deuterocanon) (MBBTAG-DC)","abbv":"MBBTAG-DC","hasOT":true,"hasNT":true,"hasAPO":true,"_id":"ZbXdMaxLzMBzN8ze"}
+{"name":"Spanish Blue Red and Gold Letter Edition (SRV-BRG)","abbv":"SRV-BRG","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"ZduvnF9m7SUpT1DD"}
+{"name":"Nueva Biblia al Día (NBD)","abbv":"NBD","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"aUpJNDRVIJVnXn56"}
 {"name":"New International Version (NIV)","abbv":"NIV","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"bKrdc3ZCX6vF6T5c"}
+{"name":"Portuguese New Testament: Easy-to-Read Version (VFL)","abbv":"VFL","hasOT":false,"hasNT":true,"hasAPO":false,"_id":"bNQn3uxJKDLj18X0"}
 {"name":"Jubilee Bible 2000 (JUB)","abbv":"JUB","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"ba5fe2Y2Azj9MnPD"}
+{"name":"Chinese Standard Bible (Simplified) (CSBS)","abbv":"CSBS","hasOT":false,"hasNT":true,"hasAPO":false,"_id":"bqF5cbvtRuHvJyRO"}
+{"name":"Names of God Bible (NOG)","abbv":"NOG","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"cJ0s5n3qASTP4KDd"}
+{"name":"New American Bible (Revised Edition) (NABRE)","abbv":"NABRE","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"cgD4qzTItVHHiy5i"}
+{"name":"World English Bible (WEB)","abbv":"WEB","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"csgD9vJhFYW466N1"}
+{"name":"Quiché, Centro Occidental (QUT)","abbv":"QUT","hasOT":false,"hasNT":true,"hasAPO":false,"_id":"d8E4RJ5eHfh7tQxJ"}
+{"name":"Russian Synodal Version (RUSV)","abbv":"RUSV","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"dEv3xUbDbSkuJpiu"}
 {"name":"American Standard Version (ASV)","abbv":"ASV","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"dGmdLGdywGLSMqDf"}
+{"name":"Easy-to-Read Version (ERV)","abbv":"ERV","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"dIhnpOKQ2idtvDk6"}
 {"name":"BRG Bible (BRG)","abbv":"BRG","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"dZeRZ7Q9hoT567QA"}
 {"name":"King James Version (KJV)","abbv":"KJV","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"dfOZWff7mAvQimSS"}
+{"name":"Mam de Todos Santos Chuchumatán (MVJ)","abbv":"MVJ","hasOT":false,"hasNT":true,"hasAPO":false,"_id":"ePBzKJva7b0wvbOn"}
 {"name":"21st Century King James Version (KJ21)","abbv":"KJ21","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"eSXFtBaiXXd1aSWU"}
+{"name":"Knijga O Kristu (CRO)","abbv":"CRO","hasOT":false,"hasNT":true,"hasAPO":false,"_id":"epQjMotClLqXEMir"}
 {"name":"Luther Bibel 1545 (LUTH1545)","abbv":"LUTH1545","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"eyQm3aJhQzWqspOd"}
 {"name":"New Revised Standard Version, Anglicised (NRSVA)","abbv":"NRSVA","hasOT":true,"hasNT":true,"hasAPO":true,"_id":"f0FZ9W4zWKIJywt6"}
 {"name":"CONFERENZA EPISCOPALE ITALIANA (CEI)","abbv":"CEI","hasOT":true,"hasNT":true,"hasAPO":true,"_id":"fXnK9C4PgmIG4aq0"}
+{"name":"Ang Pulong Sa Dios (APSD-CEB)","abbv":"APSD-CEB","hasOT":false,"hasNT":true,"hasAPO":false,"_id":"fl4JkDmxUUAz7HbO"}
+{"name":"Svenska Folkbibeln (SFB)","abbv":"SFB","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"flCvaDi6cF3cwStb"}
+{"name":"Amuzgo de Guerrero (AMU)","abbv":"AMU","hasOT":false,"hasNT":true,"hasAPO":false,"_id":"fzrNvrh6lEj7pk5I"}
+{"name":"Nkwa Asem (NA-TWI)","abbv":"NA-TWI","hasOT":false,"hasNT":true,"hasAPO":false,"_id":"g5Uj9C5q88yxV7Qg"}
+{"name":"Hindi Bible: Easy-to-Read Version (ERV-HI)","abbv":"ERV-HI","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"g7ng35hFO3IcVuH6"}
 {"name":"Easy-to-Read Version (ERV)","abbv":"ERV","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"giIV6wb434g2qmdo"}
+{"name":"Almeida Revista e Corrigida 2009 (ARC)","abbv":"ARC","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"gubzWZzDgQczHUfO"}
+{"name":"En Levende Bok (LB)","abbv":"LB","hasOT":false,"hasNT":true,"hasAPO":false,"_id":"h4vjw5ladnv86GfS"}
+{"name":"SBL Greek New Testament (SBLGNT)","abbv":"SBLGNT","hasOT":false,"hasNT":true,"hasAPO":false,"_id":"h5u40dWj2tofBoSo"}
+{"name":"Chinese Standard Bible (Traditional) (CSBT)","abbv":"CSBT","hasOT":false,"hasNT":true,"hasAPO":false,"_id":"h86hepqFot6pzge7"}
 {"name":"Expanded Bible (EXB)","abbv":"EXB","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"hB3vKXoTnGdNqyxi"}
+{"name":"Louis Segond (LSG)","abbv":"LSG","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"hOslR144MXD6u5KA"}
+{"name":"Conferenza Episcopale Italiana (CEI)","abbv":"CEI","hasOT":true,"hasNT":true,"hasAPO":true,"_id":"hkPrBupBCaga6Q93"}
+{"name":"New International Version (NIV)","abbv":"NIV","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"i8K071xz9pgfpt4Y"}
+{"name":"Worldwide English (New Testament) (WE)","abbv":"WE","hasOT":false,"hasNT":true,"hasAPO":false,"_id":"iB2ZobACPlKx59HW"}
 {"name":"New King James Version (NKJV)","abbv":"NKJV","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"iIBMR4x0eUvorx67"}
+{"name":"Hungarian New Translation (NT-HU)","abbv":"NT-HU","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"ig3cEcrvY9V09C6Y"}
+{"name":"Svenska 1917 (SV1917)","abbv":"SV1917","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"isz24U3mIbpTNsB1"}
+{"name":"1881 Westcott-Hort New Testament (WHNU)","abbv":"WHNU","hasOT":false,"hasNT":true,"hasAPO":false,"_id":"itRG6yXHd9NKCL1r"}
+{"name":"Traducción en lenguaje actual (TLA)","abbv":"TLA","hasOT":true,"hasNT":true,"hasAPO":true,"_id":"iyJMdweFyKLuEIBA"}
+{"name":"Modern English Version (MEV)","abbv":"MEV","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"jUJkj7qq9CQ7ID4O"}
+{"name":"Nueva Biblia Latinoamericana de Hoy (NBLH)","abbv":"NBLH","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"jXZhT8ofgkIEv3vt"}
 {"name":"La Biblia de las Américas (LBLA)","abbv":"LBLA","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"jjmhdl9C1HN56fvT"}
-{"name":"The Westminster Leningrad Codex (WLC)","abbv":"WLC","hasOT":true,"hasNT":false,"hasAPO":false,"_id":"lG2PLRIBKx19btp4"}
+{"name":"Ang Pulong Sang Dios (HLGN)","abbv":"HLGN","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"ksKVd81Ea03SVDNM"}
+{"name":"The Message (MSG)","abbv":"MSG","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"lLqVu2U9VEZbFsIz"}
+{"name":"Segond 21 (SG21)","abbv":"SG21","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"m0OUdcXKy24aiYwR"}
+{"name":"La Biblia de las Américas (LBLA)","abbv":"LBLA","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"mVBjqIV2Smzdrzxr"}
+{"name":"Haitian Creole Version (HCV)","abbv":"HCV","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"mYloAaUwdhMDFlIJ"}
+{"name":"1894 Scrivener New Testament (TR1894)","abbv":"TR1894","hasOT":false,"hasNT":true,"hasAPO":false,"_id":"mbG9Mti5cEyC0maY"}
+{"name":"Jacalteco, Oriental (JAC)","abbv":"JAC","hasOT":false,"hasNT":true,"hasAPO":false,"_id":"mfdAenvRFn2rY9mw"}
+{"name":"Nuova Riveduta 2006 (NR2006)","abbv":"NR2006","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"nEtKyhpJMQfB9d8y"}
+{"name":"Bibelen på hverdagsdansk (BPH)","abbv":"BPH","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"nVMuRuvqvipR04bK"}
 {"name":"Authorized (King James) Version (AKJV)","abbv":"AKJV","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"nqQQuUrK6aUhZ8DK"}
+{"name":"21st Century King James Version (KJ21)","abbv":"KJ21","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"nwZftKNe5dTQX63F"}
 {"name":"Christian Standard Bible (CSB)","abbv":"CSB","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"o73rZItvmYfAj1z4"}
+{"name":"Amplified Bible, Classic Edition (AMPC)","abbv":"AMPC","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"oJB7kXLDAo5JlGKA"}
+{"name":"New King James Version (NKJV)","abbv":"NKJV","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"ognaqtBuVEGiLK6G"}
+{"name":"American Standard Version (ASV)","abbv":"ASV","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"ot6YOF1A6luFdf9j"}
 {"name":"International Children’s Bible (ICB)","abbv":"ICB","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"p246DMDpCIm29vOI"}
 {"name":"International Standard Version (ISV)","abbv":"ISV","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"p4KsV1AUtNZx6N2I"}
+{"name":"Nya Levande Bibeln (SVL)","abbv":"SVL","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"p4rggxfgpLJHU07q"}
+{"name":"Updated Gdańsk Bible (UBG)","abbv":"UBG","hasOT":false,"hasNT":true,"hasAPO":false,"_id":"pIYfrgSqHKAr4pfr"}
+{"name":"Uspanteco (USP)","abbv":"USP","hasOT":false,"hasNT":true,"hasAPO":false,"_id":"pMTZ6G8otpFRUiBh"}
+{"name":"Nova Versão Internacional (NVI-PT)","abbv":"NVI-PT","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"q5ZzJAG1EoKHBNwY"}
+{"name":"Jubilee Bible 2000 (Spanish) (JBS)","abbv":"JBS","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"rGY3oNpHSYqsukfq"}
+{"name":"New Revised Standard Version, Anglicised Catholic Edition (NRSVACE)","abbv":"NRSVACE","hasOT":true,"hasNT":true,"hasAPO":true,"_id":"rKCtc3w3Urcosjag"}
+{"name":"Somali Bible (SOM)","abbv":"SOM","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"rVVrSmUnF8hTm1Uo"}
+{"name":"Thai New Contemporary Bible (TNCV)","abbv":"TNCV","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"rePWicOviB37aavZ"}
+{"name":"Hawai‘i Pidgin (HWP)","abbv":"HWP","hasOT":false,"hasNT":true,"hasAPO":false,"_id":"s0d8OidIS2CbptVT"}
+{"name":"Reina Valera Actualizada (RVA-2015)","abbv":"RVA-2015","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"s8V6ybkuv6C92KGV"}
+{"name":"Священное Писание (Восточный Перевод) (CARS)","abbv":"CARS","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"swEBpP4498f0DJRs"}
+{"name":"Christian Standard Bible (CSB)","abbv":"CSB","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"t24KRVtHz6uTA0kR"}
 {"name":"New Russian Translation (NRT)","abbv":"NRT","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"t3IgONyhigawPEw7"}
+{"name":"Neno: Bibilia Takatifu (SNT)","abbv":"SNT","hasOT":false,"hasNT":true,"hasAPO":false,"_id":"tXfqbN7g5QlUX9mi"}
+{"name":"Revised Standard Version Catholic Edition (RSVCE)","abbv":"RSVCE","hasOT":true,"hasNT":true,"hasAPO":true,"_id":"u9s2oPYKCM9MUNfz"}
+{"name":"Japanese Living Bible (JLB)","abbv":"JLB","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"uTG3FadpshEJDCa1"}
+{"name":"Awadhi Bible: Easy-to-Read Version (ERV-AWA)","abbv":"ERV-AWA","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"uYFqFgiRzGrJaNoj"}
+{"name":"Lexham English Bible (LEB)","abbv":"LEB","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"uhhZGnab861DNpSR"}
+{"name":"International Children’s Bible (ICB)","abbv":"ICB","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"utoLU6egKk3LveOy"}
 {"name":"Tree of Life Version (TLV)","abbv":"TLV","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"v1Hf1QuEeekPNM60"}
-{"name":"Mounce Reverse-Interlinear New Testament (MOUNCE)","abbv":"MOUNCE","hasOT":false,"hasNT":true,"hasAPO":false,"_id":"vgDN8BGnSJ6vcOxJ"}
 {"name":"Beibl William Morgan (BWM)","abbv":"BWM","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"vhAORHtAhxeSqhAb"}
 {"name":"New Revised Standard Version (NRSV)","abbv":"NRSV","hasOT":true,"hasNT":true,"hasAPO":true,"_id":"w2S79mxNgBuCHLt5"}
+{"name":"New Life Version (NLV)","abbv":"NLV","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"w61kiHeED5A9RO8u"}
+{"name":"Urdu Bible: Easy-to-Read Version (ERV-UR)","abbv":"ERV-UR","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"wTBtjzZJZAuU2a2a"}
 {"name":"Holman Christian Standard Bible (HCSB)","abbv":"HCSB","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"waYATZykT0R37xwH"}
+{"name":"J.B. Phillips New Testament (PHILLIPS)","abbv":"PHILLIPS","hasOT":false,"hasNT":true,"hasAPO":false,"_id":"wbQUfm0euyMSHCyP"}
+{"name":"Mushuj Testamento Diospaj Shimi (MTDS)","abbv":"MTDS","hasOT":false,"hasNT":true,"hasAPO":false,"_id":"wmjUlGjzoqogf0GF"}
+{"name":"Hoffnung für Alle (HOF)","abbv":"HOF","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"wqUxryhy5nem3Z4F"}
+{"name":"Authorized (King James) Version (AKJV)","abbv":"AKJV","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"wriNbDlxFUJCsd10"}
+{"name":"Nueva Traducción Viviente (NTV)","abbv":"NTV","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"ws95s8Eza4vaUcMK"}
+{"name":"Chinese Union Version (Simplified) (CUVS)","abbv":"CUVS","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"xC4x4nStcJ8STXen"}
+{"name":"New Testament for Everyone (NTE)","abbv":"NTE","hasOT":false,"hasNT":true,"hasAPO":false,"_id":"xHId95a7Z0Xox44v"}
 {"name":"Young's Literal Translation (YLT)","abbv":"YLT","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"xIvbnNmwq3oboT4Q"}
+{"name":"Thai New Testament: Easy-to-Read Version (ERV-TH)","abbv":"ERV-TH","hasOT":false,"hasNT":true,"hasAPO":false,"_id":"xZieAUHlB9op2Wxf"}
+{"name":"O Livro (OL)","abbv":"OL","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"y28ssS25AQ06haW8"}
+{"name":"Библия, ревизирано издание (BPB)","abbv":"BPB","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"yAlcXb4b9FDicwas"}
+{"name":"Chinanteco de Comaltepec (CCO)","abbv":"CCO","hasOT":false,"hasNT":true,"hasAPO":false,"_id":"yMoOW4LcwEz9aVIK"}
+{"name":"1940 Bulgarian Bible (BG1940)","abbv":"BG1940","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"ybi0zNiKUpDsR50d"}
+{"name":"Young's Literal Translation (YLT)","abbv":"YLT","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"zpRah2Ml0PK7SFiC"}
 {"name":"Common English Bible (CEB)","abbv":"CEB","hasOT":true,"hasNT":true,"hasAPO":true,"_id":"zrKunS7hYYrW61LI"}
 {"name":"Dios Habla Hoy (DHH)","abbv":"DHH","hasOT":true,"hasNT":true,"hasAPO":true,"_id":"zwxYRzg9DO3RFf1V"}

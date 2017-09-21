@@ -22,7 +22,7 @@ import * as async from "async";
 
 // Other stuff
 import * as books from "./books";
-import * as Version from "./version";
+var Version = require("./version");
 import * as bibleGateway from "./bibleGateway";
 var languages = require(__dirname + "/languages.js");
 
@@ -267,6 +267,7 @@ bot.on("reconnecting", () => {
 
 bot.on("disconnect", () => {
     logMessage("info", "global", "global", "disconnected");
+    setTimeout(() => bot.destroy().then(() => bot.login(config.token)), 10000)
 });
 
 bot.on("warning", warn => {
@@ -286,12 +287,32 @@ bot.on("message", raw => {
     var msg = raw.content;
     var source;
 
+    if (config.debug) {
+        // TODO: Replace this with user IDs.
+        switch (sender) {
+            case "vipr#4035":
+            case "mimi_jean#6467":
+            case "UnimatrixZeroOne#7501":
+            case "redpanda#7299":
+                break;
+            default:
+                if (config.versionAdders.indexOf(sender) != -1) {
+                    break;
+                } else {
+                    return;
+                }
+        }
+    }
 
     if (isUnmigrated(sender)) {
         migrateUserToID(rawSender);
     }
 
     getLanguage(rawSender, function(language) {
+        if (typeof language == "undefined") {
+            language = languages.english_us;
+        }
+
         if ((typeof channel.guild != "undefined") &&
             (typeof channel.name != "undefined")) {
             source = channel.guild.name + "#" + channel.name;
@@ -333,6 +354,8 @@ bot.on("message", raw => {
             logMessage("info", sender, source, "+biblebot");
 
             var response = language.rawobj.biblebot;
+            response = response.replace("vipr", "vipr#4035 (creator/developer)");
+            response = response.replace("UnimatrixZeroOne", "UnimatrixZeroOne#7501 (sysadmin)");
             response = response.replace(
                 "<biblebotversion>", process.env.npm_package_version);
             response = response.replace(
@@ -374,6 +397,7 @@ bot.on("message", raw => {
             response = response.replace(
                 "<disable>", language.rawobj.arguments.disable);
 
+            response += "\n\nSee <https://github.com/UnimatrixZeroOne/BibleBot/wiki/Copyrights> for copyright on Bible translations.";
 
             channel.sendMessage(response);
         } else if (msg == "+" + language.rawobj.commands.random) {
@@ -400,8 +424,8 @@ bot.on("message", raw => {
                         channel.sendMessage(result);
                     });
             });
-        } else if (msg == "+" + language.rawobj.commands.verseoftheday ||
-            msg == "+" + language.rawobj.commands.votd) {
+        } else if (msg == ("+" + language.rawobj.commands.verseoftheday) ||
+            msg == ("+" + language.rawobj.commands.votd)) {
             getVersion(rawSender, function(data) {
                 var version = language.defversion;
                 var headings = "enable";
@@ -730,7 +754,7 @@ bot.on("message", raw => {
                 var hasAPO = argv[argc - 1];
 
                 var object = new Version(name, abbv, hasOT, hasNT, hasAPO);
-                versionDB.insert(object.toObject(), function(err, doc) {
+                versionDB.insert(object.toObject(), function(err) {
                     if (err) {
                         logMessage("err", "versiondb", "global", err);
                         raw.reply(
@@ -740,6 +764,42 @@ bot.on("message", raw => {
                             "**" + language.rawobj.addversionsuccess + "**");
                     }
                 });
+            }
+        } else if (msg.startsWith("+" + language.rawobj.commands.versioninfo)) {
+            if (msg.split(" ").length == 2) {
+                versionDB.find({
+                    "abbv": msg.split(" ")[1]
+                }, function(err, data) {
+                    if (err) {
+                        logMessage("err", "versiondb", "global", err);
+                        raw.reply(
+                            "**" + language.rawobj.versioninfofailed + "**");
+                    } else {
+                        logMessage("info", sender, source, "+versioninfo");
+
+                        var response = language.rawobj.versioninfo;
+                        response = response.replace("<versionname>", data[0].name);
+
+                        if (data[0].hasOT == true)
+                            response = response.replace("<hasOT>", language.rawobj.arguments.yes);
+                        else
+                            response = response.replace("<hasOT>", language.rawobj.arguments.no);
+
+                        if (data[0].hasNT == true)
+                            response = response.replace("<hasNT>", language.rawobj.arguments.yes);
+                        else
+                            response = response.replace("<hasNT>", language.rawobj.arguments.no);
+
+                        if (data[0].hasAPO == true)
+                            response = response.replace("<hasAPO>", language.rawobj.arguments.yes);
+                        else
+                            response = response.replace("<hasAPO>", language.rawobj.arguments.no);
+
+                        raw.reply(response);
+                    }
+                });
+            } else {
+
             }
         } else if (msg.includes(":") && msg.includes(" ")) {
             var spaceSplit = [];
@@ -756,7 +816,7 @@ bot.on("message", raw => {
                         var tempTempSplit = item.split(" ");
 
                         tempTempSplit.forEach(function(item) {
-                            item = item.replaceAll(/[^a-zA-Z0-9:]/g, "");
+                            item = item.replaceAll(/[^a-zA-Z0-9:()"'<>|\\/;*&^%$#@!.+_?=]/g, "");
 
                             spaceSplit.push(item);
                         });
@@ -776,6 +836,12 @@ bot.on("message", raw => {
             // must be done to ensure that its not duping itself.
             for (var i = 0; i < spaceSplit.length; i++) {
                 try {
+                    spaceSplit[i] = spaceSplit[i].replaceAll("(", "");
+                    spaceSplit[i] = spaceSplit[i].replaceAll(")", "");
+                    spaceSplit[i] = spaceSplit[i].replaceAll("[", "");
+                    spaceSplit[i] = spaceSplit[i].replaceAll("]", "");
+                    spaceSplit[i] = spaceSplit[i].replaceAll("<", "");
+                    spaceSplit[i] = spaceSplit[i].replaceAll(">", "");
                     spaceSplit[i] = capitalizeFirstLetter(spaceSplit[i]);
                 } catch (e) {
                     /* it'll probably be a number anyways, if this fails */
@@ -1118,8 +1184,8 @@ bot.on("message", raw => {
                                     result.forEach(function(object) {
                                         var content =
                                             "```Dust\n" + object.title + "\n\n" +
-                                            object.text + "```\n*" + object.copyright +
-                                            "*";
+                                            object.text + "```";
+
                                         var responseString =
                                             "**" + object.passage + " - " +
                                             object.version + "**\n\n" + content;
@@ -1152,5 +1218,5 @@ bot.on("message", raw => {
 
 logMessage(
     "info", "global", "global", "BibleBot v" + process.env.npm_package_version +
-    " by vipr and UnimatrixZeroOne");
+    " by vipr, UnimatrixZeroOne, et al.");
 bot.login(config.token);
