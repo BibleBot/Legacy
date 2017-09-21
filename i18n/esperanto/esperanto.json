@@ -24,6 +24,8 @@
   "aponotsupported2":"Se vi volas uzi la Apokrifon/Duakanonon, `+<setversion>` al versio ke enhavas ĝin.",
   "passagetoolong":"La legaĵo estas tro longa ekkapti por mi, mi pardonpetas.",
   "votdcantprocess":"La VDLT ne estas pretigita, vidu <https://www.biblegateway.com/> por la VDLT.",
+  "versioninfo":"",
+  "versioninfofailed":"",
   "commands":{
     "setversion":"metiversio",
     "version":"versio",
@@ -34,6 +36,7 @@
     "biblebot":"bibliroboto",
     "addversion":"aldoniversio",
     "av":"av",
+    "versioninfo":"",
     "versenumbers":"versanombroj",
     "headings":"titoloj",
     "puppet":"pupo",
@@ -43,6 +46,8 @@
     "languages":"lingvoj"
   },
   "arguments":{
+    "yes":"",
+    "no":"",
     "enable":"ebligi",
     "disable":"malvalidigi"
   }
