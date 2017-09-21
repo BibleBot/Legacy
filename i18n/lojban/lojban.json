@@ -5,7 +5,7 @@
   "setversionfail":"puzi fliba lenu ningau le xe fanva .i mi po'o ka'e sabji",
   "versionused":"do ca pilno zo'oi <version> .i ko zukte lenu do ciska zo'oi `+<setversion>` kei lenu ningau le xe fanva pe do",
   "noversionused":"mi na zvafa'i le mi datnisro le cmene be do .i xu do pu samci'a zo'oi `+<setversion>`",
-  "addversionsuccess":"",
+  "addversionsuccess":"puzi jmina le xe fanva",
   "addversionfail":"",
   "versenumberssuccess":"",
   "versenumbersfail":"",
