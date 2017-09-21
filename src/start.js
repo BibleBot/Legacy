@@ -22,7 +22,7 @@ import * as async from "async";
 
 // Other stuff
 import * as books from "./books";
-import * as Version from "./version";
+var Version = require("./version");
 import * as bibleGateway from "./bibleGateway";
 var languages = require(__dirname + "/languages.js");
 
@@ -288,6 +288,7 @@ bot.on("message", raw => {
     var source;
 
     if (config.debug) {
+        // TODO: Replace this with user IDs.
         switch (sender) {
             case "vipr#4035":
             case "mimi_jean#6467":
@@ -753,7 +754,7 @@ bot.on("message", raw => {
                 var hasAPO = argv[argc - 1];
 
                 var object = new Version(name, abbv, hasOT, hasNT, hasAPO);
-                versionDB.insert(object.toObject(), function(err, doc) {
+                versionDB.insert(object.toObject(), function(err) {
                     if (err) {
                         logMessage("err", "versiondb", "global", err);
                         raw.reply(
@@ -763,6 +764,42 @@ bot.on("message", raw => {
                             "**" + language.rawobj.addversionsuccess + "**");
                     }
                 });
+            }
+        } else if (msg.startsWith("+" + language.rawobj.commands.versioninfo)) {
+            if (msg.split(" ").length == 2) {
+                versionDB.find({
+                    "abbv": msg.split(" ")[1]
+                }, function(err, data) {
+                    if (err) {
+                        logMessage("err", "versiondb", "global", err);
+                        raw.reply(
+                            "**" + language.rawobj.versioninfofailed + "**");
+                    } else {
+                        logMessage("info", sender, source, "+versioninfo");
+
+                        var response = language.rawobj.versioninfo;
+                        response = response.replace("<versionname>", data[0].name);
+
+                        if (data[0].hasOT == true)
+                            response = response.replace("<hasOT>", language.rawobj.arguments.yes);
+                        else
+                            response = response.replace("<hasOT>", language.rawobj.arguments.no);
+
+                        if (data[0].hasNT == true)
+                            response = response.replace("<hasNT>", language.rawobj.arguments.yes);
+                        else
+                            response = response.replace("<hasNT>", language.rawobj.arguments.no);
+
+                        if (data[0].hasAPO == true)
+                            response = response.replace("<hasAPO>", language.rawobj.arguments.yes);
+                        else
+                            response = response.replace("<hasAPO>", language.rawobj.arguments.no);
+
+                        raw.reply(response);
+                    }
+                });
+            } else {
+
             }
         } else if (msg.includes(":") && msg.includes(" ")) {
             var spaceSplit = [];
