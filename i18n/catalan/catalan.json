@@ -24,6 +24,8 @@
   "aponotsupported2":"Si voleu fer servir els Apòcrifs/Deuterocanònics, `+<setversion>`a una versió que els contingui.",
   "passagetoolong":"El passatge és massa llarg per a poder citar-lo, disculpeu-me.",
   "votdcantprocess":"",
+  "versioninfo":"",
+  "versioninfofailed":"",
   "commands":{
     "setversion":"defversió",
     "version":"versió",
@@ -34,6 +36,7 @@
     "biblebot":"biblebot",
     "addversion":"afegirversió",
     "av":"av",
+    "versioninfo":"",
     "versenumbers":"versnúmero",
     "headings":"títols",
     "puppet":"titella",
@@ -43,6 +46,8 @@
     "languages":"idiomes"
   },
   "arguments":{
+    "yes":"",
+    "no":"",
     "enable":"habilitar",
     "disable":"deshabilitar"
   }

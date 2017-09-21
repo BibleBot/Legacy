@@ -24,6 +24,8 @@
   "aponotsupported2":"Falls sie die Apokryphen/Deuterokanonischen Bücher verwenden möchten benutzen Sie `+<setversion>` und stellen Sie eine Version ein die es hat.",
   "passagetoolong":"Es tut mir leide diese Passage ist zu lang für mich.",
   "votdcantprocess":"",
+  "versioninfo":"",
+  "versioninfofailed":"",
   "commands":{
     "setversion":"versioneinstellen",
     "version":"version",
@@ -34,6 +36,7 @@
     "biblebot":"bibelbot",
     "addversion":"versionhinzufügen",
     "av":"vh",
+    "versioninfo":"",
     "versenumbers":"versnummern",
     "headings":"überschrift",
     "puppet":"puppe",
@@ -43,6 +46,8 @@
     "languages":"sprachen"
   },
   "arguments":{
+    "yes":"",
+    "no":"",
     "enable":"aktivieren",
     "disable":"deaktivieren"
   }

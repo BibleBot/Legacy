@@ -24,6 +24,8 @@
   "aponotsupported2":"",
   "passagetoolong":"",
   "votdcantprocess":"",
+  "versioninfo":"",
+  "versioninfofailed":"",
   "commands":{
     "setversion":"",
     "version":"",
@@ -34,6 +36,7 @@
     "biblebot":"",
     "addversion":"",
     "av":"",
+    "versioninfo":"",
     "versenumbers":"",
     "headings":"",
     "puppet":"",
@@ -43,6 +46,8 @@
     "languages":""
   },
   "arguments":{
+    "yes":"",
+    "no":"",
     "enable":"",
     "disable":""
   }
