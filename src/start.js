@@ -363,6 +363,8 @@ bot.on("message", raw => {
             response = response.replace(
                 "<versions>", language.rawobj.commands.versions);
             response = response.replace(
+                "<versioninfo>", language.rawobj.commands.versioninfo);
+            response = response.replace(
                 "<votd>", language.rawobj.commands.votd);
             response = response.replace(
                 "<verseoftheday>", language.rawobj.commands.verseoftheday);
@@ -733,8 +735,7 @@ bot.on("message", raw => {
             return;
         } else if (msg.startsWith("+" + language.rawobj.commands.addversion) ||
             msg.startsWith("+" + language.rawobj.commands.av)) {
-            if (sender == config.owner ||
-                (config.versionadders.indexOf(sender) != -1)) {
+            if (sender == config.owner) {
 
                 var argv = msg.split(" ");
                 var argc = argv.length;
