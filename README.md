@@ -1,5 +1,5 @@
 # BibleBot
-[![Feature Requests](http://feathub.com/UnimatrixZeroOne/BibleBot?format=svg)](http://feathub.com/UnimatrixZeroOne/BibleBot)    
+[![Feature Requests](http://feathub.com/BibleBot/BibleBot?format=svg)](http://feathub.com/BibleBot/BibleBot)   
 A Discord bot for Bible verses.
 
 To use it, just say a Bible verse.
@@ -8,7 +8,7 @@ To use it, just say a Bible verse.
 
 Installation:
 ```sh
-git clone https://github.com/UnimatrixZeroOne/BibleBot.git;
+git clone https://github.com/BibleBot/BibleBot.git;
 npm install;
 mv src/config.example.js src/config.js;
 $EDITOR src/config.js;
@@ -59,5 +59,3 @@ and the dotfiles do not need to have the version number updated.
 
 Special thanks to those who helped translate BibleBot to other languages:   
 Blubb, Bonaventure Sissokovitch, Buggyrcobra, Coal, Manelic, Raven Melodie, topras.gr, Tuonela, Viva98, xnkmevaou
-
-Originally a fork of "HolyBot" created by Elliott Pardee (@[vypr](https://github.com/vypr)).
