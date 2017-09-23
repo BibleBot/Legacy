@@ -38,17 +38,17 @@
     "av":"",
     "versioninfo":"",
     "versenumbers":"",
-    "headings":"",
+    "headings":"lojufmeicme",
     "puppet":"",
     "leave":"",
     "setlanguage":"ningaulebangu",
-    "language":"lobangu",
-    "languages":"lo bangu"
+    "language":"lebangu",
+    "languages":""
   },
   "arguments":{
     "yes":"go'i",
     "no":"nago'i",
-    "enable":"pilno",
-    "disable":"napilno"
+    "enable":"selpli",
+    "disable":"naselpli"
   }
 }
