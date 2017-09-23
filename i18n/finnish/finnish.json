@@ -43,12 +43,12 @@
     "leave":"poistu",
     "setlanguage":"asetakieli",
     "language":"kieli",
-    "languages":""
+    "languages":"kielet"
   },
   "arguments":{
-    "yes":"",
-    "no":"",
-    "enable":"",
-    "disable":""
+    "yes":"Kyllä",
+    "no":"Ei",
+    "enable":"päälle",
+    "disable":"pois"
   }
 }
