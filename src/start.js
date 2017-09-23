@@ -347,8 +347,8 @@ bot.on("message", raw => {
         } else if (msg.startsWith("+" + language.rawobj.commands.puppet) &&
             sender == config.owner) {
             // requires manage messages permission (and possibly administrator)
-            raw.delete();
-            logMessage("info", sender, source, "+puppet");
+            raw.delete().then(msg => logMessage("info", sender, source, msg))
+            .catch(console.error);
             channel.sendMessage(msg.replaceAll("+puppet ", ""));
         } else if (msg == "+" + language.rawobj.commands.biblebot) {
             logMessage("info", sender, source, "+biblebot");
