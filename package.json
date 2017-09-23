@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/UnimatrixZeroOne/BibleBot"
+    "url": "git+https://github.com/BibleBot/BibleBot"
   },
-  "author": "vypr, UnimatrixZeroOne, et al.",
+  "author": "vypr",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/UnimatrixZeroOne/BibleBot/issues"
+    "url": "https://github.com/BibleBot/BibleBot/issues"
   },
-  "homepage": "https://github.com/UnimatrixZeroOne/BibleBot#readme",
+  "homepage": "https://github.com/BibleBot/BibleBot#readme",
   "dependencies": {
     "async": "^2.1.4",
     "cheerio": "^0.22.0",
