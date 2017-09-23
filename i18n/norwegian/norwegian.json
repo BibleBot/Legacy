@@ -1,5 +1,5 @@
 {
-  "biblebot":"**BibleBot v<biblebotversion> (tidligere kjent som HolyBot) laget av viprog UnimatrixZeroOne ** - kode: <https://github.com/UnimatrixZeroOne/Biblebot>\n\n```kommandoer:\n* `+<setversion> ABBV` - Sett bibel versjon til ABBV\n* `+<version>` - se hva versjon du har valgt\n* `+<versions>` - se hvilke versjoner som er tilgjenglig\n* `+<random>` - få et tilfeldig bibelvers\n* `+<verseoftheday>` (`+<votd>`) - få dagens vers\n* `+<headings> <enable>/<disable>` - aktivere eller deaktivere overskrifter\n* `+<versenumbers> <enable>/<disable>` - aktivere eller deaktivere vers nummer fra å vises i hver linje\n* `+<language>` - Se hvilket språk du har valgt, om et er valgt (default: engelsk)\n* `+<setlanguage> LANG` - Sett språk til LANG\n* `+<languages>` - Se hvilke språk som støttes```\n**For å bruke den, bare si et bibelvers, jeg vil håndtere resten.**",
+  "biblebot":"",
   "versions":"Jeg støtter",
   "setversionsuccess":"Valg av versjon er vellykket.",
   "setversionfail":"Kunne ikke sette versjon, jeg støtter bare",
