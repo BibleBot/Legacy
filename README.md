@@ -22,14 +22,15 @@ npm start;
 Commands:
 
 * `+versions` - show all Bible translations you can set
-* `+setversion <version>` - set a preferred version
+* `+setversion VER` - set a preferred version
 * `+version` - display your current version
+* `+versioninfo VER` - read information about a version, using the acronym
 * `+random` - get a random Bible verse
 * `+verseoftheday` (`+votd`) - get the verse of the day
 * `+headings enable/disable` - enable or disable the headings that display on certain verses
 * `+versenumbers enable/disable` - enable or disable verse numbers from showing on each line
 * `+languages` - show all available language translations you can set
-* `+setlanguage <language>` - set a preferred language
+* `+setlanguage LANG` - set a preferred language
 * `+language` - display your current language
 
 Bot Owner Commands:
