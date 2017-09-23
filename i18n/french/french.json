@@ -36,7 +36,7 @@
     "biblebot":"biblebot",
     "addversion":"ajouterversion",
     "av":"av",
-    "versioninfo":"",
+    "versioninfo":"versioninfo",
     "versenumbers":"n°deverset",
     "headings":"en-têtes",
     "puppet":"pantin",
@@ -46,8 +46,8 @@
     "languages":"langues"
   },
   "arguments":{
-    "yes":"",
-    "no":"",
+    "yes":"Oui",
+    "no":"Non",
     "enable":"afficher",
     "disable":"désactiver"
   }
