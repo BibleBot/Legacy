@@ -395,7 +395,7 @@ bot.on("message", raw => {
             response = response.replace(
                 "<disable>", language.rawobj.arguments.disable);
 
-            response += "\n\nSee <https://github.com/BibleBot/BibleBot/wiki/Copyrights> for any copyright-related information.";
+            response += "\n\nSee <https://biblebot.github.io/copyrights> for any copyright-related information.";
 
             channel.sendMessage(response);
         } else if (msg == "+" + language.rawobj.commands.random) {
