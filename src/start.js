@@ -773,7 +773,7 @@ bot.on("message", raw => {
                         logMessage("err", "versiondb", "global", err);
                         raw.reply(
                             "**" + language.rawobj.versioninfofailed + "**");
-                    } else if (data) {
+                    } else if (data[0].name) {
                         logMessage("info", sender, source, "+versioninfo");
 
                         var response = language.rawobj.versioninfo;
