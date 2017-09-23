@@ -4,7 +4,7 @@
   "setversionsuccess":"puzi ningau le xe fanva pe do",
   "setversionfail":"puzi fliba lenu ningau le xe fanva .i mi po'o ka'e sabji",
   "versionused":"do ca pilno zo'oi <version> .i ko zukte lenu do samci'a zo'oi `+<setversion>` kei lenu ningau le xe fanva pe do",
-  "noversionused":"mi na zvafa'i le mi datnisro le cmene be do .i xu do pu samci'a zo'oi `+<setversion>`",
+  "noversionused":"mi na zvafa'i le cmene be do le mi datnisro .i xu do pu samci'a zo'oi `+<setversion>`",
   "addversionsuccess":"puzi jmina le xe fanva",
   "addversionfail":"puzi fliba lenu jmina le xe fanva",
   "versenumberssuccess":"",
@@ -25,7 +25,7 @@
   "passagetoolong":"",
   "votdcantprocess":"",
   "versioninfo":"",
-  "versioninfofailed":"",
+  "versioninfofailed":"mi na zvafa'i ra .i xu do pu samci'a le drani brevia",
   "commands":{
     "setversion":"ningaulexefanva",
     "version":"lexefanva",
