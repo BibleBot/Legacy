@@ -1,6 +1,6 @@
 {
-  "name": "BibleBot",
-  "version": "3.2.1",
+  "name": "biblebot",
+  "version": "3.2.6",
   "description": "A Discord bot for Bible verses.",
   "main": "start.js",
   "scripts": {
@@ -12,7 +12,7 @@
     "type": "git",
     "url": "git+https://github.com/UnimatrixZeroOne/BibleBot"
   },
-  "author": "vypr and UnimatrixZeroOne",
+  "author": "vypr, UnimatrixZeroOne, et al.",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/UnimatrixZeroOne/BibleBot/issues"
@@ -22,6 +22,7 @@
     "async": "^2.1.4",
     "cheerio": "^0.22.0",
     "discord.js": "^10.0.1",
+    "eslint": "^4.6.1",
     "log4js": "^1.0.1",
     "nedb": "^1.8.0",
     "nodemon": "^1.11.0",

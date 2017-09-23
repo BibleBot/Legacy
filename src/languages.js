@@ -25,10 +25,10 @@ var languages = {
     */
 
     "arabic": {
-      "name": "Arabic",
-      "rawobj": arabic,
-      "defversion": "NAV",
-      "complete": true
+        "name": "Arabic",
+        "rawobj": arabic,
+        "defversion": "NAV",
+        "complete": true
     },
     // no catalan versions on BibleGateway, yet
     "catalan": {
