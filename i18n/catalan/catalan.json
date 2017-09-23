@@ -1,5 +1,5 @@
 {
-  "biblebot":"**BibleBot v<biblebotversion> (Anteriorment conegut com HolyBot) fet per vipr i UnimatrixZeroOne** - code: <https://github.com/UnimatrixZeroOne/BibleBot>\n\n```commands:\n* `+<setversion> ABBV` - Establir ABBV com a versió preferida\n* `+<version>` - Veure la versió preferida establerta\n* `+<versions>` - Veure totes les versions compatibles\n* `+<random>` - Obtenir un vers de la Bíblia a l'atzar\n* `+<verseoftheday>` (`+<votd>`) - Obtenir el vers del dia\n* `+<headings> <enable>/<disable>` - Activar o desactivar títols de topics\n* `+<versenumbers> <enable>/<disable>` - Activar o desactivar que es mostrin els números de versos en cada línia\n* `+<language>` - Consulteu l'idioma actual, s'hi n'hi ha un seleccionat (per defecte: anglès)\n* `+<setlanguage> LANG` - Establir LANG com a l'idioma desitjat\n* `+<languages>` - Veure els idiomes compatibles```\n**Per utilitzar-lo, només cal dir un vers de la Bíblia. Jo m'encarrego de la resta.**",
+  "biblebot":"",
   "versions":"Jo suporto",
   "setversionsuccess":"Versió establerta correctament.",
   "setversionfail":"S'ha fallat al establir la versió, només suporto",

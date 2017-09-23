@@ -1,5 +1,5 @@
 {
-  "biblebot":"**BeukBot v<biblebotversion> (syne kent as HolyBot) by vipr an UnimatrixZeroOne** - code: <https://github.com/UnimatrixZeroOne/BibleBot>\n\n```biddins:\n* `+<setversion> ABBV` - set preferred version tae ABBV\n* `+<version>` - see whit version ye hae set\n* `+<versions>` - see the stuited versions\n* `+<random>` - get a random Beuk verse\n* `+<verseoftheday>` (`+<votd>`) - get the verse o the day\n* `+<headings> <enable>/<disable>` - enable or disable topic headings\n* `+<versenumbers> <enable>/<disable>` - enable or disable verse nummers frae shawin on ilk line\n* `+<language>` - see yer current leed, gif ane is set (default: english)\n* `+<setlanguage> LANG` - set preferred leed tae LANG\n* `+<languages>` - see the supported leeds```\n**Tae uise it, juist say a Beuk verse. A'll haundle the lave.**",
+  "biblebot":"",
   "versions":"A stuit",
   "setversionsuccess":"Set version endweys.",
   "setversionfail":"",
