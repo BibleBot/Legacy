@@ -773,7 +773,7 @@ bot.on("message", raw => {
                         logMessage("err", "versiondb", "global", err);
                         raw.reply(
                             "**" + language.rawobj.versioninfofailed + "**");
-                    } else {
+                    } else if (data) {
                         logMessage("info", sender, source, "+versioninfo");
 
                         var response = language.rawobj.versioninfo;
@@ -795,6 +795,8 @@ bot.on("message", raw => {
                             response = response.replace("<hasAPO>", language.rawobj.arguments.no);
 
                         raw.reply(response);
+                    } else {
+                        raw.reply("**" + language.rawobj.versioninfofailed + "**");
                     }
                 });
             } else {
