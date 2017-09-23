@@ -27,7 +27,7 @@
   "versioninfo":"",
   "versioninfofailed":"",
   "commands":{
-    "setversion":"",
+    "setversion":"ningaulexefanva",
     "version":"",
     "versions":"",
     "votd":"",
@@ -41,14 +41,14 @@
     "headings":"",
     "puppet":"",
     "leave":"",
-    "setlanguage":"",
-    "language":"lo bangu",
+    "setlanguage":"ningaulebangu",
+    "language":"lobangu",
     "languages":"lo bangu"
   },
   "arguments":{
     "yes":"go'i",
-    "no":"na go'i",
-    "enable":"",
-    "disable":""
+    "no":"nago'i",
+    "enable":"pilno",
+    "disable":"napilno"
   }
 }
