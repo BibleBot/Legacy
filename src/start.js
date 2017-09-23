@@ -322,7 +322,7 @@ bot.on("message", raw => {
 
         if (sender == config.botname) return;
         if (source.includes("Discord Bots") &&
-            sender != "UnimatrixZeroOne#7501")
+            sender != config.owner)
             return;
 
         // for verse arrays
@@ -354,8 +354,6 @@ bot.on("message", raw => {
             logMessage("info", sender, source, "+biblebot");
 
             var response = language.rawobj.biblebot;
-            response = response.replace("vipr", "vipr#4035 (creator/developer)");
-            response = response.replace("UnimatrixZeroOne", "UnimatrixZeroOne#7501 (sysadmin)");
             response = response.replace(
                 "<biblebotversion>", process.env.npm_package_version);
             response = response.replace(
@@ -397,7 +395,7 @@ bot.on("message", raw => {
             response = response.replace(
                 "<disable>", language.rawobj.arguments.disable);
 
-            response += "\n\nSee <https://github.com/UnimatrixZeroOne/BibleBot/wiki/Copyrights> for copyright on Bible translations.";
+            response += "\n\nSee <https://github.com/BibleBot/BibleBot/wiki/Copyrights> for any copyright-related information.";
 
             channel.sendMessage(response);
         } else if (msg == "+" + language.rawobj.commands.random) {
