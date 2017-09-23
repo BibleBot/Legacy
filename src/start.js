@@ -769,11 +769,13 @@ bot.on("message", raw => {
                 versionDB.find({
                     "abbv": msg.split(" ")[1]
                 }, function(err, data) {
+                    data = data; // for some reason it won't initialize properly
+
                     if (err) {
                         logMessage("err", "versiondb", "global", err);
                         raw.reply(
                             "**" + language.rawobj.versioninfofailed + "**");
-                    } else if (data[0].name) {
+                    } else if (data.length > 0) {
                         logMessage("info", sender, source, "+versioninfo");
 
                         var response = language.rawobj.versioninfo;
