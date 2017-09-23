@@ -24,6 +24,8 @@
   "aponotsupported2":"Si desea usar los Apócrifos/Deuterocanónicos, `+<setversion>` a una versión que los tenga.",
   "passagetoolong":"El pasaje es demasiado largo para poder citarlo, disculpe.",
   "votdcantprocess":"",
+  "versioninfo":"",
+  "versioninfofailed":"",
   "commands":{
     "setversion":"defversion",
     "version":"version",
@@ -34,6 +36,7 @@
     "biblebot":"biblebot",
     "addversion":"agregarversion",
     "av":"av",
+    "versioninfo":"",
     "versenumbers":"versonumero",
     "headings":"titulos",
     "puppet":"titere",
@@ -43,6 +46,8 @@
     "languages":"idiomas"
   },
   "arguments":{
+    "yes":"",
+    "no":"",
     "enable":"habilitar",
     "disable":"deshabilitar"
   }

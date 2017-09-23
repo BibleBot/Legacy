@@ -24,6 +24,8 @@
   "aponotsupported2":"",
   "passagetoolong":"",
   "votdcantprocess":"",
+  "versioninfo":"",
+  "versioninfofailed":"",
   "commands":{
     "setversion":"setversion",
     "version":"version",
@@ -34,6 +36,7 @@
     "biblebot":"beukbot",
     "addversion":"addversion",
     "av":"av",
+    "versioninfo":"",
     "versenumbers":"versenummers",
     "headings":"headings",
     "puppet":"puppet",
@@ -43,6 +46,8 @@
     "languages":"leeds"
   },
   "arguments":{
+    "yes":"",
+    "no":"",
     "enable":"enable",
     "disable":"disable"
   }
