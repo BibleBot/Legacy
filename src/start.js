@@ -1032,7 +1032,8 @@ bot.on("message", raw => {
             if (verseCount > 4) {
                 var responses = ["spamming me, really?", "no spam pls",
                     "no spam, am good bot", "be nice to me",
-                    "don't spam me, i'm a good bot"
+                    "don't spam me, i'm a good bot", "hey buddy, get your own " +
+                    "bot to spam"
                 ];
                 var randomIndex = Math.floor(Math.random() * (4 - 0)) + 0;
 
