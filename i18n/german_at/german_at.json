@@ -1,5 +1,5 @@
 {
-  "biblebot":"**BibelBot v<biblebotversion> (früher bekannt als HolyBot) von vipr und UnimatrixZeroOne** - code: <https://github.com/UnimatrixZeroOne/BibleBot>\n\n```Befehle:\n* `+<setversion> VER` - stelle VER als bevorzugte Version ein\n* `+<version>` - festgelegte Version einsehen\n* `+<versions>` - unterstützte Versionen einsehen\n* `+<random>` - einen zufälligen Bibel Vers anzeigen\n* `+<verseoftheday>` (`+<votd>`) - Vers des Tages\n* `+<headings> <enable>/<disable>` - Themenüberschriften aktivieren oder deaktivieren\n* `+<versenumbers> <enable>/<disable>` - aktivieren oder deaktivieren sie die Anzeige von Vers Zahlen auf jeder Linie\n* `+<language>` - einsehen der aktuellen Sprache falls eingestellt (Standard: Englisch)\n* `+<setlanguage> SPRACHE` - bevorzugte Sprache als SPRACHE einstellen\n* `+<languages>` - unterstützte Sprachen einsehen```\n**Um mich zu benutzten sage einfach einen Bibel Vers. Ich erledige den Rest**",
+  "biblebot":"",
   "versions":"Ich unterstütze",
   "setversionsuccess":"Version erfolgreich eingestellt.",
   "setversionfail":"Fehler beim Festlegen der Version, ich unterstütze nur",
