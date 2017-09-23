@@ -7,6 +7,7 @@ To use it, just say a Bible verse.
 ---
 
 Installation:
+
 ```sh
 git clone https://github.com/BibleBot/BibleBot.git;
 npm install;
@@ -36,7 +37,7 @@ Bot Owner Commands:
 * `+addversion <versionname> <abbv> <hasOT> <hasNT> <hasAPO>` - add a version (`+av`)
 * `+puppet <message>` - say something as the bot
 
-Invite BibleBot to your server! https://discordapp.com/api/oauth2/authorize?client_id=269407897178472448&scope=bot&permissions=0
+Invite BibleBot to your server! https://discordapp.com/api/oauth2/authorize?client_id=361033318273384449&scope=bot&permissions=0
 
 ---
 
