@@ -1,5 +1,5 @@
 # BibleBot
-[![Become a Patron on Patreon](https://i.imgur.com/CgNjna2.png)](https://patreon.com/vipr)
+[![Become a Patron on Patreon](https://i.imgur.com/CgNjna2.png?)](https://patreon.com/vipr)
 [![Feature Requests](http://feathub.com/BibleBot/BibleBot?format=svg)](http://feathub.com/BibleBot/BibleBot)   
 A Discord bot for Bible verses.
 
