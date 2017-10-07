@@ -1,7 +1,7 @@
 # BibleBot
 [![Become a Patron on Patreon](https://i.imgur.com/CgNjna2.png?)](https://patreon.com/BibleBot)
 
-[![Feature Requests](http://feathub.com/BibleBot/BibleBot?format=svg)](http://feathub.com/BibleBot/BibleBot)   
+[![Feature Requests](https://feathub.com/BibleBot/BibleBot?format=svg)](https://feathub.com/BibleBot/BibleBot)   
 A Discord bot for Bible verses.
 
 To use it, just say a Bible verse.
