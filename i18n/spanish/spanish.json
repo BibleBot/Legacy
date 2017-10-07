@@ -24,8 +24,8 @@
   "aponotsupported2":"Si desea usar los Apócrifos/Deuterocanónicos, `+<setversion>` a una versión que los tenga.",
   "passagetoolong":"El pasaje es demasiado largo para poder citarlo, disculpe.",
   "votdcantprocess":"",
-  "versioninfo":"",
-  "versioninfofailed":"",
+  "versioninfo":"\n**<versionname>**\n\nContiene el Antiguo Testamento: <<hasOT>\nContiene el Nuevo Testamento: <hasNT>\nContiene los Apócrifos: <hasAPO>",
+  "versioninfofailed":"¿No logré encontrar esa versión, estás seguro de que has utilizado el acrónimo correcto?",
   "commands":{
     "setversion":"defversion",
     "version":"version",
