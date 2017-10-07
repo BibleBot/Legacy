@@ -5,8 +5,8 @@
   "setversionfail":"Inställning av version misslyckades, jag stödjer enbart",
   "versionused":"Du använder <version>. Använd `+<setversion>` för att ställa in en annan version",
   "noversionused":"Jag kunde inte hitta ditt namn i min databas, har du använt `+<setversion>` ännu?",
-  "addversionsuccess":"",
-  "addversionfail":"",
+  "addversionsuccess":"Lade framgångsrikt till version.",
+  "addversionfail":"Misslyckades med att lägga till version.",
   "versenumberssuccess":"",
   "versenumbersfail":"",
   "headingssuccess":"",
@@ -40,15 +40,15 @@
     "versenumbers":"",
     "headings":"",
     "puppet":"",
-    "leave":"",
-    "setlanguage":"",
-    "language":"",
-    "languages":""
+    "leave":"lämna",
+    "setlanguage":"angespråk",
+    "language":"språk",
+    "languages":"språk"
   },
   "arguments":{
-    "yes":"",
-    "no":"",
-    "enable":"",
-    "disable":""
+    "yes":"Ja",
+    "no":"Nej",
+    "enable":"aktivera",
+    "disable":"inaktivera"
   }
 }
