@@ -1259,6 +1259,7 @@ bot.on("message", raw => {
 
                                         if (randomNumber == 10) {
                                             responseString += "\n\n**Help BibleBot's development and hosting by becoming a patron on Patreon! See <https://patreon.com/BibleBot> for more information!**";
+                                            properString += " - patreon added";
                                         }
 
                                         if (responseString.length < 2000) {
