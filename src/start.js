@@ -390,6 +390,7 @@ bot.on("message", raw => {
             response = response.replace(
                 "<disable>", language.rawobj.arguments.disable);
 
+            response += "\n\n**Help BibleBot's development and hosting by becoming a patron on Patreon! See <https://patreon.com/BibleBot> for more information!**";
             response += "\n\nSee <https://biblebot.vypr.space/copyrights> for any copyright-related information.";
 
             channel.sendMessage(response);
