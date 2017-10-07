@@ -348,7 +348,7 @@ bot.on("message", raw => {
             sender == config.owner) {
             // requires manage messages permission (and possibly administrator)
             raw.delete().then(msg => logMessage("info", sender, source, msg))
-            .catch(logMessage("info", sender, source, msg));
+                .catch(logMessage("info", sender, source, msg));
             channel.sendMessage(msg.replaceAll("+puppet ", ""));
         } else if (msg == "+" + language.rawobj.commands.biblebot) {
             logMessage("info", sender, source, "+biblebot");
@@ -510,11 +510,24 @@ bot.on("message", raw => {
 
                 raw.reply("**" + response + "**");
             } else {
-                setHeadings(rawSender, msg.split(" ")[1], function(data) {
+                var option;
+
+                switch (msg.split(" ")[1]) {
+                    case language.rawobj.arguments.enable:
+                        option = "enable";
+                        break;
+                    case language.rawobj.arguments.disable:
+                        option = "disable";
+                        break;
+                    default:
+                        return;
+                }
+
+                setHeadings(rawSender, option, function(data) {
                     if (data) {
                         logMessage(
                             "info", sender, source, "+headings " +
-                            msg.split(" ")[1]);
+                            option);
                         var response = language.rawobj.headingssuccess;
                         response = response.replace(
                             "<headings>", language.rawobj.commands.headings);
@@ -558,11 +571,24 @@ bot.on("message", raw => {
 
                 raw.reply("**" + response + "**");
             } else {
-                setVerseNumbers(rawSender, msg.split(" ")[1], function(data) {
+                var option;
+
+                switch (msg.split(" ")[1]) {
+                    case language.rawobj.arguments.enable:
+                        option = "enable";
+                        break;
+                    case language.rawobj.arguments.disable:
+                        option = "disable";
+                        break;
+                    default:
+                        return;
+                }
+                
+                setVerseNumbers(rawSender, option, function(data) {
                     if (data) {
                         logMessage(
                             "info", sender, source, "+versenumbers " +
-                            msg.split(" ")[1]);
+                            option);
 
                         var response = language.rawobj.versenumberssuccess;
                         response = response.replace(
