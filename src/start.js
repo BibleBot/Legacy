@@ -30,15 +30,8 @@ var languages = require(__dirname + "/languages.js");
 import * as log4js from "log4js";
 log4js.configure({
     appenders: [{
-            type: "console"
-        },
-        {
-            type: "dateFile",
-            filename: "logs/loggerrino.log",
-            pattern: "-yyyy-MM-dd",
-            alwaysIncludePattern: false
-        }
-    ]
+        type: "console"
+    }]
 });
 
 var logger = log4js.getLogger();
@@ -520,36 +513,54 @@ bot.on("message", raw => {
                         option = "disable";
                         break;
                     default:
-                        return;
+                        option = null;
+                        break;
                 }
 
-                setHeadings(rawSender, option, function(data) {
-                    if (data) {
-                        logMessage(
-                            "info", sender, source, "+headings " +
-                            option);
-                        var response = language.rawobj.headingssuccess;
-                        response = response.replace(
-                            "<headings>", language.rawobj.commands.headings);
+                if (option !== null) {
+                    setHeadings(rawSender, option, function(data) {
+                        if (data) {
+                            logMessage(
+                                "info", sender, source, "+headings " +
+                                option);
+                            var response = language.rawobj.headingssuccess;
+                            response = response.replace(
+                                "<headings>", language.rawobj.commands.headings);
 
-                        raw.reply("**" + response + "**");
-                    } else {
-                        logMessage("info", sender, source, "failed +headings");
+                            raw.reply("**" + response + "**");
+                        } else {
+                            logMessage("info", sender, source, "failed +headings");
 
-                        var response = language.rawobj.headingsfail;
+                            var response = language.rawobj.headingsfail;
 
-                        response = response.replace(
-                            "<headings>", language.rawobj.commands.headings);
-                        response = response.replace(
-                            "<headings>", language.rawobj.commands.headings);
-                        response = response.replace(
-                            "<enable>", language.rawobj.arguments.enable);
-                        response = response.replace(
-                            "<disable>", language.rawobj.arguments.disable);
+                            response = response.replace(
+                                "<headings>", language.rawobj.commands.headings);
+                            response = response.replace(
+                                "<headings>", language.rawobj.commands.headings);
+                            response = response.replace(
+                                "<enable>", language.rawobj.arguments.enable);
+                            response = response.replace(
+                                "<disable>", language.rawobj.arguments.disable);
 
-                        raw.reply("**" + response + "**");
-                    }
-                });
+                            raw.reply("**" + response + "**");
+                        }
+                    });
+                } else {
+                    logMessage("info", sender, source, "failed +headings");
+
+                    var response = language.rawobj.headingsfail;
+
+                    response = response.replace(
+                        "<headings>", language.rawobj.commands.headings);
+                    response = response.replace(
+                        "<headings>", language.rawobj.commands.headings);
+                    response = response.replace(
+                        "<enable>", language.rawobj.arguments.enable);
+                    response = response.replace(
+                        "<disable>", language.rawobj.arguments.disable);
+
+                    raw.reply("**" + response + "**");
+                }
             }
 
             return;
@@ -581,43 +592,66 @@ bot.on("message", raw => {
                         option = "disable";
                         break;
                     default:
-                        return;
+                        option = null;
+                        break;
                 }
-                
-                setVerseNumbers(rawSender, option, function(data) {
-                    if (data) {
-                        logMessage(
-                            "info", sender, source, "+versenumbers " +
-                            option);
 
-                        var response = language.rawobj.versenumberssuccess;
-                        response = response.replace(
-                            "<versenumbers>",
-                            language.rawobj.commands.versenumbers);
+                if (option !== null) {
+                    setVerseNumbers(rawSender, option, function(data) {
+                        if (data) {
+                            logMessage(
+                                "info", sender, source, "+versenumbers " +
+                                option);
 
-                        raw.reply("**" + response + "**");
-                    } else {
-                        logMessage(
-                            "info", sender, source, "failed +versenumbers");
+                            var response = language.rawobj.versenumberssuccess;
+                            response = response.replace(
+                                "<versenumbers>",
+                                language.rawobj.commands.versenumbers);
 
-                        var response = language.rawobj.versenumbersfail;
+                            raw.reply("**" + response + "**");
+                        } else {
+                            logMessage(
+                                "info", sender, source, "failed +versenumbers");
 
-                        response = response.replace(
-                            "<versenumbers>",
-                            language.rawobj.commands.versenumbers);
-                        response = response.replace(
-                            "<versenumbers>",
-                            language.rawobj.commands.versenumbers);
-                        response = response.replace(
-                            "<enable>",
-                            language.rawobj.arguments.enable);
-                        response = response.replace(
-                            "<disable>",
-                            language.rawobj.arguments.disable);
+                            var response = language.rawobj.versenumbersfail;
 
-                        raw.reply("**" + response + "**");
-                    }
-                });
+                            response = response.replace(
+                                "<versenumbers>",
+                                language.rawobj.commands.versenumbers);
+                            response = response.replace(
+                                "<versenumbers>",
+                                language.rawobj.commands.versenumbers);
+                            response = response.replace(
+                                "<enable>",
+                                language.rawobj.arguments.enable);
+                            response = response.replace(
+                                "<disable>",
+                                language.rawobj.arguments.disable);
+
+                            raw.reply("**" + response + "**");
+                        }
+                    });
+                } else {
+                    logMessage(
+                        "info", sender, source, "failed +versenumbers");
+
+                    var response = language.rawobj.versenumbersfail;
+
+                    response = response.replace(
+                        "<versenumbers>",
+                        language.rawobj.commands.versenumbers);
+                    response = response.replace(
+                        "<versenumbers>",
+                        language.rawobj.commands.versenumbers);
+                    response = response.replace(
+                        "<enable>",
+                        language.rawobj.arguments.enable);
+                    response = response.replace(
+                        "<disable>",
+                        language.rawobj.arguments.disable);
+
+                    raw.reply("**" + response + "**");
+                }
             }
 
             return;
