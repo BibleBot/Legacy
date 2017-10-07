@@ -23,7 +23,7 @@
   "ntnotsupported2":"Si desea usar el Nuevo Testamento, `+<setversion>` a una versión que lo tenga.",
   "aponotsupported2":"Si desea usar los Apócrifos/Deuterocanónicos, `+<setversion>` a una versión que los tenga.",
   "passagetoolong":"El pasaje es demasiado largo para poder citarlo, disculpe.",
-  "votdcantprocess":"",
+  "votdcantprocess":"El VDD no puede ser procesado, visite <https://www.biblegateway.com/> para verlo.",
   "versioninfo":"\n**<versionname>**\n\nContiene el Antiguo Testamento: <<hasOT>\nContiene el Nuevo Testamento: <hasNT>\nContiene los Apócrifos: <hasAPO>",
   "versioninfofailed":"¿No logré encontrar esa versión, estás seguro de que has utilizado el acrónimo correcto?",
   "commands":{
