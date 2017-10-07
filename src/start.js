@@ -322,7 +322,7 @@ bot.on("message", raw => {
 
         if (sender == config.botname) return;
         if (source.includes("Discord Bots") &&
-            sender != "UnimatrixZeroOne#7501")
+            sender != config.owner)
             return;
 
         // for verse arrays
@@ -347,15 +347,13 @@ bot.on("message", raw => {
         } else if (msg.startsWith("+" + language.rawobj.commands.puppet) &&
             sender == config.owner) {
             // requires manage messages permission (and possibly administrator)
-            raw.delete();
-            logMessage("info", sender, source, "+puppet");
+            raw.delete().then(msg => logMessage("info", sender, source, msg))
+            .catch(logMessage("info", sender, source, msg));
             channel.sendMessage(msg.replaceAll("+puppet ", ""));
         } else if (msg == "+" + language.rawobj.commands.biblebot) {
             logMessage("info", sender, source, "+biblebot");
 
             var response = language.rawobj.biblebot;
-            response = response.replace("vipr", "vipr#4035 (creator/developer)");
-            response = response.replace("UnimatrixZeroOne", "UnimatrixZeroOne#7501 (sysadmin)");
             response = response.replace(
                 "<biblebotversion>", process.env.npm_package_version);
             response = response.replace(
@@ -364,6 +362,8 @@ bot.on("message", raw => {
                 "<version>", language.rawobj.commands.version);
             response = response.replace(
                 "<versions>", language.rawobj.commands.versions);
+            response = response.replace(
+                "<versioninfo>", language.rawobj.commands.versioninfo);
             response = response.replace(
                 "<votd>", language.rawobj.commands.votd);
             response = response.replace(
@@ -397,7 +397,7 @@ bot.on("message", raw => {
             response = response.replace(
                 "<disable>", language.rawobj.arguments.disable);
 
-            response += "\n\nSee <https://github.com/UnimatrixZeroOne/BibleBot/wiki/Copyrights> for copyright on Bible translations.";
+            response += "\n\nSee <https://biblebot.github.io/copyrights> for any copyright-related information.";
 
             channel.sendMessage(response);
         } else if (msg == "+" + language.rawobj.commands.random) {
@@ -735,8 +735,7 @@ bot.on("message", raw => {
             return;
         } else if (msg.startsWith("+" + language.rawobj.commands.addversion) ||
             msg.startsWith("+" + language.rawobj.commands.av)) {
-            if (sender == config.owner ||
-                (config.versionadders.indexOf(sender) != -1)) {
+            if (sender == config.owner) {
 
                 var argv = msg.split(" ");
                 var argc = argv.length;
@@ -770,11 +769,13 @@ bot.on("message", raw => {
                 versionDB.find({
                     "abbv": msg.split(" ")[1]
                 }, function(err, data) {
+                    data = data; // for some reason it won't initialize properly
+
                     if (err) {
                         logMessage("err", "versiondb", "global", err);
                         raw.reply(
                             "**" + language.rawobj.versioninfofailed + "**");
-                    } else {
+                    } else if (data.length > 0) {
                         logMessage("info", sender, source, "+versioninfo");
 
                         var response = language.rawobj.versioninfo;
@@ -796,6 +797,8 @@ bot.on("message", raw => {
                             response = response.replace("<hasAPO>", language.rawobj.arguments.no);
 
                         raw.reply(response);
+                    } else {
+                        raw.reply("**" + language.rawobj.versioninfofailed + "**");
                     }
                 });
             } else {
@@ -1034,7 +1037,8 @@ bot.on("message", raw => {
             if (verseCount > 4) {
                 var responses = ["spamming me, really?", "no spam pls",
                     "no spam, am good bot", "be nice to me",
-                    "don't spam me, i'm a good bot"
+                    "don't spam me, i'm a good bot", "hey buddy, get your own " +
+                    "bot to spam"
                 ];
                 var randomIndex = Math.floor(Math.random() * (4 - 0)) + 0;
 
@@ -1218,5 +1222,5 @@ bot.on("message", raw => {
 
 logMessage(
     "info", "global", "global", "BibleBot v" + process.env.npm_package_version +
-    " by vipr, UnimatrixZeroOne, et al.");
+    " by Elliott Pardee (vypr)");
 bot.login(config.token);

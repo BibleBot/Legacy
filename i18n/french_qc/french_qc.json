@@ -1,5 +1,5 @@
 {
-  "biblebot":"**BibleBot v<biblebotversion> (précédemment connu sous le nom de HolyBot) par vipr et UnimatrixZeroOne** - code: <https://github.com/UnimatrixZeroOne/BibleBot>\n\n```commandes:\n* `+<setversion> ABBV` - mettre version préférée à ABBV\n* `+<version>` - voir la version que tu as mise\n* `+<versions>` - voir les versions existantes\n* `+<random>` - obtenir un verset aléatoire de la Bible\n* `+<verseoftheday>` (`+<votd>`) - obtenir le verset du jour\n* `+<headings> <enable>/<disable>` - activer ou désactiver les titres des sections\n* `+<versenumbers> <enable>/<disable>` - afficher ou ne pas afficher les numéros des versets \n* `+<language>` - voir la langue actuellement utilisée (langue par défaut : anglais)\n* `+<setlanguage> LANG` - paramétrer la langue préférée \n* `+<languages>` - voir la liste des langues existantes```\n**Pour m'utiliser, marquez juste une référence de verset. Je me charge du reste.**",
+  "biblebot":"",
   "versions":"Versions supportées",
   "setversionsuccess":"Version paramétrée avec succès.",
   "setversionfail":"Échec du paramétrage de la version, je ne connais que",
@@ -24,6 +24,8 @@
   "aponotsupported2":"Si vous voulez consulter l'Apocryphe/le Deutérocanon, entrez `+<setversion>`pour choisir une version qui le contient.",
   "passagetoolong":"Ce passage est trop long pour que je le cite, désolé.",
   "votdcantprocess":"Aujourd'hui le VDJ ne peut pas être cité, visitez <https://www.biblegateway.com/> pour voir le VDJ.",
+  "versioninfo":"",
+  "versioninfofailed":"",
   "commands":{
     "setversion":"choisirversion",
     "version":"version",
@@ -34,6 +36,7 @@
     "biblebot":"biblebot",
     "addversion":"ajouterversion",
     "av":"av",
+    "versioninfo":"versioninfo",
     "versenumbers":"n°deverset",
     "headings":"en-têtes",
     "puppet":"pantin",
@@ -43,6 +46,8 @@
     "languages":"langues"
   },
   "arguments":{
+    "yes":"Oui",
+    "no":"Non",
     "enable":"afficher",
     "disable":"désactiver"
   }

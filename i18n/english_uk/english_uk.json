@@ -1,5 +1,5 @@
 {
-  "biblebot":"**BibleBot v<biblebotversion> (formerly known as HolyBot) by vipr and UnimatrixZeroOne** - code: <https://github.com/UnimatrixZeroOne/BibleBot>\n\n```commands:\n* `+<setversion> ABBV` - set preferred version to ABBV\n* `+<version>` - see what version you've set\n* `+<versions>` - see the supported versions\n* `+<random>` - get a random Bible verse\n* `+<verseoftheday>` (`+<votd>`) - get the verse of the day\n* `+<headings> <enable>/<disable>` - enable or disable topic headings\n* `+<versenumbers> <enable>/<disable>` - enable or disable verse numbers from showing on each line\n* `+<language>` - see your current language, if one is set (default: english)\n* `+<setlanguage> LANG` - set preferred language to LANG\n* `+<languages>` - see the supported languages```\n**To use it, just say a Bible verse. I can handle the rest.**",
+  "biblebot":"**BibleBot v<biblebotversion> by Elliott Pardee (vypr)** - code: <https://github.com/BibleBot/BibleBot>\n\n```commands:\n* `+<setversion> ABBV` - set preferred version to ABBV\n* `+<version>` - see what version you've set\n* `+<versions>` - see the supported versions\n* `+<versioninfo> VER` - read information about a version, using the acronym\n* `+<random>` - get a random Bible verse\n* `+<verseoftheday>` (`+<votd>`) - get the verse of the day\n* `+<headings> <enable>/<disable>` - enable or disable topic headings\n* `+<versenumbers> <enable>/<disable>` - enable or disable verse numbers from showing on each line\n* `+<language>` - see your current language, if one is set (default: english)\n* `+<setlanguage> LANG` - set preferred language to LANG\n* `+<languages>` - see the supported languages```\n**To use it, just say a Bible verse. I'll handle the rest.**",
   "versions":"I support",
   "setversionsuccess":"Set version successfully.",
   "setversionfail":"Failed to set version, I only support",
@@ -24,8 +24,8 @@
   "aponotsupported2":"If you want to use the Apocrypha/Deuterocanon, `+<setversion>` to a version that has it.",
   "passagetoolong":"The passage is too long for me to grab, sorry.",
   "votdcantprocess":"Today's VOTD can't be processed, see <https://www.biblegateway.com/> for the VOTD.",
-  "versioninfo": "\n**<versionname>**\n\nContains Old Testament: <hasOT>\nContains New Testament: <hasNT>\nContains Apocrypha/Deuterocanon: <hasAPO>",
-  "versioninfofailed": "I couldn't find that version, are you sure you used the right acronym?",
+  "versioninfo":"\n**<versionname>**\n\nContains Old Testament: <hasOT>\nContains New Testament: <hasNT>\nContains Apocrypha/Deuterocanon: <hasAPO>",
+  "versioninfofailed":"I couldn't find that version, are you sure you used the right acronym?",
   "commands":{
     "setversion":"setversion",
     "version":"version",
@@ -36,7 +36,7 @@
     "biblebot":"biblebot",
     "addversion":"addversion",
     "av":"av",
-    "versioninfo": "versioninfo",
+    "versioninfo":"versioninfo",
     "versenumbers":"versenumbers",
     "headings":"headings",
     "puppet":"puppet",
@@ -46,8 +46,8 @@
     "languages":"languages"
   },
   "arguments":{
-    "yes": "Yes",
-    "no": "No",
+    "yes":"Yes",
+    "no":"No",
     "enable":"enable",
     "disable":"disable"
   }
