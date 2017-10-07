@@ -46,8 +46,8 @@
     "languages":"idiomas"
   },
   "arguments":{
-    "yes":"",
-    "no":"",
+    "yes":"Sí",
+    "no":"No",
     "enable":"habilitar",
     "disable":"deshabilitar"
   }
