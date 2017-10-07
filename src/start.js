@@ -390,8 +390,8 @@ bot.on("message", raw => {
             response = response.replace(
                 "<disable>", language.rawobj.arguments.disable);
 
-            response += "\n\n**Help BibleBot's development and hosting by becoming a patron on Patreon! See <https://patreon.com/BibleBot> for more information!**";
-            response += "\n\nSee <https://biblebot.vypr.space/copyrights> for any copyright-related information.";
+            response += "\n\n---\n**Help BibleBot's development and hosting by becoming a patron on Patreon! See <https://patreon.com/BibleBot> for more information!**";
+            response += "\n---\n\nSee <https://biblebot.vypr.space/copyrights> for any copyright-related information.";
 
             channel.sendMessage(response);
         } else if (msg == "+" + language.rawobj.commands.random) {
@@ -1254,6 +1254,12 @@ bot.on("message", raw => {
                                         var responseString =
                                             "**" + object.passage + " - " +
                                             object.version + "**\n\n" + content;
+
+                                        var randomNumber = Math.floor(Math.random() * 20);
+
+                                        if (randomNumber == 10) {
+                                            responseString += "\n\n**Help BibleBot's development and hosting by becoming a patron on Patreon! See <https://patreon.com/BibleBot> for more information!**";
+                                        }
 
                                         if (responseString.length < 2000) {
                                             logMessage(
