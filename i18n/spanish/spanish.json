@@ -1,5 +1,5 @@
 {
-  "biblebot":"",
+  "biblebot":"**BibleBot v<biblebotversion> por Elliott Pardee (vypr)** - code: <https://git.vypr.space/BibleBot/BibleBot>\n\n```mandos:\n*`+<setversion>ABBV` - cambie la versión preferada al ABBV\n*`+<version>` - mire la versión que hayas escogido\n*`+<versions>` - mire las versiones soportadas\n*`+<versioninfo>VER` - lea la información de una versión, usando el acrónimo\n*`+<random>` - consiga un versículo del Bible al azar\n*`+<verseoftheday>` (`+<votd>`) - consiga el versículo del día\n*`+<headings><enable>/<disable>` - active o desactive los títulos de los temas\n*`+<versenumbers><enable>/<disable>` - active o desactive los números de versículos mostrados en cada linea\n*`+<language>` - mire la lengua que hayas escogido, si una está asignada (por defecto: inglés)\n*`+<setlanguage>LANG` - asigne la lengua preferada al LANG\n*`+<languages>` - mire las lenguas soportadas```\n**Para usarlo, escriba un versículo del Bible. Yo manejaré el resto.**",
   "versions":"Soy compatible con",
   "setversionsuccess":"Versión establecida correctamente.",
   "setversionfail":"Se ha fallado al establecer la versión, solo soy compatible con",
