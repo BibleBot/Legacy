@@ -61,5 +61,6 @@ and the dotfiles do not need to have the version number updated.
 
 ---
 
-Special thanks to those who helped translate BibleBot to other languages:   
-**Blubb, Bonaventure Sissokovitch, Buggyrcobra, Coal, Manelic, Raven Melodie, SwedishMeatball, topras.gr, Tuonela, Viva98, xnkmevaou, Zyxl**
+### Special Thanks
+
+**Blubb, Bonaventure Sissokovitch, Buggyrcobra, Coal, Manelic, Raven Melodie, SwedishMeatball, topras.gr, Tuonela, Viva98, xnkmevaou, Zyxl** - for their hard work on helping BibleBot reach the world by translating languages :heart:
