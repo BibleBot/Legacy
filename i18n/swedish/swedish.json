@@ -3,7 +3,7 @@
   "versions":"Jag stödjer",
   "setversionsuccess":"Inställning av version lyckades.",
   "setversionfail":"Inställning av version misslyckades, jag stödjer enbart",
-  "versionused":"Du använder <version>. Använd `+<setversion>` för att ställa in en annan version",
+  "versionused":"Du använder <version>. Använd `+<setversion>` för att välja en annan version",
   "noversionused":"Jag kunde inte hitta ditt namn i min databas, har du använt `+<setversion>` ännu?",
   "addversionsuccess":"Lade framgångsrikt till version.",
   "addversionfail":"Misslyckades med att lägga till version.",
