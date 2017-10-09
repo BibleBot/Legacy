@@ -13,7 +13,7 @@
   "headingsfail":"Entrez la commande `+<headings><enable>` ou `+<headings><disable>`",
   "setlanguagesuccess":"Langue paramétrée avec succès.",
   "setlanguagefail":"Impossible de paramétrer cette langue, je n'accepte que",
-  "languageused":"Vous utilisez actuellement <the default language (replace by the language name)>. Entrez la commande `+<setlanguage>` pour choisir un autre langue.",
+  "languageused":"Vous utilisez actuellement Français (QC). Entrez la commande `+<setlanguage>` pour choisir un autre langue.",
   "nolanguageused":"Je ne pouvais pas trouver ton nom dans ma base de données, est-ce que tu as déja utilisé `+<setlanguage>` ?",
   "languages":"Je parle",
   "otnotsupported":"La version <version> ne comprend pas l'Ancien Testament.",
