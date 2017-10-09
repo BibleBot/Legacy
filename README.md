@@ -1,5 +1,5 @@
 # BibleBot
-[![Crowdin](https://d322cqt584bo4o.cloudfront.net/biblebot/localized.svg)](https://crowdin.com/project/biblebot)
+[![Crowdin](https://d322cqt584bo4o.cloudfront.net/biblebot/localized.svg)](https://crowdin.com/project/biblebot) [![Discord](https://img.shields.io/discord/362503610006765568.svg)](https://discord.gg/Ssn8KNv)
 
 [![Become a Patron on Patreon](https://i.imgur.com/CgNjna2.png?)](https://patreon.com/BibleBot)
 
