@@ -260,7 +260,6 @@ bot.on("reconnecting", () => {
 
 bot.on("disconnect", () => {
     logMessage("info", "global", "global", "disconnected");
-    setTimeout(() => bot.destroy().then(() => bot.login(config.token)), 10000)
 });
 
 bot.on("warning", warn => {
