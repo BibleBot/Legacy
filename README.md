@@ -1,5 +1,7 @@
 # BibleBot
-[![Become a Patron on Patreon](https://i.imgur.com/CgNjna2.png?)](https://patreon.com/BibleBot) [![Crowdin](https://d322cqt584bo4o.cloudfront.net/biblebot/localized.svg)](https://crowdin.com/project/biblebot)
+[![Crowdin](https://d322cqt584bo4o.cloudfront.net/biblebot/localized.svg)](https://crowdin.com/project/biblebot)
+
+[![Become a Patron on Patreon](https://i.imgur.com/CgNjna2.png?)](https://patreon.com/BibleBot)
 
 [![Feature Requests](https://feathub.com/BibleBot/BibleBot?format=svg)](https://feathub.com/BibleBot/BibleBot)   
 A Discord bot for Bible verses.
