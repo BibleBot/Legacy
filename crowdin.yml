@@ -1,8 +1,11 @@
+project_identifier: biblebot
+api_key: 3a8b4e14a2af8a1cdc138b14c412433b
+base_path: /home/elliott/Code/BibleBot
 files:
   - source: /i18n/default/default.json
     translation: /i18n/%language%/%language%.json
     languages_mapping:
-      language:
+      two_letters_code:
         af: afrikaans
         sq: albanian
         am: amharic
