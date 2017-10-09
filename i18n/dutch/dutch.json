@@ -2,7 +2,7 @@
   "biblebot":"",
   "versions":"Ik steun",
   "setversionsuccess":"Stel de versie succesvol.",
-  "setversionfail":"",
+  "setversionfail":"Misluk stel de versie, ik pas stuen",
   "versionused":"",
   "noversionused":"",
   "addversionsuccess":"",
