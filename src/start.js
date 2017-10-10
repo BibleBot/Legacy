@@ -341,7 +341,8 @@ bot.on("message", raw => {
             bot.guilds.forEach(function(value) {
                 var sent = false;
                 var ch = value.channels.findAll("type", "text");
-                var preferred = [ "meta", "hangout", "fellowship", "lounge", "congregation", "general" ];
+                var preferred = [ "meta", "hangout", "fellowship", "lounge", "congregation", "general", 
+                                  "taffer"];
 
                 for (var i = 0; i < preferred.length; i++) {
                     if (!sent) {
@@ -355,15 +356,6 @@ bot.on("message", raw => {
                             sent = true;
                         }
                     }
-                }
-
-                if (!sent) {
-                    value.channels.findAll("type", "text")
-                        .find(val => val.permissionsFor(bot.user))
-                        .has("SEND_MESSAGES")
-                        .sendMessage(msg.replace(
-                        "+" + language.rawobj.commands.announce + " ", ""
-                    )).catch(() => { /* ignore */ });
                 }
             });
 
