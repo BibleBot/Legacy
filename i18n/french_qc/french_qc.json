@@ -26,6 +26,12 @@
   "votdcantprocess":"Aujourd'hui le VDJ ne peut pas être cité, visitez <https://www.biblegateway.com/> pour voir le VDJ.",
   "versioninfo":"\n**<versionname>**\n\nContient l'Ancien Testament : <hasOT>\nContient le Nouveau Testament : <hasNT>\nContient l'Apocryphe / le Deutérocanon : <hasAPO>",
   "versioninfofailed":"Je n'ai pas trouvé cette version, êtes-vous sûr d'avoir utilisé le bon acronyme ?",
+  "allusers":"Le nombre d'utilisateurs répartis sur tous les serveurs dans lesquels BibleBot est installé (sans compter les doublons et les bots)",
+  "users":"Le nombre d'utilisateurs dans ce serveur (sans compter les bots)",
+  "usersfailed":"Je ne trouve pas le serveur auquel ce canal appartient.",
+  "usersindb":"Le nombre d'utilisateurs dans la base de données (avec une marge d'erreur)",
+  "listservers":"BibleBot est dans les serveurs suivants",
+  "listserversend":"Pour un total de <number> serveurs.",
   "commands":{
     "setversion":"choisirversion",
     "version":"version",
@@ -43,7 +49,11 @@
     "leave":"partir",
     "setlanguage":"choisirlangue",
     "language":"langue",
-    "languages":"langues"
+    "languages":"langues",
+    "allusers":"tousutilisateurs",
+    "users":"utilisateurs",
+    "listservers":"listeserveurs",
+    "usersindb":""
   },
   "arguments":{
     "yes":"Oui",

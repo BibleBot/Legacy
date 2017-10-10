@@ -26,6 +26,12 @@
   "votdcantprocess":"El VDD no puede ser procesado, visite <https://www.biblegateway.com/> para verlo.",
   "versioninfo":"\n**<versionname>**\n\nContiene el Antiguo Testamento: <<hasOT>\nContiene el Nuevo Testamento: <hasNT>\nContiene los Apócrifos/Deuterocanónicos: <hasAPO>",
   "versioninfofailed":"¿No logré encontrar esa versión, estás seguro de que has utilizado el acrónimo correcto?",
+  "allusers":"",
+  "users":"",
+  "usersfailed":"",
+  "usersindb":"",
+  "listservers":"",
+  "listserversend":"",
   "commands":{
     "setversion":"defversion",
     "version":"version",
@@ -43,7 +49,11 @@
     "leave":"salir",
     "setlanguage":"defidioma",
     "language":"idioma",
-    "languages":"idiomas"
+    "languages":"idiomas",
+    "allusers":"",
+    "users":"",
+    "listservers":"",
+    "usersindb":""
   },
   "arguments":{
     "yes":"Sí",
