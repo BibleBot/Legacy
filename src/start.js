@@ -444,14 +444,18 @@ bot.on("message", raw => {
                 "<language>", language.rawobj.commands.language);
             response = response.replace(
                 "<languages>", language.rawobj.commands.languages);
-            response = response.replace(
+            response = response.replaceAll(
                 "<enable>", language.rawobj.arguments.enable);
-            response = response.replace(
+            response = response.replaceAll(
                 "<disable>", language.rawobj.arguments.disable);
             response = response.replace(
-                "<enable>", language.rawobj.arguments.enable);
+                "<allusers>", language.rawobj.commands.allusers);
             response = response.replace(
-                "<disable>", language.rawobj.arguments.disable);
+                "<users>", language.rawobj.commands.users);
+            response = response.replace(
+                "<usersindb>", language.rawobj.commands.usersindb);
+            response = response.replace(
+                "<listservers>", language.rawobj.commands.listservers);
 
             response += "\n\n---\n**Help BibleBot's development and hosting by becoming a patron on Patreon! See <https://patreon.com/BibleBot> for more information!**";
             response += "\n---\n\nSee <https://biblebot.vypr.space/copyrights> for any copyright-related information.";
