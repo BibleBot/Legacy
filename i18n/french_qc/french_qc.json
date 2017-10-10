@@ -1,5 +1,5 @@
 {
-  "biblebot":"",
+  "biblebot":"**BibleBot v<biblebotversion> par Elliott Pardee (vypr)** - code : <https://git.vypr.space/BibleBot/BibleBot>\n\n```commandes :\n* `+<setversion> ABBV` - choisir la version préférée sur ABBV\n* `+<version>` - voir la version que vous avez choisie\n* `+<versions>` - voir les versions supportées\n* `+<versioninfo> VER` - lire des informations sur une version, en utilisant l'acronyme\n* `+<random>` - obtenir un verset de la Bible au hasard\n* `+<verseoftheday>` (`+<votd>`) - obtenir le verset du jour\n* `+<headings> <enable>/<disable>` - activer ou désactiver les en-têtes de sujet\n* `+<versenumbers> <enable>/<disable>` - activer ou désactiver les numéros de versets à afficher sur chaque ligne\n* `+<language>` - voir votre langue actuelle, si elle est définie (par défaut : anglais)\n* `+<setlanguage> LANG` - choisir la langue préférée sur LANG\n* `+<languages>` - voir les langues supportées```\n**Pour l'utiliser, il suffit d'écrire un verset de la Bible. Je m'occupe du reste.**",
   "versions":"Versions supportées",
   "setversionsuccess":"Version paramétrée avec succès.",
   "setversionfail":"Échec du paramétrage de la version, je ne connais que",
@@ -13,7 +13,7 @@
   "headingsfail":"Entrez la commande `+<headings><enable>` ou `+<headings><disable>`",
   "setlanguagesuccess":"Langue paramétrée avec succès.",
   "setlanguagefail":"Impossible de paramétrer cette langue, je n'accepte que",
-  "languageused":"Vous utilisez actuellement <the default language (replace by the language name)>. Entrez la commande `+<setlanguage>` pour choisir un autre langue.",
+  "languageused":"Vous utilisez actuellement Français (QC). Entrez la commande `+<setlanguage>` pour choisir un autre langue.",
   "nolanguageused":"Je ne pouvais pas trouver ton nom dans ma base de données, est-ce que tu as déja utilisé `+<setlanguage>` ?",
   "languages":"Je parle",
   "otnotsupported":"La version <version> ne comprend pas l'Ancien Testament.",
