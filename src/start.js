@@ -350,13 +350,27 @@ bot.on("message", raw => {
 
                 if (argument.indexOf("bot.token") > -1) {
                     throw "I refuse to process anything with bot.token for " +
-                          "the sake of bot security."
+                        "the sake of bot security."
                 }
 
                 channel.sendMessage(eval(argument));
             } catch (e) {
                 channel.sendMessage("[error] " + e);
             }
+        } else if (msg == "+" + language.rawobj.commands.allusers) {
+            var users = 0;
+            var processed = [];
+            bot.guilds.forEach(function(value, key, map) {
+                value.members.forEach(function(v, k, m) {
+                    if (!(processed.includes(v.nickname)) && !(v.user.bot)) {
+                        users += 1;
+                        processed.push(v.nickname);
+                    }
+                });
+            });
+    
+            logMessage("info", sender, source, "+allusers");
+            channel.sendMessage(language.rawobj.allusers + ": " + users);
         } else if (msg == "+" + language.rawobj.commands.biblebot) {
             logMessage("info", sender, source, "+biblebot");
 

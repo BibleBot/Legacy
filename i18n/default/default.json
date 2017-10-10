@@ -40,6 +40,13 @@
     "versioninfo": "\n**<versionname>**\n\nContains Old Testament: <hasOT>\nContains New Testament: <hasNT>\nContains Apocrypha/Deuterocanon: <hasAPO>",
     "versioninfofailed": "I couldn't find that version, are you sure you used the right acronym?",
 
+    "allusers": "The number of all users spanning across all servers that BibleBot is on (not counting duplicates and bots)",
+    "users": "The number of users in this server (not counting bots)",
+    "usersindb": "The number of users in the database (will have a margin of error)",
+
+    "listservers": "BibleBot is in the following servers",
+    "listserversend": "For a total of <number> servers.",
+
     "commands": {
         "setversion": "setversion",
         "version": "version",
@@ -57,7 +64,11 @@
         "leave": "leave",
         "setlanguage": "setlanguage",
         "language": "language",
-        "languages": "languages"
+        "languages": "languages",
+        "allusers": "allusers",
+        "users": "users",
+        "listservers": "listservers",
+        "usersindb": "usersindb"
     },
 
     "arguments": {
