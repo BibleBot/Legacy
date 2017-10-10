@@ -26,6 +26,12 @@
   "votdcantprocess":"Päivän jaetta ei voitu prosessoida, mene osoitteeseen <https://www.biblegateway.com/> lukeaksesi päivän jakeen.",
   "versioninfo":"\n**<versionname>**\n\nSisältää Vanhan Testamentin: <hasOT>\nSisältää Uuden Testamentint: <hasNT>\nSisältää apokryfiset ja deuterokanoniset kirjat: <hasAPO>",
   "versioninfofailed":"En löytänyt haluamaasi käännöstä, oletko värmä, että käytit oikeaa lyhennettä?",
+  "allusers":"",
+  "users":"",
+  "usersfailed":"",
+  "usersindb":"",
+  "listservers":"",
+  "listserversend":"",
   "commands":{
     "setversion":"asetakäännös",
     "version":"käännös",
@@ -43,7 +49,11 @@
     "leave":"poistu",
     "setlanguage":"asetakieli",
     "language":"kieli",
-    "languages":"kielet"
+    "languages":"kielet",
+    "allusers":"",
+    "users":"",
+    "listservers":"",
+    "usersindb":""
   },
   "arguments":{
     "yes":"Kyllä",
