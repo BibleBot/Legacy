@@ -348,10 +348,10 @@ bot.on("message", raw => {
 
                 var argument = msg.replace("+eval ", "");
 
-                channel.logMessage(eval(argument));
+                channel.sendMessage(eval(argument));
             } catch (e) {
-                channel.logMessage("error");
-                channel.logMessage(e);
+                channel.sendMessage("error");
+                channel.sendMessage(e);
             }
         } else if (msg == "+" + language.rawobj.commands.biblebot) {
             logMessage("info", sender, source, "+biblebot");
