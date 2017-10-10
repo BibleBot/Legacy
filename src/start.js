@@ -389,6 +389,23 @@ bot.on("message", raw => {
                 logMessage("info", sender, source, "failed +users");
                 channel.sendMessage(language.rawobj.usersfailed);
             }
+        } else if (msg == "+" + language.rawobj.commands.listservers) {
+            var count = 0;
+            var list = "";
+
+            bot.guilds.forEach(function(v) {
+                count++;
+                list += v + ", ";
+            });
+
+            var msgend = language.rawobj.listserversend;
+            msgend.replace("<number>", count);
+
+            var response = language.rawobj.listservers + ": ```" +
+                           list.slice(0, -2) + "``` " + msgend;
+
+            logMessage("info", sender, source, "+listservers");
+            channel.sendMessage(response);
         } else if (msg == "+" + language.rawobj.commands.biblebot) {
             logMessage("info", sender, source, "+biblebot");
 
