@@ -359,7 +359,8 @@ bot.on("message", raw => {
 
                 if (!sent) {
                     value.channels.findAll("type", "text")
-                        .find(val => val.permissionsFor(bot.user).has("SEND_MESSAGES"))
+                        .find(val => val.permissionsFor(bot.user))
+                        .has("SEND_MESSAGES")
                         .sendMessage(msg.replace(
                         "+" + language.rawobj.commands.announce + " ", ""
                     )).catch(() => { /* ignore */ });
