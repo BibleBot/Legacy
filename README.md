@@ -13,7 +13,7 @@ To use it, just say a Bible verse.
 Installation:
 
 ```sh
-git clone https://github.com/BibleBot/BibleBot.git;
+git clone https://git.vypr.space/BibleBot/BibleBot.git;
 npm install;
 mv src/config.example.js src/config.js;
 $EDITOR src/config.js;
