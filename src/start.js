@@ -355,8 +355,7 @@ bot.on("message", raw => {
 
                 channel.sendMessage(eval(argument));
             } catch (e) {
-                channel.sendMessage("error");
-                channel.sendMessage(e);
+                channel.sendMessage("error - " + e);
             }
         } else if (msg == "+" + language.rawobj.commands.biblebot) {
             logMessage("info", sender, source, "+biblebot");
