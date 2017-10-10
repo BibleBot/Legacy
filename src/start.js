@@ -338,11 +338,12 @@ bot.on("message", raw => {
             }
         } else if (msg.startsWith("+" + language.rawobj.commands.announce) &&
             sender == config.owner) {
-            bot.guilds.forEach(function (v, k) {
-                console.log(bot.guilds[k])
-                v.channels.first.send(msg.replaceAll("+" +
-                    language.rawobj.commands.announce + " ",
-                    ""));
+            bot.guilds.forEach(function (value) {
+                if (value.available) {
+                    value.channels.first.send(msg.replaceAll("+" +
+                        language.rawobj.commands.announce + " ",
+                        ""));
+                }
             });
 
             logMessage("info", sender, source, "+announce");

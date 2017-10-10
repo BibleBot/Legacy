@@ -58,7 +58,7 @@ var bibleGateway = {
                             if (responseString.length < 2000) {
                                 resolve(responseString);
                             } else {
-                                getRandomVerse(version, headings, verseNumbers);
+                                this.getRandomVerse(version, headings, verseNumbers);
                             }
                         });
                     }).catch(function(err) {
