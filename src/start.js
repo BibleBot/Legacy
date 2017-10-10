@@ -351,6 +351,8 @@ bot.on("message", raw => {
                             receiver.sendMessage(msg.replace(
                                 "+" + language.rawobj.commands.announce + " ", ""
                             ));
+
+                            sent = true;
                         }
                     }
                 }
