@@ -360,8 +360,8 @@ bot.on("message", raw => {
         } else if (msg == "+" + language.rawobj.commands.allusers) {
             var users = 0;
             var processed = [];
-            bot.guilds.forEach(function(value, key, map) {
-                value.members.forEach(function(v, k, m) {
+            bot.guilds.forEach(function(value) {
+                value.members.forEach(function(v) {
                     if (!(processed.includes(v.nickname)) && !(v.user.bot)) {
                         users += 1;
                         processed.push(v.nickname);
@@ -371,6 +371,24 @@ bot.on("message", raw => {
     
             logMessage("info", sender, source, "+allusers");
             channel.sendMessage(language.rawobj.allusers + ": " + users);
+        } else if (msg == "+" + language.rawobj.commands.users) {
+            if (channel.guild) {
+                var users = 0;
+                var processed = [];
+
+                channel.guild.members.forEach(function(v) {
+                    if (!(processed.includes(v.nickname)) && !(v.user.bot)) {
+                        users += 1;
+                        processed.push(v.nickname);
+                    }
+                });
+
+                logMessage("info", sender, source, "+users");
+                channel.sendMessage(language.rawobj.users + ": " + users);
+            } else {
+                logMessage("info", sender, source, "failed +users");
+                channel.sendMessage(language.rawobj.usersfailed);
+            }
         } else if (msg == "+" + language.rawobj.commands.biblebot) {
             logMessage("info", sender, source, "+biblebot");
 

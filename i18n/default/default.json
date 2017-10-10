@@ -42,6 +42,7 @@
 
     "allusers": "The number of all users spanning across all servers that BibleBot is on (not counting duplicates and bots)",
     "users": "The number of users in this server (not counting bots)",
+    "usersfailed": "I can't find the server this channel belongs to.",
     "usersindb": "The number of users in the database (will have a margin of error)",
 
     "listservers": "BibleBot is in the following servers",
