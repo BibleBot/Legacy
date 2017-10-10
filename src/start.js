@@ -348,6 +348,11 @@ bot.on("message", raw => {
 
                 var argument = msg.replace("+eval ", "");
 
+                if (argument.indexOf("bot.token") > -1) {
+                    throw "I refuse to process anything with bot.token for " +
+                          "the sake of bot security."
+                }
+
                 channel.sendMessage(eval(argument));
             } catch (e) {
                 channel.sendMessage("error");
