@@ -67,7 +67,8 @@
         "allusers": "allusers",
         "users": "users",
         "listservers": "listservers",
-        "usersindb": "usersindb"
+        "usersindb": "usersindb",
+        "announce": "announce"
     },
 
     "arguments": {

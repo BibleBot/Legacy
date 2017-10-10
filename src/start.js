@@ -336,12 +336,22 @@ bot.on("message", raw => {
             } catch (e) {
                 channel.sendMessage(e);
             }
+        } else if (msg.startsWith("+" + language.rawobj.commands.announce) &&
+            sender == config.owner) {
+            bot.guilds.forEach((v) => {
+                v.defaultChannel.sendMessage(msg.replaceAll("+" +
+                    language.rawobj.commands.announce + " ",
+                    ""));
+            });
+
+            logMessage("info", sender, source, "+announce");
         } else if (msg.startsWith("+" + language.rawobj.commands.puppet) &&
             sender == config.owner) {
             // requires manage messages permission (optional)
             raw.delete().then(msg => logMessage("info", sender, source, msg))
                 .catch(logMessage("info", sender, source, msg));
-            channel.sendMessage(msg.replaceAll("+puppet ", ""));
+            channel.sendMessage(msg.replaceAll("+" +
+                language.rawobj.commands.puppet + " ", ""));
         } else if (msg.startsWith("+eval") && sender == config.owner) {
             try {
                 logMessage("info", sender, source, "+eval");
@@ -368,15 +378,15 @@ bot.on("message", raw => {
                     }
                 });
             });
-    
+
             logMessage("info", sender, source, "+allusers");
             channel.sendMessage(language.rawobj.allusers + ": " + users);
         } else if (msg == "+" + language.rawobj.commands.users) {
-            if (channel.guild) {
+            if (guild) {
                 var users = 0;
                 var processed = [];
 
-                channel.guild.members.forEach(function(v) {
+                guild.members.forEach(function(v) {
                     if (!(processed.includes(v.nickname)) && !(v.user.bot)) {
                         users += 1;
                         processed.push(v.nickname);
@@ -400,10 +410,10 @@ bot.on("message", raw => {
 
             var msgend = language.rawobj.listserversend;
             msgend = msgend.replace("<number>", count);
-            
+
 
             var response = language.rawobj.listservers + ": ```" +
-                           list.slice(0, -2) + "```\n" + msgend;
+                list.slice(0, -2) + "```\n" + msgend;
 
             logMessage("info", sender, source, "+listservers");
             channel.sendMessage(response);
