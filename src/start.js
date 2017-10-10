@@ -356,6 +356,12 @@ bot.on("message", raw => {
                         }
                     }
                 }
+
+                if (!sent) {
+                    value.channels.find("type", "text").sendMessage(msg.replace(
+                        "+" + language.rawobj.commands.announce + " ", ""
+                    )).catch(() => { /* ignore */ });
+                }
             });
 
             logMessage("info", sender, source, "+announce");
