@@ -338,10 +338,22 @@ bot.on("message", raw => {
             }
         } else if (msg.startsWith("+" + language.rawobj.commands.announce) &&
             sender == config.owner) {
-            bot.guilds.forEach(function (value) {
-                value.channels.find("type", "text").sendMessage(msg.replace(
-                    "+" + language.rawobj.commands.announce + " ", ""
-                ));
+            bot.guilds.forEach(function(value) {
+                var sent = false;
+                var ch = value.channels.findAll("type", "text");
+                var preferred = [ "meta", "hangout", "fellowship", "lounge", "congregation", "general" ];
+
+                for (var i = 0; i < preferred.length; i++) {
+                    if (!sent) {
+                        var receiver = ch.find("name", preferred[i]);
+                        
+                        if (receiver) {
+                            receiver.sendMessage(msg.replace(
+                                "+" + language.rawobj.commands.announce + " ", ""
+                            ));
+                        }
+                    }
+                }
             });
 
             logMessage("info", sender, source, "+announce");
