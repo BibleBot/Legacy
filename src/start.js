@@ -345,7 +345,7 @@ bot.on("message", raw => {
 
                 for (var i = 0; i < preferred.length; i++) {
                     if (!sent) {
-                        var receiver = ch.find("name", preferred[i]);
+                        var receiver = ch.find(val => val.name === preferred[i]);
                         
                         if (receiver) {
                             receiver.sendMessage(msg.replace(
