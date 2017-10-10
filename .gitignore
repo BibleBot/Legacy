@@ -45,3 +45,6 @@ src/config.js
 
 # build directory
 build
+
+# database file
+databases/db

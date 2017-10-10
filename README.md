@@ -1,5 +1,9 @@
 # BibleBot
-[![Feature Requests](http://feathub.com/UnimatrixZeroOne/BibleBot?format=svg)](http://feathub.com/UnimatrixZeroOne/BibleBot)    
+[![Help Translate on Crowdin](https://d322cqt584bo4o.cloudfront.net/biblebot/localized.svg)](https://crowdin.com/project/biblebot) [![Join us on Discord](https://img.shields.io/discord/362503610006765568.svg)](https://discord.gg/Ssn8KNv)
+
+[![Become a Patron on Patreon](https://biblebot.vypr.space/public/patreonbutton.svg)](https://patreon.com/biblebot)
+
+[![Feature Requests](https://feathub.com/BibleBot/BibleBot?format=svg)](https://feathub.com/BibleBot/BibleBot)   
 A Discord bot for Bible verses.
 
 To use it, just say a Bible verse.
@@ -7,8 +11,9 @@ To use it, just say a Bible verse.
 ---
 
 Installation:
+
 ```sh
-git clone https://github.com/UnimatrixZeroOne/BibleBot.git;
+git clone https://git.vypr.space/BibleBot/BibleBot.git;
 npm install;
 mv src/config.example.js src/config.js;
 $EDITOR src/config.js;
@@ -21,22 +26,26 @@ npm start;
 Commands:
 
 * `+versions` - show all Bible translations you can set
-* `+setversion <version>` - set a preferred version
+* `+setversion VER` - set a preferred version
 * `+version` - display your current version
+* `+versioninfo VER` - read information about a version, using the acronym
 * `+random` - get a random Bible verse
 * `+verseoftheday` (`+votd`) - get the verse of the day
 * `+headings enable/disable` - enable or disable the headings that display on certain verses
 * `+versenumbers enable/disable` - enable or disable verse numbers from showing on each line
 * `+languages` - show all available language translations you can set
-* `+setlanguage <language>` - set a preferred language
+* `+setlanguage LANG` - set a preferred language
 * `+language` - display your current language
+* `+allusers` - list all users throughout all servers (not counting duplicates or bots)
+* `+users` - list all users in the server where the message is sent
+* `+listservers` - list all servers BibleBot is in
 
 Bot Owner Commands:
 
-* `+addversion <versionname> <abbv> <hasOT> <hasNT> <hasAPO>` - add a version (`+av`)
-* `+puppet <message>` - say something as the bot
+* `+addversion versionname abbv hasOT hasNT hasAPO` - add a version (`+av`)
+* `+puppet message` - say something as the bot
 
-Invite BibleBot to your server! https://discordapp.com/api/oauth2/authorize?client_id=269407897178472448&scope=bot&permissions=0
+Invite BibleBot to your server! https://discordapp.com/api/oauth2/authorize?client_id=361033318273384449&scope=bot&permissions=0
 
 ---
 
@@ -57,7 +66,6 @@ and the dotfiles do not need to have the version number updated.
 
 ---
 
-Special thanks to those who helped translate BibleBot to other languages:   
-Blubb, Bonaventure Sissokovitch, Buggyrcobra, Coal, Manelic, Raven Melodie, topras.gr, Tuonela, Viva98, xnkmevaou
+### Special Thanks
 
-Originally a fork of "HolyBot" created by Elliott Pardee (@[vypr](https://github.com/vypr)).
+**audiovideodisco, Blubb, Bonaventure Sissokovitch, Buggyrcobra, Coal, Koockies, Mark Nunberg, Manelic, Raven Melodie, SwedishMeatball, Tuonela, TySpeedy, Viva, xnkmevaou, Zyxl** - for their hard work on helping BibleBot reach the world by translating languages :heart:

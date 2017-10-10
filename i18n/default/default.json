@@ -1,8 +1,7 @@
 {
-    "biblebot": "**BibleBot v<biblebotversion> (formerly known as HolyBot) by vipr and UnimatrixZeroOne** - code: <https://github.com/UnimatrixZeroOne/BibleBot>\n\n```commands:\n* `+<setversion> ABBV` - set preferred version to ABBV\n* `+<version>` - see what version you've set\n* `+<versions>` - see the supported versions\n* `+<random>` - get a random Bible verse\n* `+<verseoftheday>` (`+<votd>`) - get the verse of the day\n* `+<headings> <enable>/<disable>` - enable or disable topic headings\n* `+<versenumbers> <enable>/<disable>` - enable or disable verse numbers from showing on each line\n* `+<language>` - see your current language, if one is set (default: english)\n* `+<setlanguage> LANG` - set preferred language to LANG\n* `+<languages>` - see the supported languages```\n**To use it, just say a Bible verse. I'll handle the rest.**",
+    "biblebot": "**BibleBot v<biblebotversion> by Elliott Pardee (vypr)** - code: <https://git.vypr.space/BibleBot/BibleBot>\n\n```commands:\n* `+<setversion> ABBV` - set preferred version to ABBV\n* `+<version>` - see what version you've set\n* `+<versions>` - see the supported versions\n* `+<versioninfo> VER` - read information about a version, using the acronym\n* `+<random>` - get a random Bible verse\n* `+<verseoftheday>` (`+<votd>`) - get the verse of the day\n* `+<headings> <enable>/<disable>` - enable or disable topic headings\n* `+<versenumbers> <enable>/<disable>` - enable or disable verse numbers from showing on each line\n* `+<language>` - see your current language, if one is set (default: english)\n* `+<setlanguage> LANG` - set preferred language to LANG\n* `+<languages>` - see the supported languages\n* `+<allusers>` - list all users throughout all servers (not counting duplicates or bots)\n* `+<users>` - list all users in the server where the message is sent\n* `+<listservers>` - list all servers BibleBot is in```\n**To use it, just say a Bible verse. I'll handle the rest.**",
 
     "versions": "I support",
-
     "setversionsuccess": "Set version successfully.",
     "setversionfail": "Failed to set version, I only support",
 
@@ -23,7 +22,6 @@
 
     "languageused": "You are using <the default language (replace with the language name)>. Use `+<setlanguage>` to set a different language.",
     "nolanguageused": "I couldn't find your name in my database, have you used `+<setlanguage>` yet?",
-
     "languages": "I support",
 
     "otnotsupported": "The version <version> doesn't support the Old Testament.",
@@ -39,6 +37,14 @@
 
     "versioninfo": "\n**<versionname>**\n\nContains Old Testament: <hasOT>\nContains New Testament: <hasNT>\nContains Apocrypha/Deuterocanon: <hasAPO>",
     "versioninfofailed": "I couldn't find that version, are you sure you used the right acronym?",
+
+    "allusers": "The number of all users spanning across all servers that BibleBot is on (not counting duplicates and bots)",
+    "users": "The number of users in this server (not counting bots)",
+    "usersfailed": "I can't find the server this channel belongs to.",
+    "usersindb": "The number of users in the database (will have a margin of error)",
+
+    "listservers": "BibleBot is in the following servers",
+    "listserversend": "For a total of <number> servers.",
 
     "commands": {
         "setversion": "setversion",
@@ -57,7 +63,11 @@
         "leave": "leave",
         "setlanguage": "setlanguage",
         "language": "language",
-        "languages": "languages"
+        "languages": "languages",
+        "allusers": "allusers",
+        "users": "users",
+        "listservers": "listservers",
+        "usersindb": "usersindb"
     },
 
     "arguments": {

@@ -1,23 +1,24 @@
 {
   "name": "biblebot",
-  "version": "3.2.6",
+  "version": "3.4.8",
   "description": "A Discord bot for Bible verses.",
   "main": "start.js",
   "scripts": {
     "build": "babel src -d build",
-    "dev": "babel src -d build;nodemon --exec 'node build/start.js'",
-    "start": "nodemon --exec 'node build/start.js'"
+    "dev": "babel src -d build;node build/start.js",
+    "start": "node build/start.js",
+    "refresh": "git pull;babel src -d build;node build/start.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/UnimatrixZeroOne/BibleBot"
+    "url": "git+https://git.vypr.space/BibleBot/BibleBot"
   },
-  "author": "vypr, UnimatrixZeroOne, et al.",
+  "author": "vypr",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/UnimatrixZeroOne/BibleBot/issues"
+    "url": "https://git.vypr.space/BibleBot/BibleBot/issues"
   },
-  "homepage": "https://github.com/UnimatrixZeroOne/BibleBot#readme",
+  "homepage": "https://biblebot.vypr.space",
   "dependencies": {
     "async": "^2.1.4",
     "cheerio": "^0.22.0",
@@ -25,7 +26,6 @@
     "eslint": "^4.6.1",
     "log4js": "^1.0.1",
     "nedb": "^1.8.0",
-    "nodemon": "^1.11.0",
     "request": "^2.79.0"
   },
   "devDependencies": {

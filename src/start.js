@@ -30,15 +30,8 @@ var languages = require(__dirname + "/languages.js");
 import * as log4js from "log4js";
 log4js.configure({
     appenders: [{
-            type: "console"
-        },
-        {
-            type: "dateFile",
-            filename: "logs/loggerrino.log",
-            pattern: "-yyyy-MM-dd",
-            alwaysIncludePattern: false
-        }
-    ]
+        type: "console"
+    }]
 });
 
 var logger = log4js.getLogger();
@@ -267,7 +260,6 @@ bot.on("reconnecting", () => {
 
 bot.on("disconnect", () => {
     logMessage("info", "global", "global", "disconnected");
-    setTimeout(() => bot.destroy().then(() => bot.login(config.token)), 10000)
 });
 
 bot.on("warning", warn => {
@@ -322,7 +314,7 @@ bot.on("message", raw => {
 
         if (sender == config.botname) return;
         if (source.includes("Discord Bots") &&
-            sender != "UnimatrixZeroOne#7501")
+            sender != config.owner)
             return;
 
         // for verse arrays
@@ -346,16 +338,78 @@ bot.on("message", raw => {
             }
         } else if (msg.startsWith("+" + language.rawobj.commands.puppet) &&
             sender == config.owner) {
-            // requires manage messages permission (and possibly administrator)
-            raw.delete();
-            logMessage("info", sender, source, "+puppet");
+            // requires manage messages permission (optional)
+            raw.delete().then(msg => logMessage("info", sender, source, msg))
+                .catch(logMessage("info", sender, source, msg));
             channel.sendMessage(msg.replaceAll("+puppet ", ""));
+        } else if (msg.startsWith("+eval") && sender == config.owner) {
+            try {
+                logMessage("info", sender, source, "+eval");
+
+                var argument = msg.replace("+eval ", "");
+
+                if (argument.indexOf("bot.token") > -1) {
+                    throw "I refuse to process anything with bot.token for " +
+                        "the sake of bot security."
+                }
+
+                channel.sendMessage(eval(argument));
+            } catch (e) {
+                channel.sendMessage("[error] " + e);
+            }
+        } else if (msg == "+" + language.rawobj.commands.allusers) {
+            var users = 0;
+            var processed = [];
+            bot.guilds.forEach(function(value) {
+                value.members.forEach(function(v) {
+                    if (!(processed.includes(v.nickname)) && !(v.user.bot)) {
+                        users += 1;
+                        processed.push(v.nickname);
+                    }
+                });
+            });
+    
+            logMessage("info", sender, source, "+allusers");
+            channel.sendMessage(language.rawobj.allusers + ": " + users);
+        } else if (msg == "+" + language.rawobj.commands.users) {
+            if (channel.guild) {
+                var users = 0;
+                var processed = [];
+
+                channel.guild.members.forEach(function(v) {
+                    if (!(processed.includes(v.nickname)) && !(v.user.bot)) {
+                        users += 1;
+                        processed.push(v.nickname);
+                    }
+                });
+
+                logMessage("info", sender, source, "+users");
+                channel.sendMessage(language.rawobj.users + ": " + users);
+            } else {
+                logMessage("info", sender, source, "failed +users");
+                channel.sendMessage(language.rawobj.usersfailed);
+            }
+        } else if (msg == "+" + language.rawobj.commands.listservers) {
+            var count = 0;
+            var list = "";
+
+            bot.guilds.forEach(function(v) {
+                count++;
+                list += v + ", ";
+            });
+
+            var msgend = language.rawobj.listserversend;
+            msgend.replace("<number>", count);
+
+            var response = language.rawobj.listservers + ": ```" +
+                           list.slice(0, -2) + "``` " + msgend;
+
+            logMessage("info", sender, source, "+listservers");
+            channel.sendMessage(response);
         } else if (msg == "+" + language.rawobj.commands.biblebot) {
             logMessage("info", sender, source, "+biblebot");
 
             var response = language.rawobj.biblebot;
-            response = response.replace("vipr", "vipr#4035 (creator/developer)");
-            response = response.replace("UnimatrixZeroOne", "UnimatrixZeroOne#7501 (sysadmin)");
             response = response.replace(
                 "<biblebotversion>", process.env.npm_package_version);
             response = response.replace(
@@ -364,6 +418,8 @@ bot.on("message", raw => {
                 "<version>", language.rawobj.commands.version);
             response = response.replace(
                 "<versions>", language.rawobj.commands.versions);
+            response = response.replace(
+                "<versioninfo>", language.rawobj.commands.versioninfo);
             response = response.replace(
                 "<votd>", language.rawobj.commands.votd);
             response = response.replace(
@@ -397,7 +453,8 @@ bot.on("message", raw => {
             response = response.replace(
                 "<disable>", language.rawobj.arguments.disable);
 
-            response += "\n\nSee <https://github.com/UnimatrixZeroOne/BibleBot/wiki/Copyrights> for copyright on Bible translations.";
+            response += "\n\n---\n**Help BibleBot's development and hosting by becoming a patron on Patreon! See <https://patreon.com/BibleBot> for more information!**";
+            response += "\n---\n\nSee <https://biblebot.vypr.space/copyrights> for any copyright-related information.";
 
             channel.sendMessage(response);
         } else if (msg == "+" + language.rawobj.commands.random) {
@@ -510,33 +567,64 @@ bot.on("message", raw => {
 
                 raw.reply("**" + response + "**");
             } else {
-                setHeadings(rawSender, msg.split(" ")[1], function(data) {
-                    if (data) {
-                        logMessage(
-                            "info", sender, source, "+headings " +
-                            msg.split(" ")[1]);
-                        var response = language.rawobj.headingssuccess;
-                        response = response.replace(
-                            "<headings>", language.rawobj.commands.headings);
+                var option;
 
-                        raw.reply("**" + response + "**");
-                    } else {
-                        logMessage("info", sender, source, "failed +headings");
+                switch (msg.split(" ")[1]) {
+                    case language.rawobj.arguments.enable:
+                        option = "enable";
+                        break;
+                    case language.rawobj.arguments.disable:
+                        option = "disable";
+                        break;
+                    default:
+                        option = null;
+                        break;
+                }
 
-                        var response = language.rawobj.headingsfail;
+                if (option !== null) {
+                    setHeadings(rawSender, option, function(data) {
+                        if (data) {
+                            logMessage(
+                                "info", sender, source, "+headings " +
+                                option);
+                            var response = language.rawobj.headingssuccess;
+                            response = response.replace(
+                                "<headings>", language.rawobj.commands.headings);
 
-                        response = response.replace(
-                            "<headings>", language.rawobj.commands.headings);
-                        response = response.replace(
-                            "<headings>", language.rawobj.commands.headings);
-                        response = response.replace(
-                            "<enable>", language.rawobj.arguments.enable);
-                        response = response.replace(
-                            "<disable>", language.rawobj.arguments.disable);
+                            raw.reply("**" + response + "**");
+                        } else {
+                            logMessage("info", sender, source, "failed +headings");
 
-                        raw.reply("**" + response + "**");
-                    }
-                });
+                            var response = language.rawobj.headingsfail;
+
+                            response = response.replace(
+                                "<headings>", language.rawobj.commands.headings);
+                            response = response.replace(
+                                "<headings>", language.rawobj.commands.headings);
+                            response = response.replace(
+                                "<enable>", language.rawobj.arguments.enable);
+                            response = response.replace(
+                                "<disable>", language.rawobj.arguments.disable);
+
+                            raw.reply("**" + response + "**");
+                        }
+                    });
+                } else {
+                    logMessage("info", sender, source, "failed +headings");
+
+                    var response = language.rawobj.headingsfail;
+
+                    response = response.replace(
+                        "<headings>", language.rawobj.commands.headings);
+                    response = response.replace(
+                        "<headings>", language.rawobj.commands.headings);
+                    response = response.replace(
+                        "<enable>", language.rawobj.arguments.enable);
+                    response = response.replace(
+                        "<disable>", language.rawobj.arguments.disable);
+
+                    raw.reply("**" + response + "**");
+                }
             }
 
             return;
@@ -558,40 +646,76 @@ bot.on("message", raw => {
 
                 raw.reply("**" + response + "**");
             } else {
-                setVerseNumbers(rawSender, msg.split(" ")[1], function(data) {
-                    if (data) {
-                        logMessage(
-                            "info", sender, source, "+versenumbers " +
-                            msg.split(" ")[1]);
+                var option;
 
-                        var response = language.rawobj.versenumberssuccess;
-                        response = response.replace(
-                            "<versenumbers>",
-                            language.rawobj.commands.versenumbers);
+                switch (msg.split(" ")[1]) {
+                    case language.rawobj.arguments.enable:
+                        option = "enable";
+                        break;
+                    case language.rawobj.arguments.disable:
+                        option = "disable";
+                        break;
+                    default:
+                        option = null;
+                        break;
+                }
 
-                        raw.reply("**" + response + "**");
-                    } else {
-                        logMessage(
-                            "info", sender, source, "failed +versenumbers");
+                if (option !== null) {
+                    setVerseNumbers(rawSender, option, function(data) {
+                        if (data) {
+                            logMessage(
+                                "info", sender, source, "+versenumbers " +
+                                option);
 
-                        var response = language.rawobj.versenumbersfail;
+                            var response = language.rawobj.versenumberssuccess;
+                            response = response.replace(
+                                "<versenumbers>",
+                                language.rawobj.commands.versenumbers);
 
-                        response = response.replace(
-                            "<versenumbers>",
-                            language.rawobj.commands.versenumbers);
-                        response = response.replace(
-                            "<versenumbers>",
-                            language.rawobj.commands.versenumbers);
-                        response = response.replace(
-                            "<enable>",
-                            language.rawobj.arguments.enable);
-                        response = response.replace(
-                            "<disable>",
-                            language.rawobj.arguments.disable);
+                            raw.reply("**" + response + "**");
+                        } else {
+                            logMessage(
+                                "info", sender, source, "failed +versenumbers");
 
-                        raw.reply("**" + response + "**");
-                    }
-                });
+                            var response = language.rawobj.versenumbersfail;
+
+                            response = response.replace(
+                                "<versenumbers>",
+                                language.rawobj.commands.versenumbers);
+                            response = response.replace(
+                                "<versenumbers>",
+                                language.rawobj.commands.versenumbers);
+                            response = response.replace(
+                                "<enable>",
+                                language.rawobj.arguments.enable);
+                            response = response.replace(
+                                "<disable>",
+                                language.rawobj.arguments.disable);
+
+                            raw.reply("**" + response + "**");
+                        }
+                    });
+                } else {
+                    logMessage(
+                        "info", sender, source, "failed +versenumbers");
+
+                    var response = language.rawobj.versenumbersfail;
+
+                    response = response.replace(
+                        "<versenumbers>",
+                        language.rawobj.commands.versenumbers);
+                    response = response.replace(
+                        "<versenumbers>",
+                        language.rawobj.commands.versenumbers);
+                    response = response.replace(
+                        "<enable>",
+                        language.rawobj.arguments.enable);
+                    response = response.replace(
+                        "<disable>",
+                        language.rawobj.arguments.disable);
+
+                    raw.reply("**" + response + "**");
+                }
             }
 
             return;
@@ -735,8 +859,7 @@ bot.on("message", raw => {
             return;
         } else if (msg.startsWith("+" + language.rawobj.commands.addversion) ||
             msg.startsWith("+" + language.rawobj.commands.av)) {
-            if (sender == config.owner ||
-                (config.versionadders.indexOf(sender) != -1)) {
+            if (sender == config.owner) {
 
                 var argv = msg.split(" ");
                 var argc = argv.length;
@@ -770,11 +893,13 @@ bot.on("message", raw => {
                 versionDB.find({
                     "abbv": msg.split(" ")[1]
                 }, function(err, data) {
+                    data = data; // for some reason it won't initialize properly
+
                     if (err) {
                         logMessage("err", "versiondb", "global", err);
                         raw.reply(
                             "**" + language.rawobj.versioninfofailed + "**");
-                    } else {
+                    } else if (data.length > 0) {
                         logMessage("info", sender, source, "+versioninfo");
 
                         var response = language.rawobj.versioninfo;
@@ -796,6 +921,8 @@ bot.on("message", raw => {
                             response = response.replace("<hasAPO>", language.rawobj.arguments.no);
 
                         raw.reply(response);
+                    } else {
+                        raw.reply("**" + language.rawobj.versioninfofailed + "**");
                     }
                 });
             } else {
@@ -1034,7 +1161,8 @@ bot.on("message", raw => {
             if (verseCount > 4) {
                 var responses = ["spamming me, really?", "no spam pls",
                     "no spam, am good bot", "be nice to me",
-                    "don't spam me, i'm a good bot"
+                    "don't spam me, i'm a good bot", "hey buddy, get your own " +
+                    "bot to spam"
                 ];
                 var randomIndex = Math.floor(Math.random() * (4 - 0)) + 0;
 
@@ -1190,6 +1318,13 @@ bot.on("message", raw => {
                                             "**" + object.passage + " - " +
                                             object.version + "**\n\n" + content;
 
+                                        var randomNumber = Math.floor(Math.random() * 20);
+
+                                        if (randomNumber == 10) {
+                                            responseString += "\n\n**Help BibleBot's development and hosting by becoming a patron on Patreon! See <https://patreon.com/BibleBot> for more information!**";
+                                            properString += " - patreon added";
+                                        }
+
                                         if (responseString.length < 2000) {
                                             logMessage(
                                                 "info", sender, source,
@@ -1218,5 +1353,5 @@ bot.on("message", raw => {
 
 logMessage(
     "info", "global", "global", "BibleBot v" + process.env.npm_package_version +
-    " by vipr, UnimatrixZeroOne, et al.");
+    " by Elliott Pardee (vypr)");
 bot.login(config.token);
