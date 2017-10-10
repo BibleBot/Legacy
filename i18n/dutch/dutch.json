@@ -53,7 +53,8 @@
     "allusers":"",
     "users":"",
     "listservers":"",
-    "usersindb":""
+    "usersindb":"",
+    "announce":""
   },
   "arguments":{
     "yes":"",
