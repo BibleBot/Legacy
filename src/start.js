@@ -350,7 +350,7 @@ bot.on("message", raw => {
                         if (receiver) {
                             receiver.sendMessage(msg.replace(
                                 "+" + language.rawobj.commands.announce + " ", ""
-                            ));
+                            )).catch(() => { /* ignore */ });
 
                             sent = true;
                         }
