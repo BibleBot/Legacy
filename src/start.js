@@ -338,10 +338,21 @@ bot.on("message", raw => {
             }
         } else if (msg.startsWith("+" + language.rawobj.commands.puppet) &&
             sender == config.owner) {
-            // requires manage messages permission (and possibly administrator)
+            // requires manage messages permission (optional)
             raw.delete().then(msg => logMessage("info", sender, source, msg))
                 .catch(logMessage("info", sender, source, msg));
             channel.sendMessage(msg.replaceAll("+puppet ", ""));
+        } else if (msg.startsWith("+eval") && sender == config.owner) {
+            try {
+                logMessage("info", sender, source, "+eval");
+
+                var argument = msg.replace("+eval ", "");
+
+                channel.logMessage(eval(argument));
+            } catch (e) {
+                channel.logMessage("error");
+                channel.logMessage(e);
+            }
         } else if (msg == "+" + language.rawobj.commands.biblebot) {
             logMessage("info", sender, source, "+biblebot");
 
