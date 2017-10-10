@@ -1,7 +1,6 @@
-base_path: /home/elliott/Code/BibleBot
 files:
   - source: /i18n/default/default.json
-    translation: /i18n/%language%/%language%.json
+    translation: /i18n/%two_letters_code%/%two_letters_code%.json
     languages_mapping:
       two_letters_code:
         af: afrikaans
