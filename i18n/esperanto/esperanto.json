@@ -53,7 +53,8 @@
     "allusers":"ĉiojuzantoj",
     "users":"uzantoj",
     "listservers":"listiguservilojn",
-    "usersindb":"uzantojendb"
+    "usersindb":"uzantojendb",
+    "announce":"anonci"
   },
   "arguments":{
     "yes":"Jes",
