@@ -36,6 +36,9 @@ Commands:
 * `+languages` - show all available language translations you can set
 * `+setlanguage LANG` - set a preferred language
 * `+language` - display your current language
+* `+allusers` - list all users throughout all servers (not counting duplicates or bots)
+* `+users` - list all users in the server where the message is sent
+* `+listservers` - list all servers BibleBot is in
 
 Bot Owner Commands:
 
