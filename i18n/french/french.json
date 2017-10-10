@@ -1,6 +1,6 @@
 {
   "biblebot":"**BibleBot v<biblebotversion> par Elliott Pardee (vypr)** - code : <https://git.vypr.space/BibleBot/BibleBot>\n\n```commandes :\n* `+<setversion> ABBV` - choisir la version préférée sur ABBV\n* `+<version>` - voir la version que vous avez choisie\n* `+<versions>` - voir les versions supportées\n* `+<versioninfo> VER` - lire des informations sur une version, en utilisant l'acronyme\n* `+<random>` - obtenir un verset de la Bible au hasard\n* `+<verseoftheday>` (`+<votd>`) - obtenir le verset du jour\n* `+<headings> <enable>/<disable>` - activer ou désactiver les en-têtes de sujet\n* `+<versenumbers> <enable>/<disable>` - activer ou désactiver les numéros de versets à afficher sur chaque ligne\n* `+<language>` - voir votre langue actuelle, si elle est définie (par défaut : anglais)\n* `+<setlanguage> LANG` - choisir la langue préférée sur LANG\n* `+<languages>` - voir les langues supportées```\n**Pour l'utiliser, il suffit d'écrire un verset de la Bible. Je m'occupe du reste.**",
-  "versions":"Versions supportées",
+  "versions":"Je supporte",
   "setversionsuccess":"Version paramétrée avec succès.",
   "setversionfail":"Échec du paramétrage de la version, je ne connais que",
   "versionused":"Tu utilises <version>. Utilise `+<setversion>` pour choisir une autre version",
@@ -15,7 +15,7 @@
   "setlanguagefail":"Impossible de paramétrer cette langue, je n'accepte que",
   "languageused":"Vous utilisez actuellement <the default language (replace by the language name)>. Entrez la commande `+<setlanguage>` pour choisir un autre langue.",
   "nolanguageused":"Je ne pouvais pas trouver ton nom dans ma base de données, est-ce que tu as déja utilisé `+<setlanguage>` ?",
-  "languages":"Je parle",
+  "languages":"Je supporte",
   "otnotsupported":"La version <version> ne comprend pas l'Ancien Testament.",
   "ntnotsupported":"La version <version> ne comprend pas le Nouveau Testament.",
   "aponotsupported":"Cette version <version> ne contient pas l'Apocryphe/le Deutérocanon.",
@@ -26,6 +26,12 @@
   "votdcantprocess":"Aujourd'hui le VDJ ne peut pas être cité, visitez <https://www.biblegateway.com/> pour voir le VDJ.",
   "versioninfo":"\n**<versionname>**\n\nContient l'Ancien Testament : <hasOT>\nContient le Nouveau Testament : <hasNT>\nContient l'Apocryphe / le Deutérocanon : <hasAPO>",
   "versioninfofailed":"Je n'ai pas trouvé cette version, êtes-vous sûr d'avoir utilisé le bon acronyme ?",
+  "allusers":"Le nombre d'utilisateurs répartis sur tous les serveurs dans lesquels BibleBot est installé (sans compter les doublons et les bots)",
+  "users":"Le nombre d'utilisateurs dans ce serveur (sans compter les bots)",
+  "usersfailed":"Je ne trouve pas le serveur auquel ce canal appartient.",
+  "usersindb":"Le nombre d'utilisateurs dans la base de données (avec une marge d'erreur)",
+  "listservers":"BibleBot est dans les serveurs suivants",
+  "listserversend":"Pour un total de <number> serveurs.",
   "commands":{
     "setversion":"choisirversion",
     "version":"version",
@@ -43,7 +49,11 @@
     "leave":"partir",
     "setlanguage":"choisirlangue",
     "language":"langue",
-    "languages":"langues"
+    "languages":"langues",
+    "allusers":"tousutilisateurs",
+    "users":"utilisateurs",
+    "listservers":"listeserveurs",
+    "usersindb":""
   },
   "arguments":{
     "yes":"Oui",

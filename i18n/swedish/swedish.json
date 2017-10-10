@@ -26,6 +26,12 @@
   "votdcantprocess":"Dagens vers kunde inte hämtas, se <https://www.biblegateway.com/> för dagens vers.",
   "versioninfo":"\n**<versionname>**\n\nInnehåller Gamla Testamentet: <hasOT>\nInnehåller Nya Testamentet: <hasNT>\nInnehåller Apokryfiska/Deuterokanoniska böcker: <hasAPO>",
   "versioninfofailed":"Jag kunde inte hitta den versionen, är du säker på att du använt rätt förkortning?",
+  "allusers":"",
+  "users":"",
+  "usersfailed":"",
+  "usersindb":"",
+  "listservers":"",
+  "listserversend":"",
   "commands":{
     "setversion":"väljversion",
     "version":"version",
@@ -43,7 +49,11 @@
     "leave":"lämna",
     "setlanguage":"angespråk",
     "language":"språk",
-    "languages":"språken"
+    "languages":"språken",
+    "allusers":"",
+    "users":"",
+    "listservers":"",
+    "usersindb":""
   },
   "arguments":{
     "yes":"Ja",
