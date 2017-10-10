@@ -54,7 +54,7 @@
     "users":"users",
     "listservers":"listservers",
     "usersindb":"usersindb",
-    "announce":""
+    "announce":"announce"
   },
   "arguments":{
     "yes":"Yes",
