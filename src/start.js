@@ -403,7 +403,7 @@ bot.on("message", raw => {
             
 
             var response = language.rawobj.listservers + ": ```" +
-                           list.slice(0, -2) + "``` " + msgend;
+                           list.slice(0, -2) + "```\n" + msgend;
 
             logMessage("info", sender, source, "+listservers");
             channel.sendMessage(response);
