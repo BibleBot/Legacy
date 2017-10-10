@@ -339,7 +339,7 @@ bot.on("message", raw => {
         } else if (msg.startsWith("+" + language.rawobj.commands.announce) &&
             sender == config.owner) {
             bot.guilds.forEach(function (value) {
-                console.log(value);
+                console.log(value.channels.find("type", "text"));
             });
 
             logMessage("info", sender, source, "+announce");
