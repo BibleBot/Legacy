@@ -1,3 +1,3 @@
 [submodule "lib/verse-reference-regex"]
 	path = lib/verse-reference-regex
-	url = ssh://git@git.vypr.space:29418/vypr/verse-reference-regex.git
+	url = ssh://git@git.vypr.space:29418/BibleBot/verse-reference-regex.git
