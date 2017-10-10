@@ -399,7 +399,7 @@ bot.on("message", raw => {
             });
 
             var msgend = language.rawobj.listserversend;
-            msgend.replace("<number>", count);
+            msgend.replace("<number>", count + "");
 
             var response = language.rawobj.listservers + ": ```" +
                            list.slice(0, -2) + "``` " + msgend;
