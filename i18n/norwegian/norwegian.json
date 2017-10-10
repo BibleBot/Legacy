@@ -26,6 +26,12 @@
   "votdcantprocess":"Dagens vers kunne ikke bli hentet, se <https://www.biblegateway.com/> for dagens vers.",
   "versioninfo":"",
   "versioninfofailed":"",
+  "allusers":"",
+  "users":"",
+  "usersfailed":"",
+  "usersindb":"",
+  "listservers":"",
+  "listserversend":"",
   "commands":{
     "setversion":"velgversjon",
     "version":"versjon",
@@ -43,7 +49,11 @@
     "leave":"forlat",
     "setlanguage":"velgspråk",
     "language":"språk",
-    "languages":"språk"
+    "languages":"språk",
+    "allusers":"",
+    "users":"",
+    "listservers":"",
+    "usersindb":""
   },
   "arguments":{
     "yes":"",
