@@ -17,7 +17,7 @@ bot.on("ready", () => {
     central.logMessage("info", "global", "global", "connected");
 });
 
-bot.on("debug", debug => {
+bot.on("debug", (debug) => {
     if (config.debug) {
         central.logMessage("debug", "global", "global", debug);
     }
@@ -31,15 +31,15 @@ bot.on("disconnect", () => {
     central.logMessage("info", "global", "global", "disconnected");
 });
 
-bot.on("warning", warn => {
+bot.on("warning", (warn) => {
     central.logMessage("warn", "global", "global", warn);
 });
 
-bot.on("error", e => {
+bot.on("error", (e) => {
     central.logMessage("err", "global", "global", e);
 });
 
-bot.on("message", raw => {
+bot.on("message", (raw) => {
     // taking the raw message object and making it more usable
     var rawSender = raw.author;
     var sender = rawSender.username + "#" + rawSender.discriminator;

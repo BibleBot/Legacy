@@ -103,6 +103,8 @@ export function getResult(query, version, headings, verseNumbers) {
     var url = "https://www.biblegateway.com/passage/?search=" + query +
         "&version=" + version + "&interface=print";
 
+    console.log(url);
+
     var promise = new Promise((resolve, reject) => {
         request(url, (err, resp, body) => {
             if (err !== null) {
@@ -112,52 +114,55 @@ export function getResult(query, version, headings, verseNumbers) {
             var verses = [];
 
             var $ = cheerio.load(body);
-            $(".result-text-style-normal").each(() => {
+
+            // NOTE: DO NOT TRY TO MAKE FUNCTION() INTO () =>
+            // IT WILL BREAK EVERYTHING
+            $(".result-text-style-normal").each(function() {
                 var verse = $(this);
 
                 if (headings == "disable") {
-                    $(".result-text-style-normal h3").each(() => {
+                    $(".result-text-style-normal h3").each(function() {
                         $(this).html("");
                     });
 
-                    $(".inline-h3").each(() => {
+                    $(".inline-h3").each(function() {
                         $(this).html("");
                     });
                 }
 
                 if (verseNumbers == "disable") {
-                    $(".chapternum").each(() => {
+                    $(".chapternum").each(function() {
                         $(this).html(" ");
                     });
 
-                    $(".versenum").each(() => {
+                    $(".versenum").each(function() {
                         $(this).html(" ");
                     });
                 } else {
-                    $(".chapternum").each(() => {
+                    $(".chapternum").each(function() {
                         $(this).html(
                             "[" + $(this).text().slice(0, -1) + "] ");
 
                     });
 
-                    $(".versenum").each(() => {
+                    $(".versenum").each(function() {
                         $(this).html(
                             "[" + $(this).text().slice(0, -1) + "] ");
 
                     });
                 }
 
-                $(".crossreference").each(() => {
+                $(".crossreference").each(function() {
                     $(this).html("");
                 });
 
-                $(".footnote").each(() => {
+                $(".footnote").each(function() {
                     $(this).html("");
                 });
 
                 var title = "";
                 if (headings == "enable") {
-                    verse.find("h3").each(() => {
+                    verse.find("h3").each(function() {
                         title += $(this).text() + " / ";
                     });
                 }
@@ -172,6 +177,7 @@ export function getResult(query, version, headings, verseNumbers) {
                     "text": purifyText(verse.find("p").text())
                 };
 
+                console.log(verseObject);
                 verses.push(verseObject);
             });
 
