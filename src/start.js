@@ -1,42 +1,273 @@
-import central from "./central";
-
 // Discord API
 import * as Discord from "discord.js";
 var bot = new Discord.Client();
-import config from "./config";
+var config = require(__dirname + "/config.js");
+
+// For user version preferences
+var Datastore = require("nedb"); // for some reason this is unimportable
+var db = new Datastore({
+    filename: './databases/db',
+    autoload: true,
+    corruptAlertThreshold: 1
+});
+
+// Version database
+var versionDB = new Datastore({
+    filename: './databases/versiondb',
+    autoload: true
+});
 
 // for async calls
 import * as async from "async";
 
 // Other stuff
-import books from "./books";
-import Version from "./version";
+import * as books from "./books";
+var Version = require("./version");
 import * as bibleGateway from "./bibleGateway";
+var languages = require(__dirname + "/languages.js");
+
+// for logging
+import * as log4js from "log4js";
+log4js.configure({
+    appenders: [{
+        type: "console"
+    }]
+});
+
+var logger = log4js.getLogger();
+
+String.prototype.replaceAll = function(target, replacement) {
+    return this.split(target).join(replacement);
+};
+
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+function logMessage(level, sender, channel, message) {
+    var content = "<" + sender + "@" + channel + "> " + message;
+
+    switch (level) {
+        case "debug":
+            logger.debug(content);
+            break;
+        case "info":
+            logger.info(content);
+            break;
+        case "err":
+            logger.error(content);
+            break;
+        case "warn":
+            logger.warn(content);
+            break;
+    }
+}
+
+function isUnmigrated(user) {
+    db.find({
+        "user": user
+    }, function(err, docs) {
+        if (docs.length === 0) {
+            return false;
+        } else {
+            return true;
+        }
+    });
+}
+
+function migrateUserToID(userObject) {
+    var username = userObject.username + "#" + userObject.discriminator;
+
+    db.update({
+        "user": username
+    }, {
+        $set: {
+            "id": userObject.id
+        }
+    });
+}
+
+function setLanguage(user, language, callback) {
+    if (languages.isLanguage(language)) {
+        db.find({
+            "id": user.id
+        }, function(err, doc) {
+            if (doc.length > 0) {
+                db.update({
+                    "id": user.id
+                }, {
+                    $set: {
+                        "language": language
+                    }
+                }, {
+                    "multi": true
+                }, function(err, docs) {
+                    return callback(docs);
+                });
+            } else {
+                db.insert({
+                    "id": user.id,
+                    "language": language
+                }, function(err, docs) {
+                    return callback(docs);
+                });
+            }
+        });
+    } else {
+        callback(null);
+    }
+}
+
+function setVersion(user, version, callback) {
+    version = version.toUpperCase();
+
+    versionDB.find({
+        "abbv": version
+    }, function(err, docs) {
+        if (docs.length === 0) {
+            return callback(null);
+        }
+        db.find({
+            "id": user.id
+        }, function(err, doc) {
+            if (doc.length > 0) {
+                db.update({
+                    "id": user.id
+                }, {
+                    $set: {
+                        "version": version
+                    }
+                }, {
+                    "multi": true
+                }, function(err, docs) {
+                    return callback(docs);
+                });
+            } else {
+                db.insert({
+                    "id": user.id,
+                    "version": version
+                }, function(err, docs) {
+                    return callback(docs);
+                });
+            }
+        });
+    });
+}
+
+function setHeadings(user, headings, callback) {
+    headings = headings.toLowerCase();
+
+    if (headings != "enable" && headings != "disable") {
+        return callback(null);
+    }
+
+    db.find({
+        "id": user.id
+    }, function(err, doc) {
+        if (doc.length > 0) {
+            db.update({
+                "id": user.id
+            }, {
+                $set: {
+                    "headings": headings
+                }
+            }, {
+                "multi": true
+            }, function(err, docs) {
+                return callback(docs);
+            });
+        } else {
+            db.insert({
+                "id": user.id,
+                "headings": headings
+            }, function(err, docs) {
+                return callback(docs);
+            });
+        }
+    });
+}
+
+function setVerseNumbers(user, verseNumbers, callback) {
+    verseNumbers = verseNumbers.toLowerCase();
+
+    if (verseNumbers != "enable" && verseNumbers != "disable") {
+        return callback(null);
+    }
+
+    db.find({
+        "id": user.id
+    }, function(err, doc) {
+        if (doc.length > 0) {
+            db.update({
+                "id": user.id
+            }, {
+                $set: {
+                    "verseNumbers": verseNumbers
+                }
+            }, {
+                "multi": true
+            }, function(err, docs) {
+                return callback(docs);
+            });
+        } else {
+            db.insert({
+                "id": user.id,
+                "verseNumbers": verseNumbers
+            }, function(err, docs) {
+                return callback(docs);
+            });
+        }
+    });
+}
+
+function getVersion(user, callback) {
+    db.find({
+        "id": user.id
+    }, function(err, docs) {
+        if (docs.length > 0) {
+            return callback(docs);
+        } else {
+            return callback(null);
+        }
+    });
+}
+
+function getLanguage(user, callback) {
+    db.find({
+        "id": user.id
+    }, function(err, docs) {
+        if (docs.length > 0) {
+            return callback(languages[docs[0].language]);
+        } else {
+            return callback(languages.english_us);
+        }
+    });
+}
 
 bot.on("ready", () => {
-    central.logMessage("info", "global", "global", "connected");
+    logMessage("info", "global", "global", "connected");
 });
 
 bot.on("debug", debug => {
     if (config.debug) {
-        central.logMessage("debug", "global", "global", debug);
+        logMessage("debug", "global", "global", debug);
     }
 });
 
 bot.on("reconnecting", () => {
-    central.logMessage("info", "global", "global", "attempting to reconnect");
+    logMessage("info", "global", "global", "attempting to reconnect");
 });
 
 bot.on("disconnect", () => {
-    central.logMessage("info", "global", "global", "disconnected");
+    logMessage("info", "global", "global", "disconnected");
 });
 
 bot.on("warning", warn => {
-    central.logMessage("warn", "global", "global", warn);
+    logMessage("warn", "global", "global", warn);
 });
 
 bot.on("error", e => {
-    central.logMessage("err", "global", "global", e);
+    logMessage("err", "global", "global", e);
 });
 
 bot.on("message", raw => {
@@ -65,13 +296,13 @@ bot.on("message", raw => {
         }
     }
 
-    if (central.isUnmigrated(sender)) {
-        central.migrateUserToID(rawSender);
+    if (isUnmigrated(sender)) {
+        migrateUserToID(rawSender);
     }
 
-    central.getLanguage(rawSender, (language) => {
+    getLanguage(rawSender, function(language) {
         if (typeof language == "undefined") {
-            language = central.languages.english_us;
+            language = languages.english_us;
         }
 
         if ((typeof channel.guild != "undefined") &&
@@ -96,7 +327,7 @@ bot.on("message", raw => {
 
         if (msg == "+" + language.rawobj.commands.leave &&
             sender == config.owner) {
-            central.logMessage("info", sender, source, "+leave");
+            logMessage("info", sender, source, "+leave");
 
             try {
                 if (guild !== undefined) {
@@ -107,17 +338,16 @@ bot.on("message", raw => {
             }
         } else if (msg.startsWith("+" + language.rawobj.commands.announce) &&
             sender == config.owner) {
-            bot.guilds.forEach((value) => {
+            bot.guilds.forEach(function(value) {
                 var sent = false;
                 var ch = value.channels.findAll("type", "text");
-                var preferred = ["meta", "hangout", "fellowship", "lounge", "congregation", "general",
-                    "taffer"
-                ];
+                var preferred = [ "meta", "hangout", "fellowship", "lounge", "congregation", "general", 
+                                  "taffer"];
 
                 for (var i = 0; i < preferred.length; i++) {
                     if (!sent) {
                         var receiver = ch.find(val => val.name === preferred[i]);
-
+                        
                         if (receiver) {
                             receiver.sendMessage(msg.replace(
                                 "+" + language.rawobj.commands.announce + " ", ""
@@ -129,17 +359,17 @@ bot.on("message", raw => {
                 }
             });
 
-            central.logMessage("info", sender, source, "+announce");
+            logMessage("info", sender, source, "+announce");
         } else if (msg.startsWith("+" + language.rawobj.commands.puppet) &&
             sender == config.owner) {
             // requires manage messages permission (optional)
-            raw.delete().then(msg => central.logMessage("info", sender, source, msg))
-                .catch(central.logMessage("info", sender, source, msg));
+            raw.delete().then(msg => logMessage("info", sender, source, msg))
+                .catch(logMessage("info", sender, source, msg));
             channel.sendMessage(msg.replaceAll("+" +
                 language.rawobj.commands.puppet + " ", ""));
         } else if (msg.startsWith("+eval") && sender == config.owner) {
             try {
-                central.logMessage("info", sender, source, "+eval");
+                logMessage("info", sender, source, "+eval");
 
                 var argument = msg.replace("+eval ", "");
 
@@ -153,33 +383,43 @@ bot.on("message", raw => {
                 channel.sendMessage("[error] " + e);
             }
         } else if (msg == "+" + language.rawobj.commands.allusers) {
-            var users = bot.users.size;
-
-            bot.users.forEach((v) => {
-                if (v.bot) users--;
+            var users = 0;
+            var processed = [];
+            bot.guilds.forEach(function(value) {
+                value.members.forEach(function(v) {
+                    if (!(processed.includes(v.nickname)) && !(v.user.bot)) {
+                        users += 1;
+                        processed.push(v.nickname);
+                    }
+                });
             });
 
-            central.logMessage("info", sender, source, "+allusers");
-            channel.sendMessage(language.rawobj.allusers + ": " + users.toString());
+            logMessage("info", sender, source, "+allusers");
+            channel.sendMessage(language.rawobj.allusers + ": " + users);
         } else if (msg == "+" + language.rawobj.commands.users) {
             if (guild) {
-                var users = guild.members.size;
+                var users = 0;
+                var processed = [];
 
-                guild.members.forEach((v) => {
-                    if (v.user.bot) users--;
+                guild.members.forEach(function(v) {
+                    if (!(processed.includes(v.nickname)) && !(v.user.bot)) {
+                        users += 1;
+                        processed.push(v.nickname);
+                    }
                 });
 
-                central.logMessage("info", sender, source, "+users");
-                channel.sendMessage(language.rawobj.users + ": " + users.toString());
+                logMessage("info", sender, source, "+users");
+                channel.sendMessage(language.rawobj.users + ": " + users);
             } else {
-                central.logMessage("info", sender, source, "failed +users");
+                logMessage("info", sender, source, "failed +users");
                 channel.sendMessage(language.rawobj.usersfailed);
             }
         } else if (msg == "+" + language.rawobj.commands.listservers) {
-            var count = bot.guilds.size.toString();
+            var count = 0;
             var list = "";
 
-            bot.guilds.forEach((v) => {
+            bot.guilds.forEach(function(v) {
+                count++;
                 list += v + ", ";
             });
 
@@ -190,10 +430,10 @@ bot.on("message", raw => {
             var response = language.rawobj.listservers + ": ```" +
                 list.slice(0, -2) + "```\n" + msgend;
 
-            central.logMessage("info", sender, source, "+listservers");
+            logMessage("info", sender, source, "+listservers");
             channel.sendMessage(response);
         } else if (msg == "+" + language.rawobj.commands.biblebot) {
-            central.logMessage("info", sender, source, "+biblebot");
+            logMessage("info", sender, source, "+biblebot");
 
             var response = language.rawobj.biblebot;
             response = response.replace(
@@ -248,7 +488,7 @@ bot.on("message", raw => {
 
             channel.sendMessage(response);
         } else if (msg == "+" + language.rawobj.commands.random) {
-            central.getVersion(rawSender, (data) => {
+            getVersion(rawSender, function(data) {
                 var version = language.defversion;
                 var headings = "enable";
                 var verseNumbers = "enable";
@@ -266,14 +506,14 @@ bot.on("message", raw => {
                 }
 
                 bibleGateway.getRandomVerse(version, headings, verseNumbers)
-                    .then((result) => {
-                        central.logMessage("info", sender, source, "+random");
+                    .then(function(result) {
+                        logMessage("info", sender, source, "+random");
                         channel.sendMessage(result);
                     });
             });
         } else if (msg == ("+" + language.rawobj.commands.verseoftheday) ||
             msg == ("+" + language.rawobj.commands.votd)) {
-            central.getVersion(rawSender, (data) => {
+            getVersion(rawSender, function(data) {
                 var version = language.defversion;
                 var headings = "enable";
                 var verseNumbers = "enable";
@@ -291,45 +531,45 @@ bot.on("message", raw => {
                 }
 
                 bibleGateway.getVOTD(version, headings, verseNumbers)
-                    .then((result) => {
+                    .then(function(result) {
                         if (result == "too long") {
                             channel.sendMessage(language.rawobj.passagetoolong);
                             return;
                         }
 
-                        central.logMessage("info", sender, source, "+votd");
+                        logMessage("info", sender, source, "+votd");
                         channel.sendMessage(result);
                     });
             });
         } else if (msg.startsWith("+" + language.rawobj.commands.setversion)) {
             if (msg.split(" ").length != 2) {
-                central.versionDB.find({}, (err, docs) => {
+                versionDB.find({}, function(err, docs) {
                     var chatString = "";
                     for (var i in docs) {
                         chatString += docs[i].abbv + ", ";
                     }
 
-                    central.logMessage(
+                    logMessage(
                         "info", sender, source, "empty +setversion sent");
                     raw.reply("**" + language.rawobj.setversionfail +
                         ":**\n```" + chatString.slice(0, -2) + "```");
                 });
                 return;
             } else {
-                central.setVersion(rawSender, msg.split(" ")[1], (data) => {
+                setVersion(rawSender, msg.split(" ")[1], function(data) {
                     if (data) {
-                        central.logMessage("info", sender, source, "+setversion " +
+                        logMessage("info", sender, source, "+setversion " +
                             msg.split(" ")[1]);
                         raw.reply("**" + language.rawobj.setversionsuccess +
                             "**");
                     } else {
-                        central.versionDB.find({}, (err, docs) => {
+                        versionDB.find({}, function(err, docs) {
                             var chatString = "";
                             for (var i in docs) {
                                 chatString += docs[i].abbv + ", ";
                             }
 
-                            central.logMessage("info", sender, source,
+                            logMessage("info", sender, source,
                                 "failed +setversion");
                             raw.reply("**" + language.rawobj.setversionfail +
                                 ":**\n```" + chatString.slice(0, -2) +
@@ -342,7 +582,7 @@ bot.on("message", raw => {
             return;
         } else if (msg.startsWith("+" + language.rawobj.commands.headings)) {
             if (msg.split(" ").length != 2) {
-                central.logMessage("info", sender, source, "empty +headings sent");
+                logMessage("info", sender, source, "empty +headings sent");
 
                 var response = language.rawobj.headingsfail;
 
@@ -372,9 +612,9 @@ bot.on("message", raw => {
                 }
 
                 if (option !== null) {
-                    central.setHeadings(rawSender, option, (data) => {
+                    setHeadings(rawSender, option, function(data) {
                         if (data) {
-                            central.logMessage(
+                            logMessage(
                                 "info", sender, source, "+headings " +
                                 option);
                             var response = language.rawobj.headingssuccess;
@@ -383,7 +623,7 @@ bot.on("message", raw => {
 
                             raw.reply("**" + response + "**");
                         } else {
-                            central.logMessage("info", sender, source, "failed +headings");
+                            logMessage("info", sender, source, "failed +headings");
 
                             var response = language.rawobj.headingsfail;
 
@@ -400,7 +640,7 @@ bot.on("message", raw => {
                         }
                     });
                 } else {
-                    central.logMessage("info", sender, source, "failed +headings");
+                    logMessage("info", sender, source, "failed +headings");
 
                     var response = language.rawobj.headingsfail;
 
@@ -421,7 +661,7 @@ bot.on("message", raw => {
         } else if (msg.startsWith(
                 "+" + language.rawobj.commands.versenumbers)) {
             if (msg.split(" ").length != 2) {
-                central.logMessage("info", sender, source, "empty +versenumbers sent");
+                logMessage("info", sender, source, "empty +versenumbers sent");
 
                 var response = language.rawobj.versenumbersfail;
 
@@ -451,9 +691,9 @@ bot.on("message", raw => {
                 }
 
                 if (option !== null) {
-                    central.setVerseNumbers(rawSender, option, (data) => {
+                    setVerseNumbers(rawSender, option, function(data) {
                         if (data) {
-                            central.logMessage(
+                            logMessage(
                                 "info", sender, source, "+versenumbers " +
                                 option);
 
@@ -464,7 +704,7 @@ bot.on("message", raw => {
 
                             raw.reply("**" + response + "**");
                         } else {
-                            central.logMessage(
+                            logMessage(
                                 "info", sender, source, "failed +versenumbers");
 
                             var response = language.rawobj.versenumbersfail;
@@ -486,7 +726,7 @@ bot.on("message", raw => {
                         }
                     });
                 } else {
-                    central.logMessage(
+                    logMessage(
                         "info", sender, source, "failed +versenumbers");
 
                     var response = language.rawobj.versenumbersfail;
@@ -510,8 +750,8 @@ bot.on("message", raw => {
 
             return;
         } else if (msg == "+" + language.rawobj.commands.version) {
-            central.getVersion(rawSender, (data) => {
-                central.logMessage("info", sender, source, "+version");
+            getVersion(rawSender, function(data) {
+                logMessage("info", sender, source, "+version");
 
                 if (data) {
                     if (data[0].version) {
@@ -543,13 +783,13 @@ bot.on("message", raw => {
 
             return;
         } else if (msg == "+" + language.rawobj.commands.versions) {
-            central.versionDB.find({}, (err, docs) => {
+            versionDB.find({}, function(err, docs) {
                 var chatString = "";
                 for (var i in docs) {
                     chatString += docs[i].abbv + ", ";
                 }
 
-                central.logMessage("info", sender, source, "+versions");
+                logMessage("info", sender, source, "+versions");
                 raw.reply("**" + language.rawobj.versions + ":**\n```" +
                     chatString.slice(0, -2) + "```");
             });
@@ -557,46 +797,46 @@ bot.on("message", raw => {
                 "+" + language.rawobj.commands.setlanguage)) {
             if (msg.split(" ").length != 2) {
                 var chatString = "";
-                Object.keys(central.languages).forEach((key) => {
+                Object.keys(languages).forEach(function(key) {
                     switch (key) {
                         case "deflang":
                         case "isLanguage":
                         case "isIncomplete":
                             return;
                         default:
-                            chatString += central.languages[key].name + " [" + key +
+                            chatString += languages[key].name + " [" + key +
                                 "], ";
                             break;
                     }
                 });
 
-                central.logMessage("info", sender, source, "empty +setlanguage sent");
+                logMessage("info", sender, source, "empty +setlanguage sent");
                 raw.reply("**" + language.rawobj.setlanguagefail + ":**\n```" +
                     chatString.slice(0, -2) + "```");
                 return;
             } else {
-                central.setLanguage(rawSender, msg.split(" ")[1], (data) => {
+                setLanguage(rawSender, msg.split(" ")[1], function(data) {
                     if (data) {
-                        central.logMessage("info", sender, source, "+setlanguage " +
+                        logMessage("info", sender, source, "+setlanguage " +
                             msg.split(" ")[1]);
                         raw.reply("**" + language.rawobj.setlanguagesuccess +
                             "**");
                     } else {
                         var chatString = "";
-                        Object.keys(central.languages).forEach((key) => {
+                        Object.keys(languages).forEach(function(key) {
                             switch (key) {
                                 case "deflang":
                                 case "isLanguage":
                                 case "isIncomplete":
                                     return;
                                 default:
-                                    chatString += central.languages[key].name + " [" +
+                                    chatString += languages[key].name + " [" +
                                         key + "], ";
                                     break;
                             }
                         });
 
-                        central.logMessage(
+                        logMessage(
                             "info", sender, source, "failed +setlanguage");
                         raw.reply("**" + language.rawobj.setlanguagefail +
                             ":**\n```" + chatString.slice(0, -2) +
@@ -607,8 +847,8 @@ bot.on("message", raw => {
 
             return;
         } else if (msg == "+" + language.rawobj.commands.language) {
-            central.getLanguage(rawSender, (data) => {
-                central.logMessage("info", sender, source, "+language");
+            getLanguage(rawSender, function(data) {
+                logMessage("info", sender, source, "+language");
 
                 if (data) {
                     var response = language.rawobj.languageused;
@@ -631,19 +871,19 @@ bot.on("message", raw => {
             return;
         } else if (msg == "+" + language.rawobj.commands.languages) {
             var chatString = "";
-            Object.keys(central.languages).forEach((key) => {
+            Object.keys(languages).forEach(function(key) {
                 switch (key) {
-                    case "default": // i don't need this, but JS is being weird
+                    case "deflang":
                     case "isLanguage":
                     case "isIncomplete":
                         return;
                     default:
-                        chatString += central.languages[key].name + " [" + key + "], ";
+                        chatString += languages[key].name + " [" + key + "], ";
                         break;
                 }
             });
 
-            central.logMessage("info", sender, source, "+languages");
+            logMessage("info", sender, source, "+languages");
             raw.reply("**" + language.rawobj.languages + ":**\n```" +
                 chatString.slice(0, -2) + "```");
             return;
@@ -667,9 +907,9 @@ bot.on("message", raw => {
                 var hasAPO = argv[argc - 1];
 
                 var object = new Version(name, abbv, hasOT, hasNT, hasAPO);
-                central.versionDB.insert(object.toObject(), (err) => {
+                versionDB.insert(object.toObject(), function(err) {
                     if (err) {
-                        central.logMessage("err", "versiondb", "global", err);
+                        logMessage("err", "versiondb", "global", err);
                         raw.reply(
                             "**" + language.rawobj.addversionfail + "**");
                     } else {
@@ -680,17 +920,17 @@ bot.on("message", raw => {
             }
         } else if (msg.startsWith("+" + language.rawobj.commands.versioninfo)) {
             if (msg.split(" ").length == 2) {
-                central.versionDB.find({
+                versionDB.find({
                     "abbv": msg.split(" ")[1]
-                }, (err, data) => {
+                }, function(err, data) {
                     data = data; // for some reason it won't initialize properly
 
                     if (err) {
-                        central.logMessage("err", "versiondb", "global", err);
+                        logMessage("err", "versiondb", "global", err);
                         raw.reply(
                             "**" + language.rawobj.versioninfofailed + "**");
                     } else if (data.length > 0) {
-                        central.logMessage("info", sender, source, "+versioninfo");
+                        logMessage("info", sender, source, "+versioninfo");
 
                         var response = language.rawobj.versioninfo;
                         response = response.replace("<versionname>", data[0].name);
@@ -726,13 +966,13 @@ bot.on("message", raw => {
             var verseCount = 0;
 
             if (msg.includes("-")) {
-                msg.split("-").forEach((item) => {
+                msg.split("-").forEach(function(item) {
                     var tempSplit = item.split(":");
 
-                    tempSplit.forEach((item) => {
+                    tempSplit.forEach(function(item) {
                         var tempTempSplit = item.split(" ");
 
-                        tempTempSplit.forEach((item) => {
+                        tempTempSplit.forEach(function(item) {
                             item = item.replaceAll(/[^a-zA-Z0-9:()"'<>|\\/;*&^%$#@!.+_?=]/g, "");
 
                             spaceSplit.push(item);
@@ -740,10 +980,10 @@ bot.on("message", raw => {
                     });
                 });
             } else {
-                msg.split(":").forEach((item) => {
+                msg.split(":").forEach(function(item) {
                     var tempSplit = item.split(" ");
 
-                    tempSplit.forEach((item) => {
+                    tempSplit.forEach(function(item) {
                         spaceSplit.push(item);
                     });
                 });
@@ -759,7 +999,7 @@ bot.on("message", raw => {
                     spaceSplit[i] = spaceSplit[i].replaceAll("]", "");
                     spaceSplit[i] = spaceSplit[i].replaceAll("<", "");
                     spaceSplit[i] = spaceSplit[i].replaceAll(">", "");
-                    spaceSplit[i] = central.capitalizeFirstLetter(spaceSplit[i]);
+                    spaceSplit[i] = capitalizeFirstLetter(spaceSplit[i]);
                 } catch (e) {
                     /* it'll probably be a number anyways, if this fails */
                 }
@@ -921,7 +1161,7 @@ bot.on("message", raw => {
                 }
             }
 
-            bookIndexes.forEach((index) => {
+            bookIndexes.forEach(function(index) {
                 var verse = [];
 
                 // make sure that its proper verse structure
@@ -958,12 +1198,12 @@ bot.on("message", raw => {
 
                 channel.sendMessage(responses[randomIndex]);
 
-                central.logMessage("warn", sender, source,
+                logMessage("warn", sender, source,
                     "spam attempt - verse count: " + verseCount);
                 return;
             }
 
-            async.each(verses, (verse) => {
+            async.each(verses, function(verse) {
                 for (var i = 0; i < verse.length; i++) {
                     if (typeof verse[i] != "undefined") {
                         verse[i] = verse[i].replaceAll(/[^a-zA-Z0-9:]/g, "");
@@ -983,7 +1223,7 @@ bot.on("message", raw => {
                 }
 
 
-                central.getVersion(rawSender, (data) => {
+                getVersion(rawSender, function(data) {
                     var version = language.defversion;
                     var headings = "enable";
                     var verseNumbers = "enable";
@@ -1000,11 +1240,11 @@ bot.on("message", raw => {
                         }
                     }
 
-                    central.versionDB.find({
+                    versionDB.find({
                         "abbv": version
-                    }, (err, docs) {
+                    }, function(err, docs) {
                         if (docs) {
-                            bookNames.forEach((book) => {
+                            bookNames.forEach(function(book) {
                                 var isOT = false;
                                 var isNT = false;
                                 var isAPO = false;
@@ -1016,7 +1256,7 @@ bot.on("message", raw => {
                                 }
 
                                 if (!docs[0].hasOT && isOT) {
-                                    central.logMessage("info", sender, source,
+                                    logMessage("info", sender, source,
                                         "this sender is trying to use the OT " +
                                         "with a version that doesn't have it.");
 
@@ -1044,7 +1284,7 @@ bot.on("message", raw => {
                                 }
 
                                 if (!docs[0].hasNT && isNT) {
-                                    central.logMessage(
+                                    logMessage(
                                         "info", sender, source,
                                         "this sender is trying to use the NT " +
                                         "with a version that doesn't have it.");
@@ -1073,7 +1313,7 @@ bot.on("message", raw => {
                                 }
 
                                 if (!docs[0].hasAPO && isAPO) {
-                                    central.logMessage(
+                                    logMessage(
                                         "info", sender, source,
                                         "this sender is trying to use the APO " +
                                         "with a version that doesn't have it.");
@@ -1098,8 +1338,8 @@ bot.on("message", raw => {
 
                             bibleGateway.getResult(
                                     properString, version, headings, verseNumbers)
-                                .then((result) => {
-                                    result.forEach((object) => {
+                                .then(function(result) {
+                                    result.forEach(function(object) {
                                         var content =
                                             "```Dust\n" + object.title + "\n\n" +
                                             object.text + "```";
@@ -1116,12 +1356,12 @@ bot.on("message", raw => {
                                         }
 
                                         if (responseString.length < 2000) {
-                                            central.logMessage(
+                                            logMessage(
                                                 "info", sender, source,
                                                 properString);
                                             channel.sendMessage(responseString);
                                         } else {
-                                            central.logMessage(
+                                            logMessage(
                                                 "info", sender, source, "length of " +
                                                 properString +
                                                 " is too long for me");
@@ -1129,8 +1369,8 @@ bot.on("message", raw => {
                                                 language.rawobj.passagetoolong);
                                         }
                                     });
-                                }).catch((err) => {
-                                    central.logMessage(
+                                }).catch(function(err) {
+                                    logMessage(
                                         "err", "global", "bibleGateway", err);
                                 });
                         }
@@ -1141,8 +1381,7 @@ bot.on("message", raw => {
     });
 });
 
-
-central.logMessage(
+logMessage(
     "info", "global", "global", "BibleBot v" + process.env.npm_package_version +
     " by Elliott Pardee (vypr)");
 bot.login(config.token);

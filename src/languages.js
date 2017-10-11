@@ -1,9 +1,9 @@
 var arabic = require(__dirname + "/../i18n/arabic/arabic.json")
 var catalan = require(__dirname + "/../i18n/catalan/catalan.json");
+var deflang = require(__dirname + "/../i18n/default/default.json");
 var english_uk = require(__dirname + "/../i18n/english_uk/english_uk.json");
 var english_us = require(__dirname + "/../i18n/english_us/english_us.json");
 var esperanto = require(__dirname + "/../i18n/esperanto/esperanto.json");
-var finnish = require(__dirname + "/../i18n/finnish/finnish.json");
 var french = require(__dirname + "/../i18n/french/french.json");
 var german = require(__dirname + "/../i18n/german/german.json");
 var lojban = require(__dirname + "/../i18n/lojban/lojban.json");
@@ -13,7 +13,6 @@ var portuguese_br = require(__dirname +
     "/../i18n/portuguese_br/portuguese_br.json");
 var scots = require(__dirname + "/../i18n/scots/scots.json");
 var spanish = require(__dirname + "/../i18n/spanish/spanish.json");
-var swedish = require(__dirname + "/../i18n/swedish/swedish.json");
 
 var languages = {
 
@@ -39,6 +38,12 @@ var languages = {
         "defversion": "ESV",
         "complete": true
     },
+    "deflang": {
+        "name": "Default",
+        "rawobj": deflang,
+        "defversion": "ESV",
+        "complete": true
+    },
     "english_uk": {
         "name": "English (UK)",
         "rawobj": english_uk,
@@ -57,12 +62,6 @@ var languages = {
         "name": "Esperanto",
         "rawobj": esperanto,
         "defversion": "ESV",
-        "complete": true
-    },
-    "finnish": {
-        "name": "Suomi",
-        "rawobj": finnish,
-        "defversion": "R1933",
         "complete": true
     },
     "french": {
@@ -113,27 +112,23 @@ var languages = {
         "defversion": "NVI",
         "complete": true
     },
-    "swedish": {
-        "name": "Svenska",
-        "rawobj": swedish,
-        "defversion": "SV1917",
-        "complete": true
-    },
-    isLanguage: (language) => {
-        if (languages[language]) {
-            return true;
+};
+
+languages.isLanguage = function(language) {
+    if (languages[language]) {
+        return true;
+    }
+
+    return false;
+};
+
+languages.isIncomplete = function(language) {
+    if (languages.isLanguage(language)) {
+        if (language[language].complete) {
+            return false;
         }
 
-        return false;
-    },
-    isIncomplete: (language) => {
-        if (languages.isLanguage(language)) {
-            if (languages[language].complete) {
-                return false;
-            }
-
-            return true;
-        }
+        return true;
     }
 };
 
