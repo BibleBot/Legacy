@@ -25,7 +25,7 @@
   "passagetoolong":"Otos on liian pitkä minulle, pahoittelen.",
   "votdcantprocess":"Päivän jaetta ei voitu prosessoida, mene osoitteeseen <https://www.biblegateway.com/> lukeaksesi päivän jakeen.",
   "versioninfo":"\n**<versionname>**\n\nSisältää Vanhan Testamentin: <hasOT>\nSisältää Uuden Testamentint: <hasNT>\nSisältää apokryfiset ja deuterokanoniset kirjat: <hasAPO>",
-  "versioninfofailed":"En löytänyt haluamaasi käännöstä, oletko värmä, että käytit oikeaa lyhennettä?",
+  "versioninfofailed":"En löytänyt haluamaasi käännöstä, oletko varma, että käytit oikeaa lyhennettä?",
   "allusers":"",
   "users":"",
   "usersfailed":"En löydä palvelinta, johon tämä kanava kuuluu.",
