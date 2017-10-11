@@ -111,7 +111,7 @@ bot.on("message", (raw) => {
                     guild.leave();
                 }
             } catch (e) {
-                channel.sendMessage(e);
+                channel.send(e);
             }
         } else if (msg.startsWith("+" + language.rawobj.commands.announce) &&
             sender == config.owner) {
@@ -127,7 +127,7 @@ bot.on("message", (raw) => {
                         var receiver = ch.find(val => val.name === preferred[i]);
 
                         if (receiver) {
-                            receiver.sendMessage(msg.replace(
+                            receiver.send(msg.replace(
                                 "+" + language.rawobj.commands.announce + " ", ""
                             )).catch(() => { /* ignore */ });
 
@@ -143,7 +143,7 @@ bot.on("message", (raw) => {
             // requires manage messages permission (optional)
             raw.delete().then(msg => central.logMessage("info", sender, source, msg))
                 .catch(central.logMessage("info", sender, source, msg));
-            channel.sendMessage(msg.replaceAll("+" +
+            channel.send(msg.replaceAll("+" +
                 language.rawobj.commands.puppet + " ", ""));
         } else if (msg.startsWith("+eval") && sender == config.owner) {
             try {
@@ -156,9 +156,9 @@ bot.on("message", (raw) => {
                         "the sake of bot security."
                 }
 
-                channel.sendMessage(eval(argument));
+                channel.send(eval(argument));
             } catch (e) {
-                channel.sendMessage("[error] " + e);
+                channel.send("[error] " + e);
             }
         } else if (msg == "+" + language.rawobj.commands.allusers) {
             var users = bot.users.size;
@@ -168,7 +168,7 @@ bot.on("message", (raw) => {
             });
 
             central.logMessage("info", sender, source, "+allusers");
-            channel.sendMessage(language.rawobj.allusers + ": " + users.toString());
+            channel.send(language.rawobj.allusers + ": " + users.toString());
         } else if (msg == "+" + language.rawobj.commands.users) {
             if (guild) {
                 var users = guild.members.size;
@@ -178,10 +178,10 @@ bot.on("message", (raw) => {
                 });
 
                 central.logMessage("info", sender, source, "+users");
-                channel.sendMessage(language.rawobj.users + ": " + users.toString());
+                channel.send(language.rawobj.users + ": " + users.toString());
             } else {
                 central.logMessage("info", sender, source, "failed +users");
-                channel.sendMessage(language.rawobj.usersfailed);
+                channel.send(language.rawobj.usersfailed);
             }
         } else if (msg == "+" + language.rawobj.commands.listservers) {
             var count = bot.guilds.size.toString();
@@ -199,7 +199,7 @@ bot.on("message", (raw) => {
                 list.slice(0, -2) + "```\n" + msgend;
 
             central.logMessage("info", sender, source, "+listservers");
-            channel.sendMessage(response);
+            channel.send(response);
         } else if (msg == "+" + language.rawobj.commands.biblebot) {
             central.logMessage("info", sender, source, "+biblebot");
 
@@ -252,9 +252,9 @@ bot.on("message", (raw) => {
                 "<listservers>", language.rawobj.commands.listservers);
 
             response += "\n\n---\n**Help BibleBot's development and hosting by becoming a patron on Patreon! See <https://patreon.com/BibleBot> for more information!**";
-            response += "\n---\n\nSee <https://biblebot.vypr.space/copyrights> for any copyright-related information.";
+            response += "\n---\n\nJoin the BibleBot Discord server! Invite: <https://discord.gg/Ssn8KNv>\nSee <https://biblebot.vypr.space/copyrights> for any copyright-related information.";
 
-            channel.sendMessage(response);
+            channel.send(response);
         } else if (msg == "+" + language.rawobj.commands.random) {
             central.getVersion(rawSender, (data) => {
                 var version = language.defversion;
@@ -276,7 +276,7 @@ bot.on("message", (raw) => {
                 bibleGateway.getRandomVerse(version, headings, verseNumbers)
                     .then((result) => {
                         central.logMessage("info", sender, source, "+random");
-                        channel.sendMessage(result);
+                        channel.send(result);
                     });
             });
         } else if (msg == ("+" + language.rawobj.commands.verseoftheday) ||
@@ -301,12 +301,12 @@ bot.on("message", (raw) => {
                 bibleGateway.getVOTD(version, headings, verseNumbers)
                     .then((result) => {
                         if (result == "too long") {
-                            channel.sendMessage(language.rawobj.passagetoolong);
+                            channel.send(language.rawobj.passagetoolong);
                             return;
                         }
 
                         central.logMessage("info", sender, source, "+votd");
-                        channel.sendMessage(result);
+                        channel.send(result);
                     });
             });
         } else if (msg.startsWith("+" + language.rawobj.commands.setversion)) {
@@ -964,7 +964,7 @@ bot.on("message", (raw) => {
                 ];
                 var randomIndex = Math.floor(Math.random() * (4 - 0)) + 0;
 
-                channel.sendMessage(responses[randomIndex]);
+                channel.send(responses[randomIndex]);
 
                 central.logMessage("warn", sender, source,
                     "spam attempt - verse count: " + verseCount);
@@ -1039,8 +1039,8 @@ bot.on("message", (raw) => {
                                         "<setversion>",
                                         language.rawobj.commands.setversion);
 
-                                    channel.sendMessage(response);
-                                    channel.sendMessage(response2);
+                                    channel.send(response);
+                                    channel.send(response2);
 
                                     return;
                                 }
@@ -1068,8 +1068,8 @@ bot.on("message", (raw) => {
                                         "<setversion>",
                                         language.rawobj.commands.setversion);
 
-                                    channel.sendMessage(response);
-                                    channel.sendMessage(response2);
+                                    channel.send(response);
+                                    channel.send(response2);
 
                                     return;
                                 }
@@ -1097,8 +1097,8 @@ bot.on("message", (raw) => {
                                         "<setversion>",
                                         language.rawobj.commands.setversion);
 
-                                    channel.sendMessage(response);
-                                    channel.sendMessage(response2);
+                                    channel.send(response);
+                                    channel.send(response2);
 
                                     return;
                                 }
@@ -1127,13 +1127,13 @@ bot.on("message", (raw) => {
                                             central.logMessage(
                                                 "info", sender, source,
                                                 properString);
-                                            channel.sendMessage(responseString);
+                                            channel.send(responseString);
                                         } else {
                                             central.logMessage(
                                                 "info", sender, source, "length of " +
                                                 properString +
                                                 " is too long for me");
-                                            channel.sendMessage(
+                                            channel.send(
                                                 language.rawobj.passagetoolong);
                                         }
                                     });

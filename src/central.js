@@ -2,9 +2,20 @@ import * as languages from "./languages";
 import * as log4js from "log4js";
 
 log4js.configure({
-    appenders: [{
-        type: "console"
-    }]
+    appenders: {
+        'out': {
+            type: 'console',
+            layout: {
+                type: 'coloured'
+            }
+        }
+    },
+    categories: {
+        default: {
+            appenders: ['out'],
+            level: 'debug'
+        }
+    }
 });
 
 var logger = log4js.getLogger();
