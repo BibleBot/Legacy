@@ -28,10 +28,10 @@
   "versioninfofailed":"En löytänyt haluamaasi käännöstä, oletko värmä, että käytit oikeaa lyhennettä?",
   "allusers":"",
   "users":"",
-  "usersfailed":"",
-  "usersindb":"",
-  "listservers":"",
-  "listserversend":"",
+  "usersfailed":"En löydä palvelinta, johon tämä kanava kuuluu.",
+  "usersindb":"Tietokannassa olevien käyttäjien määrä (luku ei ole täysin tarkka)",
+  "listservers":"BibleBot on seuraavilla palvelimilla",
+  "listserversend":"Yhteensä <number> palvelinta.",
   "commands":{
     "setversion":"asetakäännös",
     "version":"käännös",
@@ -50,11 +50,11 @@
     "setlanguage":"asetakieli",
     "language":"kieli",
     "languages":"kielet",
-    "allusers":"",
-    "users":"",
-    "listservers":"",
+    "allusers":"kaikkikäyttäjät",
+    "users":"käyttäjät",
+    "listservers":"listaapalvelimet",
     "usersindb":"",
-    "announce":""
+    "announce":"ilmoitus"
   },
   "arguments":{
     "yes":"Kyllä",
