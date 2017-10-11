@@ -7,13 +7,9 @@ log4js.configure({
     }]
 });
 
-interface String {
-    replaceAll(target: String, replacement: String): String;
-}
-
 var logger = log4js.getLogger();
 
-String.prototype.replaceAll = function(target: String, replacement: String) {
+String.prototype.replaceAll = function(target, replacement) {
     return this.split(target).join(replacement);
 };
 
