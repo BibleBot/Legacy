@@ -365,7 +365,7 @@ bot.on("message", raw => {
             // requires manage messages permission (optional)
             raw.delete().then(msg => logMessage("info", sender, source, msg))
                 .catch(logMessage("info", sender, source, msg));
-            channel.sendMessageMessage(msg.replaceAll("+" +
+            channel.sendMessage(msg.replaceAll("+" +
                 language.rawobj.commands.puppet + " ", ""));
         } else if (msg.startsWith("+eval") && sender == config.owner) {
             try {
