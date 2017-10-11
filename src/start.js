@@ -15,6 +15,14 @@ import * as bibleGateway from "./bibleGateway";
 
 bot.on("ready", () => {
     central.logMessage("info", "global", "global", "connected");
+    bot.user.setPresence({
+        status: "online",
+        afk: false,
+        game: {
+            "name": "BibleBot v" + process.env.npm_package_version,
+            "url": "https://biblebot.vypr.space"
+        }
+    });
 });
 
 bot.on("debug", (debug) => {
