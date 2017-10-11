@@ -103,8 +103,6 @@ export function getResult(query, version, headings, verseNumbers) {
     var url = "https://www.biblegateway.com/passage/?search=" + query +
         "&version=" + version + "&interface=print";
 
-    console.log(url);
-
     var promise = new Promise((resolve, reject) => {
         request(url, (err, resp, body) => {
             if (err !== null) {
@@ -177,7 +175,6 @@ export function getResult(query, version, headings, verseNumbers) {
                     "text": purifyText(verse.find("p").text())
                 };
 
-                console.log(verseObject);
                 verses.push(verseObject);
             });
 
