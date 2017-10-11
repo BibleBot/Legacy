@@ -1,5 +1,5 @@
 {
-  "biblebot":"**BibleBot v<biblebotversion>, tehnyt Elliott Pardee (vypr)** - code: <https://git.vypr.space/BibleBot/BibleBot>\n\n```commands:\n* `+<setversion> lyhenne` - vaihtaa käytetyn version lyhenteeksi\n* `+<version>` - näyttää valitsemasi version\n* `+<versions>` - näyttää tuetut versiot\n* `+<versioninfo> VER` - kertoo tietyn käännöksen tiedot, käyttäen lyhennettä\n* `+<random>` - pyydä satunnainen jae \n* `+<verseoftheday>` (`+<votd>`) - pyydä päivän jae\n* `+<headings> <enable>/<disable>` - ota tai poista käytöstä aihenimikkeet\n* `+<versenumbers> <enable>/<disable>` - ota jaenumerot käyttöön tai poista ne käytöstä\n* `+<language>` - näyttää valitsemasi kielen, jos olet valinnut sen. (oletusasetuksena englanti)\n* `+<setlanguage> kieli` - vaihtaa käytetyn kielen kieleksi\n* `+<languages>` - näyttää tuetut kielet```\n**Käyttääksesi, kirjoita jae Raamatusta. minä hoidan loput**",
+  "biblebot":"",
   "versions":"Minä tuen",
   "setversionsuccess":"Versio asetettu onnistuneesti.",
   "setversionfail":"Version käyttöönotto epäonnistui, tuen vain",
