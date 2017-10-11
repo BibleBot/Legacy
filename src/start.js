@@ -1002,7 +1002,7 @@ bot.on("message", raw => {
 
                     central.versionDB.find({
                         "abbv": version
-                    }, (err, docs) {
+                    }, (err, docs) => {
                         if (docs) {
                             bookNames.forEach((book) => {
                                 var isOT = false;
