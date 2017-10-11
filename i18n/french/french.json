@@ -53,8 +53,8 @@
     "allusers":"tousutilisateurs",
     "users":"utilisateurs",
     "listservers":"listeserveurs",
-    "usersindb":"",
-    "announce":""
+    "usersindb":"utilisateursdansbd",
+    "announce":"Annonce"
   },
   "arguments":{
     "yes":"Oui",
