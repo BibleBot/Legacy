@@ -1,5 +1,5 @@
 // rename to config.js
-var config = {
+export default {
     // owner's username + discriminator
     owner: "",
 
@@ -14,5 +14,3 @@ var config = {
 
     debug: false
 };
-
-module.exports = config;

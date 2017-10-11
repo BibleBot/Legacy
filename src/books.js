@@ -1,4 +1,4 @@
-var books = {
+export default {
     "ot": {
         "genesis": "Genesis", // Old Testament
         "gen": "Genesis",
@@ -246,15 +246,12 @@ var books = {
         "sus": "Susanna",
         "belandthedragon": "Bel and the Dragon",
         "bel": "Bel and the Dragon"
+    },
+    isBook: (book) => {
+        if (this[book]) {
+            return true;
+        }
+
+        return false;
     }
-};
-
-books.isBook = function(book) {
-    if (books[book]) {
-        return true;
-    }
-
-    return false;
-};
-
-module.exports = books;
+}

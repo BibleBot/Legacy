@@ -1,6 +1,6 @@
 // that's right, we're going ES6 bay bee
 
-module.exports = class Version {
+export default class {
     constructor(name, abbv, hasOT, hasNT, hasAPO) {
         this.name = name;
         this.abbv = abbv;
