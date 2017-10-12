@@ -1,5 +1,5 @@
 {
-  "biblebot":"**BibleBot v<biblebotversion>, tehnyt Elliott Pardee (vypr)** - code: <https://git.vypr.space/BibleBot/BibleBot>\n\n```commands:\n* `+<setversion> lyhenne` - vaihtaa käytetyn version lyhenteeksi\n* `+<version>` - näyttää valitsemasi version\n* `+<versions>` - näyttää tuetut versiot\n* `+<versioninfo> VER` - kertoo tietyn käännöksen tiedot, käyttäen lyhennettä\n* `+<random>` - pyydä satunnainen jae \n* `+<verseoftheday>` (`+<votd>`) - pyydä päivän jae\n* `+<headings> <enable>/<disable>` - ota tai poista käytöstä aihenimikkeet\n* `+<versenumbers> <enable>/<disable>` - ota jaenumerot käyttöön tai poista ne käytöstä\n* `+<language>` - näyttää valitsemasi kielen, jos olet valinnut sen. (oletusasetuksena englanti)\n* `+<setlanguage> kieli` - vaihtaa käytetyn kielen kieleksi\n* `+<languages>` - näyttää tuetut kielet```\n**Käyttääksesi, kirjoita jae Raamatusta. minä hoidan loput**",
+  "biblebot":"",
   "versions":"Minä tuen",
   "setversionsuccess":"Versio asetettu onnistuneesti.",
   "setversionfail":"Version käyttöönotto epäonnistui, tuen vain",
@@ -25,13 +25,13 @@
   "passagetoolong":"Otos on liian pitkä minulle, pahoittelen.",
   "votdcantprocess":"Päivän jaetta ei voitu prosessoida, mene osoitteeseen <https://www.biblegateway.com/> lukeaksesi päivän jakeen.",
   "versioninfo":"\n**<versionname>**\n\nSisältää Vanhan Testamentin: <hasOT>\nSisältää Uuden Testamentint: <hasNT>\nSisältää apokryfiset ja deuterokanoniset kirjat: <hasAPO>",
-  "versioninfofailed":"En löytänyt haluamaasi käännöstä, oletko värmä, että käytit oikeaa lyhennettä?",
+  "versioninfofailed":"En löytänyt haluamaasi käännöstä, oletko varma, että käytit oikeaa lyhennettä?",
   "allusers":"",
   "users":"",
-  "usersfailed":"",
-  "usersindb":"",
-  "listservers":"",
-  "listserversend":"",
+  "usersfailed":"En löydä palvelinta, johon tämä kanava kuuluu.",
+  "usersindb":"Tietokannassa olevien käyttäjien määrä (luku ei ole täysin tarkka)",
+  "listservers":"BibleBot on seuraavilla palvelimilla",
+  "listserversend":"Yhteensä <number> palvelinta.",
   "commands":{
     "setversion":"asetakäännös",
     "version":"käännös",
@@ -50,11 +50,11 @@
     "setlanguage":"asetakieli",
     "language":"kieli",
     "languages":"kielet",
-    "allusers":"",
-    "users":"",
-    "listservers":"",
+    "allusers":"kaikkikäyttäjät",
+    "users":"käyttäjät",
+    "listservers":"listaapalvelimet",
     "usersindb":"",
-    "announce":""
+    "announce":"ilmoitus"
   },
   "arguments":{
     "yes":"Kyllä",
