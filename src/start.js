@@ -86,7 +86,7 @@ bot.on("message", (raw) => {
             (typeof channel.name != "undefined")) {
             source = channel.guild.name + "#" + channel.name;
         } else {
-            source = "unknown";
+            source = "unknown (direct messages?)";
         }
 
         if (sender == config.botname) return;
@@ -1115,13 +1115,6 @@ bot.on("message", (raw) => {
                                         var responseString =
                                             "**" + object.passage + " - " +
                                             object.version + "**\n\n" + content;
-
-                                        var randomNumber = Math.floor(Math.random() * 20);
-
-                                        if (randomNumber == 10) {
-                                            responseString += "\n\n**Help BibleBot's development and hosting by becoming a patron on Patreon! See <https://patreon.com/BibleBot> for more information!**";
-                                            properString += " - patreon added";
-                                        }
 
                                         if (responseString.length < 2000) {
                                             central.logMessage(
