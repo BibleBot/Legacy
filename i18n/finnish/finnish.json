@@ -26,8 +26,8 @@
   "votdcantprocess":"Päivän jaetta ei voitu prosessoida, mene osoitteeseen <https://www.biblegateway.com/> lukeaksesi päivän jakeen.",
   "versioninfo":"\n**<versionname>**\n\nSisältää Vanhan Testamentin: <hasOT>\nSisältää Uuden Testamentint: <hasNT>\nSisältää apokryfiset ja deuterokanoniset kirjat: <hasAPO>",
   "versioninfofailed":"En löytänyt haluamaasi käännöstä, oletko varma, että käytit oikeaa lyhennettä?",
-  "allusers":"",
-  "users":"",
+  "allusers":"Kaikkien niiden palvelimien yhteenlaskettu käyttäjämäärä, missä BibleBot on (kaksoiskappaleita ja botteja lukuunottamatta)",
+  "users":"Tämän palvelimen käyttäjien lukumaara (botit lukuunottamatta)",
   "usersfailed":"En löydä palvelinta, johon tämä kanava kuuluu.",
   "usersindb":"Tietokannassa olevien käyttäjien määrä (luku ei ole täysin tarkka)",
   "listservers":"BibleBot on seuraavilla palvelimilla",
@@ -53,7 +53,7 @@
     "allusers":"kaikkikäyttäjät",
     "users":"käyttäjät",
     "listservers":"listaapalvelimet",
-    "usersindb":"",
+    "usersindb":"käyttäjätk",
     "announce":"ilmoitus"
   },
   "arguments":{
