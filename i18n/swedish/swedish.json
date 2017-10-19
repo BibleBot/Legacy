@@ -1,5 +1,5 @@
 {
-  "biblebot":"**BibleBot v<biblebotversion> av Elliott Pardee (vypr)** - kod: <https://git.vypr.space/BibleBot/BibleBot>\n\n```kommandon:\n* `+<setversion> ABBV` - anger ABBV som föredragen version\n* `+<version>` - se vilken version du har valt\n* `+<versions>` - see vilka versioner som stöds\n* `+<versioninfo> VER` - ange förkortningen för information om en version\n* `+<random>` - slumpmässig bibelvers\n* `+<verseoftheday>` (`+<votd>`) - få dagens vers\n* `+<headings> <enable>/<disable>` - aktivera eller inaktivera visning av rubriker \n* `+<versenumbers> <enable>/<disable>` - aktivera eller inaktivera visning av versnummer \n* `+<language>` - visar ditt valda språk (standard: english)\n* `+<setlanguage> LANG` - anger LANG som föredraget språk\n* `+<languages>` - se vilka språk som stöds```\n**För att använda den, bara nämn en bibelvers. Jag tar hand om resten.**",
+  "biblebot":"",
   "versions":"Jag stödjer",
   "setversionsuccess":"Inställning av version lyckades.",
   "setversionfail":"Inställning av version misslyckades, jag stödjer enbart",
