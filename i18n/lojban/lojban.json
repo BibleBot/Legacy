@@ -31,7 +31,7 @@
   "usersfailed":"mi na zvafa'i le kibyse'u pe ti",
   "usersindb":"ro lo xo pilno poi le datnisro cu djuno fi ke'a .i ji'i",
   "listservers":"la xrisrbibliasamruc. zvati le kibyse'u cmima be",
-  "listserversend":"",
+  "listserversend":".i <number> lo kibyse'u",
   "commands":{
     "setversion":"ningaulexefanva",
     "version":"lexefanva",
@@ -50,10 +50,10 @@
     "setlanguage":"ningaulebangu",
     "language":"lebangu",
     "languages":"rolobangu",
-    "allusers":"",
-    "users":"",
-    "listservers":"",
-    "usersindb":"",
+    "allusers":"rolopilno",
+    "users":"lopilno",
+    "listservers":"lokibyse'u",
+    "usersindb":"loterjunpli",
     "announce":""
   },
   "arguments":{
