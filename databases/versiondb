@@ -106,7 +106,7 @@
 {"name":"Jubilee Bible 2000 (JUB)","abbv":"JUB","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"ba5fe2Y2Azj9MnPD"}
 {"name":"Chinese Standard Bible (Simplified) (CSBS)","abbv":"CSBS","hasOT":false,"hasNT":true,"hasAPO":false,"_id":"bqF5cbvtRuHvJyRO"}
 {"name":"Names of God Bible (NOG)","abbv":"NOG","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"cJ0s5n3qASTP4KDd"}
-{"name":"New American Bible (Revised Edition) (NABRE)","abbv":"NABRE","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"cgD4qzTItVHHiy5i"}
+{"name":"New American Bible (Revised Edition) (NABRE)","abbv":"NABRE","hasOT":true,"hasNT":true,"hasAPO":true,"_id":"cgD4qzTItVHHiy5i"}
 {"name":"World English Bible (WEB)","abbv":"WEB","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"csgD9vJhFYW466N1"}
 {"name":"Quiché, Centro Occidental (QUT)","abbv":"QUT","hasOT":false,"hasNT":true,"hasAPO":false,"_id":"d8E4RJ5eHfh7tQxJ"}
 {"name":"Russian Synodal Version (RUSV)","abbv":"RUSV","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"dEv3xUbDbSkuJpiu"}
