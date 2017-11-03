@@ -2,11 +2,8 @@ import central from "./central";
 
 // Discord API
 import * as Discord from "discord.js";
-var bot = new Discord.Client();
+let bot = new Discord.Client();
 import config from "./config";
-
-// for async calls
-import * as async from "async";
 
 // Other stuff
 import books from "./books";
@@ -49,12 +46,12 @@ bot.on("error", (e) => {
 
 bot.on("message", (raw) => {
     // taking the raw message object and making it more usable
-    var rawSender = raw.author;
-    var sender = rawSender.username + "#" + rawSender.discriminator;
-    var channel = raw.channel;
-    var guild = raw.guild;
-    var msg = raw.content;
-    var source;
+    let rawSender = raw.author;
+    let sender = rawSender.username + "#" + rawSender.discriminator;
+    let channel = raw.channel;
+    let guild = raw.guild;
+    let msg = raw.content;
+    let source;
 
     if (config.debug) {
         // TODO: Replace this with user IDs.
@@ -95,14 +92,36 @@ bot.on("message", (raw) => {
             return;
 
         // for verse arrays
-        var alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k",
-            "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x",
-            "y", "z", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K",
-            "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X",
-            "Y", "Z"
-        ];
+        let alphabet = "abcdef";
 
-        if (msg == "+" + language.rawobj.commands.leave &&
+        if (msg == "+jepekula") {
+            central.getVersion(rawSender, (data) => {
+                let version = language.defversion;
+                let headings = "enable";
+                let verseNumbers = "enable";
+
+                if (data) {
+                    if (data[0].hasOwnProperty('version')) {
+                        version = data[0].version;
+                    }
+                    if (data[0].hasOwnProperty('headings')) {
+                        headings = data[0].headings;
+                    }
+                    if (data[0].hasOwnProperty('verseNumbers')) {
+                        verseNumbers = data[0].verseNumbers;
+                    }
+                }
+
+                bibleGateway.getResult("Mark 9:23-24", version, headings, verseNumbers)
+                    .then((result) => {
+                        central.logMessage("info", sender, source, "+jepekula");
+                        channel.send(result);
+                    });
+            });
+        } else if (msg == "+" + language.rawobj.commands.invite) {
+            central.logMessage("info", sender, source, "+invite");
+            channel.send("https://discordapp.com/oauth2/authorize?client_id=361033318273384449&scope=bot&permissions=0");
+        } else if (msg == "+" + language.rawobj.commands.leave &&
             sender == config.owner) {
             central.logMessage("info", sender, source, "+leave");
 
@@ -116,15 +135,15 @@ bot.on("message", (raw) => {
         } else if (msg.startsWith("+" + language.rawobj.commands.announce) &&
             sender == config.owner) {
             bot.guilds.forEach((value) => {
-                var sent = false;
-                var ch = value.channels.findAll("type", "text");
-                var preferred = ["meta", "hangout", "fellowship", "lounge", "congregation", "general",
-                    "taffer"
+                let sent = false;
+                let ch = value.channels.findAll("type", "text");
+                let preferred = ["meta", "hangout", "fellowship", "lounge", "congregation", "general",
+                    "taffer", "family_text", "staff"
                 ];
 
-                for (var i = 0; i < preferred.length; i++) {
+                for (let i = 0; i < preferred.length; i++) {
                     if (!sent) {
-                        var receiver = ch.find(val => val.name === preferred[i]);
+                        let receiver = ch.find(val => val.name === preferred[i]);
 
                         if (receiver) {
                             receiver.send(msg.replace(
@@ -149,7 +168,7 @@ bot.on("message", (raw) => {
             try {
                 central.logMessage("info", sender, source, "+eval");
 
-                var argument = msg.replace("+eval ", "");
+                let argument = msg.replace("+eval ", "");
 
                 if (argument.indexOf("bot.token") > -1) {
                     throw "I refuse to process anything with bot.token for " +
@@ -161,17 +180,25 @@ bot.on("message", (raw) => {
                 channel.send("[error] " + e);
             }
         } else if (msg == "+" + language.rawobj.commands.allusers) {
-            var users = bot.users.size;
+            let guilds = bot.guilds;
+            let processed = [];
 
-            bot.users.forEach((v) => {
-                if (v.bot) users--;
+            guilds.forEach((value) => {
+                value.members.forEach((value) => {
+                    if ((processed.indexOf(value.id) == -1) &&
+                        (!value.user.bot)) {
+                        processed.push(value.id);
+                    }
+                });
             });
+
+            let users = processed.length;
 
             central.logMessage("info", sender, source, "+allusers");
             channel.send(language.rawobj.allusers + ": " + users.toString());
         } else if (msg == "+" + language.rawobj.commands.users) {
             if (guild) {
-                var users = guild.members.size;
+                let users = guild.members.size;
 
                 guild.members.forEach((v) => {
                     if (v.user.bot) users--;
@@ -184,18 +211,18 @@ bot.on("message", (raw) => {
                 channel.send(language.rawobj.usersfailed);
             }
         } else if (msg == "+" + language.rawobj.commands.listservers) {
-            var count = bot.guilds.size.toString();
-            var list = "";
+            let count = bot.guilds.size.toString();
+            let list = "";
 
             bot.guilds.forEach((v) => {
                 list += v + ", ";
             });
 
-            var msgend = language.rawobj.listserversend;
+            let msgend = language.rawobj.listserversend;
             msgend = msgend.replace("<number>", count);
 
 
-            var response = language.rawobj.listservers + ": ```" +
+            let response = language.rawobj.listservers + ": ```" +
                 list.slice(0, -2) + "```\n" + msgend;
 
             central.logMessage("info", sender, source, "+listservers");
@@ -203,7 +230,7 @@ bot.on("message", (raw) => {
         } else if (msg == "+" + language.rawobj.commands.biblebot) {
             central.logMessage("info", sender, source, "+biblebot");
 
-            var response = language.rawobj.biblebot;
+            let response = language.rawobj.biblebot;
             response = response.replace(
                 "<biblebotversion>", process.env.npm_package_version);
             response = response.replace(
@@ -257,9 +284,9 @@ bot.on("message", (raw) => {
             channel.send(response);
         } else if (msg == "+" + language.rawobj.commands.random) {
             central.getVersion(rawSender, (data) => {
-                var version = language.defversion;
-                var headings = "enable";
-                var verseNumbers = "enable";
+                let version = language.defversion;
+                let headings = "enable";
+                let verseNumbers = "enable";
 
                 if (data) {
                     if (data[0].hasOwnProperty('version')) {
@@ -282,9 +309,9 @@ bot.on("message", (raw) => {
         } else if (msg == ("+" + language.rawobj.commands.verseoftheday) ||
             msg == ("+" + language.rawobj.commands.votd)) {
             central.getVersion(rawSender, (data) => {
-                var version = language.defversion;
-                var headings = "enable";
-                var verseNumbers = "enable";
+                let version = language.defversion;
+                let headings = "enable";
+                let verseNumbers = "enable";
 
                 if (data) {
                     if (data[0].hasOwnProperty('version')) {
@@ -312,8 +339,8 @@ bot.on("message", (raw) => {
         } else if (msg.startsWith("+" + language.rawobj.commands.setversion)) {
             if (msg.split(" ").length != 2) {
                 central.versionDB.find({}, (err, docs) => {
-                    var chatString = "";
-                    for (var i in docs) {
+                    let chatString = "";
+                    for (let i in docs) {
                         chatString += docs[i].abbv + ", ";
                     }
 
@@ -332,8 +359,8 @@ bot.on("message", (raw) => {
                             "**");
                     } else {
                         central.versionDB.find({}, (err, docs) => {
-                            var chatString = "";
-                            for (var i in docs) {
+                            let chatString = "";
+                            for (let i in docs) {
                                 chatString += docs[i].abbv + ", ";
                             }
 
@@ -352,7 +379,7 @@ bot.on("message", (raw) => {
             if (msg.split(" ").length != 2) {
                 central.logMessage("info", sender, source, "empty +headings sent");
 
-                var response = language.rawobj.headingsfail;
+                let response = language.rawobj.headingsfail;
 
                 response = response.replace(
                     "<headings>", language.rawobj.commands.headings);
@@ -365,7 +392,7 @@ bot.on("message", (raw) => {
 
                 raw.reply("**" + response + "**");
             } else {
-                var option;
+                let option;
 
                 switch (msg.split(" ")[1]) {
                     case language.rawobj.arguments.enable:
@@ -385,7 +412,7 @@ bot.on("message", (raw) => {
                             central.logMessage(
                                 "info", sender, source, "+headings " +
                                 option);
-                            var response = language.rawobj.headingssuccess;
+                            let response = language.rawobj.headingssuccess;
                             response = response.replace(
                                 "<headings>", language.rawobj.commands.headings);
 
@@ -393,7 +420,7 @@ bot.on("message", (raw) => {
                         } else {
                             central.logMessage("info", sender, source, "failed +headings");
 
-                            var response = language.rawobj.headingsfail;
+                            let response = language.rawobj.headingsfail;
 
                             response = response.replace(
                                 "<headings>", language.rawobj.commands.headings);
@@ -410,7 +437,7 @@ bot.on("message", (raw) => {
                 } else {
                     central.logMessage("info", sender, source, "failed +headings");
 
-                    var response = language.rawobj.headingsfail;
+                    let response = language.rawobj.headingsfail;
 
                     response = response.replace(
                         "<headings>", language.rawobj.commands.headings);
@@ -431,7 +458,7 @@ bot.on("message", (raw) => {
             if (msg.split(" ").length != 2) {
                 central.logMessage("info", sender, source, "empty +versenumbers sent");
 
-                var response = language.rawobj.versenumbersfail;
+                let response = language.rawobj.versenumbersfail;
 
                 response = response.replace(
                     "<versenumbers>", language.rawobj.commands.versenumbers);
@@ -444,7 +471,7 @@ bot.on("message", (raw) => {
 
                 raw.reply("**" + response + "**");
             } else {
-                var option;
+                let option;
 
                 switch (msg.split(" ")[1]) {
                     case language.rawobj.arguments.enable:
@@ -465,7 +492,7 @@ bot.on("message", (raw) => {
                                 "info", sender, source, "+versenumbers " +
                                 option);
 
-                            var response = language.rawobj.versenumberssuccess;
+                            let response = language.rawobj.versenumberssuccess;
                             response = response.replace(
                                 "<versenumbers>",
                                 language.rawobj.commands.versenumbers);
@@ -475,7 +502,7 @@ bot.on("message", (raw) => {
                             central.logMessage(
                                 "info", sender, source, "failed +versenumbers");
 
-                            var response = language.rawobj.versenumbersfail;
+                            let response = language.rawobj.versenumbersfail;
 
                             response = response.replace(
                                 "<versenumbers>",
@@ -497,7 +524,7 @@ bot.on("message", (raw) => {
                     central.logMessage(
                         "info", sender, source, "failed +versenumbers");
 
-                    var response = language.rawobj.versenumbersfail;
+                    let response = language.rawobj.versenumbersfail;
 
                     response = response.replace(
                         "<versenumbers>",
@@ -523,7 +550,7 @@ bot.on("message", (raw) => {
 
                 if (data) {
                     if (data[0].version) {
-                        var response = language.rawobj.versionused;
+                        let response = language.rawobj.versionused;
 
                         response = response.replace(
                             "<version>", data[0].version);
@@ -532,7 +559,7 @@ bot.on("message", (raw) => {
 
                         raw.reply("**" + response + ".**");
                     } else {
-                        var response = language.rawobj.noversionused;
+                        let response = language.rawobj.noversionused;
 
                         response = response.replace(
                             "<setversion>", language.rawobj.commands.setversion);
@@ -540,7 +567,7 @@ bot.on("message", (raw) => {
                         raw.reply("**" + response + "**");
                     }
                 } else {
-                    var response = language.rawobj.noversionused;
+                    let response = language.rawobj.noversionused;
 
                     response = response.replace(
                         "<setversion>", language.rawobj.commands.setversion);
@@ -552,8 +579,8 @@ bot.on("message", (raw) => {
             return;
         } else if (msg == "+" + language.rawobj.commands.versions) {
             central.versionDB.find({}, (err, docs) => {
-                var chatString = "";
-                for (var i in docs) {
+                let chatString = "";
+                for (let i in docs) {
                     chatString += docs[i].abbv + ", ";
                 }
 
@@ -564,7 +591,7 @@ bot.on("message", (raw) => {
         } else if (msg.startsWith(
                 "+" + language.rawobj.commands.setlanguage)) {
             if (msg.split(" ").length != 2) {
-                var chatString = "";
+                let chatString = "";
                 Object.keys(central.languages).forEach((key) => {
                     switch (key) {
                         case "deflang":
@@ -590,7 +617,7 @@ bot.on("message", (raw) => {
                         raw.reply("**" + language.rawobj.setlanguagesuccess +
                             "**");
                     } else {
-                        var chatString = "";
+                        let chatString = "";
                         Object.keys(central.languages).forEach((key) => {
                             switch (key) {
                                 case "deflang":
@@ -619,14 +646,14 @@ bot.on("message", (raw) => {
                 central.logMessage("info", sender, source, "+language");
 
                 if (data) {
-                    var response = language.rawobj.languageused;
+                    let response = language.rawobj.languageused;
 
                     response = response.replace(
                         "<setlanguage>", language.rawobj.commands.setlanguage);
 
                     raw.reply("**" + response + "**");
                 } else {
-                    var response = language.rawobj.languageused;
+                    let response = language.rawobj.languageused;
 
                     response = response.replace(
                         "<setlanguage>", language.rawobj.commands.setlanguage);
@@ -638,7 +665,7 @@ bot.on("message", (raw) => {
 
             return;
         } else if (msg == "+" + language.rawobj.commands.languages) {
-            var chatString = "";
+            let chatString = "";
             Object.keys(central.languages).forEach((key) => {
                 switch (key) {
                     case "default": // i don't need this, but JS is being weird
@@ -659,22 +686,22 @@ bot.on("message", (raw) => {
             msg.startsWith("+" + language.rawobj.commands.av)) {
             if (sender == config.owner) {
 
-                var argv = msg.split(" ");
-                var argc = argv.length;
-                var name = "";
+                let argv = msg.split(" ");
+                let argc = argv.length;
+                let name = "";
 
                 // build the name string
-                for (var i = 1; i < (argv.length - 4); i++) {
+                for (let i = 1; i < (argv.length - 4); i++) {
                     name = name + argv[i] + " ";
                 }
 
                 name = name.slice(0, -1); // remove trailing space
-                var abbv = argv[argc - 4];
-                var hasOT = argv[argc - 3];
-                var hasNT = argv[argc - 2];
-                var hasAPO = argv[argc - 1];
+                let abbv = argv[argc - 4];
+                let hasOT = argv[argc - 3];
+                let hasNT = argv[argc - 2];
+                let hasAPO = argv[argc - 1];
 
-                var object = new Version(name, abbv, hasOT, hasNT, hasAPO);
+                let object = new Version(name, abbv, hasOT, hasNT, hasAPO);
                 central.versionDB.insert(object.toObject(), (err) => {
                     if (err) {
                         central.logMessage("err", "versiondb", "global", err);
@@ -700,7 +727,7 @@ bot.on("message", (raw) => {
                     } else if (data.length > 0) {
                         central.logMessage("info", sender, source, "+versioninfo");
 
-                        var response = language.rawobj.versioninfo;
+                        let response = language.rawobj.versioninfo;
                         response = response.replace("<versionname>", data[0].name);
 
                         if (data[0].hasOT == true)
@@ -727,18 +754,18 @@ bot.on("message", (raw) => {
 
             }
         } else if (msg.includes(":") && msg.includes(" ")) {
-            var spaceSplit = [];
-            var bookIndexes = [];
-            var bookNames = [];
-            var verses = {};
-            var verseCount = 0;
+            let spaceSplit = [];
+            let bookIndexes = [];
+            let bookNames = [];
+            let verses = {};
+            let verseCount = 0;
 
             if (msg.includes("-")) {
                 msg.split("-").forEach((item) => {
-                    var tempSplit = item.split(":");
+                    let tempSplit = item.split(":");
 
                     tempSplit.forEach((item) => {
-                        var tempTempSplit = item.split(" ");
+                        let tempTempSplit = item.split(" ");
 
                         tempTempSplit.forEach((item) => {
                             item = item.replaceAll(/[^a-zA-Z0-9:()"'<>|\\/;*&^%$#@!.+_?=]/g, "");
@@ -749,7 +776,7 @@ bot.on("message", (raw) => {
                 });
             } else {
                 msg.split(":").forEach((item) => {
-                    var tempSplit = item.split(" ");
+                    let tempSplit = item.split(" ");
 
                     tempSplit.forEach((item) => {
                         spaceSplit.push(item);
@@ -759,195 +786,129 @@ bot.on("message", (raw) => {
 
             // because of multiple verses with the same book, this
             // must be done to ensure that its not duping itself.
-            for (var i = 0; i < spaceSplit.length; i++) {
+            for (let i = 0; i < spaceSplit.length; i++) {
                 try {
                     spaceSplit[i] = spaceSplit[i].replaceAll("(", "");
                     spaceSplit[i] = spaceSplit[i].replaceAll(")", "");
                     spaceSplit[i] = spaceSplit[i].replaceAll("[", "");
                     spaceSplit[i] = spaceSplit[i].replaceAll("]", "");
-                    spaceSplit[i] = spaceSplit[i].replaceAll("<", "");
-                    spaceSplit[i] = spaceSplit[i].replaceAll(">", "");
                     spaceSplit[i] = central.capitalizeFirstLetter(spaceSplit[i]);
                 } catch (e) {
                     /* it'll probably be a number anyways, if this fails */
                 }
 
                 // TODO: Rewrite/refactor this.
-                switch (spaceSplit[i]) {
+                let temp = spaceSplit[i];
+                switch (temp) {
                     case "Sam":
-                        var temp = spaceSplit[i];
-                        spaceSplit[i] = spaceSplit[i - 1] + temp;
-                        break;
                     case "Sm":
-                        var temp = spaceSplit[i];
-                        spaceSplit[i] = spaceSplit[i - 1] + temp;
-                        break;
                     case "Shmuel":
-                        var temp = spaceSplit[i];
-                        spaceSplit[i] = spaceSplit[i - 1] + temp;
-                        break;
                     case "Kgs":
-                        var temp = spaceSplit[i];
-                        spaceSplit[i] = spaceSplit[i - 1] + temp;
-                        break;
                     case "Melachim":
-                        var temp = spaceSplit[i];
-                        spaceSplit[i] = spaceSplit[i - 1] + temp;
-                        break;
                     case "Chron":
-                        var temp = spaceSplit[i];
-                        spaceSplit[i] = spaceSplit[i - 1] + temp;
-                        break;
                     case "Chr":
-                        var temp = spaceSplit[i];
-                        spaceSplit[i] = spaceSplit[i - 1] + temp;
-                        break;
                     case "Cor":
-                        var temp = spaceSplit[i];
-                        spaceSplit[i] = spaceSplit[i - 1] + temp;
-                        break;
                     case "Thess":
-                        var temp = spaceSplit[i];
-                        spaceSplit[i] = spaceSplit[i - 1] + temp;
-                        break;
                     case "Thes":
-                        var temp = spaceSplit[i];
-                        spaceSplit[i] = spaceSplit[i - 1] + temp;
-                        break;
                     case "Tim":
-                        var temp = spaceSplit[i];
-                        spaceSplit[i] = spaceSplit[i - 1] + temp;
-                        break;
                     case "Tm":
-                        var temp = spaceSplit[i];
-                        spaceSplit[i] = spaceSplit[i - 1] + temp;
-                        break;
                     case "Pet":
-                        var temp = spaceSplit[i];
-                        spaceSplit[i] = spaceSplit[i - 1] + temp;
-                        break;
                     case "Pt":
-                        var temp = spaceSplit[i];
-                        spaceSplit[i] = spaceSplit[i - 1] + temp;
-                        break;
                     case "Macc":
-                        var temp = spaceSplit[i];
-                        spaceSplit[i] = spaceSplit[i - 1] + temp;
-                        break;
                     case "Mac":
-                        var temp = spaceSplit[i];
-                        spaceSplit[i] = spaceSplit[i - 1] + temp;
-                        break;
                     case "Esd":
-                        var temp = spaceSplit[i];
+                    case "Samuel":
+                    case "Kings":
+                    case "Chronicles":
+                    case "Esdras":
+                    case "Maccabees":
+                    case "Corinthians":
+                    case "Thessalonians":
+                    case "Timothy":
+                    case "Peter":
                         spaceSplit[i] = spaceSplit[i - 1] + temp;
                         break;
+                    case "Solomon":
+                    case "Songs":
+                        spaceSplit[i] = spaceSplit[i - 2] + spaceSplit[i - 1] +
+                            temp;
+                        break;
+                    case "John":
                     case "Jn":
-                        var num = Number(spaceSplit[i - 1]);
-                        var bnum = typeof Number(
+                        let num = Number(spaceSplit[i - 1]);
+                        let bnum = typeof Number(
                             spaceSplit[i - 1]) == "number";
 
                         if (spaceSplit[i - 1] && bnum && typeof num == "number" &&
                             num > 0 && num < 4) {
-                            var temp = spaceSplit[i];
                             spaceSplit[i] = spaceSplit[i - 1] + temp;
                         }
                         break;
-                    case "Samuel":
-                        var temp = spaceSplit[i];
-                        spaceSplit[i] = spaceSplit[i - 1] + temp;
-                        break;
-                    case "Kings":
-                        var temp = spaceSplit[i];
-                        spaceSplit[i] = spaceSplit[i - 1] + temp;
-                        break;
-                    case "Chronicles":
-                        var temp = spaceSplit[i];
-                        spaceSplit[i] = spaceSplit[i - 1] + temp;
-                        break;
-                    case "Esdras":
-                        var temp = spaceSplit[i];
-                        spaceSplit[i] = spaceSplit[i - 1] + temp;
-                        break;
-                    case "Maccabees":
-                        var temp = spaceSplit[i];
-                        spaceSplit[i] = spaceSplit[i - 1] + temp;
-                        break;
-                    case "Corinthians":
-                        var temp = spaceSplit[i];
-                        spaceSplit[i] = spaceSplit[i - 1] + temp;
-                        break;
-                    case "Thessalonians":
-                        var temp = spaceSplit[i];
-                        spaceSplit[i] = spaceSplit[i - 1] + temp;
-                        break;
-                    case "Timothy":
-                        var temp = spaceSplit[i];
-                        spaceSplit[i] = spaceSplit[i - 1] + temp;
-                        break;
-                    case "Peter":
-                        var temp = spaceSplit[i];
-                        spaceSplit[i] = spaceSplit[i - 1] + temp;
-                        break;
-                    case "John":
-                        var num = Number(spaceSplit[i - 1]);
-                        var bnum = typeof Number(
-                            spaceSplit[i - 1]) == "number";
-
-                        if (spaceSplit[i - 1] && bnum &&
-                            typeof num == "number" && num > 0 && num < 4) {
-
-                            var temp = spaceSplit[i];
-                            spaceSplit[i] = spaceSplit[i - 1] + temp;
-                        }
-                        break;
-                    case "Solomon":
-                        var temp = spaceSplit[i];
-                        spaceSplit[i] = spaceSplit[i - 2] + spaceSplit[i - 1] +
-                            temp;
-                        break;
-                    case "Songs":
-                        var temp = spaceSplit[i];
-                        spaceSplit[i] = spaceSplit[i - 2] + spaceSplit[i - 1] +
-                            temp;
-                        break;
                 }
 
-                if (books.ot[spaceSplit[i].toLowerCase()]) {
-                    bookNames.push(books.ot[spaceSplit[i].toLowerCase()]);
+                let book = spaceSplit[i].replace("<", "")
+                    .replace(">", "");
+
+                if (books.ot[book.toLowerCase()]) {
+                    bookNames.push(books.ot[book.toLowerCase()]);
                     bookIndexes.push(i);
                 }
 
-                if (books.nt[spaceSplit[i].toLowerCase()]) {
-                    bookNames.push(books.nt[spaceSplit[i].toLowerCase()]);
+                if (books.nt[book.toLowerCase()]) {
+                    bookNames.push(books.nt[book.toLowerCase()]);
                     bookIndexes.push(i);
                 }
 
-                if (books.apo[spaceSplit[i].toLowerCase()]) {
-                    bookNames.push(books.apo[spaceSplit[i].toLowerCase()]);
+                if (books.apo[book.toLowerCase()]) {
+                    bookNames.push(books.apo[book.toLowerCase()]);
                     bookIndexes.push(i);
                 }
             }
 
             bookIndexes.forEach((index) => {
-                var verse = [];
+                let verse = [];
 
                 // make sure that its proper verse structure
                 // Book chapterNum:chapterVerse
-                if (Number.isNaN(spaceSplit[index + 1]) ||
-                    Number.isNaN(spaceSplit[index + 2])) {
+                if ((typeof Number(spaceSplit[index + 1]) != "number") ||
+                    (typeof Number(spaceSplit[index + 2]) != "number")) {
                     return;
                 }
 
-                verse.push(spaceSplit[index]); // book name
-                verse.push(spaceSplit[index + 1]); // book chapter
-                verse.push(spaceSplit[index + 2]); // starting verse
+                let angleBracketIndexes = [];
+                for (let i in spaceSplit) {
+                    if ((i < index) && (spaceSplit[i].indexOf("<") != -1))
+                        angleBracketIndexes.push(i);
+
+                    if ((i > index) && (spaceSplit[i].indexOf(">") != -1))
+                        angleBracketIndexes.push(i);
+                }
+
+                if (angleBracketIndexes.length == 2)
+                    if (angleBracketIndexes[0] < index &&
+                        angleBracketIndexes[1] > index)
+                        return;
+
+                let book = spaceSplit[index].replace("<", "")
+                    .replace(">", "");
+
+                let chapter = spaceSplit[index + 1].replace("<", "")
+                    .replace(">", "");
+
+                let startingVerse = spaceSplit[index + 2].replace("<", "")
+                    .replace(">", "");
+                verse.push(book);
+                verse.push(chapter);
+                verse.push(startingVerse);
 
                 if (spaceSplit[index + 3] !== undefined) {
-                    if (!Number.isNaN(spaceSplit[index + 3])) {
+
+                    if (typeof Number(spaceSplit[index + 3]) == "number") {
                         if (Number(spaceSplit[index + 3]) >
                             Number(spaceSplit[index + 2])) {
-                            verse.push(spaceSplit[index + 3]); // ending verse
+                            let endingVerse = spaceSplit[index + 3].replace("<", "")
+                                .replace(">", "");
+                            verse.push(endingVerse);
                         }
                     }
                 }
@@ -956,13 +917,13 @@ bot.on("message", (raw) => {
                 verseCount++;
             });
 
-            if (verseCount > 4) {
-                var responses = ["spamming me, really?", "no spam pls",
+            if (verseCount > 6) {
+                let responses = ["spamming me, really?", "no spam pls",
                     "no spam, am good bot", "be nice to me",
                     "don't spam me, i'm a good bot", "hey buddy, get your own " +
                     "bot to spam"
                 ];
-                var randomIndex = Math.floor(Math.random() * (4 - 0)) + 0;
+                let randomIndex = Math.floor(Math.random() * (4 - 0)) + 0;
 
                 channel.send(responses[randomIndex]);
 
@@ -971,30 +932,44 @@ bot.on("message", (raw) => {
                 return;
             }
 
-            async.each(verses, (verse) => {
-                for (var i = 0; i < verse.length; i++) {
-                    if (typeof verse[i] != "undefined") {
-                        verse[i] = verse[i].replaceAll(/[^a-zA-Z0-9:]/g, "");
+            console.log(verses);
+
+            for (let i = 0; i < Object.keys(verses).length; i++) {
+                let properString;
+                let verse = verses[alphabet[i]];
+
+                console.log(verse);
+
+                for (let k = 0; k < verse.length; k++) {
+                    if (typeof verse[k] != "undefined") {
+                        verse[k] = verse[k].replaceAll(/[^a-zA-Z0-9:]/g, "");
                     }
                 }
 
-                if (Number.isNaN(verse[1]) || Number.isNaN(verse[2])) {
+                if (typeof Number(verse[1]) != "number" ||
+                    typeof Number(verse[2]) != "number") {
                     return;
                 }
 
+                if (verse.length == 4) {
+                    if (typeof Number(verse[3] != "number")) {
+                        return;
+                    }
+                }
+
                 if (verse.length < 4) {
-                    var properString = verse[0] + " " + verse[1] +
+                    properString = verse[0] + " " + verse[1] +
                         ":" + verse[2];
                 } else {
-                    var properString = verse[0] + " " + verse[1] + ":" +
+                    properString = verse[0] + " " + verse[1] + ":" +
                         verse[2] + "-" + verse[3];
                 }
 
 
                 central.getVersion(rawSender, (data) => {
-                    var version = language.defversion;
-                    var headings = "enable";
-                    var verseNumbers = "enable";
+                    let version = language.defversion;
+                    let headings = "enable";
+                    let verseNumbers = "enable";
 
                     if (data) {
                         if (data[0].hasOwnProperty('version')) {
@@ -1013,11 +988,11 @@ bot.on("message", (raw) => {
                     }, (err, docs) => {
                         if (docs) {
                             bookNames.forEach((book) => {
-                                var isOT = false;
-                                var isNT = false;
-                                var isAPO = false;
+                                let isOT = false;
+                                let isNT = false;
+                                let isAPO = false;
 
-                                for (var index in books.ot) {
+                                for (let index in books.ot) {
                                     if (books.ot[index] == book) {
                                         isOT = true;
                                     }
@@ -1028,12 +1003,12 @@ bot.on("message", (raw) => {
                                         "this sender is trying to use the OT " +
                                         "with a version that doesn't have it.");
 
-                                    var response =
+                                    let response =
                                         language.rawobj.otnotsupported;
                                     response = response.replace(
                                         "<version>", docs[0].name);
 
-                                    var response2 =
+                                    let response2 =
                                         language.rawobj.otnotsupported2;
                                     response2 = response2.replace(
                                         "<setversion>",
@@ -1045,7 +1020,7 @@ bot.on("message", (raw) => {
                                     return;
                                 }
 
-                                for (var index in books.nt) {
+                                for (let index in books.nt) {
                                     if (books.nt[index] == book) {
                                         isNT = true;
                                     }
@@ -1057,12 +1032,12 @@ bot.on("message", (raw) => {
                                         "this sender is trying to use the NT " +
                                         "with a version that doesn't have it.");
 
-                                    var response =
+                                    let response =
                                         language.rawobj.ntnotsupported;
                                     response = response.replace(
                                         "<version>", docs[0].name);
 
-                                    var response2 =
+                                    let response2 =
                                         language.rawobj.ntnotsupported2;
                                     response2 = response2.replace(
                                         "<setversion>",
@@ -1074,7 +1049,7 @@ bot.on("message", (raw) => {
                                     return;
                                 }
 
-                                for (var index in books.apo) {
+                                for (let index in books.apo) {
                                     if (books.apo[index] == book) {
                                         isAPO = true;
                                     }
@@ -1086,12 +1061,12 @@ bot.on("message", (raw) => {
                                         "this sender is trying to use the APO " +
                                         "with a version that doesn't have it.");
 
-                                    var response =
+                                    let response =
                                         language.rawobj.aponotsupported;
                                     response = response.replace(
                                         "<version>", docs[0].name);
 
-                                    var response2 =
+                                    let response2 =
                                         language.rawobj.aponotsupported2;
                                     response2 = response2.replace(
                                         "<setversion>",
@@ -1107,12 +1082,13 @@ bot.on("message", (raw) => {
                             bibleGateway.getResult(
                                     properString, version, headings, verseNumbers)
                                 .then((result) => {
+                                    console.log(result);
                                     result.forEach((object) => {
-                                        var content =
+                                        let content =
                                             "```Dust\n" + object.title + "\n\n" +
                                             object.text + "```";
 
-                                        var responseString =
+                                        let responseString =
                                             "**" + object.passage + " - " +
                                             object.version + "**\n\n" + content;
 
@@ -1137,7 +1113,7 @@ bot.on("message", (raw) => {
                         }
                     });
                 });
-            });
+            };
         }
     });
 });

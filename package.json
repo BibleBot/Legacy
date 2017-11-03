@@ -1,13 +1,13 @@
 {
   "name": "biblebot",
-  "version": "3.7.5",
+  "version": "4.0.0",
   "description": "A Discord bot for Bible verses.",
   "main": "start.js",
   "scripts": {
     "build": "babel src -d build",
-    "dev": "babel src -d build;node build/start.js",
+    "dev": "babel src -d build && node build/start.js",
     "start": "node build/start.js",
-    "refresh": "git pull;babel src -d build;node build/start.js"
+    "refresh": "git pull && babel src -d build && node build/start.js"
   },
   "repository": {
     "type": "git",
@@ -20,14 +20,14 @@
   },
   "homepage": "https://biblebot.vypr.space",
   "dependencies": {
-    "async": "^2.1.4",
     "cheerio": "^1.0.0-rc.2",
     "discord.js": "^11.2.1",
     "eslint": "^4.6.1",
     "libsodium-wrappers": "^0.7.2",
     "log4js": "^2.3.4",
     "nedb": "^1.8.0",
-    "request": "^2.79.0"
+    "request": "^2.79.0",
+    "synchronous-promise": "^1.0.18"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",

@@ -68,7 +68,8 @@
         "users": "users",
         "listservers": "listservers",
         "usersindb": "usersindb",
-        "announce": "announce"
+        "announce": "announce",
+        "invite": "invite"
     },
 
     "arguments": {

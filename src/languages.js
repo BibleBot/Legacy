@@ -1,4 +1,4 @@
-var arabic = require(__dirname + "/../i18n/arabic/arabic.json")
+// var arabic = require(__dirname + "/../i18n/arabic/arabic.json")
 var catalan = require(__dirname + "/../i18n/catalan/catalan.json");
 var english_uk = require(__dirname + "/../i18n/english_uk/english_uk.json");
 var english_us = require(__dirname + "/../i18n/english_us/english_us.json");
@@ -26,29 +26,29 @@ var languages = {
         }
     */
 
-    "arabic": {
+    /*"arabic": {
         "name": "Arabic",
         "rawobj": arabic,
         "defversion": "NAV",
         "complete": true
-    },
+    },*/
     // no catalan versions on BibleGateway, yet
     "catalan": {
         "name": "Català",
         "rawobj": catalan,
-        "defversion": "ESV",
+        "defversion": "NRSV",
         "complete": true
     },
     "english_uk": {
         "name": "English (UK)",
         "rawobj": english_uk,
-        "defversion": "ESVUK",
+        "defversion": "NRSVA",
         "complete": true
     },
     "english_us": {
         "name": "English (US)",
         "rawobj": english_us,
-        "defversion": "ESV",
+        "defversion": "NRSV",
         "complete": true
     },
     // despite being public domain,
@@ -56,7 +56,7 @@ var languages = {
     "esperanto": {
         "name": "Esperanto",
         "rawobj": esperanto,
-        "defversion": "ESV",
+        "defversion": "NRSV",
         "complete": true
     },
     "finnish": {
@@ -80,7 +80,7 @@ var languages = {
     "lojban": {
         "name": "Lojban",
         "rawobj": lojban,
-        "defversion": "ESV",
+        "defversion": "NRSV",
         "complete": true,
     },
     "norwegian": {
@@ -104,7 +104,7 @@ var languages = {
     "scots": {
         "name": "Scots",
         "rawobj": scots,
-        "defversion": "ESV",
+        "defversion": "NRSV",
         "complete": false
     },
     "spanish": {
