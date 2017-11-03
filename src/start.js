@@ -878,12 +878,7 @@ bot.on("message", (raw) => {
                     return;
                 }
 
-                var bracketed = false;
-
-                if (spaceSplit[index].indexOf("<") != -1 &&
-                    spaceSplit[index + 2].indexOf(">") != 1) return;
-
-                if (spaceSplit[index].indexOf("<") != -1) bracketed = true;
+                if (spaceSplit[index].indexOf("<") != -1) return;
 
                 let angleBracketIndexes = [];
                 for (let i in spaceSplit) {
