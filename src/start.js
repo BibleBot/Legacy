@@ -878,6 +878,13 @@ bot.on("message", (raw) => {
                     return;
                 }
 
+                var bracketed = false;
+
+                if (spaceSplit[index].indexOf("<") != -1 &&
+                    spaceSplit[index + 2].indexOf(">") != 1) return;
+
+                if (spaceSplit[index].indexOf("<") != -1) bracketed = true;
+
                 let angleBracketIndexes = [];
                 for (let i in spaceSplit) {
                     if ((i < index) && (spaceSplit[i].indexOf("<") != -1))
@@ -905,7 +912,7 @@ bot.on("message", (raw) => {
                 verse.push(startingVerse);
 
                 if (spaceSplit[index + 3] !== undefined) {
-
+                    if (bracketed && spaceSplit[index + 3].indexOf(">") != -1) return;
                     if (typeof Number(spaceSplit[index + 3]) == "number") {
                         if (Number(spaceSplit[index + 3]) >
                             Number(spaceSplit[index + 2])) {
