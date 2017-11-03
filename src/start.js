@@ -280,10 +280,13 @@ bot.on("message", (raw) => {
             response = response.replace(
                 "<invite>", language.rawobj.commands.invite);
 
-            response += "\n\n---\n**Help BibleBot's development and hosting by becoming a patron on Patreon! See <https://patreon.com/BibleBot> for more information!**";
-            response += "\n---\n\nJoin the BibleBot Discord server! Invite: <https://discord.gg/Ssn8KNv>\nSee <https://biblebot.vypr.space/copyrights> for any copyright-related information.";
+            response += "\n\n---\n"
+            
+            let second = "**Help BibleBot's development and hosting by becoming a patron on Patreon! See <https://patreon.com/BibleBot> for more information!**";
+            second += "\n---\n\nJoin the BibleBot Discord server! Invite: <https://discord.gg/Ssn8KNv>\nSee <https://biblebot.vypr.space/copyrights> for any copyright-related information.";
 
             channel.send(response);
+            channel.send(second);
         } else if (msg == "+" + language.rawobj.commands.random) {
             central.getVersion(rawSender, (data) => {
                 let version = language.defversion;
