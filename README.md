@@ -39,11 +39,13 @@ Commands:
 * `+allusers` - list all users throughout all servers (not counting duplicates or bots)
 * `+users` - list all users in the server where the message is sent
 * `+listservers` - list all servers BibleBot is in
+* `+invite` - get the invite link for BibleBot
 
 Bot Owner Commands:
 
 * `+addversion versionname abbv hasOT hasNT hasAPO` - add a version (`+av`)
 * `+puppet message` - say something as the bot
+* `+eval javascript` - execute javascript code
 
 Invite BibleBot to your server! https://discordapp.com/api/oauth2/authorize?client_id=361033318273384449&scope=bot&permissions=0
 

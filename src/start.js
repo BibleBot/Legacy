@@ -277,6 +277,8 @@ bot.on("message", (raw) => {
                 "<usersindb>", language.rawobj.commands.usersindb);
             response = response.replace(
                 "<listservers>", language.rawobj.commands.listservers);
+            response = response.replace(
+                "<invite>", language.rawobj.commands.invite);
 
             response += "\n\n---\n**Help BibleBot's development and hosting by becoming a patron on Patreon! See <https://patreon.com/BibleBot> for more information!**";
             response += "\n---\n\nJoin the BibleBot Discord server! Invite: <https://discord.gg/Ssn8KNv>\nSee <https://biblebot.vypr.space/copyrights> for any copyright-related information.";
