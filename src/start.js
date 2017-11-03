@@ -934,13 +934,9 @@ bot.on("message", (raw) => {
                 return;
             }
 
-            console.log(verses);
-
             for (let i = 0; i < Object.keys(verses).length; i++) {
                 let properString;
                 let verse = verses[alphabet[i]];
-
-                console.log(verse);
 
                 for (let k = 0; k < verse.length; k++) {
                     if (typeof verse[k] != "undefined") {
@@ -1084,7 +1080,6 @@ bot.on("message", (raw) => {
                             bibleGateway.getResult(
                                     properString, version, headings, verseNumbers)
                                 .then((result) => {
-                                    console.log(result);
                                     result.forEach((object) => {
                                         let content =
                                             "```Dust\n" + object.title + "\n\n" +
