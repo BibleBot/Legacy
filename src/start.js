@@ -908,7 +908,7 @@ bot.on("message", (raw) => {
                 verse.push(startingVerse);
 
                 if (spaceSplit[index + 3] !== undefined) {
-                    if (bracketed && spaceSplit[index + 3].indexOf(">") != -1) return;
+                    if (spaceSplit[index + 3].indexOf(">") != -1) return;
                     if (typeof Number(spaceSplit[index + 3]) == "number") {
                         if (Number(spaceSplit[index + 3]) >
                             Number(spaceSplit[index + 2])) {
