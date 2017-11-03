@@ -899,14 +899,15 @@ bot.on("message", (raw) => {
                         angleBracketIndexes[1] > index)
                         return;
 
-                let book = spaceSplit[index].replace("<", "")
-                    .replace(">", "");
+                let book = spaceSplit[index].replace("<", "");
+                book = book.replace(">", "");
 
-                let chapter = spaceSplit[index + 1].replace("<", "")
-                    .replace(">", "");
+                let chapter = spaceSplit[index + 1].replace("<", "");
+                chapter = chapter.replace(">", "");
 
-                let startingVerse = spaceSplit[index + 2].replace("<", "")
-                    .replace(">", "");
+                let startingVerse = spaceSplit[index + 2].replace("<", "");
+                startingVerse = startingVerse.replace(">", "");
+
                 verse.push(book);
                 verse.push(chapter);
                 verse.push(startingVerse);
@@ -916,8 +917,8 @@ bot.on("message", (raw) => {
                     if (typeof Number(spaceSplit[index + 3]) == "number") {
                         if (Number(spaceSplit[index + 3]) >
                             Number(spaceSplit[index + 2])) {
-                            let endingVerse = spaceSplit[index + 3].replace("<", "")
-                                .replace(">", "");
+                            let endingVerse = spaceSplit[index + 3].replace("<", "");
+                            endingVerse = endingVerse.replace(">", "");
                             verse.push(endingVerse);
                         }
                     }
@@ -958,7 +959,7 @@ bot.on("message", (raw) => {
                 }
 
                 if (verse.length == 4) {
-                    if (typeof Number(verse[3] != "number")) {
+                    if (typeof Number(verse[3]) != "number") {
                         return;
                     }
                 }
