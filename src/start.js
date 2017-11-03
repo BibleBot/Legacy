@@ -794,6 +794,7 @@ bot.on("message", (raw) => {
                     spaceSplit[i] = spaceSplit[i].replaceAll(")", "");
                     spaceSplit[i] = spaceSplit[i].replaceAll("[", "");
                     spaceSplit[i] = spaceSplit[i].replaceAll("]", "");
+                    spaceSplit[i] = spaceSplit[i].replaceAll("?", "");
                     spaceSplit[i] = central.capitalizeFirstLetter(spaceSplit[i]);
                 } catch (e) {
                     /* it'll probably be a number anyways, if this fails */
