@@ -135,9 +135,12 @@ bot.on("message", (raw) => {
         } else if (msg.startsWith("+" + language.rawobj.commands.announce) &&
             sender == config.owner) {
             bot.guilds.forEach((value) => {
+                if (value.name == "Discord Bots" ||
+                    value.name == "Discord Bot List") return;
+
                 let sent = false;
                 let ch = value.channels.findAll("type", "text");
-                let preferred = ["meta", "hangout", "fellowship", "lounge", "congregation", "general",
+                let preferred = ["misc", "bots", "meta", "hangout", "fellowship", "lounge", "congregation", "general",
                     "taffer", "family_text", "staff"
                 ];
 
