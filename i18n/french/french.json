@@ -55,7 +55,7 @@
         "listservers": "listeserveurs",
         "usersindb": "utilisateursdansbd",
         "announce": "annonce",
-        "invite": "invite"
+        "invite": "inviter"
     },
     "arguments": {
         "yes": "Oui",
