@@ -25,18 +25,7 @@ function purifyText(text) {
         .replaceAll("?", "? ")
         .replaceAll("? \"", "?\"")
         .replaceAll("? '", "?'")
-        .replaceAll(/[ \t]$/g, ' ')
-        .replaceAll(/[ \t]+/g, ' ');
-}
-
-function indent(str, numOfIndents, opt_spacesPerIndent) {
-    str = str.replace(/^(?=.)/gm, new Array(numOfIndents + 1).join('\t'));
-    numOfIndents = new Array(opt_spacesPerIndent + 1 || 0).join(' '); // re-use
-    return opt_spacesPerIndent
-        ? str.replace(/^\t+/g, function (tabs) {
-            return tabs.replace(/./g, numOfIndents);
-        })
-        : str;
+        .replaceAll(/\s+/g, ' ');
 }
 
 export function getRandomVerse(version, headings, verseNumbers) {
@@ -129,36 +118,6 @@ export function getResult(query, version, headings, verseNumbers) {
             // IT WILL BREAK EVERYTHING
             $(".result-text-style-normal").each(function() {
                 let verse = $(this);
-                let poetry = [];
-
-                $(this).find(".poetry").each(function() {
-                    $(this).find("span").each(function() {
-                        if ($(this).hasClass("text")) {
-                            poetry.push($(this).html())
-                            if ((poetry.length - 1) % 2 == 0) {
-                                let split = $(this).html().split("</sup>");
-                                let mod;
-
-                                if (split.length > 1) {
-                                    mod = indent(split[1], 1);
-                                    $(this).html(split[0] + "</sup>" + mod + "\n");
-                                } else {
-                                    $(this).html(indent($(this).html(), 2) + "\n");
-                                }
-                            } else {
-                                let split = $(this).html().split("</sup>");
-                                let mod;
-
-                                if (split.length > 1) {
-                                    mod = indent(split[1], 1);
-                                    $(this).html(split[0] + "</sup>" + mod + "\n");
-                                } else {
-                                    $(this).html(indent($(this).html(), 2) + "\n");
-                                }
-                            }
-                        }
-                    });
-                });
 
                 if (headings == "disable") {
                     $(".result-text-style-normal h3").each(function() {
@@ -181,13 +140,13 @@ export function getResult(query, version, headings, verseNumbers) {
                 } else {
                     $(".chapternum").each(function() {
                         $(this).html(
-                            " <" + $(this).text().slice(0, -1) + "> ");
+                            "[" + $(this).text().slice(0, -1) + "] ");
 
                     });
 
                     $(".versenum").each(function() {
                         $(this).html(
-                            "<" + $(this).text().slice(0, -1) + "> ");
+                            "[" + $(this).text().slice(0, -1) + "] ");
 
                     });
                 }
@@ -210,17 +169,11 @@ export function getResult(query, version, headings, verseNumbers) {
                 $(".crossrefs").html("");
                 $(".footnotes").html("");
 
-                verse.find("p").each(function () {
-                    if (!($(this).hasClass("line"))) {
-                            $(this).text(purifyText($(this).text()));
-                    }
-                });
-
                 let verseObject = {
                     "passage": verse.find(".passage-display-bcv").text(),
                     "version": verse.find(".passage-display-version").text(),
                     "title": title.slice(0, -3),
-                    "text": verse.find("p").text()
+                    "text": purifyText(verse.find("p").text())
                 };
 
                 verses.push(verseObject);
