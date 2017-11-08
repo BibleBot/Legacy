@@ -93,7 +93,7 @@ export function getVOTD(version, headings, verseNumbers) {
                         }
                     });
                 }).catch((err) => {
-                    central.central.logMessage("err", "global", "bibleGateway", err);
+                    central.logMessage("err", "global", "bibleGateway", err);
                 });
         });
     });
