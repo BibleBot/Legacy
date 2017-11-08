@@ -281,7 +281,7 @@ bot.on("message", (raw) => {
                 "<invite>", language.rawobj.commands.invite);
 
             response += "\n\n---\n"
-            
+
             let second = "**Help BibleBot's development and hosting by becoming a patron on Patreon! See <https://patreon.com/BibleBot> for more information!**";
             second += "\n---\n\nJoin the BibleBot Discord server! Invite: <https://discord.gg/Ssn8KNv>\nSee <https://biblebot.vypr.space/copyrights> for any copyright-related information.";
 

@@ -1,21 +1,21 @@
-// var arabic = require(__dirname + "/../i18n/arabic/arabic.json")
-var catalan = require(__dirname + "/../i18n/catalan/catalan.json");
-var english_uk = require(__dirname + "/../i18n/english_uk/english_uk.json");
-var english_us = require(__dirname + "/../i18n/english_us/english_us.json");
-var esperanto = require(__dirname + "/../i18n/esperanto/esperanto.json");
-var finnish = require(__dirname + "/../i18n/finnish/finnish.json");
-var french = require(__dirname + "/../i18n/french/french.json");
-var german = require(__dirname + "/../i18n/german/german.json");
-var lojban = require(__dirname + "/../i18n/lojban/lojban.json");
-var norwegian = require(__dirname + "/../i18n/norwegian/norwegian.json");
-var portuguese = require(__dirname + "/../i18n/portuguese/portuguese.json");
-var portuguese_br = require(__dirname +
+// let arabic = require(__dirname + "/../i18n/arabic/arabic.json")
+let catalan = require(__dirname + "/../i18n/catalan/catalan.json");
+let english_uk = require(__dirname + "/../i18n/english_uk/english_uk.json");
+let english_us = require(__dirname + "/../i18n/english_us/english_us.json");
+let esperanto = require(__dirname + "/../i18n/esperanto/esperanto.json");
+let finnish = require(__dirname + "/../i18n/finnish/finnish.json");
+let french = require(__dirname + "/../i18n/french/french.json");
+let german = require(__dirname + "/../i18n/german/german.json");
+let lojban = require(__dirname + "/../i18n/lojban/lojban.json");
+let norwegian = require(__dirname + "/../i18n/norwegian/norwegian.json");
+let portuguese = require(__dirname + "/../i18n/portuguese/portuguese.json");
+let portuguese_br = require(__dirname +
     "/../i18n/portuguese_br/portuguese_br.json");
-var scots = require(__dirname + "/../i18n/scots/scots.json");
-var spanish = require(__dirname + "/../i18n/spanish/spanish.json");
-var swedish = require(__dirname + "/../i18n/swedish/swedish.json");
+let scots = require(__dirname + "/../i18n/scots/scots.json");
+let spanish = require(__dirname + "/../i18n/spanish/spanish.json");
+let swedish = require(__dirname + "/../i18n/swedish/swedish.json");
 
-var languages = {
+let languages = {
 
     /*
       "language technical name":

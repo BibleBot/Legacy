@@ -1,5 +1,5 @@
-var request = require("request");
-var cheerio = require("cheerio");
+let request = require("request");
+let cheerio = require("cheerio");
 //import { SynchronousPromise } from "synchronous-promise";
 import central from "./central";
 
@@ -29,23 +29,23 @@ function purifyText(text) {
 }
 
 export function getRandomVerse(version, headings, verseNumbers) {
-    var url = "https://dailyverses.net/random-bible-verse";
+    let url = "https://dailyverses.net/random-bible-verse";
 
-    var promise = new Promise((resolve, reject) => {
+    let promise = new Promise((resolve, reject) => {
         request(url, (err, resp, body) => {
             if (err !== null) {
                 reject(err);
             }
 
-            var $ = cheerio.load(body);
-            var verse = $(".bibleChapter a").first().text();
+            let $ = cheerio.load(body);
+            let verse = $(".bibleChapter a").first().text();
 
             getResult(verse, version, headings, verseNumbers)
                 .then((result) => {
                     result.forEach((object) => {
-                        var content = "```Dust\n" + object.title + "\n\n" +
+                        let content = "```Dust\n" + object.title + "\n\n" +
                             object.text + "```";
-                        var responseString = "**" + object.passage + " - " +
+                        let responseString = "**" + object.passage + " - " +
                             object.version + "**\n\n" +
                             content;
 
@@ -65,24 +65,24 @@ export function getRandomVerse(version, headings, verseNumbers) {
 }
 
 export function getVOTD(version, headings, verseNumbers) {
-    var url =
+    let url =
         "https://www.biblegateway.com/reading-plans/verse-of-the-day/next";
 
-    var promise = new Promise((resolve, reject) => {
+    let promise = new Promise((resolve, reject) => {
         request(url, (err, resp, body) => {
             if (err !== null) {
                 reject(err);
             }
 
-            var $ = cheerio.load(body);
-            var verse = $(".rp-passage-display").text();
+            let $ = cheerio.load(body);
+            let verse = $(".rp-passage-display").text();
 
             getResult(verse, version, headings, verseNumbers)
                 .then((result) => {
                     result.forEach((object) => {
-                        var content = "```Dust\n" + object.title + "\n\n" +
+                        let content = "```Dust\n" + object.title + "\n\n" +
                             object.text + "```";
-                        var responseString = "**" + object.passage + " - " +
+                        let responseString = "**" + object.passage + " - " +
                             object.version + "**\n\n" +
                             content;
 
@@ -101,23 +101,23 @@ export function getVOTD(version, headings, verseNumbers) {
     return promise;
 }
 export function getResult(query, version, headings, verseNumbers) {
-    var url = "https://www.biblegateway.com/passage/?search=" + query +
+    let url = "https://www.biblegateway.com/passage/?search=" + query +
         "&version=" + version + "&interface=print";
 
-    var promise = new Promise((resolve, reject) => {
+    let promise = new Promise((resolve, reject) => {
         request(url, (err, resp, body) => {
             if (err !== null) {
                 reject(err);
             }
 
-            var verses = [];
+            let verses = [];
 
-            var $ = cheerio.load(body);
+            let $ = cheerio.load(body);
 
             // NOTE: DO NOT TRY TO MAKE FUNCTION() INTO () =>
             // IT WILL BREAK EVERYTHING
             $(".result-text-style-normal").each(function() {
-                var verse = $(this);
+                let verse = $(this);
 
                 if (headings == "disable") {
                     $(".result-text-style-normal h3").each(function() {
@@ -159,7 +159,7 @@ export function getResult(query, version, headings, verseNumbers) {
                     $(this).html("");
                 });
 
-                var title = "";
+                let title = "";
                 if (headings == "enable") {
                     verse.find("h3").each(function() {
                         title += $(this).text() + " / ";
@@ -169,7 +169,7 @@ export function getResult(query, version, headings, verseNumbers) {
                 $(".crossrefs").html("");
                 $(".footnotes").html("");
 
-                var verseObject = {
+                let verseObject = {
                     "passage": verse.find(".passage-display-bcv").text(),
                     "version": verse.find(".passage-display-version").text(),
                     "title": title.slice(0, -3),
