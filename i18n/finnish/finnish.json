@@ -1,5 +1,5 @@
 {
-    "biblebot": "**BibleBot v<biblebotversion> by Elliott Pardee (vypr)** - code: <https://git.vypr.space/BibleBot/BibleBot>\n\n```commands:\n* `+<setversion> ABBV` - set preferred version to ABBV\n* `+<version>` - see what version you've set\n* `+<versions>` - see the supported versions\n* `+<versioninfo> VER` - read information about a version, using the acronym\n* `+<random>` - get a random Bible verse\n* `+<verseoftheday>` (`+<votd>`) - get the verse of the day\n* `+<headings> <enable>/<disable>` - enable or disable topic headings\n* `+<versenumbers> <enable>/<disable>` - enable or disable verse numbers from showing on each line\n* `+<language>` - see your current language, if one is set (default: english)\n* `+<setlanguage> LANG` - set preferred language to LANG\n* `+<languages>` - see the supported languages\n* `+<allusers>` - list all users throughout all servers (not counting duplicates or bots)\n* `+<users>` - list all users in the server where the message is sent\n* `+<listservers>` - list all servers BibleBot is in\n* `+<invite>` - get the invite link for BibleBot```\n**To use it, just say a Bible verse. I'll handle the rest.**",
+    "biblebot": "**BibleBot v<biblebotversion>, tehnyt Elliott Pardee (vypr)** - code: <https://git.vypr.space/BibleBot/BibleBot>\n\n```commands:\n* `+<setversion> lyhenne` - vaihtaa käytetyn version lyhenteeksi\n* `+<version>` - näyttää valitsemasi version\n* `+<versions>` - näyttää tuetut versiot\n* `+<versioninfo> VER` - kertoo tietyn käännöksen tiedot, käyttäen lyhennettä\n* `+<random>` - pyydä satunnainen jae \n* `+<verseoftheday>` (`+<votd>`) - pyydä päivän jae\n* `+<headings> <enable>/<disable>` - ota tai poista käytöstä aihenimikkeet\n* `+<versenumbers> <enable>/<disable>` - ota jaenumerot käyttöön tai poista ne käytöstä\n* `+<language>` - näyttää valitsemasi kielen, jos olet valinnut sen. (oletusasetuksena englanti)\n* `+<setlanguage> kieli` - vaihtaa käytetyn kielen kieleksi\n* `+<languages>` - näyttää tuetut kielet```\n* `+<allusers>` - Luettelee kaikki käyttäjät kaikilta palvelimilta (lukuunottamatta botteja ja kaksoiskappaleita)\n* `+<users>` - luettelee kaikki käyttäjät palvelimella, jolla viesti lähetetään\n* `+<listservers>` - luettelee kaikki palvelimet, joissa BibleBot on```\n* `+<invite>` - antaa Biblebotin kutsulinkin```\n**Käyttääksesi, kirjoita jae Raamatusta. minä hoidan loput**",
     "versions": "Minä tuen",
     "setversionsuccess": "Versio asetettu onnistuneesti.",
     "setversionfail": "Version käyttöönotto epäonnistui, tuen vain",
@@ -55,7 +55,7 @@
         "listservers": "listaapalvelimet",
         "usersindb": "käyttäjätk",
         "announce": "ilmoitus",
-        "invite": "invite"
+        "invite": "kutsu"
     },
     "arguments": {
         "yes": "Kyllä",
