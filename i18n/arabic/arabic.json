@@ -58,8 +58,8 @@
         "invite": "invite"
     },
     "arguments": {
-        "yes": "Yes",
-        "no": "No",
+        "yes": "نعم",
+        "no": "لا",
         "enable": "تفعيل",
         "disable": "تعطيل"
     }
