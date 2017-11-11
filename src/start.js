@@ -225,11 +225,14 @@ bot.on("message", (raw) => {
             msgend = msgend.replace("<number>", count);
 
 
-            let response = language.rawobj.listservers + ": ```" +
-                list.slice(0, -2) + "```\n" + msgend;
+            let response = language.rawobj.listservers + ":"
+            let response2 = "```" +
+                list.slice(0, -2) + "```\n";
 
             central.logMessage("info", sender, source, "+listservers");
             channel.send(response);
+            channel.send(response2);
+            channel.send(msgend);
         } else if (msg == "+" + language.rawobj.commands.biblebot) {
             central.logMessage("info", sender, source, "+biblebot");
 
