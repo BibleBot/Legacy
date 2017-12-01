@@ -51,15 +51,15 @@
         "language": "lingua",
         "languages": "linguas",
         "allusers": "allusers",
-        "users": "users",
-        "listservers": "listservers",
-        "usersindb": "usersindb",
-        "announce": "announce",
-        "invite": "invite"
+        "users": "usuários",
+        "listservers": "listarservidores",
+        "usersindb": "bancodeusuarios",
+        "announce": "anunciar",
+        "invite": "convidar"
     },
     "arguments": {
-        "yes": "Yes",
-        "no": "No",
+        "yes": "Sim",
+        "no": "Não",
         "enable": "ativar",
         "disable": "desativar"
     }
