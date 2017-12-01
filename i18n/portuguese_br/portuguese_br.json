@@ -1,5 +1,5 @@
 {
-    "biblebot": "**BibleBot v<biblebotversion> by Elliott Pardee (vypr)** - code: <https://git.vypr.space/BibleBot/BibleBot>\n\n```commands:\n* `+<setversion> ABBV` - set preferred version to ABBV\n* `+<version>` - see what version you've set\n* `+<versions>` - see the supported versions\n* `+<versioninfo> VER` - read information about a version, using the acronym\n* `+<random>` - get a random Bible verse\n* `+<verseoftheday>` (`+<votd>`) - get the verse of the day\n* `+<headings> <enable>/<disable>` - enable or disable topic headings\n* `+<versenumbers> <enable>/<disable>` - enable or disable verse numbers from showing on each line\n* `+<language>` - see your current language, if one is set (default: english)\n* `+<setlanguage> LANG` - set preferred language to LANG\n* `+<languages>` - see the supported languages\n* `+<allusers>` - list all users throughout all servers (not counting duplicates or bots)\n* `+<users>` - list all users in the server where the message is sent\n* `+<listservers>` - list all servers BibleBot is in\n* `+<invite>` - get the invite link for BibleBot```\n**To use it, just say a Bible verse. I'll handle the rest.**",
+    "biblebot": "**BibleBot v<biblebotversion> por Elliott Pardee (vypr)** - código: <https://git.vypr.space/BibleBot/BibleBot>\n\n```comandos:\n* `+<setversion> ABBV` - define ABBV como a versão preferida\n* `+<version>` - veja qual a versão em uso\n* `+<versions>` - veja quais versões nós aceitamos\n* `+<versioninfo> VER` - informações sobre uma versão específica. Use o acrônimo\n* `+<random>` - mostra um versículo aleatório da Bíblia\n* `+<verseoftheday>` (`+<votd>`) - versículo do dia\n* `+<headings> <enable>/<disable>` - liga ou desliga títulos nos parágrafos e capitulos\n* `+<versenumbers> <enable>/<disable>` - mostra ou não os números dos versículos\n* `+<language>` - veja qual idioma está usando (língua padrão: inglês)\n* `+<setlanguage> LANG` - escolha o idioma que quer usar\n* `+<languages>` - veja a lista de idiomas suportados\n* `+<allusers>` - mostra todos os usuários (excluindo-se bots e duplicatas) de todos os servidores no qual o bot está\n* `+<users>` - mostra todos os usuários deste servidor\n* `+<listservers>` - veja a lista dos servidores em que o bot está\n* `+<invite>` - o convite para adicionar o bot em um servidor```\n**Para usar, diga uma passagem da Bíblia. Eu cuido do resto.**",
     "versions": "Eu lido com",
     "setversionsuccess": "A versão foi definida com sucesso.",
     "setversionfail": "Falha em definir a versão, eu apenas uso",
@@ -24,12 +24,12 @@
     "aponotsupported2": "Se você quer usar o Apócrifo/os Deuterocanônicos, usa `+<setversion>`para mudar a uma versão que tem-lo.",
     "passagetoolong": "A passagem é demasiado longo para citar, desculpa.",
     "votdcantprocess": "Desculpe, o versículo diário não pode ser exibido. Acesse <https://www.biblegateway.com/> para vê-lo.",
-    "versioninfo": "\n**<versionname>**\n\nContains Old Testament: <hasOT>\nContains New Testament: <hasNT>\nContains Apocrypha/Deuterocanon: <hasAPO>",
+    "versioninfo": "\n**<versionname>**\n\nPossui o Antigo Testamento: <hasOT>\nPossui o Novo Testamento: <hasNT>\nPossui os Deuterocanônicos/Apócrifos: <hasAPO>",
     "versioninfofailed": "I couldn't find that version, are you sure you used the right acronym?",
     "allusers": "The number of all users spanning across all servers that BibleBot is on (not counting duplicates and bots)",
-    "users": "The number of users in this server (not counting bots)",
-    "usersfailed": "I can't find the server this channel belongs to.",
-    "usersindb": "The number of users in the database (will have a margin of error)",
+    "users": "O número dos usuários neste servidor (excluindo-se bots)",
+    "usersfailed": "Não consigo encontrar o servidor a que este canal pertence.",
+    "usersindb": "O número de usuários no banco de dados (passível de margem de erro)",
     "listservers": "Eu estou nos seguintes servidores",
     "listserversend": "For a total of <number> servers.",
     "commands": {
