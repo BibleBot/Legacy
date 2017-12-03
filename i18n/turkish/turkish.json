@@ -3,7 +3,7 @@
     "versions": "Destekliyorum",
     "setversionsuccess": "Sürüm başarıyla ayarlandı.",
     "setversionfail": "Sürüm ayarlama başarısız oldu, sadece destekliyorum",
-    "versionused": "Şu anda <version> u kullanıyorsun. Farklı versiyona ayarlamak için `+<setversion> kullan`",
+    "versionused": "Şu anda <version>'u kullanıyorsun. Farklı versiyona ayarlamak için `+<setversion> kullan`",
     "noversionused": "İsmini veritabanında bulamadım, `+<setversion> kullandın mı?",
     "addversionsuccess": "Sürüm başarıyla eklendi.",
     "addversionfail": "Sürüm ekleme başarısız.",
