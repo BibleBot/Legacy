@@ -43,24 +43,24 @@
         "addversion": "添加版本",
         "av": "av",
         "versioninfo": "版本资料",
-        "versenumbers": "versenumbers",
+        "versenumbers": "经节",
         "headings": "标题",
         "puppet": "傀儡",
         "leave": "离开",
         "setlanguage": "设置语言",
         "language": "语言",
-        "languages": "languages",
-        "allusers": "allusers",
-        "users": "users",
-        "listservers": "listservers",
+        "languages": "语言",
+        "allusers": "全部用户",
+        "users": "用户",
+        "listservers": "列表服务器",
         "usersindb": "usersindb",
-        "announce": "announce",
-        "invite": "invite"
+        "announce": "发布",
+        "invite": "邀请"
     },
     "arguments": {
-        "yes": "Yes",
-        "no": "No",
-        "enable": "enable",
-        "disable": "disable"
+        "yes": "是",
+        "no": "否",
+        "enable": "启用",
+        "disable": "停用"
     }
 }
