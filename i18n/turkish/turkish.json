@@ -18,7 +18,7 @@
     "languages": "Destekliyorum",
     "otnotsupported": "Bu sürüm <version> eski ahiti desteklemiyor.",
     "ntnotsupported": "Bu sürüm <version> yeni ahiti desteklemiyor.",
-    "aponotsupported": "Bu sürüm <version>Apocrypha/Deuterocanon desteklemiyor.",
+    "aponotsupported": "Bu sürüm <version> Apocrypha/Deuterocanon desteklemiyor.",
     "otnotsupported2": "Eğer eski ahitleri kullanmak isterseniz, `+<setversion>` sürümüne çevirin.",
     "ntnotsupported2": "Eğer yeni ahitleri kullanmak isterseniz, `+<setversion>` sürümüne çevirin.",
     "aponotsupported2": "Eğer Apocrypha/Deuterocanon kullanmak isterseniz, `+<setversion>` sürümüne çevirin.",
