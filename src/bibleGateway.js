@@ -45,7 +45,7 @@ export function getRandomVerse(version, headings, verseNumbers) {
                     result.forEach((object) => {
                       	let content = "";
                       
-                      	if (typeof object.title !== "undefined") {
+                      	if (object.title.length > 0) {
                           let content = object.title + "\n\n" + object.text;
                         } else {
                           let content = object.text;
@@ -88,7 +88,7 @@ export function getVOTD(version, headings, verseNumbers) {
                     result.forEach((object) => {
                       	let content = "";
                       
-                        if (typeof object.title !== "undefined") {
+                        if (object.title.length > 0) {
                           let content = object.title + "\n\n" + object.text;
                         } else {
                           let content = object.text;
