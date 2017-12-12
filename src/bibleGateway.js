@@ -46,9 +46,9 @@ export function getRandomVerse(version, headings, verseNumbers) {
                       	let content = "";
                       
                       	if (object.title.length > 0) {
-                          let content = object.title + "\n\n" + object.text;
+                          content = object.title + "\n\n" + object.text;
                         } else {
-                          let content = object.text;
+                          content = object.text;
                         }
                       
                         let responseString = "**" + object.passage + " - " +
@@ -89,9 +89,9 @@ export function getVOTD(version, headings, verseNumbers) {
                       	let content = "";
                       
                         if (object.title.length > 0) {
-                          let content = object.title + "\n\n" + object.text;
+                          content = object.title + "\n\n" + object.text;
                         } else {
-                          let content = object.text;
+                          content = object.text;
                         }
                       
                         let responseString = "**" + object.passage + " - " +
