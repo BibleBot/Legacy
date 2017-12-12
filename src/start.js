@@ -284,7 +284,7 @@ bot.on("message", (raw) => {
 
             response += "\n\n---\n"
             response = response.replaceAll("```", "");
-
+objec
             let second = "**Help BibleBot's development and hosting by becoming a patron on Patreon! See <https://patreon.com/BibleBot> for more information!**";
             second += "\n---\n\nJoin the BibleBot Discord server! Invite: <https://discord.gg/Ssn8KNv>\nSee <https://biblebot.vypr.space/copyrights> for any copyright-related information.";
 
@@ -1093,7 +1093,7 @@ bot.on("message", (raw) => {
                                     result.forEach((object) => {
                                         let content = "";
                       
-                                        if (typeof object.title !== "undefined") {
+                                        if (object.title.length > 0) {
                                           let content = object.title + "\n\n" + object.text;
                                         } else {
                                           let content = object.text;
