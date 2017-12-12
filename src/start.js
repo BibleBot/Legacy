@@ -1091,8 +1091,13 @@ bot.on("message", (raw) => {
                                     properString, version, headings, verseNumbers)
                                 .then((result) => {
                                     result.forEach((object) => {
-                                        let content =
-                                            object.title + "\n\n" + object.text;
+                                        let content = "";
+                      
+                                        if (typeof object.title !== "undefined") {
+                                          let content = object.title + "\n\n" + object.text;
+                                        } else {
+                                          let content = object.text;
+                                        }
 
                                         let responseString =
                                             "**" + object.passage + " - " +
