@@ -1094,9 +1094,9 @@ objec
                                         let content = "";
                       
                                         if (object.title.length > 0) {
-                                          let content = object.title + "\n\n" + object.text;
+                                          content = object.title + "\n\n" + object.text;
                                         } else {
-                                          let content = object.text;
+                                          content = object.text;
                                         }
 
                                         let responseString =
