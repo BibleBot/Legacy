@@ -43,13 +43,9 @@ export function getRandomVerse(version, headings, verseNumbers) {
             getResult(verse, version, headings, verseNumbers)
                 .then((result) => {
                     result.forEach((object) => {
-                      	let content = "";
-                      
-                      	if (object.title.length > 0) {
-                          content = object.title + "\n\n" + object.text;
-                        } else {
-                          content = object.text;
-                        }
+                      	let content =
+                            "```Dust\n" + object.title + "\n\n" +
+                            object.text + "```";
                       
                         let responseString = "**" + object.passage + " - " +
                             object.version + "**\n\n" +
@@ -86,13 +82,9 @@ export function getVOTD(version, headings, verseNumbers) {
             getResult(verse, version, headings, verseNumbers)
                 .then((result) => {
                     result.forEach((object) => {
-                      	let content = "";
-                      
-                        if (object.title.length > 0) {
-                          content = object.title + "\n\n" + object.text;
-                        } else {
-                          content = object.text;
-                        }
+                      	let content =
+                            "```Dust\n" + object.title + "\n\n" +
+                            object.text + "```";
                       
                         let responseString = "**" + object.passage + " - " +
                             object.version + "**\n\n" +
