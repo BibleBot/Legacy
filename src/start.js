@@ -1,6 +1,6 @@
 import central from "./central";
 
-// Discord APIobje
+// Discord API
 import * as Discord from "discord.js";
 let bot = new Discord.Client();
 import config from "./config";
@@ -187,7 +187,7 @@ bot.on("message", (raw) => {
             let processed = 0;
 
             users.forEach((value) => {
-                if (!value.user.bot) {
+                if (!value.bot) {
                     processed++;
                 }
             });
@@ -295,8 +295,7 @@ bot.on("message", (raw) => {
                 "<invite>", language.rawobj.commands.invite);
 
             response += "\n\n---\n"
-            response = response.replaceAll("```", "");
-objec
+            
             let second = "**Help BibleBot's development and hosting by becoming a patron on Patreon! See <https://patreon.com/BibleBot> for more information!**";
             second += "\n---\n\nJoin the BibleBot Discord server! Invite: <https://discord.gg/Ssn8KNv>\nSee <https://biblebot.vypr.space/copyrights> for any copyright-related information.";
 
