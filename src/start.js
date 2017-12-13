@@ -1,6 +1,6 @@
 import central from "./central";
 
-// Discord API
+// Discord APIobje
 import * as Discord from "discord.js";
 let bot = new Discord.Client();
 import config from "./config";
@@ -1091,13 +1091,9 @@ objec
                                     properString, version, headings, verseNumbers)
                                 .then((result) => {
                                     result.forEach((object) => {
-                                        let content = "";
-                      
-                                        if (object.title.length > 0) {
-                                          content = object.title + "\n\n" + object.text;
-                                        } else {
-                                          content = object.text;
-                                        }
+                                        let content =
+                                            "```Dust\n" + object.title + "\n\n" +
+                                            object.text + "```";
 
                                         let responseString =
                                             "**" + object.passage + " - " +
