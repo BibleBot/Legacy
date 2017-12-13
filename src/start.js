@@ -189,7 +189,7 @@ bot.on("message", (raw) => {
             users.forEach((value) => {
                 if (!value.user.bot) {
                     processed++;
-                });
+                }
             });
 
             central.logMessage("info", sender, source, "+allusers");
