@@ -210,23 +210,36 @@ bot.on("message", (raw) => {
             }
         } else if (msg == "+" + language.rawobj.commands.listservers) {
             let count = bot.guilds.size.toString();
-            let list = "";
+            let list = [];
 
             bot.guilds.forEach((v) => {
-                list += v + ", ";
+                list.push(v.name);
             });
 
             let msgend = language.rawobj.listserversend;
             msgend = msgend.replace("<number>", count);
 
 
-            let response = language.rawobj.listservers + ":"
-            let response2 = "```" +
-                list.slice(0, -2) + "```\n";
+            let response = language.rawobj.listservers + ":";
+            let response2 = "```\n";
+          	let response3 = "```\n";
+          
+          	if (response2.length >= 2000) {
+            	let half = list.length / 2;
+            	
+              	for (let index in list) {
+                	if (index < half) {
+                    	response2 += list[index] + ", ";
+                    } else {
+                    	response3 += list[index] + ", "; 
+                    }
+                }
+            }
 
             central.logMessage("info", sender, source, "+listservers");
             channel.send(response);
-            channel.send(response2);
+            channel.send(response2.slice(0, -2) + "```\n\n");
+          	if (response3 != "```\n") { channel.send(response3.slice(0, -2) + "```\n\n"); }
             channel.send(msgend);
         } else if (msg == "+" + language.rawobj.commands.biblebot) {
             central.logMessage("info", sender, source, "+biblebot");
