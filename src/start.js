@@ -183,22 +183,17 @@ bot.on("message", (raw) => {
                 channel.send("[error] " + e);
             }
         } else if (msg == "+" + language.rawobj.commands.allusers) {
-            let guilds = bot.guilds;
-            let processed = [];
+            let users = bot.users;
+            let processed = 0;
 
-            guilds.forEach((value) => {
-                value.members.forEach((value) => {
-                    if ((processed.indexOf(value.id) == -1) &&
-                        (!value.user.bot)) {
-                        processed.push(value.id);
-                    }
+            users.forEach((value) => {
+                if (!value.user.bot) {
+                    processed++;
                 });
             });
 
-            let users = processed.length;
-
             central.logMessage("info", sender, source, "+allusers");
-            channel.send(language.rawobj.allusers + ": " + users.toString());
+            channel.send(language.rawobj.allusers + ": " + processed.toString());
         } else if (msg == "+" + language.rawobj.commands.users) {
             if (guild) {
                 let users = guild.members.size;
@@ -225,10 +220,14 @@ bot.on("message", (raw) => {
             msgend = msgend.replace("<number>", count);
 
 
-            let response = language.rawobj.listservers;
+            let response = language.rawobj.listservers + ":"
+            let response2 = "```" +
+                list.slice(0, -2) + "```\n";
 
             central.logMessage("info", sender, source, "+listservers");
-            channel.send(response.replace("the following", count) + ".");
+            channel.send(response);
+            channel.send(response2);
+            channel.send(msgend);
         } else if (msg == "+" + language.rawobj.commands.biblebot) {
             central.logMessage("info", sender, source, "+biblebot");
 
@@ -899,15 +898,21 @@ objec
                     if (angleBracketIndexes[0] < index &&
                         angleBracketIndexes[1] > index)
                         return;
+              
+                let book = spaceSplit[index];
+                let chapter = spaceSplit[index + 1];
+                let startingVerse = spaceSplit[index + 2];
+              
+              	try {
+                  book = spaceSplit[index].replace("<", "");
+                  book = book.replace(">", "");
 
-                let book = spaceSplit[index].replace("<", "");
-                book = book.replace(">", "");
+                  chapter = spaceSplit[index + 1].replace("<", "");
+                  chapter = chapter.replace(">", "");
 
-                let chapter = spaceSplit[index + 1].replace("<", "");
-                chapter = chapter.replace(">", "");
-
-                let startingVerse = spaceSplit[index + 2].replace("<", "");
-                startingVerse = startingVerse.replace(">", "");
+                  startingVerse = spaceSplit[index + 2].replace("<", "");
+                  startingVerse = startingVerse.replace(">", "");
+                } catch(e) { /* this won't be a problem */ }
 
                 verse.push(book);
                 verse.push(chapter);
