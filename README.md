@@ -1,5 +1,5 @@
 # BibleBot
-[![Help Translate on Crowdin](https://d322cqt584bo4o.cloudfront.net/biblebot/localized.svg)](https://crowdin.com/project/biblebot) [![Join us on Discord](https://img.shields.io/discord/362503610006765568.svg)](https://discord.gg/Ssn8KNv) [![Discord Bots](https://discordbots.org)](https://discordbots.org/api/widget/lib/361033318273384449.png)]
+[![Help Translate on Crowdin](https://d322cqt584bo4o.cloudfront.net/biblebot/localized.svg)](https://crowdin.com/project/biblebot) [![Join us on Discord](https://img.shields.io/discord/362503610006765568.svg)](https://discord.gg/Ssn8KNv) [![Discord Bots](https://discordbots.org/api/widget/lib/361033318273384449.png)](https://discordbots.org)
 
 [![Become a Patron on Patreon](https://biblebot.vypr.space/public/patreonbutton.svg)](https://patreon.com/biblebot)
 
