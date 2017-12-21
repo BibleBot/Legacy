@@ -13,7 +13,7 @@
     "headingsfail": "`+<headings> <enable>` `+<headings> <disable>.` Kullanın",
     "setlanguagesuccess": "Dil ayarı başarılı.",
     "setlanguagefail": "Dil ayarlama başarısız oldu, sadece destekliyorum",
-    "languageused": "Şu anda bu dili <Türkçe (replace with the language name)> kullanıyorsun. `+<setlanguage>` kullanarak farklı bir dil seçebilirsin.",
+    "languageused": "Şu anda bu dili Türkçe kullanıyorsun. `+<setlanguage>` kullanarak farklı bir dil seçebilirsin.",
     "nolanguageused": "İsmini veritabanında bulamadım, `+<setversion> kullandın mı?",
     "languages": "Destekliyorum",
     "otnotsupported": "Bu sürüm <version> eski ahiti desteklemiyor.",
