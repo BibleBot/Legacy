@@ -1,5 +1,5 @@
 {
-    "biblebot": "BibleBot v<biblebotversion> przez Elliott'a Pardee'go (vypr)** - kod: <https://git.vypr.space/BibleBot/BibleBot>\n\n ```komendy:\n* `+<setversion> ABBV` - zmienia preferowaną wersje na ABBV\n* `+<version>` - pokazuje jaką obecnie wersję masz ustawioną\n* `+<versions>` - pokazuje wspierane wersje\n* `+<versioninfo> VER` - odczytuje informacje o wersji używając skrótu \n* `+<random>` - pokazuje losowy cytat z Biblii\n* `+<verseoftheday>` (`+<votd>`) - pokazuje wers dnia\n* `+<headings> <enable>/<disable>` - włącza lub wyłącza nagłówki\n* `+<versenumbers> <enable>/<disable>` - włącza lub wyłącza liczby wersów przy liniach\n* `+<language>` - pokazuje twój obecny język, jeśli jakiś jest ustawiony (podstawowy: angielski) \n* `+<setlanguage> LANG` - zmienia preferowany język na LANG \n* `+<languages>` - pokazuje wspierane języki\n* `+<allusers>` - pokazuje listę wszystkich użytkowników ze wszystkich serwerów (pomijając duplikaty i boty) \n* `+<users>` - pokazuje listę wszystkich użytkowników na serwerach na które wysłano wiadomość\n* `+<listservers>` - pokazuje listę serwerów na których jest obecnie BibleBot\n* `+<invite>` - pokazuje link z zaproszeniem dla BibleBot'a``` \n**Żeby mnie użyć po prostu powiedz jakiś wers Biblijny. Ja się zajmę resztą.**",
+    "biblebot": "**BibleBot v<biblebotversion> przez Elliott'a Pardee'go (vypr)** - kod: <https://git.vypr.space/BibleBot/BibleBot>\n\n```komendy:\n* `+<setversion> ABBV` - zmienia preferowaną wersje na ABBV\n* `+<version>` - pokazuje jaką obecnie wersję masz ustawioną\n* `+<versions>` - pokazuje wspierane wersje\n* `+<versioninfo> VER` - odczytuje informacje o wersji używając skrótu \n* `+<random>` - pokazuje losowy cytat z Biblii\n* `+<verseoftheday>` (`+<votd>`) - pokazuje wers dnia\n* `+<headings> <enable>/<disable>` - włącza lub wyłącza nagłówki\n* `+<versenumbers> <enable>/<disable>` - włącza lub wyłącza liczby wersów przy liniach\n* `+<language>` - pokazuje twój obecny język, jeśli jakiś jest ustawiony (podstawowy: angielski) \n* `+<setlanguage> LANG` - zmienia preferowany język na LANG \n* `+<languages>` - pokazuje wspierane języki\n* `+<allusers>` - pokazuje listę wszystkich użytkowników ze wszystkich serwerów (pomijając duplikaty i boty) \n* `+<users>` - pokazuje listę wszystkich użytkowników na serwerach na które wysłano wiadomość\n* `+<listservers>` - pokazuje listę serwerów na których jest obecnie BibleBot\n* `+<invite>` - pokazuje link z zaproszeniem dla BibleBot'a``` \n**Żeby mnie użyć po prostu powiedz jakiś wers Biblijny. Ja się zajmę resztą.**",
     "versions": "Wspieram",
     "setversionsuccess": "Pomyślnie ustawiono wersję.",
     "setversionfail": "Nie można ustawić wersji, wspieram tylko",
@@ -28,10 +28,10 @@
     "versioninfofailed": "Nie udało mi się znaleźć tej wersji, czy jesteś pewien że użyłeś poprawnego skrótu?",
     "allusers": "Liczba wszystkich użytkowników na wszystkich serwerach na których jest BibleBot (nie licząc duplikatów i botów)",
     "users": "Liczba użytkowników na tym serwerze (nie licząc botów)",
-    "usersfailed": "I can't find the server this channel belongs to.",
-    "usersindb": "The number of users in the database (will have a margin of error)",
-    "listservers": "BibleBot is in the following servers",
-    "listserversend": "For a total of <number> servers.",
+    "usersfailed": "Nie udało mi się znaleźć serwera do którego należy ten kanał.",
+    "usersindb": "Liczba użytkowników w bazie danych (zawiera margines błędu)",
+    "listservers": "Biblebot jest na następujących serwerach",
+    "listserversend": "W sumie <number> serwerów.",
     "commands": {
         "setversion": "setversion",
         "version": "version",
@@ -51,16 +51,16 @@
         "language": "language",
         "languages": "languages",
         "allusers": "allusers",
-        "users": "users",
+        "users": "userse",
         "listservers": "listservers",
         "usersindb": "usersindb",
         "announce": "announce",
         "invite": "invite"
     },
     "arguments": {
-        "yes": "Yes",
-        "no": "No",
-        "enable": "enable",
-        "disable": "disable"
+        "yes": "Tak",
+        "no": "Nie",
+        "enable": "włączyć",
+        "disable": "wyłączyć"
     }
 }
