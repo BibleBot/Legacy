@@ -13,7 +13,7 @@
     "headingsfail": "Użyj `+<headings> <enable>`lub `+<headings> <disable>.`",
     "setlanguagesuccess": "Ustawiono język pomyślnie.",
     "setlanguagefail": "Nie można ustawić języka, wspieram tylko",
-    "languageused": "Obecnie używasz <the default language (replace with the language name)>. Użyj komendy `+<setlanguage>` aby zmienić język.",
+    "languageused": "Obecnie używasz języka Polskiego. Użyj komendy `+<setlanguage>` aby zmienić język.",
     "nolanguageused": "Nie mogłem znaleźć Twojego imienia w mojej bazie danych, czy użyłeś już komendy `+<setlanguage>`?",
     "languages": "Wspieram",
     "otnotsupported": "Wersja <version> obecnie nie wspiera Starego Testamentu.",
