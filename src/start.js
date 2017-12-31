@@ -831,6 +831,7 @@ bot.on("message", (raw) => {
                     case "Peter":
                         spaceSplit[i] = spaceSplit[i - 1] + temp;
                         break;
+                    case "Manasseh":
                     case "Solomon":
                     case "Songs":
                         spaceSplit[i] = spaceSplit[i - 2] + spaceSplit[i - 1] +
