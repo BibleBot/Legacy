@@ -1,5 +1,7 @@
 // let arabic = require(__dirname + "/../i18n/arabic/arabic.json")
 let catalan = require(__dirname + "/../i18n/catalan/catalan.json");
+let chinese_simp = require(__dirname + "../i18n/chinese_simp/chinese_simp.json");
+let chinese_trad = require(__dirname + "../i18n/chinese_trad/chinese_trad.json");
 let english_uk = require(__dirname + "/../i18n/english_uk/english_uk.json");
 let english_us = require(__dirname + "/../i18n/english_us/english_us.json");
 let esperanto = require(__dirname + "/../i18n/esperanto/esperanto.json");
@@ -8,12 +10,14 @@ let french = require(__dirname + "/../i18n/french/french.json");
 let german = require(__dirname + "/../i18n/german/german.json");
 let lojban = require(__dirname + "/../i18n/lojban/lojban.json");
 let norwegian = require(__dirname + "/../i18n/norwegian/norwegian.json");
+let polish = require(__dirname + "../i18n/polish/polish.json");
 let portuguese = require(__dirname + "/../i18n/portuguese/portuguese.json");
 let portuguese_br = require(__dirname +
     "/../i18n/portuguese_br/portuguese_br.json");
 let scots = require(__dirname + "/../i18n/scots/scots.json");
 let spanish = require(__dirname + "/../i18n/spanish/spanish.json");
 let swedish = require(__dirname + "/../i18n/swedish/swedish.json");
+let turkish = require(__dirname + "../i18n/turkish/turkish.json");
 
 let languages = {
 
@@ -33,6 +37,24 @@ let languages = {
         "complete": true
     },*/
     // no catalan versions on BibleGateway, yet
+    "catalan": {
+        "name": "Català",
+        "rawobj": catalan,
+        "defversion": "NRSV",
+        "complete": true
+    },
+    "chinese_simp": {
+        "name": "简体中文",
+        "rawobj": chinese_simp,
+        "defversion": "CNVS",
+        "complete": true
+    },
+    "chinese_trad": {
+        "name": "繁體中文",
+        "rawobj": chinese_trad,
+        "defversion": "CNVT",
+        "complete": true
+    },
     "catalan": {
         "name": "Català",
         "rawobj": catalan,
@@ -89,6 +111,12 @@ let languages = {
         "defversion": "DNB1930",
         "complete": true
     },
+    "polish": {
+        "name": "Polski",
+        "rawobj": polish,
+        "defversion": "NP",
+        "complete": true
+    },
     "portuguese": {
         "name": "Português",
         "rawobj": portuguese,
@@ -99,6 +127,12 @@ let languages = {
         "name": "Português (BR)",
         "rawobj": portuguese_br,
         "defversion": "NVI-PT",
+        "complete": true
+    },
+    "turkish": {
+        "name": "Türkçe",
+        "rawobj": turkish,
+        "defversion": "NRSV",
         "complete": true
     },
     "scots": {
