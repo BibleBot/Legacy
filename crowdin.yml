@@ -32,8 +32,10 @@ files:
         de-AT: german_at
         de-CH: german_ch
         el: greek
+	hi: hindi
         he: hebrew
         hu: hungarian
+	id: indonesian
         ga-IE: irish
         it: italian
         ja: japanese
