@@ -840,10 +840,10 @@ bot.on("message", (raw) => {
                     case "John":
                     case "Jn":
                         let num = Number(spaceSplit[i - 1]);
-                        let bnum = typeof Number(
-                            spaceSplit[i - 1]) == "number";
+                        let bnum = !isNaN(Number(
+                            spaceSplit[i - 1]));
 
-                        if (spaceSplit[i - 1] && bnum && typeof num == "number" &&
+                        if (spaceSplit[i - 1] && bnum && !isNaN(num) &&
                             num > 0 && num < 4) {
                             spaceSplit[i] = spaceSplit[i - 1] + temp;
                         }
@@ -874,8 +874,8 @@ bot.on("message", (raw) => {
 
                 // make sure that its proper verse structure
                 // Book chapterNum:chapterVerse
-                if ((typeof Number(spaceSplit[index + 1]) != "number") ||
-                    (typeof Number(spaceSplit[index + 2]) != "number")) {
+                if (isNaN(Number(spaceSplit[index + 1])) ||
+                    isNaN(Number(spaceSplit[index + 2]))) {
                     return;
                 }
 
@@ -900,14 +900,14 @@ bot.on("message", (raw) => {
                 let startingVerse = spaceSplit[index + 2];
               
               	try {
-                  book = spaceSplit[index].replace("<", "");
-                  book = book.replace(">", "");
+                    book = spaceSplit[index].replace("<", "");
+                    book = book.replace(">", "");
 
-                  chapter = spaceSplit[index + 1].replace("<", "");
-                  chapter = chapter.replace(">", "");
+                    chapter = spaceSplit[index + 1].replace("<", "");
+                    chapter = chapter.replace(">", "");
 
-                  startingVerse = spaceSplit[index + 2].replace("<", "");
-                  startingVerse = startingVerse.replace(">", "");
+                    startingVerse = spaceSplit[index + 2].replace("<", "");
+                    startingVerse = startingVerse.replace(">", "");
                 } catch(e) { /* this won't be a problem */ }
 
                 verse.push(book);
@@ -916,7 +916,7 @@ bot.on("message", (raw) => {
 
                 if (spaceSplit[index + 3] !== undefined) {
                     if (spaceSplit[index + 3].indexOf(">") != -1) return;
-                    if (typeof Number(spaceSplit[index + 3]) == "number") {
+                    if (!isNaN(Number(spaceSplit[index + 3]))) {
                         if (Number(spaceSplit[index + 3]) >
                             Number(spaceSplit[index + 2])) {
                             let endingVerse = spaceSplit[index + 3].replace("<", "");
@@ -954,14 +954,14 @@ bot.on("message", (raw) => {
                         verse[k] = verse[k].replaceAll(/[^a-zA-Z0-9:]/g, "");
                     }
                 }
-
-                if (typeof Number(verse[1]) != "number" ||
-                    typeof Number(verse[2]) != "number") {
+                
+                if (isNaN(Number(verse[1])) ||
+                    isNaN(Number(verse[2]))) {
                     return;
                 }
 
                 if (verse.length == 4) {
-                    if (typeof Number(verse[3]) != "number") {
+                    if (isNaN(Number(verse[3]))) {
                         return;
                     }
                 }
