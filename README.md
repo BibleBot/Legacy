@@ -70,4 +70,4 @@ and the dotfiles do not need to have the version number updated.
 
 ### Special Thanks
 
-**audiovideodisco, Blubb, Bonaventure Sissokovitch, Buggyrcobra, Coal, Koockies, Mark Nunberg, Manelic, Raven Melodie, SwedishMeatball, Tuonela, TySpeedy, Viva, xnkmevaou, Zyxl** - for their hard work on helping BibleBot reach the world by translating languages :heart:
+**adfizz, apocz, audiovideodisco, Banská Bystrica, Blubb, BonaventureSissokovitch, Buggyrcobra, Coal, DeadPixels, jznsamuel, Koockies, Mark Nunberg, Manelic, Raven Melodie, omeratagun, Sezess, sunray.steemit, SwedishMeatball, Tuonela, TySpeedy, Viva98, xnkmevaou, Zyxl** - for their hard work on helping BibleBot reach the world by translating languages :heart:
