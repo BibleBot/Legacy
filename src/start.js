@@ -102,7 +102,8 @@ bot.on("message", (raw) => {
 
                 if (data) {
                     if (data[0].hasOwnProperty('version')) {
-                        version = data[0].version;
+                        if (data[0].version == "HWP") version = "NRSV";
+                        else version = data[0].version;
                     }
                     if (data[0].hasOwnProperty('headings')) {
                         headings = data[0].headings;
@@ -292,7 +293,8 @@ bot.on("message", (raw) => {
 
                 if (data) {
                     if (data[0].hasOwnProperty('version')) {
-                        version = data[0].version;
+                        if (data[0].version == "HWP") version = "NRSV";
+                        else version = data[0].version;
                     }
                     if (data[0].hasOwnProperty('headings')) {
                         headings = data[0].headings;
@@ -317,7 +319,8 @@ bot.on("message", (raw) => {
 
                 if (data) {
                     if (data[0].hasOwnProperty('version')) {
-                        version = data[0].version;
+                        if (data[0].version == "HWP") version = "NRSV";
+                        else version = data[0].version;
                     }
                     if (data[0].hasOwnProperty('headings')) {
                         headings = data[0].headings;
@@ -552,6 +555,7 @@ bot.on("message", (raw) => {
 
                 if (data) {
                     if (data[0].version) {
+                        if (data[0].version == "HWP") data[0].version = "NRSV";
                         let response = language.rawobj.versionused;
 
                         response = response.replace(
@@ -982,7 +986,8 @@ bot.on("message", (raw) => {
 
                     if (data) {
                         if (data[0].hasOwnProperty('version')) {
-                            version = data[0].version;
+                            if (data[0].version == "HWP") version = "NRSV";
+                            else version = data[0].version;
                         }
                         if (data[0].hasOwnProperty('headings')) {
                             headings = data[0].headings;
