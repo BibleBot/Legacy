@@ -115,10 +115,30 @@ bot.on("message", (raw) => {
 
                 bibleGateway.getResult("Mark 9:23-24", version, headings, verseNumbers)
                     .then((result) => {
-                        central.logMessage("info", sender, source, "+jepekula");
-                        channel.send(result);
+                        result.forEach((object) => {
+                            let content =
+                                "```Dust\n" + object.title + "\n\n" +
+                                object.text + "```";
+
+                            let responseString =
+                                "**" + object.passage + " - " +
+                                object.version + "**\n\n" + content;
+
+                            if (responseString.length < 2000) {
+                                central.logMessage(
+                                    "info", sender, source,
+                                    "+jepekula");
+                                channel.send(responseString);
+                            }
+                        });
+                    }).catch((err) => {
+                        central.logMessage(
+                            "err", "global", "bibleGateway", err);
                     });
             });
+        } else if (msg == "+supporters") {
+            central.logMessage("info", sender, source, "+supporters");
+            channel.send("A special thank you to Jepekula, rocketman, Soku, and anonymous donors for financially supporting BibleBot! <3")
         } else if (msg == "+" + language.rawobj.commands.invite) {
             central.logMessage("info", sender, source, "+invite");
             channel.send("https://discordapp.com/oauth2/authorize?client_id=361033318273384449&scope=bot&permissions=0");
