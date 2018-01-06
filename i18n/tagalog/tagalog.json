@@ -27,9 +27,9 @@
     "versioninfo": "\n**<versionname>**\n\nNilalaman ang Lumang Tipan: <hasOT>\nNilalaman ang Bagong Tipan: <hasNT>\nNilalaman ang Apokripos o Deuterocanon: <hasAPO>",
     "versioninfofailed": "Hindi ko makita ang bersyon, sigurado ka ba na ginamit mo ang tamang acronym?",
     "allusers": "Ang bilang ng mga gumagamit ng BibbleBot sa lahat ng mga server (hindi binilang ang mga kaparihas at bots)",
-    "users": "The number of users in this server (not counting bots)",
-    "usersfailed": "I can't find the server this channel belongs to.",
-    "usersindb": "The number of users in the database (will have a margin of error)",
+    "users": "Ang bilang ng mga gumagamit sa server na ito (hindi binilang ang mga bot)",
+    "usersfailed": "Hindi ko makita ang server sa channel na pag-aari nito.",
+    "usersindb": "Ang bilang ng mga gumagamit sa database (maaring magkaroon ng bingit ng pagkakamali)",
     "listservers": "BibleBot is in the following servers",
     "listserversend": "For a total of <number> servers.",
     "commands": {
