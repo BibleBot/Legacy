@@ -13,7 +13,7 @@
     "headingsfail": "使用 \"+ <headings> <enable>\" 或 \"+\" <headings> <disable>。",
     "setlanguagesuccess": "成功设置语言。",
     "setlanguagefail": "无法设置语言, 我只支持",
-    "languageused": "您正在使用 <the default language (replace with the language name)>。使用 \"+ <setlanguage>\" 设置不同的语言。",
+    "languageused": "你正在使用简体中文。使用 \"+ <setlanguage>\" 设置不同的语言。",
     "nolanguageused": "我在数据库中找不到您的姓名, 您使用过 \"+ <setlanguage>\" 吗？",
     "languages": "我支援",
     "otnotsupported": "版本 <version> 不支援旧约。",
