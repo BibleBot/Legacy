@@ -152,7 +152,7 @@ bot.on("message", (raw) => {
                         if (receiver) {
                             receiver.send(msg.replace(
                                 "+" + language.rawobj.commands.announce + " ", ""
-                            )).catch(() => { /* ignore */ });
+                            )).catch((e) => { central.logMessage("err", "announce", "global", e); });
 
                             sent = true;
                         }
@@ -165,7 +165,7 @@ bot.on("message", (raw) => {
             sender == config.owner) {
             // requires manage messages permission (optional)
             raw.delete().then(msg => central.logMessage("info", sender, source, msg))
-                .catch(central.logMessage("info", sender, source, msg));
+                .catch(msg => central.logMessage("info", sender, source, msg));
             channel.send(msg.replaceAll("+" +
                 language.rawobj.commands.puppet + " ", ""));
         } else if (msg.startsWith("+eval") && sender == config.owner) {
