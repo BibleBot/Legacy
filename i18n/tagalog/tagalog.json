@@ -48,19 +48,19 @@
         "puppet": "puppet",
         "leave": "alis",
         "setlanguage": "pag-ukol ng linggwahe",
-        "language": "language",
-        "languages": "languages",
-        "allusers": "allusers",
-        "users": "users",
-        "listservers": "listservers",
+        "language": "lenggwahe",
+        "languages": "mga lenggwahe",
+        "allusers": "lahatngmgagumagamit",
+        "users": "mga gumamit",
+        "listservers": "listahan ng mga server",
         "usersindb": "usersindb",
-        "announce": "announce",
-        "invite": "invite"
+        "announce": "ihayag",
+        "invite": "anyaya"
     },
     "arguments": {
-        "yes": "Yes",
-        "no": "No",
-        "enable": "enable",
-        "disable": "disable"
+        "yes": "Oo",
+        "no": "Hindi",
+        "enable": "paganahin",
+        "disable": "dipaganahin"
     }
 }
