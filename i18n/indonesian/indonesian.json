@@ -47,20 +47,20 @@
         "headings": "judul",
         "puppet": "wayang",
         "leave": "tinggalkan",
-        "setlanguage": "setlanguage",
+        "setlanguage": "pengaturan bahasa",
         "language": "bahasa",
-        "languages": "languages",
-        "allusers": "allusers",
-        "users": "users",
-        "listservers": "listservers",
+        "languages": "bahasa",
+        "allusers": "semua pengguna",
+        "users": "pengguna",
+        "listservers": "daftar servers",
         "usersindb": "usersindb",
-        "announce": "announce",
-        "invite": "invite"
+        "announce": "mengumumkan",
+        "invite": "undang"
     },
     "arguments": {
-        "yes": "Yes",
-        "no": "No",
-        "enable": "enable",
-        "disable": "disable"
+        "yes": "Ya",
+        "no": "Tidak",
+        "enable": "aktifkan",
+        "disable": "nonaktifkan"
     }
 }
