@@ -138,7 +138,7 @@ bot.on("message", (raw) => {
             });
         } else if (msg == "+supporters") {
             central.logMessage("info", sender, source, "+supporters");
-            channel.send("A special thank you to Jepekula, Joseph, Soku, and anonymous donors for financially supporting BibleBot! <3")
+            channel.send("A special thank you to CHAZER2222, Jepekula, Joseph, Soku, and anonymous donors for financially supporting BibleBot! <3")
         } else if (msg == "+" + language.rawobj.commands.invite) {
             central.logMessage("info", sender, source, "+invite");
             channel.send("https://discordapp.com/oauth2/authorize?client_id=361033318273384449&scope=bot&permissions=0");
