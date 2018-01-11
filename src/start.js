@@ -172,8 +172,8 @@ bot.on("message", (raw) => {
                         if (receiver) {
                             receiver.send(msg.replace(
                                 "+" + language.rawobj.commands.announce + " ", ""
-                            )).then(() => { channel.send(value.name + " - :white_check_mark:"); }
-                            ).catch((e) => { channel.send(value.name + " - :x:"); central.logMessage("err", "announce", "global", "failed to announce in " + value.name); });
+                            )).then(() => { central.logMessage("info", "announce", "global", "announced to " + value.name); }
+                            ).catch((e) => { central.logMessage("err", "announce", "global", "failed to announce in " + value.name); });
 
                             sent = true;
                         }
