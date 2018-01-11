@@ -1006,7 +1006,6 @@ bot.on("message", (raw) => {
                 let properString;
                 let verse = verses[alphabet[i]];
 
-                console.log(verse);
                 for (let k = 0; k < verse.length; k++) {
                     if (typeof verse[k] != "undefined") {
                         verse[k] = verse[k].replaceAll(/[^a-zA-Z0-9:]/g, "");
