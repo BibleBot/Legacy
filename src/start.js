@@ -853,15 +853,15 @@ bot.on("message", (raw) => {
                     case "Corinthians":
                     case "Thessalonians":
                     case "Timothy":
+                    case "Peter":
+                        spaceSplit[i] = spaceSplit[i - 1] + temp;
+                        break;
                     case "Esther":
                         if ((spaceSplit[i - 1] == "Greek")) {
                                 spaceSplit[i] = spaceSplit[i - 1] + temp;
                         } else {
                             continue;
                         }
-                        break;
-                    case "Peter":
-                        spaceSplit[i] = spaceSplit[i - 1] + temp;
                         break;
                     case "Jeremiah":
                         let isLetter = ((spaceSplit[i - 2] + spaceSplit[i - 1]) == "LetterOf");
