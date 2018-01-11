@@ -853,9 +853,37 @@ bot.on("message", (raw) => {
                     case "Corinthians":
                     case "Thessalonians":
                     case "Timothy":
+                    case "Esther":
+                        if ((spaceSplit[i - 1] == "Greek")) {
+                                spaceSplit[i] = spaceSplit[i - 1] + temp;
+                        } else {
+                            continue;
+                        }
+                        break;
                     case "Peter":
                         spaceSplit[i] = spaceSplit[i - 1] + temp;
                         break;
+                    case "Jeremiah":
+                        let isLetter = ((spaceSplit[i - 2] + spaceSplit[i - 1]) == "LetterOf");
+  
+                        if (isLetter) {
+                            spaceSplit[i] = "LetterOfJeremiah";
+                        } else {
+                            continue;
+                        }
+                        break;
+                    case "Dragon":
+                        spaceSplit[i] = spaceSplit[i - 3] + spaceSplit[i - 2] +
+                                        spaceSplit[i - 1] + temp;
+                        break;
+                    case "Men":
+                    case "Youths":
+                    case "Children":
+                        spaceSplit[i] = spaceSplit[i - 5] + spaceSplit[i - 4] +
+                                        spaceSplit[i - 3] + spaceSplit[i - 2] +
+                                        spaceSplit[i - 1] + temp;
+                        break;
+                    case "Manasses":
                     case "Manasseh":
                     case "Solomon":
                     case "Songs":
@@ -920,6 +948,10 @@ bot.on("message", (raw) => {
                         angleBracketIndexes[1] > index)
                         return;
               
+                if (spaceSplit[index] == "PrayerOfAzariah") {
+                    spaceSplit[index] = "Song of The Three Young Men";
+                }
+                
                 let book = spaceSplit[index];
                 let chapter = spaceSplit[index + 1];
                 let startingVerse = spaceSplit[index + 2];
@@ -974,6 +1006,7 @@ bot.on("message", (raw) => {
                 let properString;
                 let verse = verses[alphabet[i]];
 
+                console.log(verse);
                 for (let k = 0; k < verse.length; k++) {
                     if (typeof verse[k] != "undefined") {
                         verse[k] = verse[k].replaceAll(/[^a-zA-Z0-9:]/g, "");
