@@ -244,6 +244,8 @@ export default {
         "1esd": "1 Esdras",
         "2esdras": "2 Esdras",
         "2esd": "2 Esdras",
+        "psalm151": "Psalm 151",
+        "psalms151": "Psalm 151",
         "storyofsusanna": "Susanna",
         "susanna": "Susanna",
         "sus": "Susanna",

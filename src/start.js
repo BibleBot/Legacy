@@ -854,6 +854,7 @@ bot.on("message", (raw) => {
                     case "Thessalonians":
                     case "Timothy":
                     case "Peter":
+                    case "151":
                         spaceSplit[i] = spaceSplit[i - 1] + temp;
                         break;
                     case "Esther":
