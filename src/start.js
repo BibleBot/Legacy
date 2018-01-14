@@ -861,7 +861,7 @@ bot.on("message", (raw) => {
                         if ((spaceSplit[i - 1] == "Greek")) {
                                 spaceSplit[i] = spaceSplit[i - 1] + temp;
                         } else {
-                            continue;
+                            spaceSplit[i] = "Esther";
                         }
                         break;
                     case "Jeremiah":
@@ -870,7 +870,7 @@ bot.on("message", (raw) => {
                         if (isLetter) {
                             spaceSplit[i] = "LetterOfJeremiah";
                         } else {
-                            continue;
+                            spaceSplit[i] = "Jeremiah";
                         }
                         break;
                     case "Dragon":
