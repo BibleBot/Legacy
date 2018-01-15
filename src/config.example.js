@@ -1,6 +1,6 @@
 // rename to config.js
 export default {
-    // owner's username + discriminator
+    // owner's ID
     owner: "",
 
     // API token
@@ -8,6 +8,12 @@ export default {
 
     // bot's username + discriminator
     botname: "",
+
+    // name of the bot
+    name: "",
+
+    // instance identifier
+    instance: "",
 
     // username + discriminator of various version adders (optional)
     versionAdders: [],
