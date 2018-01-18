@@ -12,7 +12,7 @@
     "headingssuccess": "<headings> məqsəd uğurla.",
     "headingsfail": "Use `+<headings> <enable>` or `+<headings> <disable>.`",
     "setlanguagesuccess": "Dil qəbulu müvəffəqiyyətlidir.",
-    "setlanguagefail": "Failed to set language, I only support",
+    "setlanguagefail": "Dil qurulamadı, yalnız dəstəkləyirik",
     "languageused": "You are using <the default language (replace with the language name)>. Use `+<setlanguage>` to set a different language.",
     "nolanguageused": "I couldn't find your name in my database, have you used `+<setlanguage>` yet?",
     "languages": "Dəstəkləyirəm",
