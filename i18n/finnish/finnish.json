@@ -30,8 +30,7 @@
     "users": "Tämän palvelimen käyttäjien lukumaara (botit lukuunottamatta)",
     "usersfailed": "En löydä palvelinta, johon tämä kanava kuuluu.",
     "usersindb": "Tietokannassa olevien käyttäjien määrä (luku ei ole täysin tarkka)",
-    "listservers": "BibleBot on seuraavilla palvelimilla",
-    "listserversend": "Yhteensä <number> palvelinta.",
+    "listservers": "BibleBot is in <count> servers.",
     "commands": {
         "setversion": "asetakäännös",
         "version": "käännös",
