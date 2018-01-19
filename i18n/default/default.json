@@ -43,9 +43,8 @@
     "usersfailed": "I can't find the server this channel belongs to.",
     "usersindb": "The number of users in the database (will have a margin of error)",
 
-    "listservers": "BibleBot is in the following servers",
-    "listserversend": "For a total of <number> servers.",
-
+    "listservers": "BibleBot is in <count> servers.",
+    
     "commands": {
         "setversion": "setversion",
         "version": "version",

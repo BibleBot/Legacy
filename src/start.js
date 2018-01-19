@@ -57,9 +57,6 @@ bot.on("message", (raw) => {
         // TODO: Replace this with user IDs.
         switch (sender) {
             case "vipr#4035":
-            case "mimi_jean#6467":
-            case "UnimatrixZeroOne#7501":
-            case "redpanda#7299":
                 break;
             default:
                 if (config.versionAdders.indexOf(sender) != -1) {
@@ -88,7 +85,7 @@ bot.on("message", (raw) => {
 
         if (sender == config.botname) return;
         if (source.includes("Discord Bots") &&
-            sender != config.owner)
+            rawSender.id != config.owner)
             return;
 
         // for verse arrays
@@ -143,7 +140,7 @@ bot.on("message", (raw) => {
             central.logMessage("info", sender, source, "+invite");
             channel.send("https://discordapp.com/oauth2/authorize?client_id=361033318273384449&scope=bot&permissions=0");
         } else if (msg == "+" + language.rawobj.commands.leave &&
-            sender == config.owner) {
+            rawSender.id == config.owner) {
             central.logMessage("info", sender, source, "+leave");
 
             try {
@@ -154,7 +151,7 @@ bot.on("message", (raw) => {
                 channel.send(e);
             }
         } else if (msg.startsWith("+" + language.rawobj.commands.announce) &&
-            sender == config.owner) {
+            rawSender.id == config.owner) {
             bot.guilds.forEach((value) => {
                 if (value.name == "Discord Bots" ||
                     value.name == "Discord Bot List") return;
@@ -172,8 +169,11 @@ bot.on("message", (raw) => {
                         if (receiver) {
                             receiver.send(msg.replace(
                                 "+" + language.rawobj.commands.announce + " ", ""
-                            )).then(() => { central.logMessage("info", "announce", "global", "announced to " + value.name); }
-                            ).catch((e) => { central.logMessage("err", "announce", "global", "failed to announce in " + value.name); });
+                            )).then(() => {
+                                central.logMessage("info", "announce", "global", "announced to " + value.name);
+                            }).catch(() => {
+                                central.logMessage("err", "announce", "global", "failed to announce in " + value.name);
+                            });
 
                             sent = true;
                         }
@@ -183,13 +183,13 @@ bot.on("message", (raw) => {
 
             central.logMessage("info", sender, source, "+announce");
         } else if (msg.startsWith("+" + language.rawobj.commands.puppet) &&
-            sender == config.owner) {
+            rawSender.id == config.owner) {
             // requires manage messages permission (optional)
             raw.delete().then(msg => central.logMessage("info", sender, source, msg))
                 .catch(msg => central.logMessage("info", sender, source, msg));
             channel.send(msg.replaceAll("+" +
                 language.rawobj.commands.puppet + " ", ""));
-        } else if (msg.startsWith("+eval") && sender == config.owner) {
+        } else if (msg.startsWith("+eval") && rawSender.id == config.owner) {
             try {
                 central.logMessage("info", sender, source, "+eval");
 
@@ -231,21 +231,9 @@ bot.on("message", (raw) => {
                 channel.send(language.rawobj.usersfailed);
             }
         } else if (msg == "+" + language.rawobj.commands.listservers) {
-           let count = bot.guilds.size.toString();
-            let list = "";
-
-            bot.guilds.forEach((v) => {
-                list += v + ", ";
-            });
-
-            let msgend = language.rawobj.listserversend;
-            msgend = msgend.replace("<number>", count);
-
-
-            let response = language.rawobj.listservers;
-
+            let count = bot.guilds.size.toString();
             central.logMessage("info", sender, source, "+listservers");
-            channel.send(response.replace("the following", count) + ".");
+            channel.send(language.rawobj.listservers.replace("<count>", count));
         } else if (msg == "+" + language.rawobj.commands.biblebot) {
             central.logMessage("info", sender, source, "+biblebot");
 
@@ -300,7 +288,7 @@ bot.on("message", (raw) => {
                 "<invite>", language.rawobj.commands.invite);
 
             response += "\n\n---\n"
-            
+
             let second = "**Help BibleBot's development and hosting by becoming a patron on Patreon! See <https://patreon.com/BibleBot> for more information!**";
             second += "\n---\n\nJoin the BibleBot Discord server! Invite: <https://discord.gg/Ssn8KNv>\nSee <https://biblebot.vypr.space/copyrights> for any copyright-related information.";
 
@@ -711,7 +699,7 @@ bot.on("message", (raw) => {
             return;
         } else if (msg.startsWith("+" + language.rawobj.commands.addversion) ||
             msg.startsWith("+" + language.rawobj.commands.av)) {
-            if (sender == config.owner) {
+            if (rawSender.id == config.owner) {
 
                 let argv = msg.split(" ");
                 let argc = argv.length;
@@ -859,14 +847,14 @@ bot.on("message", (raw) => {
                         break;
                     case "Esther":
                         if ((spaceSplit[i - 1] == "Greek")) {
-                                spaceSplit[i] = spaceSplit[i - 1] + temp;
+                            spaceSplit[i] = spaceSplit[i - 1] + temp;
                         } else {
                             spaceSplit[i] = "Esther";
                         }
                         break;
                     case "Jeremiah":
                         let isLetter = ((spaceSplit[i - 2] + spaceSplit[i - 1]) == "LetterOf");
-  
+
                         if (isLetter) {
                             spaceSplit[i] = "LetterOfJeremiah";
                         } else {
@@ -875,14 +863,14 @@ bot.on("message", (raw) => {
                         break;
                     case "Dragon":
                         spaceSplit[i] = spaceSplit[i - 3] + spaceSplit[i - 2] +
-                                        spaceSplit[i - 1] + temp;
+                            spaceSplit[i - 1] + temp;
                         break;
                     case "Men":
                     case "Youths":
                     case "Children":
                         spaceSplit[i] = spaceSplit[i - 5] + spaceSplit[i - 4] +
-                                        spaceSplit[i - 3] + spaceSplit[i - 2] +
-                                        spaceSplit[i - 1] + temp;
+                            spaceSplit[i - 3] + spaceSplit[i - 2] +
+                            spaceSplit[i - 1] + temp;
                         break;
                     case "Manasses":
                     case "Manasseh":
@@ -948,16 +936,16 @@ bot.on("message", (raw) => {
                     if (angleBracketIndexes[0] < index &&
                         angleBracketIndexes[1] > index)
                         return;
-              
+
                 if (spaceSplit[index] == "PrayerOfAzariah") {
                     spaceSplit[index] = "Song of The Three Young Men";
                 }
-                
+
                 let book = spaceSplit[index];
                 let chapter = spaceSplit[index + 1];
                 let startingVerse = spaceSplit[index + 2];
-              
-              	try {
+
+                try {
                     book = spaceSplit[index].replace("<", "");
                     book = book.replace(">", "");
 
@@ -966,7 +954,7 @@ bot.on("message", (raw) => {
 
                     startingVerse = spaceSplit[index + 2].replace("<", "");
                     startingVerse = startingVerse.replace(">", "");
-                } catch(e) { /* this won't be a problem */ }
+                } catch (e) { /* this won't be a problem */ }
 
                 verse.push(book);
                 verse.push(chapter);
@@ -1012,7 +1000,7 @@ bot.on("message", (raw) => {
                         verse[k] = verse[k].replaceAll(/[^a-zA-Z0-9:]/g, "");
                     }
                 }
-                
+
                 if (isNaN(Number(verse[1])) ||
                     isNaN(Number(verse[2]))) {
                     return;
