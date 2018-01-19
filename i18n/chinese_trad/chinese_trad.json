@@ -30,8 +30,7 @@
     "users": "此伺服器中的使用者數 (不計算漫遊器)",
     "usersfailed": "找不到此頻道所屬的伺服器。",
     "usersindb": "資料庫中的使用者數 (將有一個誤差範圍)",
-    "listservers": "BibleBot 在以下伺服器中",
-    "listserversend": "用於總計 <number> 伺服器。",
+    "listservers": "BibleBot is in <count> servers.",
     "commands": {
         "setversion": "設定版本",
         "version": "版本",
