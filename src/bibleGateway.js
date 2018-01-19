@@ -1,11 +1,13 @@
 let request = require("request");
 let cheerio = require("cheerio");
-//import { SynchronousPromise } from "synchronous-promise";
 import central from "./central";
 
 // code partially ripped from @toffebjorkskog's node-biblegateway-api
 // because i'm impatient (sorry love you)
 
+// remove a buncha noise characters from
+// `text`, and converting some characters
+// to others accordingly
 function purifyText(text) {
     return text.replaceAll("“", " \"")
         .replaceAll("[", " <")
@@ -28,6 +30,7 @@ function purifyText(text) {
         .replaceAll(/\s+/g, ' ');
 }
 
+// take a guess at what this does
 export function getRandomVerse(version, headings, verseNumbers) {
     let url = "https://dailyverses.net/random-bible-verse";
 
@@ -40,6 +43,9 @@ export function getRandomVerse(version, headings, verseNumbers) {
             let $ = cheerio.load(body);
             let verse = $(".bibleChapter a").first().text();
 
+            // yep, we load up the **whole**
+            // dailyverses page, just to send the reference
+            // to Bible Gateway
             getResult(verse, version, headings, verseNumbers)
                 .then((result) => {
                     result.forEach((object) => {
@@ -79,6 +85,7 @@ export function getVOTD(version, headings, verseNumbers) {
             let $ = cheerio.load(body);
             let verse = $(".rp-passage-display").text();
 
+            // same thing as getRandomVerse()
             getResult(verse, version, headings, verseNumbers)
                 .then((result) => {
                     result.forEach((object) => {
@@ -105,6 +112,7 @@ export function getVOTD(version, headings, verseNumbers) {
     return promise;
 }
 export function getResult(query, version, headings, verseNumbers) {
+    // formulate a URL based on what we have
     let url = "https://www.biblegateway.com/passage/?search=" + query +
         "&version=" + version + "&interface=print";
 
@@ -118,8 +126,10 @@ export function getResult(query, version, headings, verseNumbers) {
 
             let $ = cheerio.load(body);
 
-            // NOTE: DO NOT TRY TO MAKE FUNCTION() INTO () =>
-            // IT WILL BREAK EVERYTHING
+            // we work through `.result-text-style-normal`
+            // as Bible Gateway has all of its text inside it
+            // it's the one container that has everything we need
+            // inside
             $(".result-text-style-normal").each(function() {
                 let verse = $(this);
 
@@ -173,6 +183,7 @@ export function getResult(query, version, headings, verseNumbers) {
                 $(".crossrefs").html("");
                 $(".footnotes").html("");
 
+                // formulate a nice verseObject to send back
                 let verseObject = {
                     "passage": verse.find(".passage-display-bcv").text(),
                     "version": verse.find(".passage-display-version").text(),
@@ -183,6 +194,7 @@ export function getResult(query, version, headings, verseNumbers) {
                 verses.push(verseObject);
             });
 
+            // estimated delivery date: 5ms
             resolve(verses);
         });
     });

@@ -776,6 +776,8 @@ bot.on("message", (raw) => {
             let verseCount = 0;
 
             if (msg.includes("-")) {
+                // tokenize the message
+                // TODO: better variable names?
                 msg.split("-").forEach((item) => {
                     let tempSplit = item.split(":");
 
@@ -813,6 +815,7 @@ bot.on("message", (raw) => {
                     /* it'll probably be a number anyways, if this fails */
                 }
 
+                // this checks if there's a numbered book
                 // TODO: Rewrite/refactor this.
                 let temp = spaceSplit[i];
                 switch (temp) {
@@ -892,6 +895,8 @@ bot.on("message", (raw) => {
                         break;
                 }
 
+                // matches book names to the index
+                // of where they are in spaceSplit
                 let book = spaceSplit[i].replace("<", "")
                     .replace(">", "");
 
@@ -921,6 +926,8 @@ bot.on("message", (raw) => {
                     return;
                 }
 
+                // if it's surrounded by angle brackets
+                // we want to ignore it
                 if (spaceSplit[index].indexOf("<") != -1) return;
 
                 let angleBracketIndexes = [];
@@ -937,14 +944,14 @@ bot.on("message", (raw) => {
                         angleBracketIndexes[1] > index)
                         return;
 
-                if (spaceSplit[index] == "PrayerOfAzariah") {
-                    spaceSplit[index] = "Song of The Three Young Men";
-                }
-
+                // organize our variables correctly
                 let book = spaceSplit[index];
                 let chapter = spaceSplit[index + 1];
                 let startingVerse = spaceSplit[index + 2];
 
+                // ignore any other angle brackets
+                // as we've already properly detected
+                // whether they surround the verse
                 try {
                     book = spaceSplit[index].replace("<", "");
                     book = book.replace(">", "");
@@ -956,10 +963,14 @@ bot.on("message", (raw) => {
                     startingVerse = startingVerse.replace(">", "");
                 } catch (e) { /* this won't be a problem */ }
 
+                // this becomes our verse array
+                // ex. [ "Genesis", "1", "1" ]
                 verse.push(book);
                 verse.push(chapter);
                 verse.push(startingVerse);
 
+                // check if there's an ending verse
+                // if so, add it to the verse array
                 if (spaceSplit[index + 3] !== undefined) {
                     if (spaceSplit[index + 3].indexOf(">") != -1) return;
                     if (!isNaN(Number(spaceSplit[index + 3]))) {
@@ -972,10 +983,14 @@ bot.on("message", (raw) => {
                     }
                 }
 
+                // the alphabet organization may be
+                // unnecessary, but i put it in as a
+                // safeguard
                 verses[alphabet[verseCount]] = verse;
                 verseCount++;
             });
 
+            // we don't want to flood a server
             if (verseCount > 6) {
                 let responses = ["spamming me, really?", "no spam pls",
                     "no spam, am good bot", "be nice to me",
@@ -991,6 +1006,12 @@ bot.on("message", (raw) => {
                 return;
             }
 
+            // lets formulate a verse reference
+            // (yes, we tokenize the message, only to make
+            // another verse reference; this is so we process
+            // an actual verse, not something else)
+            // the result of this ends up being "Genesis 1:1"
+            // in line with our current example
             for (let i = 0; i < Object.keys(verses).length; i++) {
                 let properString;
                 let verse = verses[alphabet[i]];
@@ -1020,7 +1041,9 @@ bot.on("message", (raw) => {
                         verse[2] + "-" + verse[3];
                 }
 
-
+                // and now we begin the descent of
+                // returning the result to the sender
+                // by getting the proper version to process
                 central.getVersion(rawSender, (data) => {
                     let version = language.defversion;
                     let headings = "enable";
@@ -1028,6 +1051,7 @@ bot.on("message", (raw) => {
 
                     if (data) {
                         if (data[0].hasOwnProperty('version')) {
+                            // RIP HWP (a while ago - January 1st, 2018)
                             if (data[0].version == "HWP") version = "NRSV";
                             else version = data[0].version;
                         }
@@ -1044,6 +1068,10 @@ bot.on("message", (raw) => {
                     }, (err, docs) => {
                         if (docs) {
                             bookNames.forEach((book) => {
+                                // now once we have our version
+                                // make sure that the version we're using
+                                // has the books we want (organized by testament/canon)
+                                // TODO: change APO to DEU
                                 let isOT = false;
                                 let isNT = false;
                                 let isAPO = false;
@@ -1135,6 +1163,9 @@ bot.on("message", (raw) => {
                                 }
                             });
 
+                            // now we ask our bibleGateway bridge
+                            // to nicely provide us with a verse object
+                            // to send back; the last step of the process
                             bibleGateway.getResult(
                                     properString, version, headings, verseNumbers)
                                 .then((result) => {
