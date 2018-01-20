@@ -91,7 +91,9 @@ bot.on("message", (raw) => {
         // for verse arrays
         let alphabet = "abcdef";
 
-        if (msg == "+jepekula") {
+        if (msg == "+joseph") {
+            channel.send("Jesus never consecrated peanut butter and jelly sandwiches and Coca-Cola!");
+        } else if (msg == "+jepekula") {
             central.getVersion(rawSender, (data) => {
                 let version = language.defversion;
                 let headings = "enable";
