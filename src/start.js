@@ -85,7 +85,7 @@ bot.on("message", (raw) => {
 
         if (sender == config.botname) return;
         if (source.includes("Discord Bots") &&
-            rawSender.id != config.owner)
+            rawSender.user.id != config.owner)
             return;
 
         // for verse arrays
@@ -142,7 +142,7 @@ bot.on("message", (raw) => {
             central.logMessage("info", sender, source, "+invite");
             channel.send("https://discordapp.com/oauth2/authorize?client_id=361033318273384449&scope=bot&permissions=0");
         } else if (msg == "+" + language.rawobj.commands.leave &&
-            rawSender.id == config.owner) {
+            rawSender.user.id == config.owner) {
             central.logMessage("info", sender, source, "+leave");
 
             try {
@@ -153,7 +153,7 @@ bot.on("message", (raw) => {
                 channel.send(e);
             }
         } else if (msg.startsWith("+" + language.rawobj.commands.announce) &&
-            rawSender.id == config.owner) {
+            rawSender.user.id == config.owner) {
             bot.guilds.forEach((value) => {
                 if (value.name == "Discord Bots" ||
                     value.name == "Discord Bot List") return;
@@ -185,13 +185,13 @@ bot.on("message", (raw) => {
 
             central.logMessage("info", sender, source, "+announce");
         } else if (msg.startsWith("+" + language.rawobj.commands.puppet) &&
-            rawSender.id == config.owner) {
+            rawSender.user.id == config.owner) {
             // requires manage messages permission (optional)
             raw.delete().then(msg => central.logMessage("info", sender, source, msg))
                 .catch(msg => central.logMessage("info", sender, source, msg));
             channel.send(msg.replaceAll("+" +
                 language.rawobj.commands.puppet + " ", ""));
-        } else if (msg.startsWith("+eval") && rawSender.id == config.owner) {
+        } else if (msg.startsWith("+eval") && rawSender.user.id == config.owner) {
             try {
                 central.logMessage("info", sender, source, "+eval");
 
@@ -701,7 +701,7 @@ bot.on("message", (raw) => {
             return;
         } else if (msg.startsWith("+" + language.rawobj.commands.addversion) ||
             msg.startsWith("+" + language.rawobj.commands.av)) {
-            if (rawSender.id == config.owner) {
+            if (rawSender.user.id == config.owner) {
 
                 let argv = msg.split(" ");
                 let argc = argv.length;
