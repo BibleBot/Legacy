@@ -30,7 +30,7 @@
     "users": "Bu sunucuda ki kullanıcı sayısı (botlar sayılmıyor)",
     "usersfailed": "Bu kanala ait sunucu bulunamadı.",
     "usersindb": "Veritabanında ki kullanıcı sayısı(hata payı vardır)",
-    "listservers": "BibleBot is in <count> servers.",
+    "listservers": "BibleBot <count> sunucusunda.",
     "commands": {
         "setversion": "sürüm belirle",
         "version": "sürüm",
