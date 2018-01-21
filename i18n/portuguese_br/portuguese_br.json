@@ -30,8 +30,7 @@
     "users": "O número dos usuários neste servidor (excluindo-se bots)",
     "usersfailed": "Não consigo encontrar o servidor a que este canal pertence.",
     "usersindb": "O número de usuários no banco de dados (passível de margem de erro)",
-    "listservers": "Eu estou nos seguintes servidores",
-    "listserversend": "Num total de <number> servidores.",
+    "listservers": "BibleBot is in <count> servers.",
     "commands": {
         "setversion": "defversao",
         "version": "versao",

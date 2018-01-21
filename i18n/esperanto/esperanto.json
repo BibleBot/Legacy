@@ -30,8 +30,7 @@
     "users": "La numero de uzantoj en ĉi tio servilo (ne kalkulanta robotojn)",
     "usersfailed": "Mi ne povas trovi la servilon, ke ĉi tio servilo estas ĉe.",
     "usersindb": "La numero de uzantoj en la datumbazo (ĉi tio enhavos erarojn)",
-    "listservers": "BibliRoboto estas en la jena serviloj",
-    "listserversend": "Por sumo de <number> serviloj.",
+    "listservers": "BibleBot is in <count> servers.",
     "commands": {
         "setversion": "metiversio",
         "version": "versio",

@@ -30,8 +30,7 @@
     "users": "le pa klani pe ro loi remna pilno be vi le kibyse'u",
     "usersfailed": "mi na zvafa'i le kibyse'u pe ti",
     "usersindb": "le pa jibni klani pe ro loi pilno poi le datnisro cu djuno fi ke'a",
-    "listservers": "la xrisrbibliasamruc. zvati le kibyse'u cmima be",
-    "listserversend": ".i li <number> du le klani pe loi kibyse'u",
+    "listservers": "BibleBot is in <count> servers.",
     "commands": {
         "setversion": "ningaulexefanva",
         "version": "lexefanva",
