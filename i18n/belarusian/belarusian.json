@@ -8,7 +8,7 @@
     "addversionsuccess": "Версія дададзена паспяхова.",
     "addversionfail": "Не атрымалася дадаць версію.",
     "versenumberssuccess": "Усталявана <versenumbers> паспяхова.",
-    "versenumbersfail": "Use `+<versenumbers> <enable>` or `+<versenumbers> <disable>.`",
+    "versenumbersfail": "Выкарыстоўвайце `+<versenumbers> <enable>` або `+<versenumbers> <disable>.`",
     "headingssuccess": "Set <headings> successfully.",
     "headingsfail": "Use `+<headings> <enable>` or `+<headings> <disable>.`",
     "setlanguagesuccess": "Set language successfully.",
