@@ -51,15 +51,15 @@
         "languages": "мовы",
         "allusers": "усе карыстальнікі",
         "users": "карыстальнікі",
-        "listservers": "listservers",
+        "listservers": "распасыльныя серверы",
         "usersindb": "usersindb",
         "announce": "анансаваць",
-        "invite": "invite"
+        "invite": "запрашаць"
     },
     "arguments": {
-        "yes": "Yes",
-        "no": "No",
-        "enable": "enable",
-        "disable": "disable"
+        "yes": "Так",
+        "no": "Не",
+        "enable": "уключыць",
+        "disable": "адключыць"
     }
 }
