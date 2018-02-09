@@ -25,7 +25,7 @@
     "passagetoolong": "Праходжанне занадта доўгае для мяне, каб захапіць, прабачце.",
     "votdcantprocess": "Сённяшні верш дня не можа быць апрацаваны, глядзі <https://www.biblegateway.com/> для верша дня.",
     "versioninfo": "\n**<versionname>**\n\nЗмяшчае Стары Запавет: <hasOT>\nЗмяшчае Новы Запавет: <hasNT>\nЗмяшчае Апокрыф/Другі канон: <hasAPO>",
-    "versioninfofailed": "I couldn't find that version, are you sure you used the right acronym?",
+    "versioninfofailed": "Я не змог знайсці гэтую версію, вы ўпэўненыя, што выкарыстоўвалі правільную абрэвіятуру?",
     "allusers": "The number of all users spanning across all servers that BibleBot is on (not counting duplicates and bots)",
     "users": "The number of users in this server (not counting bots)",
     "usersfailed": "I can't find the server this channel belongs to.",
