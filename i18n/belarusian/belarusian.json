@@ -13,7 +13,7 @@
     "headingsfail": "Выкарыстоўвайце `+<headings> <enable>` або `+<headings> <disable>.`",
     "setlanguagesuccess": "Мова ўсталявана паспяхова.",
     "setlanguagefail": "Не атрымалася ўсталяваць мову, толькі падтрымка",
-    "languageused": "You are using <the default language (replace with the language name)>. Use `+<setlanguage>` to set a different language.",
+    "languageused": "Вы карыстаецеся Беларускай. Выкарыстоўвайце `+<setlanguage>`, каб ўсталяваць іншую мову.",
     "nolanguageused": "I couldn't find your name in my database, have you used `+<setlanguage>` yet?",
     "languages": "I support",
     "otnotsupported": "The version <version> doesn't support the Old Testament.",
