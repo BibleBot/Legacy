@@ -19,7 +19,7 @@
     "otnotsupported": "Версія <version> не падтрымлівае Стары Запавет.",
     "ntnotsupported": "Версія <version> не падтрымлівае Новы Запавет.",
     "aponotsupported": "Версія <version> не падтрымлівае Апокрыф/Другі канон.",
-    "otnotsupported2": "If you want to use the Old Testament, `+<setversion>` to a version that has it.",
+    "otnotsupported2": "Калі вы хочаце выкарыстоўваць Стары Запавет, `+<setversion>` да версіі, якая мае яго.",
     "ntnotsupported2": "If you want to use the New Testament, `+<setversion>` to a version that has it.",
     "aponotsupported2": "If you want to use the Apocrypha/Deuterocanon, `+<setversion>` to a version that has it.",
     "passagetoolong": "The passage is too long for me to grab, sorry.",
