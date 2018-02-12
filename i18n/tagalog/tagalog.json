@@ -30,7 +30,7 @@
     "users": "Ang bilang ng mga gumagamit sa server na ito (hindi binilang ang mga bot)",
     "usersfailed": "Hindi ko makita ang server sa channel na pag-aari nito.",
     "usersindb": "Ang bilang ng mga gumagamit sa database (maaring magkaroon ng bingit ng pagkakamali)",
-    "listservers": "BibleBot is in <count> servers.",
+    "listservers": "Ang Biblebot ay nasa <count> servers.",
     "commands": {
         "setversion": "pag-ukol sa bersyon",
         "version": "bersyon",
