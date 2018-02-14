@@ -7,7 +7,9 @@
     "build": "babel src -d build",
     "dev": "babel src -d build && node build/start.js",
     "start": "node build/start.js",
-    "refresh": "git pull && babel src -d build && node build/start.js"
+    "refresh": "git pull && babel src -d build && node build/start.js",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -31,10 +33,12 @@
     "node-opus": "^0.2.7",
     "request": "^2.79.0",
     "synchronous-promise": "^1.0.18",
-    "uws": "^8.14.1"
+    "uws": "^8.14.1",
+    "snyk": "^1.69.7"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-preset-env": "^1.5.2"
-  }
+  },
+  "snyk": true
 }
