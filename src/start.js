@@ -812,6 +812,13 @@ bot.on("message", (raw) => {
                     spaceSplit[i] = spaceSplit[i].replaceAll("[", "");
                     spaceSplit[i] = spaceSplit[i].replaceAll("]", "");
                     spaceSplit[i] = spaceSplit[i].replaceAll("?", "");
+                    // While we're here, let's get rid of Discord Markdown formatting
+                    spaceSplit[i] = spaceSplit[i].replaceAll("_", "");
+                    spaceSplit[i] = spaceSplit[i].replaceAll("*", "");
+                    spaceSplit[i] = spaceSplit[i].replaceAll("-", "");
+                    spaceSplit[i] = spaceSplit[i].replaceAll("\\", "");
+                    spaceSplit[i] = spaceSplit[i].replaceAll("`", "");
+                    // end Discord Markdown formatting
                     spaceSplit[i] = central.capitalizeFirstLetter(spaceSplit[i]);
                 } catch (e) {
                     /* it'll probably be a number anyways, if this fails */
