@@ -30,7 +30,7 @@
     "users": "A kiszolgálón lévő felhasználók száma ( nem számít botokat)",
     "usersfailed": "Nem találom ezt a csatornáját a kiszolgálónak.",
     "usersindb": "A felhasználók száma az adatbázisban (hibahatár lesz)",
-    "listservers": "BibleBot is in <count> servers.",
+    "listservers": "BibleBot <count> szerverek.",
     "commands": {
         "setversion": "setversion",
         "version": "version",
