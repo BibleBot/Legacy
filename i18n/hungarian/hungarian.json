@@ -13,7 +13,7 @@
     "headingsfail": "Használd a '+<headings><enable>' vagy '+<headings><disable>.'",
     "setlanguagesuccess": "Sikeresen beállítva a nyelv.",
     "setlanguagefail": "Nem sikerült beállítani a nyelvet, csak támogatom.",
-    "languageused": "Használd <the default language (replace with the language name)>. Használd '+<setlanguage>' a különböző nyelvek beállításához.",
+    "languageused": "You are using Hungarian. Use `+<setlanguage>` to set a different language.",
     "nolanguageused": "Nem találom a nevedet az adatbázisomban, használtad `+<setlanguage>`?",
     "languages": "Támogatom",
     "otnotsupported": "A verzió <version> nem támogatja az Ószövetséget.",
