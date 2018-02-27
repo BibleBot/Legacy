@@ -32,9 +32,8 @@
     "nedb": "^1.8.0",
     "node-opus": "^0.2.7",
     "request": "^2.79.0",
-    "synchronous-promise": "^1.0.18",
-    "uws": "^8.14.1",
-    "snyk": "^1.69.7"
+    "snyk": "^1.69.7",
+    "uws": "^8.14.1"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",

@@ -980,7 +980,7 @@ bot.on("message", (raw) => {
 
                 // check if there's an ending verse
                 // if so, add it to the verse array
-                if (spaceSplit[index + 3] !== undefined) {
+                if (spaceSplit[index + 3] != undefined) {
                     if (spaceSplit[index + 3].indexOf(">") != -1) return;
                     if (!isNaN(Number(spaceSplit[index + 3]))) {
                         if (Number(spaceSplit[index + 3]) >
@@ -989,8 +989,32 @@ bot.on("message", (raw) => {
                             endingVerse = endingVerse.replace(">", "");
                             verse.push(endingVerse);
                         }
+                    } else {
+                        central.versionDB.find({"abbv": spaceSplit[index + 3]}, function (err, docs) {
+                            if (docs) {
+                                let version = spaceSplit[index + 3].replace("<", "");
+                                version = version.replace(">", "");
+                                verse.push("v - " + version);
+                                console.log(verse);
+                            }
+                        });
                     }
                 }
+
+                if (spaceSplit[index + 4] != undefined) {
+                    if (isNaN(Number(spaceSplit[index + 3]))) {
+                        central.versionDB.find({"abbv": spaceSplit[index + 3]}, function (err, docs) {
+                            if (docs) {
+                                let version = spaceSplit[index + 3].replace("<", "");
+                                version = version.replace(">", "");
+                                verse.push("v - " + version);
+                                console.log(verse);
+                            }
+                        });
+                    } else if (spaceSplit[index + 4].indexOf(">") != -1) { return; }
+                }
+
+                console.log(verse);
 
                 // the alphabet organization may be
                 // unnecessary, but i put it in as a
@@ -1036,19 +1060,33 @@ bot.on("message", (raw) => {
                     return;
                 }
 
-                if (verse.length == 4) {
+                if (verse.length >= 4) {
                     if (isNaN(Number(verse[3]))) {
                         return;
                     }
                 }
 
-                if (verse.length < 4) {
+                console.log(verse);
+
+                if (verse.length <= 3) {
                     properString = verse[0] + " " + verse[1] +
                         ":" + verse[2];
                 } else {
-                    properString = verse[0] + " " + verse[1] + ":" +
+                    if (verse[3] != undefined) {
+                        if (verse[3].startsWith("v - ")) {
+                            properString = verse[0] + " " + verse[1] + ":" +
+                            verse[2] + " | v: " + verse[3];
+                        }
+                    } else if (verse[4] == undefined) {
+                        properString = verse[0] + " " + verse[1] + ":" +
                         verse[2] + "-" + verse[3];
+                    } else {
+                        properString = verse[0] + " " + verse[1] + ":" +
+                        verse[2] + "-" + verse[3] + " | v: " + verse[4];
+                    }
                 }
+
+                console.log(properString);
 
                 // and now we begin the descent of
                 // returning the result to the sender
@@ -1070,6 +1108,10 @@ bot.on("message", (raw) => {
                         if (data[0].hasOwnProperty('verseNumbers')) {
                             verseNumbers = data[0].verseNumbers;
                         }
+                    }
+
+                    if (properString.split(" | v: ")[1] != undefined) {
+                        version = properString.split(" | v: ")[1];
                     }
 
                     central.versionDB.find({

@@ -1,4 +1,5 @@
 // let arabic = require(__dirname + "/../i18n/arabic/arabic.json")
+let belarusian = require(__dirname + "/../i18n/belarusian/belarusian.json");
 let catalan = require(__dirname + "/../i18n/catalan/catalan.json");
 let chinese_simp = require(__dirname + "/../i18n/chinese_simp/chinese_simp.json");
 let chinese_trad = require(__dirname + "/../i18n/chinese_trad/chinese_trad.json");
@@ -7,7 +8,9 @@ let english_us = require(__dirname + "/../i18n/english_us/english_us.json");
 let esperanto = require(__dirname + "/../i18n/esperanto/esperanto.json");
 let finnish = require(__dirname + "/../i18n/finnish/finnish.json");
 let french = require(__dirname + "/../i18n/french/french.json");
+let french_qc = require(__dirname + "/../i18n/french_qc/french_qc.json");
 let german = require(__dirname + "/../i18n/german/german.json");
+let hungarian = require(__dirname + "/../i18n/hungarian/hungarian.json");
 let lojban = require(__dirname + "/../i18n/lojban/lojban.json");
 let norwegian = require(__dirname + "/../i18n/norwegian/norwegian.json");
 let polish = require(__dirname + "/../i18n/polish/polish.json");
@@ -17,6 +20,7 @@ let portuguese_br = require(__dirname +
 let scots = require(__dirname + "/../i18n/scots/scots.json");
 let spanish = require(__dirname + "/../i18n/spanish/spanish.json");
 let swedish = require(__dirname + "/../i18n/swedish/swedish.json");
+let tagalog = require(__dirname + "/../i18n/tagalog/tagalog.json");
 let turkish = require(__dirname + "/../i18n/turkish/turkish.json");
 
 let languages = {
@@ -36,6 +40,12 @@ let languages = {
         "defversion": "NAV",
         "complete": true
     },*/
+    "belarusian": {
+        "name": "Беларускай",
+        "rawobj": belarusian,
+        "defversion": "NRSV",
+        "complete": true
+    },
     // no catalan versions on BibleGateway, yet
     "catalan": {
         "name": "Català",
@@ -53,12 +63,6 @@ let languages = {
         "name": "繁體中文",
         "rawobj": chinese_trad,
         "defversion": "CNVT",
-        "complete": true
-    },
-    "catalan": {
-        "name": "Català",
-        "rawobj": catalan,
-        "defversion": "NRSV",
         "complete": true
     },
     "english_uk": {
@@ -90,6 +94,12 @@ let languages = {
     "french": {
         "name": "Français",
         "rawobj": french,
+        "defversion": "BDS",
+        "complete": true
+    },
+    "french_qc": {
+        "name": "Français (QC)",
+        "rawobj": french_qc,
         "defversion": "BDS",
         "complete": true
     },
@@ -127,6 +137,12 @@ let languages = {
         "name": "Português (BR)",
         "rawobj": portuguese_br,
         "defversion": "NVI-PT",
+        "complete": true
+    },
+    "tagalog": {
+        "name": "Tagalog",
+        "rawobj": tagalog,
+        "defversion": "FSV",
         "complete": true
     },
     "turkish": {
