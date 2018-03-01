@@ -10,6 +10,8 @@ import books from "./books";
 import Version from "./version";
 import * as bibleGateway from "./bibleGateway";
 
+let availableVersions = [];
+
 bot.on("ready", () => {
     central.logMessage("info", "global", "global", "connected");
     bot.user.setPresence({
@@ -18,6 +20,12 @@ bot.on("ready", () => {
         game: {
             "name": "BibleBot v" + process.env.npm_package_version,
             "url": "https://biblebot.vypr.space"
+        }
+    });
+
+    central.versionDB.find({}, (err, docs) => {
+        for (let i in docs) {
+            availableVersions.push(docs[i].abbv);
         }
     });
 });
@@ -990,31 +998,24 @@ bot.on("message", (raw) => {
                             verse.push(endingVerse);
                         }
                     } else {
-                        central.versionDB.find({"abbv": spaceSplit[index + 3]}, function (err, docs) {
-                            if (docs) {
-                                let version = spaceSplit[index + 3].replace("<", "");
-                                version = version.replace(">", "");
-                                verse.push("v - " + version);
-                                console.log(verse);
-                            }
-                        });
+                        if (availableVersions.indexOf(spaceSplit[index + 3]) != -1) {
+                            let version = spaceSplit[index + 3].replace("<", "");
+                            version = version.replace(">", "");
+                            verse.push("v - " + version);
+                        }
                     }
                 }
 
                 if (spaceSplit[index + 4] != undefined) {
-                    if (isNaN(Number(spaceSplit[index + 3]))) {
-                        central.versionDB.find({"abbv": spaceSplit[index + 3]}, function (err, docs) {
-                            if (docs) {
-                                let version = spaceSplit[index + 3].replace("<", "");
-                                version = version.replace(">", "");
-                                verse.push("v - " + version);
-                                console.log(verse);
-                            }
-                        });
+                    if (isNaN(Number(spaceSplit[index + 4]))) {
+                        if (availableVersions.indexOf(spaceSplit[index + 4]) != -1) {
+                            let version = spaceSplit[index + 4].replace("<", "");
+                            version = version.replace(">", "");
+                            verse.push("v - " + version);
+                        }
+
                     } else if (spaceSplit[index + 4].indexOf(">") != -1) { return; }
                 }
-
-                console.log(verse);
 
                 // the alphabet organization may be
                 // unnecessary, but i put it in as a
@@ -1060,33 +1061,43 @@ bot.on("message", (raw) => {
                     return;
                 }
 
-                if (verse.length >= 4) {
+                if (verse.length > 4) {
                     if (isNaN(Number(verse[3]))) {
                         return;
                     }
                 }
-
-                console.log(verse);
 
                 if (verse.length <= 3) {
                     properString = verse[0] + " " + verse[1] +
                         ":" + verse[2];
                 } else {
                     if (verse[3] != undefined) {
-                        if (verse[3].startsWith("v - ")) {
+                        if (verse[3].startsWith("v")) {
                             properString = verse[0] + " " + verse[1] + ":" +
-                            verse[2] + " | v: " + verse[3];
+                            verse[2] + " | v: " + verse[3].substr(1);
                         }
-                    } else if (verse[4] == undefined) {
+                    }
+                    
+                    if (verse[4] != undefined) {
+                        if (verse[4].startsWith("v")) { 
+                            properString = verse[0] + " " + verse[1] + ":" +
+                            verse[2] + "-" + verse[3] + " | v: " + verse[4].substr(1);
+                        } else {
+                            if (verse[3].startsWith("v")) {
+                                properString = verse[0] + " " + verse[1] + ":" +
+                                verse[2] + " | v: " + verse[3].substr(1);
+                            } else {
+                                properString = verse[0] + " " + verse[1] + ":" +
+                                verse[2] + "-" + verse[3];
+                            }
+                        }
+                    }
+
+                    if (properString === undefined) {
                         properString = verse[0] + " " + verse[1] + ":" +
                         verse[2] + "-" + verse[3];
-                    } else {
-                        properString = verse[0] + " " + verse[1] + ":" +
-                        verse[2] + "-" + verse[3] + " | v: " + verse[4];
                     }
                 }
-
-                console.log(properString);
 
                 // and now we begin the descent of
                 // returning the result to the sender
@@ -1112,6 +1123,7 @@ bot.on("message", (raw) => {
 
                     if (properString.split(" | v: ")[1] != undefined) {
                         version = properString.split(" | v: ")[1];
+                        properString = properString.split(" | v: ")[0];
                     }
 
                     central.versionDB.find({
