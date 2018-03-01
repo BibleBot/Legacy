@@ -999,6 +999,7 @@ bot.on("message", (raw) => {
                         }
                     } else {
                         if (availableVersions.indexOf(spaceSplit[index + 3]) != -1) {
+                            spaceSplit[index + 3] = spaceSplit[index + 3].toUpperCase();
                             let version = spaceSplit[index + 3].replace("<", "");
                             version = version.replace(">", "");
                             verse.push("v - " + version);
@@ -1008,6 +1009,7 @@ bot.on("message", (raw) => {
 
                 if (spaceSplit[index + 4] != undefined) {
                     if (isNaN(Number(spaceSplit[index + 4]))) {
+                        spaceSplit[index + 4] = spaceSplit[index + 4].toUpperCase();
                         if (availableVersions.indexOf(spaceSplit[index + 4]) != -1) {
                             let version = spaceSplit[index + 4].replace("<", "");
                             version = version.replace(">", "");
