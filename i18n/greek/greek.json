@@ -50,16 +50,16 @@
         "language": "γλώσσα",
         "languages": "γλώσσες",
         "allusers": "allusers",
-        "users": "users",
+        "users": "χρήστες",
         "listservers": "listservers",
         "usersindb": "usersindb",
         "announce": "announce",
         "invite": "invite"
     },
     "arguments": {
-        "yes": "Yes",
-        "no": "No",
-        "enable": "enable",
-        "disable": "disable"
+        "yes": "Ναι",
+        "no": "Όχι",
+        "enable": "ενεργοποίηση",
+        "disable": "απενεργοποίηση"
     }
 }
