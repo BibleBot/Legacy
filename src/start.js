@@ -1016,7 +1016,9 @@ bot.on("message", (raw) => {
                             verse.push("v - " + version);
                         }
 
-                    } else if (spaceSplit[index + 4].indexOf(">") != -1) { return; }
+                    } else if (spaceSplit[index + 4].indexOf(">") != -1) {
+                        return;
+                    }
                 }
 
                 // the alphabet organization may be
@@ -1076,28 +1078,28 @@ bot.on("message", (raw) => {
                     if (verse[3] != undefined) {
                         if (verse[3].startsWith("v")) {
                             properString = verse[0] + " " + verse[1] + ":" +
-                            verse[2] + " | v: " + verse[3].substr(1);
+                                verse[2] + " | v: " + verse[3].substr(1);
                         }
                     }
-                    
+
                     if (verse[4] != undefined) {
-                        if (verse[4].startsWith("v")) { 
+                        if (verse[4].startsWith("v")) {
                             properString = verse[0] + " " + verse[1] + ":" +
-                            verse[2] + "-" + verse[3] + " | v: " + verse[4].substr(1);
+                                verse[2] + "-" + verse[3] + " | v: " + verse[4].substr(1);
                         } else {
                             if (verse[3].startsWith("v")) {
                                 properString = verse[0] + " " + verse[1] + ":" +
-                                verse[2] + " | v: " + verse[3].substr(1);
+                                    verse[2] + " | v: " + verse[3].substr(1);
                             } else {
                                 properString = verse[0] + " " + verse[1] + ":" +
-                                verse[2] + "-" + verse[3];
+                                    verse[2] + "-" + verse[3];
                             }
                         }
                     }
 
                     if (properString === undefined) {
                         properString = verse[0] + " " + verse[1] + ":" +
-                        verse[2] + "-" + verse[3];
+                            verse[2] + "-" + verse[3];
                     }
                 }
 
@@ -1248,6 +1250,20 @@ bot.on("message", (raw) => {
                                                 "info", sender, source,
                                                 properString);
                                             channel.send(responseString);
+                                        } else if (responseString.length > 2000 && responseString.length < 3500) {
+                                            central.logMessage(
+                                                "info", sender, source,
+                                                properString);
+
+                                            let splitText = central.splitter(object.text);
+
+                                            let content1 = "```Dust\n" + object.title + "\n\n" + splitText.first + "```";
+                                            let responseString1 = "**" + object.passage + " - " + object.version + "**\n\n" + content1;
+                                            let content2 = "```Dust\n " + splitText.second + "```";
+
+                                            channel.send(responseString1);
+                                            channel.send(content2);
+
                                         } else {
                                             central.logMessage(
                                                 "info", sender, source, "length of " +

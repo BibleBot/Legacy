@@ -18,21 +18,21 @@ log4js.configure({
     }
 });
 
-var logger = log4js.getLogger();
+let logger = log4js.getLogger();
 
 String.prototype.replaceAll = function(target, replacement) {
     return this.split(target).join(replacement);
 };
 
 // For user version preferences
-var Datastore = require("nedb"); // for some reason this is unimportable
-var db = new Datastore({
+let Datastore = require("nedb"); // for some reason this is unimportable
+let db = new Datastore({
     filename: './databases/db',
     autoload: true,
     corruptAlertThreshold: 1
 });
 
-var versionDB = new Datastore({
+let versionDB = new Datastore({
     filename: './databases/versiondb',
     autoload: true
 });
@@ -41,11 +41,30 @@ export default {
     languages,
     db,
     versionDB,
+    splitter: (s) => {
+        let middle = Math.floor(s.length / 2);
+        let before = s.lastIndexOf(' <', middle);
+        let after = s.indexOf(' <', middle + 1);
+
+        if (before == -1 || (after != -1 && middle - before >= after - middle)) {
+            middle = after;
+        } else {
+            middle = before;
+        }
+
+        let first = s.substr(0, middle);
+        let second = s.substr(middle + 1);
+
+        return {
+            "first": first,
+            "second": second
+        };
+    },
     capitalizeFirstLetter: (string) => {
         return string.charAt(0).toUpperCase() + string.slice(1);
     },
     logMessage: (level, sender, channel, message) => {
-        var content = "<" + sender + "@" + channel + "> " + message;
+        let content = "<" + sender + "@" + channel + "> " + message;
 
         switch (level) {
             case "debug":
