@@ -9,7 +9,8 @@
     "start": "node build/start.js",
     "refresh": "git pull && babel src -d build && node build/start.js",
     "snyk-protect": "snyk protect",
-    "prepare": "npm run snyk-protect"
+    "prepare": "npm run snyk-protect",
+    "test": "snyk test"
   },
   "repository": {
     "type": "git",
