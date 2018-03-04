@@ -159,7 +159,7 @@ bot.on("message", (raw) => {
             } catch (e) {
                 channel.send(e);
             }
-        } else if (msg.startsWith("+" + language.rawobj.commands.announce) &&
+        } else if (msg.startsWith("+" + language.rawobj.commands.announce + " ") &&
             raw.author.id == config.owner) {
             bot.guilds.forEach((value) => {
                 if (value.name == "Discord Bots" ||
@@ -178,10 +178,8 @@ bot.on("message", (raw) => {
                         if (receiver) {
                             receiver.send(msg.replace(
                                 "+" + language.rawobj.commands.announce + " ", ""
-                            )).then(() => {
-                                central.logMessage("info", "announce", "global", "announced to " + value.name);
-                            }).catch(() => {
-                                central.logMessage("err", "announce", "global", "failed to announce in " + value.name);
+                            )).catch(() => {
+                                // do nothing
                             });
 
                             sent = true;
@@ -192,7 +190,7 @@ bot.on("message", (raw) => {
 
             channel.send("Done.");
             central.logMessage("info", sender, source, "+announce");
-        } else if (msg.startsWith("+" + language.rawobj.commands.puppet) &&
+        } else if (msg.startsWith("+" + language.rawobj.commands.puppet + " ") &&
             raw.author.id == config.owner) {
             // requires manage messages permission (optional)
             raw.delete().then(msg => central.logMessage("info", sender, source, msg))
