@@ -188,10 +188,9 @@ bot.on("message", (raw) => {
                         }
                     }
                 }
-
-                channel.send("Done.");
             });
 
+            channel.send("Done.");
             central.logMessage("info", sender, source, "+announce");
         } else if (msg.startsWith("+" + language.rawobj.commands.puppet) &&
             raw.author.id == config.owner) {
