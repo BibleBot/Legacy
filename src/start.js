@@ -8,7 +8,10 @@ import config from "./config";
 // Other stuff
 import books from "./books";
 import Version from "./version";
+
+// bible modules
 import * as bibleGateway from "./bibleGateway";
+import * as rev from "./rev";
 
 let availableVersions = [];
 
@@ -1233,50 +1236,96 @@ bot.on("message", (raw) => {
                             // now we ask our bibleGateway bridge
                             // to nicely provide us with a verse object
                             // to send back; the last step of the process
-                            bibleGateway.getResult(
-                                    properString, version, headings, verseNumbers)
-                                .then((result) => {
-                                    result.forEach((object) => {
-                                        let content =
-                                            "```Dust\n" + object.title + "\n\n" +
-                                            object.text + "```";
+                            if (version != "REV") {
+                                bibleGateway.getResult(
+                                        properString, version, headings, verseNumbers)
+                                    .then((result) => {
+                                        result.forEach((object) => {
+                                            let content =
+                                                "```Dust\n" + object.title + "\n\n" +
+                                                object.text + "```";
 
-                                        let responseString =
-                                            "**" + object.passage + " - " +
-                                            object.version + "**\n\n" + content;
+                                            let responseString =
+                                                "**" + object.passage + " - " +
+                                                object.version + "**\n\n" + content;
 
-                                        if (responseString.length < 2000) {
-                                            central.logMessage(
-                                                "info", sender, source,
-                                                properString);
-                                            channel.send(responseString);
-                                        } else if (responseString.length > 2000 && responseString.length < 3500) {
-                                            central.logMessage(
-                                                "info", sender, source,
-                                                properString);
+                                            if (responseString.length < 2000) {
+                                                central.logMessage(
+                                                    "info", sender, source,
+                                                    properString);
+                                                channel.send(responseString);
+                                            } else if (responseString.length > 2000 && responseString.length < 3500) {
+                                                central.logMessage(
+                                                    "info", sender, source,
+                                                    properString);
 
-                                            let splitText = central.splitter(object.text);
+                                                let splitText = central.splitter(object.text);
 
-                                            let content1 = "```Dust\n" + object.title + "\n\n" + splitText.first + "```";
-                                            let responseString1 = "**" + object.passage + " - " + object.version + "**\n\n" + content1;
-                                            let content2 = "```Dust\n " + splitText.second + "```";
+                                                let content1 = "```Dust\n" + object.title + "\n\n" + splitText.first + "```";
+                                                let responseString1 = "**" + object.passage + " - " + object.version + "**\n\n" + content1;
+                                                let content2 = "```Dust\n " + splitText.second + "```";
 
-                                            channel.send(responseString1);
-                                            channel.send(content2);
+                                                channel.send(responseString1);
+                                                channel.send(content2);
 
-                                        } else {
-                                            central.logMessage(
-                                                "info", sender, source, "length of " +
-                                                properString +
-                                                " is too long for me");
-                                            channel.send(
-                                                language.rawobj.passagetoolong);
-                                        }
+                                            } else {
+                                                central.logMessage(
+                                                    "info", sender, source, "length of " +
+                                                    properString +
+                                                    " is too long for me");
+                                                channel.send(
+                                                    language.rawobj.passagetoolong);
+                                            }
+                                        });
+                                    }).catch((err) => {
+                                        central.logMessage(
+                                            "err", "global", "bibleGateway", err);
                                     });
-                                }).catch((err) => {
-                                    central.logMessage(
-                                        "err", "global", "bibleGateway", err);
-                                });
+                            } else {
+                                rev.getResult(properString, version, headings, verseNumbers)
+                                    .then((result) => {
+                                        result.forEach((object) => {
+                                            let content =
+                                                "```Dust\n" + object.title + "\n\n" +
+                                                object.text + "```";
+
+                                            let responseString =
+                                                "**" + object.passage + " - " +
+                                                object.version + "**\n\n" + content;
+
+                                            if (responseString.length < 2000) {
+                                                central.logMessage(
+                                                    "info", sender, source,
+                                                    properString);
+                                                channel.send(responseString);
+                                            } else if (responseString.length > 2000 && responseString.length < 3500) {
+                                                central.logMessage(
+                                                    "info", sender, source,
+                                                    properString);
+
+                                                let splitText = central.splitter(object.text);
+
+                                                let content1 = "```Dust\n" + object.title + "\n\n" + splitText.first + "```";
+                                                let responseString1 = "**" + object.passage + " - " + object.version + "**\n\n" + content1;
+                                                let content2 = "```Dust\n " + splitText.second + "```";
+
+                                                channel.send(responseString1);
+                                                channel.send(content2);
+
+                                            } else {
+                                                central.logMessage(
+                                                    "info", sender, source, "length of " +
+                                                    properString +
+                                                    " is too long for me");
+                                                channel.send(
+                                                    language.rawobj.passagetoolong);
+                                            }
+                                        });
+                                    }).catch((err) => {
+                                        central.logMessage(
+                                            "err", "global", "rev", err);
+                                    });
+                            }
                         }
                     });
                 });
