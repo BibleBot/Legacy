@@ -78,10 +78,6 @@ bot.on("message", (raw) => {
         }
     }
 
-    if (central.isUnmigrated(sender)) {
-        central.migrateUserToID(rawSender);
-    }
-
     central.getLanguage(rawSender, (language) => {
         if (typeof language == "undefined") {
             language = central.languages.english_us;
@@ -192,6 +188,8 @@ bot.on("message", (raw) => {
                         }
                     }
                 }
+
+                channel.send("Done.");
             });
 
             central.logMessage("info", sender, source, "+announce");

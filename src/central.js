@@ -81,42 +81,6 @@ export default {
                 break;
         }
     },
-    /**
-     * Checks whether a username + discriminator
-     * exists in the user database.
-     * @param {string} user username + discriminator (ex. vipr#4035)
-     * @returns {boolean} whether it exists in the db
-     * @deprecated in version 5
-     */
-    isUnmigrated: (user) => {
-        db.find({
-            "user": user
-        }, function(err, docs) {
-            if (docs.length === 0) {
-                return false;
-            } else {
-                return true;
-            }
-        });
-    },
-    /**
-     * Changes a user's entry in the database
-     * to use IDs instead of usernames and discriminators.
-     * As usernames are changable.
-     * @param {object} userObject a Discord.User object
-     * @deprecated in version 5
-     */
-    migrateUserToID: (userObject) => {
-        var username = userObject.username + "#" + userObject.discriminator;
-
-        db.update({
-            "user": username
-        }, {
-            $set: {
-                "id": userObject.id
-            }
-        });
-    },
     setLanguage: (user, language, callback) => {
         if (languages.isLanguage(language)) {
             db.find({
