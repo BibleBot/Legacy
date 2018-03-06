@@ -1,6 +1,6 @@
 {
   "name": "biblebot",
-  "version": "4.4.3",
+  "version": "5.0.0",
   "description": "A Discord bot for Bible verses.",
   "main": "start.js",
   "scripts": {
@@ -28,6 +28,7 @@
     "discord.js": "^11.2.1",
     "erlpack": "github:discordapp/erlpack",
     "eslint": "^4.6.1",
+    "js-beautify": "^1.7.5",
     "libsodium-wrappers": "^0.7.3",
     "log4js": "^2.3.4",
     "nedb": "^1.8.0",
