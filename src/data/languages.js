@@ -1,190 +1,60 @@
-// let arabic = require(__dirname + "/../i18n/arabic/arabic.json")
-let belarusian = require(__dirname + "/../i18n/belarusian/belarusian.json");
-let catalan = require(__dirname + "/../i18n/catalan/catalan.json");
-let chinese_simp = require(__dirname + "/../i18n/chinese_simp/chinese_simp.json");
-let chinese_trad = require(__dirname + "/../i18n/chinese_trad/chinese_trad.json");
-let english_uk = require(__dirname + "/../i18n/english_uk/english_uk.json");
-let english_us = require(__dirname + "/../i18n/english_us/english_us.json");
-let esperanto = require(__dirname + "/../i18n/esperanto/esperanto.json");
-let finnish = require(__dirname + "/../i18n/finnish/finnish.json");
-let french = require(__dirname + "/../i18n/french/french.json");
-let french_qc = require(__dirname + "/../i18n/french_qc/french_qc.json");
-let german = require(__dirname + "/../i18n/german/german.json");
-let hungarian = require(__dirname + "/../i18n/hungarian/hungarian.json");
-let lojban = require(__dirname + "/../i18n/lojban/lojban.json");
-let norwegian = require(__dirname + "/../i18n/norwegian/norwegian.json");
-let polish = require(__dirname + "/../i18n/polish/polish.json");
-let portuguese = require(__dirname + "/../i18n/portuguese/portuguese.json");
-let portuguese_br = require(__dirname +
-    "/../i18n/portuguese_br/portuguese_br.json");
-let scots = require(__dirname + "/../i18n/scots/scots.json");
-let spanish = require(__dirname + "/../i18n/spanish/spanish.json");
-let swedish = require(__dirname + "/../i18n/swedish/swedish.json");
-let tagalog = require(__dirname + "/../i18n/tagalog/tagalog.json");
-let turkish = require(__dirname + "/../i18n/turkish/turkish.json");
+import Language from "../types/language";
 
-let languages = {
+const belarusian = require(__dirname + "/../../i18n/belarusian/belarusian.json");
+const catalan = require(__dirname + "/../../i18n/catalan/catalan.json");
+const chinese_simp = require(__dirname + "/../../i18n/chinese_simp/chinese_simp.json");
+const chinese_trad = require(__dirname + "/../../i18n/chinese_trad/chinese_trad.json");
+const english_uk = require(__dirname + "/../../i18n/english_uk/english_uk.json");
+const english_us = require(__dirname + "/../../i18n/english_us/english_us.json");
+const esperanto = require(__dirname + "/../../i18n/esperanto/esperanto.json");
+const finnish = require(__dirname + "/../../i18n/finnish/finnish.json");
+const french = require(__dirname + "/../../i18n/french/french.json");
+const french_qc = require(__dirname + "/../../i18n/french_qc/french_qc.json");
+const german = require(__dirname + "/../../i18n/german/german.json");
+const hungarian = require(__dirname + "/../../i18n/hungarian/hungarian.json");
+const lojban = require(__dirname + "/../../i18n/lojban/lojban.json");
+const norwegian = require(__dirname + "/../../i18n/norwegian/norwegian.json");
+const polish = require(__dirname + "/../../i18n/polish/polish.json");
+const portuguese = require(__dirname + "/../../i18n/portuguese/portuguese.json");
+const portuguese_br = require(__dirname + "/../../i18n/portuguese_br/portuguese_br.json");
+const spanish = require(__dirname + "/../../i18n/spanish/spanish.json");
+const swedish = require(__dirname + "/../../i18n/swedish/swedish.json");
+const tagalog = require(__dirname + "/../../i18n/tagalog/tagalog.json");
+const turkish = require(__dirname + "/../../i18n/turkish/turkish.json");
+
+export default {
 
     /*
-      "language technical name":
-        { "name": (name in the language),
-          "rawobj": (the language object),
-          "defversion": (default version for language),
-          "complete": (whether it's a complete translation [t/f])
-        }
+      languageNameInEnglish: new Language(languageNameInLanguage, rawObject, defaultVersion);
     */
 
-    /*"arabic": {
-        "name": "Arabic",
-        "rawobj": arabic,
-        "defversion": "NAV",
-        "complete": true
-    },*/
-    "belarusian": {
-        "name": "Беларускай",
-        "rawobj": belarusian,
-        "defversion": "NRSV",
-        "complete": true
-    },
-    // no catalan versions on BibleGateway, yet
-    "catalan": {
-        "name": "Català",
-        "rawobj": catalan,
-        "defversion": "NRSV",
-        "complete": true
-    },
-    "chinese_simp": {
-        "name": "简体中文",
-        "rawobj": chinese_simp,
-        "defversion": "CNVS",
-        "complete": true
-    },
-    "chinese_trad": {
-        "name": "繁體中文",
-        "rawobj": chinese_trad,
-        "defversion": "CNVT",
-        "complete": true
-    },
-    "english_uk": {
-        "name": "English (UK)",
-        "rawobj": english_uk,
-        "defversion": "NRSVA",
-        "complete": true
-    },
-    "english_us": {
-        "name": "English (US)",
-        "rawobj": english_us,
-        "defversion": "NRSV",
-        "complete": true
-    },
-    // despite being public domain,
-    // still no Esperanto bible on BibleGateway
-    "esperanto": {
-        "name": "Esperanto",
-        "rawobj": esperanto,
-        "defversion": "NRSV",
-        "complete": true
-    },
-    "finnish": {
-        "name": "Suomi",
-        "rawobj": finnish,
-        "defversion": "R1933",
-        "complete": true
-    },
-    "french": {
-        "name": "Français",
-        "rawobj": french,
-        "defversion": "BDS",
-        "complete": true
-    },
-    "french_qc": {
-        "name": "Français (QC)",
-        "rawobj": french_qc,
-        "defversion": "BDS",
-        "complete": true
-    },
-    "german": {
-        "name": "Deutsch",
-        "rawobj": german,
-        "defversion": "LUTH1545",
-        "complete": true
-    },
-    "lojban": {
-        "name": "Lojban",
-        "rawobj": lojban,
-        "defversion": "NRSV",
-        "complete": true,
-    },
-    "norwegian": {
-        "name": "Norsk",
-        "rawobj": norwegian,
-        "defversion": "DNB1930",
-        "complete": true
-    },
-    "polish": {
-        "name": "Polski",
-        "rawobj": polish,
-        "defversion": "NP",
-        "complete": true
-    },
-    "portuguese": {
-        "name": "Português",
-        "rawobj": portuguese,
-        "defversion": "NVI-PT",
-        "complete": true
-    },
-    "portuguese_br": {
-        "name": "Português (BR)",
-        "rawobj": portuguese_br,
-        "defversion": "NVI-PT",
-        "complete": true
-    },
-    "tagalog": {
-        "name": "Tagalog",
-        "rawobj": tagalog,
-        "defversion": "FSV",
-        "complete": true
-    },
-    "turkish": {
-        "name": "Türkçe",
-        "rawobj": turkish,
-        "defversion": "NRSV",
-        "complete": true
-    },
-    "scots": {
-        "name": "Scots",
-        "rawobj": scots,
-        "defversion": "NRSV",
-        "complete": false
-    },
-    "spanish": {
-        "name": "Español",
-        "rawobj": spanish,
-        "defversion": "NVI",
-        "complete": true
-    },
-    "swedish": {
-        "name": "Svenska",
-        "rawobj": swedish,
-        "defversion": "SV1917",
-        "complete": true
-    },
+    "belarusian": new Language("Беларускай", belarusian, "NRSV"),
+    "catalan": new Language("Català", catalan, "NRSV"),
+    "chinese_simp": new Language("简体中文", chinese_simp, "CNVS"),
+    "chinese_trad": new Language("繁體中文", chinese_trad, "CNVT"),
+    "english_uk": new Language("English (UK)", english_uk, "NRSVA"),
+    "english_us": new Language("English (US)", english_us, "NRSV"),
+    "esperanto": new Language("Esperanto", esperanto, "NRSV"),
+    "finnish": new Language("Suomi", finnish, "R1933"),
+    "french": new Language("Français", french, "BDS"),
+    "french_qc": new Language("Français (QC)", french_qc, "BDS"),
+    "german": new Language("Deutsch", german, "LUTH1545"),
+    "hungarian": new Language("Magyar", hungarian, "KAR"),
+    "lojban": new Language("Lojban", lojban, "NRSV"),
+    "norwegian": new Language("Norsk", norwegian, "DNB1930"),
+    "polish": new Language("Polski", polish, "NP"),
+    "portuguese": new Language("Português", portuguese, "NVI-PT"),
+    "portuguese_br": new Language("Português (BR)", portuguese_br, "NVI-PT"),
+    "tagalog": new Language("Tagalog", tagalog, "FSV"),
+    "turkish": new Language("Türkçe", turkish, "NRSV"),
+    "spanish": new Language("Español", spanish, "NVI"),
+    "swedish": new Language("Svenska", swedish, "SV1917"),
+
     isLanguage: (language) => {
-        if (languages[language]) {
+        if (this[language]) {
             return true;
         }
 
         return false;
-    },
-    isIncomplete: (language) => {
-        if (languages.isLanguage(language)) {
-            if (languages[language].complete) {
-                return false;
-            }
-
-            return true;
-        }
     }
 };
-
-module.exports = languages;

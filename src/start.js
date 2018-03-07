@@ -1,19 +1,16 @@
 import central from "./central";
+import * as config from "./data/config";
 
-// Discord API
 import * as Discord from "discord.js";
-let bot = new Discord.Client();
-import config from "./config";
+const bot = new Discord.Client();
 
-// Other stuff
-import books from "./books";
-import Version from "./version";
+import CommandHandler from "./handlers/commands";
+import VerseHandler from "./handlers/verses";
 
-// bible modules
-import * as bibleGateway from "./bibleGateway";
-import * as rev from "./rev";
+const commandHandler = new CommandHandler();
+const verseHandler = new VerseHandler();
 
-let availableVersions = [];
+import settings from "./handlers/commands/settings";
 
 bot.on("ready", () => {
     central.logMessage("info", "global", "global", "connected");
@@ -23,12 +20,6 @@ bot.on("ready", () => {
         game: {
             "name": "BibleBot v" + process.env.npm_package_version,
             "url": "https://biblebot.vypr.space"
-        }
-    });
-
-    central.versionDB.find({}, (err, docs) => {
-        for (let i in docs) {
-            availableVersions.push(docs[i].abbv);
         }
     });
 });
@@ -60,8 +51,7 @@ bot.on("message", (raw) => {
     let rawSender = raw.author;
     let sender = rawSender.username + "#" + rawSender.discriminator;
     let channel = raw.channel;
-    let guild = raw.guild;
-    let msg = raw.content;
+    let message = raw.content;
     let source;
 
     if (config.debug) {
@@ -78,11 +68,10 @@ bot.on("message", (raw) => {
         }
     }
 
-    central.getLanguage(rawSender, (language) => {
-        if (typeof language == "undefined") {
-            language = central.languages.english_us;
-        }
-
+    settings.languages.getLanguage(rawSender, (language) => {
+        // channel.guild is used here because
+        // of the possibility that DMs are being used
+        // otherwise, i'd use guild.name
         if ((typeof channel.guild != "undefined") &&
             (typeof channel.name != "undefined")) {
             source = channel.guild.name + "#" + channel.name;
@@ -91,1240 +80,103 @@ bot.on("message", (raw) => {
         }
 
         if (sender == config.botname) return;
-        if (source.includes("Discord Bots") &&
-            raw.author.id != config.owner)
-            return;
+        if (channel.guild.name.includes("Discord Bot")) {
+            if (raw.author.id != config.owner) {
+                return;
+            }
+        }
 
-        // for verse arrays
-        let alphabet = "abcdef";
+        if (message.charAt(0) == "+") {
+            const command = message.substr(1).split(" ")[0];
 
-        if (msg == "+joseph") {
-            channel.send("Jesus never consecrated peanut butter and jelly sandwiches and Coca-Cola!");
-        } else if (msg == "+jepekula") {
-            central.getVersion(rawSender, (data) => {
-                let version = language.defversion;
-                let headings = "enable";
-                let verseNumbers = "enable";
+            let args = message.split(" ");
+            const returnValue = args.shift(); // remove the first item
 
-                if (data) {
-                    if (data[0].hasOwnProperty('version')) {
-                        if (data[0].version == "HWP") version = "NRSV";
-                        else version = data[0].version;
-                    }
-                    if (data[0].hasOwnProperty('headings')) {
-                        headings = data[0].headings;
-                    }
-                    if (data[0].hasOwnProperty('verseNumbers')) {
-                        verseNumbers = data[0].verseNumbers;
-                    }
-                }
-
-                bibleGateway.getResult("Mark 9:23-24", version, headings, verseNumbers)
-                    .then((result) => {
-                        result.forEach((object) => {
-                            let content =
-                                "```Dust\n" + object.title + "\n\n" +
-                                object.text + "```";
-
-                            let responseString =
-                                "**" + object.passage + " - " +
-                                object.version + "**\n\n" + content;
-
-                            if (responseString.length < 2000) {
-                                central.logMessage(
-                                    "info", sender, source,
-                                    "+jepekula");
-                                channel.send(responseString);
-                            }
-                        });
-                    }).catch((err) => {
-                        central.logMessage(
-                            "err", "global", "bibleGateway", err);
-                    });
-            });
-        } else if (msg == "+supporters") {
-            central.logMessage("info", sender, source, "+supporters");
-            channel.send("A special thank you to CHAZER2222, Jepekula, Joseph, Soku, and anonymous donors for financially supporting BibleBot! <3")
-        } else if (msg == "+" + language.rawobj.commands.invite) {
-            central.logMessage("info", sender, source, "+invite");
-            channel.send("https://discordapp.com/oauth2/authorize?client_id=361033318273384449&scope=bot&permissions=0");
-        } else if (msg == "+" + language.rawobj.commands.leave &&
-            raw.author.id == config.owner) {
-            central.logMessage("info", sender, source, "+leave");
+            if (returnValue == undefined) {
+                args = null;
+            }
 
             try {
-                if (guild !== undefined) {
-                    guild.leave();
-                }
-            } catch (e) {
-                channel.send(e);
-            }
-        } else if (msg.startsWith("+" + language.rawobj.commands.announce + " ") &&
-            raw.author.id == config.owner) {
-            bot.guilds.forEach((value) => {
-                if (value.name == "Discord Bots" ||
-                    value.name == "Discord Bot List") return;
+                commandHandler.processCommand(command, args, language, rawSender, (res) => {
+                    let originalCommand;
+                    
+                    if (!res.announcement) {
+                        channel.send(res.message);
 
-                let sent = false;
-                let ch = value.channels.findAll("type", "text");
-                let preferred = ["misc", "bots", "meta", "hangout", "fellowship", "lounge", "congregation", "general",
-                    "taffer", "family_text", "staff"
-                ];
+                        Object.keys(language.commands).forEach((originalCommandName) => {
+                            if (language.commands[originalCommandName] == command) {
+                                originalCommand = originalCommandName;
+                            } else if (command == "eval") {
+                                originalCommand = "eval";
+                            }
+                        });
+                    } else {
+                        Object.keys(language.commands).forEach((originalCommandName) => {
+                            if (language.commands[originalCommandName] == command) {
+                                originalCommand = originalCommandName;
+                            }
+                        });
 
-                for (let i = 0; i < preferred.length; i++) {
-                    if (!sent) {
-                        let receiver = ch.find(val => val.name === preferred[i]);
+                        bot.guilds.forEach((value) => {
+                            if (value.name == "Discord Bots" ||
+                                value.name == "Discord Bot List") return;
+            
+                            let sent = false;
+                            let ch = value.channels.findAll("type", "text");
+                            let preferred = ["misc", "bots", "meta", "hangout", "fellowship", "lounge", "congregation", "general",
+                                "taffer", "family_text", "staff"
+                            ];
+            
+                            for (let i = 0; i < preferred.length; i++) {
+                                if (!sent) {
+                                    let receiver = ch.find(val => val.name === preferred[i]);
+            
+                                    if (receiver) {
+                                        receiver.send(res.message.replace(
+                                            "+" + language.commands.announce + " ", ""
+                                        )).catch(() => {
+                                            // do nothing
+                                        });
+            
+                                        sent = true;
+                                    }
+                                }
+                            }
+                        });
 
-                        if (receiver) {
-                            receiver.send(msg.replace(
-                                "+" + language.rawobj.commands.announce + " ", ""
-                            )).catch(() => {
-                                // do nothing
-                            });
-
-                            sent = true;
-                        }
+                        channel.send("Done.");
                     }
-                }
-            });
 
-            channel.send("Done.");
-            central.logMessage("info", sender, source, "+announce");
-        } else if (msg.startsWith("+" + language.rawobj.commands.puppet + " ") &&
-            raw.author.id == config.owner) {
-            // requires manage messages permission (optional)
-            raw.delete().then(msg => central.logMessage("info", sender, source, msg))
-                .catch(msg => central.logMessage("info", sender, source, msg));
-            channel.send(msg.replaceAll("+" +
-                language.rawobj.commands.puppet + " ", ""));
-        } else if (msg.startsWith("+eval") && rawSender.id == config.owner) {
+                    let cleanArgs = args.toString().replaceAll(",", " ");
+                    if (originalCommand == "puppet" || originalCommand == "eval" || originalCommand == "announce") cleanArgs = "";
+
+                    central.logMessage(res.level, sender, source, "+" + originalCommand + " " + cleanArgs);
+                });
+            } catch (e) {
+                central.logMessage("err", sender, source, e.message);
+
+                channel.send(e.message);
+                console.error(e.stack);
+                return;
+            }
+        } else {
             try {
-                central.logMessage("info", sender, source, "+eval");
+                verseHandler.processRawMessage(raw, rawSender, language, (result) => {
+                    if (!result.invalid) {
+                        if (result.twoMessages) {
+                            channel.send(result.firstMessage);
+                            channel.send(result.secondMessage);
+                        } else {
+                            channel.send(result.message);
+                        }
 
-                let argument = msg.replace("+eval ", "");
-
-                if (argument.indexOf("bot.token") > -1) {
-                    throw "I refuse to process anything with bot.token for " +
-                        "the sake of bot security."
-                }
-
-                channel.send(eval(argument));
+                        central.logMessage(result.level, sender, source, result.reference);
+                    }
+                });
             } catch (e) {
-                channel.send("[error] " + e);
-            }
-        } else if (msg == "+" + language.rawobj.commands.allusers) {
-            let users = bot.users;
-            let processed = 0;
-
-            users.forEach((value) => {
-                if (!value.bot) {
-                    processed++;
-                }
-            });
-
-            central.logMessage("info", sender, source, "+allusers");
-            channel.send(language.rawobj.allusers + ": " + processed.toString());
-        } else if (msg == "+" + language.rawobj.commands.users) {
-            if (guild) {
-                let users = guild.members.size;
-
-                guild.members.forEach((v) => {
-                    if (v.user.bot) users--;
-                });
-
-                central.logMessage("info", sender, source, "+users");
-                channel.send(language.rawobj.users + ": " + users.toString());
-            } else {
-                central.logMessage("info", sender, source, "failed +users");
-                channel.send(language.rawobj.usersfailed);
-            }
-        } else if (msg == "+" + language.rawobj.commands.listservers) {
-            let count = bot.guilds.size.toString();
-            central.logMessage("info", sender, source, "+listservers");
-            channel.send(language.rawobj.listservers.replace("<count>", count));
-        } else if (msg == "+" + language.rawobj.commands.biblebot) {
-            central.logMessage("info", sender, source, "+biblebot");
-
-            let response = language.rawobj.biblebot;
-            response = response.replace(
-                "<biblebotversion>", process.env.npm_package_version);
-            response = response.replace(
-                "<setversion>", language.rawobj.commands.setversion);
-            response = response.replace(
-                "<version>", language.rawobj.commands.version);
-            response = response.replace(
-                "<versions>", language.rawobj.commands.versions);
-            response = response.replace(
-                "<versioninfo>", language.rawobj.commands.versioninfo);
-            response = response.replace(
-                "<votd>", language.rawobj.commands.votd);
-            response = response.replace(
-                "<verseoftheday>", language.rawobj.commands.verseoftheday);
-            response = response.replace(
-                "<random>", language.rawobj.commands.random);
-            response = response.replace(
-                "<biblebot>", language.rawobj.commands.biblebot);
-            response = response.replace(
-                "<addversion>", language.rawobj.commands.addversion);
-            response = response.replace(
-                "<av>", language.rawobj.commands.av);
-            response = response.replace(
-                "<versenumbers>", language.rawobj.commands.versenumbers);
-            response = response.replace(
-                "<headings>", language.rawobj.commands.headings);
-            response = response.replace(
-                "<puppet>", language.rawobj.commands.puppet);
-            response = response.replace(
-                "<setlanguage>", language.rawobj.commands.setlanguage);
-            response = response.replace(
-                "<language>", language.rawobj.commands.language);
-            response = response.replace(
-                "<languages>", language.rawobj.commands.languages);
-            response = response.replaceAll(
-                "<enable>", language.rawobj.arguments.enable);
-            response = response.replaceAll(
-                "<disable>", language.rawobj.arguments.disable);
-            response = response.replace(
-                "<allusers>", language.rawobj.commands.allusers);
-            response = response.replace(
-                "<users>", language.rawobj.commands.users);
-            response = response.replace(
-                "<usersindb>", language.rawobj.commands.usersindb);
-            response = response.replace(
-                "<listservers>", language.rawobj.commands.listservers);
-            response = response.replace(
-                "<invite>", language.rawobj.commands.invite);
-
-            response += "\n\n---\n"
-
-            let second = "**Help BibleBot's development and hosting by becoming a patron on Patreon! See <https://patreon.com/BibleBot> for more information!**";
-            second += "\n---\n\nJoin the BibleBot Discord server! Invite: <https://discord.gg/Ssn8KNv>\nSee <https://biblebot.vypr.space/copyrights> for any copyright-related information.";
-
-            channel.send(response);
-            channel.send(second);
-        } else if (msg == "+" + language.rawobj.commands.random) {
-            central.getVersion(rawSender, (data) => {
-                let version = language.defversion;
-                let headings = "enable";
-                let verseNumbers = "enable";
-
-                if (data) {
-                    if (data[0].hasOwnProperty('version')) {
-                        if (data[0].version == "HWP") version = "NRSV";
-                        else version = data[0].version;
-                    }
-                    if (data[0].hasOwnProperty('headings')) {
-                        headings = data[0].headings;
-                    }
-                    if (data[0].hasOwnProperty('verseNumbers')) {
-                        verseNumbers = data[0].verseNumbers;
-                    }
-                }
-
-                bibleGateway.getRandomVerse(version, headings, verseNumbers)
-                    .then((result) => {
-                        central.logMessage("info", sender, source, "+random");
-                        channel.send(result);
-                    });
-            });
-        } else if (msg == ("+" + language.rawobj.commands.verseoftheday) ||
-            msg == ("+" + language.rawobj.commands.votd)) {
-            central.getVersion(rawSender, (data) => {
-                let version = language.defversion;
-                let headings = "enable";
-                let verseNumbers = "enable";
-
-                if (data) {
-                    if (data[0].hasOwnProperty('version')) {
-                        if (data[0].version == "HWP") version = "NRSV";
-                        else version = data[0].version;
-                    }
-                    if (data[0].hasOwnProperty('headings')) {
-                        headings = data[0].headings;
-                    }
-                    if (data[0].hasOwnProperty('verseNumbers')) {
-                        verseNumbers = data[0].verseNumbers;
-                    }
-                }
-
-                bibleGateway.getVOTD(version, headings, verseNumbers)
-                    .then((result) => {
-                        if (result == "too long") {
-                            channel.send(language.rawobj.passagetoolong);
-                            return;
-                        }
-
-                        central.logMessage("info", sender, source, "+votd");
-                        channel.send(result);
-                    });
-            });
-        } else if (msg.startsWith("+" + language.rawobj.commands.setversion)) {
-            if (msg.split(" ").length != 2) {
-                central.versionDB.find({}, (err, docs) => {
-                    let chatString = "";
-                    for (let i in docs) {
-                        chatString += docs[i].abbv + ", ";
-                    }
-
-                    central.logMessage(
-                        "info", sender, source, "empty +setversion sent");
-                    raw.reply("**" + language.rawobj.setversionfail +
-                        ":**\n```" + chatString.slice(0, -2) + "```");
-                });
-                return;
-            } else {
-                central.setVersion(rawSender, msg.split(" ")[1], (data) => {
-                    if (data) {
-                        central.logMessage("info", sender, source, "+setversion " +
-                            msg.split(" ")[1]);
-                        raw.reply("**" + language.rawobj.setversionsuccess +
-                            "**");
-                    } else {
-                        central.versionDB.find({}, (err, docs) => {
-                            let chatString = "";
-                            for (let i in docs) {
-                                chatString += docs[i].abbv + ", ";
-                            }
-
-                            central.logMessage("info", sender, source,
-                                "failed +setversion");
-                            raw.reply("**" + language.rawobj.setversionfail +
-                                ":**\n```" + chatString.slice(0, -2) +
-                                "```");
-                        });
-                    }
-                });
-            }
-
-            return;
-        } else if (msg.startsWith("+" + language.rawobj.commands.headings)) {
-            if (msg.split(" ").length != 2) {
-                central.logMessage("info", sender, source, "empty +headings sent");
-
-                let response = language.rawobj.headingsfail;
-
-                response = response.replace(
-                    "<headings>", language.rawobj.commands.headings);
-                response = response.replace(
-                    "<headings>", language.rawobj.commands.headings);
-                response = response.replace(
-                    "<enable>", language.rawobj.arguments.enable);
-                response = response.replace(
-                    "<disable>", language.rawobj.arguments.disable);
-
-                raw.reply("**" + response + "**");
-            } else {
-                let option;
-
-                switch (msg.split(" ")[1]) {
-                    case language.rawobj.arguments.enable:
-                        option = "enable";
-                        break;
-                    case language.rawobj.arguments.disable:
-                        option = "disable";
-                        break;
-                    default:
-                        option = null;
-                        break;
-                }
-
-                if (option !== null) {
-                    central.setHeadings(rawSender, option, (data) => {
-                        if (data) {
-                            central.logMessage(
-                                "info", sender, source, "+headings " +
-                                option);
-                            let response = language.rawobj.headingssuccess;
-                            response = response.replace(
-                                "<headings>", language.rawobj.commands.headings);
-
-                            raw.reply("**" + response + "**");
-                        } else {
-                            central.logMessage("info", sender, source, "failed +headings");
-
-                            let response = language.rawobj.headingsfail;
-
-                            response = response.replace(
-                                "<headings>", language.rawobj.commands.headings);
-                            response = response.replace(
-                                "<headings>", language.rawobj.commands.headings);
-                            response = response.replace(
-                                "<enable>", language.rawobj.arguments.enable);
-                            response = response.replace(
-                                "<disable>", language.rawobj.arguments.disable);
-
-                            raw.reply("**" + response + "**");
-                        }
-                    });
-                } else {
-                    central.logMessage("info", sender, source, "failed +headings");
-
-                    let response = language.rawobj.headingsfail;
-
-                    response = response.replace(
-                        "<headings>", language.rawobj.commands.headings);
-                    response = response.replace(
-                        "<headings>", language.rawobj.commands.headings);
-                    response = response.replace(
-                        "<enable>", language.rawobj.arguments.enable);
-                    response = response.replace(
-                        "<disable>", language.rawobj.arguments.disable);
-
-                    raw.reply("**" + response + "**");
-                }
-            }
-
-            return;
-        } else if (msg.startsWith(
-                "+" + language.rawobj.commands.versenumbers)) {
-            if (msg.split(" ").length != 2) {
-                central.logMessage("info", sender, source, "empty +versenumbers sent");
-
-                let response = language.rawobj.versenumbersfail;
-
-                response = response.replace(
-                    "<versenumbers>", language.rawobj.commands.versenumbers);
-                response = response.replace(
-                    "<versenumbers>", language.rawobj.commands.versenumbers);
-                response = response.replace(
-                    "<enable>", language.rawobj.arguments.enable);
-                response = response.replace(
-                    "<disable>", language.rawobj.arguments.disable);
-
-                raw.reply("**" + response + "**");
-            } else {
-                let option;
-
-                switch (msg.split(" ")[1]) {
-                    case language.rawobj.arguments.enable:
-                        option = "enable";
-                        break;
-                    case language.rawobj.arguments.disable:
-                        option = "disable";
-                        break;
-                    default:
-                        option = null;
-                        break;
-                }
-
-                if (option !== null) {
-                    central.setVerseNumbers(rawSender, option, (data) => {
-                        if (data) {
-                            central.logMessage(
-                                "info", sender, source, "+versenumbers " +
-                                option);
-
-                            let response = language.rawobj.versenumberssuccess;
-                            response = response.replace(
-                                "<versenumbers>",
-                                language.rawobj.commands.versenumbers);
-
-                            raw.reply("**" + response + "**");
-                        } else {
-                            central.logMessage(
-                                "info", sender, source, "failed +versenumbers");
-
-                            let response = language.rawobj.versenumbersfail;
-
-                            response = response.replace(
-                                "<versenumbers>",
-                                language.rawobj.commands.versenumbers);
-                            response = response.replace(
-                                "<versenumbers>",
-                                language.rawobj.commands.versenumbers);
-                            response = response.replace(
-                                "<enable>",
-                                language.rawobj.arguments.enable);
-                            response = response.replace(
-                                "<disable>",
-                                language.rawobj.arguments.disable);
-
-                            raw.reply("**" + response + "**");
-                        }
-                    });
-                } else {
-                    central.logMessage(
-                        "info", sender, source, "failed +versenumbers");
-
-                    let response = language.rawobj.versenumbersfail;
-
-                    response = response.replace(
-                        "<versenumbers>",
-                        language.rawobj.commands.versenumbers);
-                    response = response.replace(
-                        "<versenumbers>",
-                        language.rawobj.commands.versenumbers);
-                    response = response.replace(
-                        "<enable>",
-                        language.rawobj.arguments.enable);
-                    response = response.replace(
-                        "<disable>",
-                        language.rawobj.arguments.disable);
-
-                    raw.reply("**" + response + "**");
-                }
-            }
-
-            return;
-        } else if (msg == "+" + language.rawobj.commands.version) {
-            central.getVersion(rawSender, (data) => {
-                central.logMessage("info", sender, source, "+version");
-
-                if (data) {
-                    if (data[0].version) {
-                        if (data[0].version == "HWP") data[0].version = "NRSV";
-                        let response = language.rawobj.versionused;
-
-                        response = response.replace(
-                            "<version>", data[0].version);
-                        response = response.replace(
-                            "<setversion>", language.rawobj.commands.setversion);
-
-                        raw.reply("**" + response + ".**");
-                    } else {
-                        let response = language.rawobj.noversionused;
-
-                        response = response.replace(
-                            "<setversion>", language.rawobj.commands.setversion);
-
-                        raw.reply("**" + response + "**");
-                    }
-                } else {
-                    let response = language.rawobj.noversionused;
-
-                    response = response.replace(
-                        "<setversion>", language.rawobj.commands.setversion);
-
-                    raw.reply("**" + response + "**");
-                }
-            });
-
-            return;
-        } else if (msg == "+" + language.rawobj.commands.versions) {
-            central.versionDB.find({}, (err, docs) => {
-                let chatString = "";
-                for (let i in docs) {
-                    chatString += docs[i].abbv + ", ";
-                }
-
-                central.logMessage("info", sender, source, "+versions");
-                raw.reply("**" + language.rawobj.versions + ":**\n```" +
-                    chatString.slice(0, -2) + "```");
-            });
-        } else if (msg.startsWith(
-                "+" + language.rawobj.commands.setlanguage)) {
-            if (msg.split(" ").length != 2) {
-                let chatString = "";
-                Object.keys(central.languages).forEach((key) => {
-                    switch (key) {
-                        case "deflang":
-                        case "isLanguage":
-                        case "isIncomplete":
-                            return;
-                        default:
-                            chatString += central.languages[key].name + " [" + key +
-                                "], ";
-                            break;
-                    }
-                });
-
-                central.logMessage("info", sender, source, "empty +setlanguage sent");
-                raw.reply("**" + language.rawobj.setlanguagefail + ":**\n```" +
-                    chatString.slice(0, -2) + "```");
-                return;
-            } else {
-                central.setLanguage(rawSender, msg.split(" ")[1], (data) => {
-                    if (data) {
-                        central.logMessage("info", sender, source, "+setlanguage " +
-                            msg.split(" ")[1]);
-                        raw.reply("**" + language.rawobj.setlanguagesuccess +
-                            "**");
-                    } else {
-                        let chatString = "";
-                        Object.keys(central.languages).forEach((key) => {
-                            switch (key) {
-                                case "deflang":
-                                case "isLanguage":
-                                case "isIncomplete":
-                                    return;
-                                default:
-                                    chatString += central.languages[key].name + " [" +
-                                        key + "], ";
-                                    break;
-                            }
-                        });
-
-                        central.logMessage(
-                            "info", sender, source, "failed +setlanguage");
-                        raw.reply("**" + language.rawobj.setlanguagefail +
-                            ":**\n```" + chatString.slice(0, -2) +
-                            "```");
-                    }
-                });
-            }
-
-            return;
-        } else if (msg == "+" + language.rawobj.commands.language) {
-            central.getLanguage(rawSender, (data) => {
-                central.logMessage("info", sender, source, "+language");
-
-                if (data) {
-                    let response = language.rawobj.languageused;
-
-                    response = response.replace(
-                        "<setlanguage>", language.rawobj.commands.setlanguage);
-
-                    raw.reply("**" + response + "**");
-                } else {
-                    let response = language.rawobj.languageused;
-
-                    response = response.replace(
-                        "<setlanguage>", language.rawobj.commands.setlanguage);
-
-                    raw.reply("**" + response + "**");
-                }
-
-            });
-
-            return;
-        } else if (msg == "+" + language.rawobj.commands.languages) {
-            let chatString = "";
-            Object.keys(central.languages).forEach((key) => {
-                switch (key) {
-                    case "default": // i don't need this, but JS is being weird
-                    case "isLanguage":
-                    case "isIncomplete":
-                        return;
-                    default:
-                        chatString += central.languages[key].name + " [" + key + "], ";
-                        break;
-                }
-            });
-
-            central.logMessage("info", sender, source, "+languages");
-            raw.reply("**" + language.rawobj.languages + ":**\n```" +
-                chatString.slice(0, -2) + "```");
-            return;
-        } else if (msg.startsWith("+" + language.rawobj.commands.addversion) ||
-            msg.startsWith("+" + language.rawobj.commands.av)) {
-            if (raw.author.id == config.owner) {
-
-                let argv = msg.split(" ");
-                let argc = argv.length;
-                let name = "";
-
-                // build the name string
-                for (let i = 1; i < (argv.length - 4); i++) {
-                    name = name + argv[i] + " ";
-                }
-
-                name = name.slice(0, -1); // remove trailing space
-                let abbv = argv[argc - 4];
-                let hasOT = argv[argc - 3];
-                let hasNT = argv[argc - 2];
-                let hasAPO = argv[argc - 1];
-
-                let object = new Version(name, abbv, hasOT, hasNT, hasAPO);
-                central.versionDB.insert(object.toObject(), (err) => {
-                    if (err) {
-                        central.logMessage("err", "versiondb", "global", err);
-                        raw.reply(
-                            "**" + language.rawobj.addversionfail + "**");
-                    } else {
-                        raw.reply(
-                            "**" + language.rawobj.addversionsuccess + "**");
-                    }
-                });
-            }
-        } else if (msg.startsWith("+" + language.rawobj.commands.versioninfo)) {
-            if (msg.split(" ").length == 2) {
-                central.versionDB.find({
-                    "abbv": msg.split(" ")[1]
-                }, (err, data) => {
-                    data = data; // for some reason it won't initialize properly
-
-                    if (err) {
-                        central.logMessage("err", "versiondb", "global", err);
-                        raw.reply(
-                            "**" + language.rawobj.versioninfofailed + "**");
-                    } else if (data.length > 0) {
-                        central.logMessage("info", sender, source, "+versioninfo");
-
-                        let response = language.rawobj.versioninfo;
-                        response = response.replace("<versionname>", data[0].name);
-
-                        if (data[0].hasOT == true)
-                            response = response.replace("<hasOT>", language.rawobj.arguments.yes);
-                        else
-                            response = response.replace("<hasOT>", language.rawobj.arguments.no);
-
-                        if (data[0].hasNT == true)
-                            response = response.replace("<hasNT>", language.rawobj.arguments.yes);
-                        else
-                            response = response.replace("<hasNT>", language.rawobj.arguments.no);
-
-                        if (data[0].hasAPO == true)
-                            response = response.replace("<hasAPO>", language.rawobj.arguments.yes);
-                        else
-                            response = response.replace("<hasAPO>", language.rawobj.arguments.no);
-
-                        raw.reply(response);
-                    } else {
-                        raw.reply("**" + language.rawobj.versioninfofailed + "**");
-                    }
-                });
-            } else {
-
-            }
-        } else if (msg.includes(":") && msg.includes(" ")) {
-            let spaceSplit = [];
-            let bookIndexes = [];
-            let bookNames = [];
-            let verses = {};
-            let verseCount = 0;
-
-            if (msg.includes("-")) {
-                // tokenize the message
-                // TODO: better variable names?
-                msg.split("-").forEach((item) => {
-                    let tempSplit = item.split(":");
-
-                    tempSplit.forEach((item) => {
-                        let tempTempSplit = item.split(" ");
-
-                        tempTempSplit.forEach((item) => {
-                            item = item.replaceAll(/[^a-zA-Z0-9:()"'<>|\\/;*&^%$#@!.+_?=]/g, "");
-
-                            spaceSplit.push(item);
-                        });
-                    });
-                });
-            } else {
-                msg.split(":").forEach((item) => {
-                    let tempSplit = item.split(" ");
-
-                    tempSplit.forEach((item) => {
-                        spaceSplit.push(item);
-                    });
-                });
-            }
-
-            // because of multiple verses with the same book, this
-            // must be done to ensure that its not duping itself.
-            for (let i = 0; i < spaceSplit.length; i++) {
-                try {
-                    spaceSplit[i] = spaceSplit[i].replaceAll("(", "");
-                    spaceSplit[i] = spaceSplit[i].replaceAll(")", "");
-                    spaceSplit[i] = spaceSplit[i].replaceAll("[", "");
-                    spaceSplit[i] = spaceSplit[i].replaceAll("]", "");
-                    spaceSplit[i] = spaceSplit[i].replaceAll("?", "");
-                    // While we're here, let's get rid of Discord Markdown formatting
-                    spaceSplit[i] = spaceSplit[i].replaceAll("_", "");
-                    spaceSplit[i] = spaceSplit[i].replaceAll("*", "");
-                    spaceSplit[i] = spaceSplit[i].replaceAll("-", "");
-                    spaceSplit[i] = spaceSplit[i].replaceAll("\\", "");
-                    spaceSplit[i] = spaceSplit[i].replaceAll("`", "");
-                    // end Discord Markdown formatting
-                    spaceSplit[i] = central.capitalizeFirstLetter(spaceSplit[i]);
-                } catch (e) {
-                    /* it'll probably be a number anyways, if this fails */
-                }
-
-                // this checks if there's a numbered book
-                // TODO: Rewrite/refactor this.
-                let temp = spaceSplit[i];
-                switch (temp) {
-                    case "Sam":
-                    case "Sm":
-                    case "Shmuel":
-                    case "Kgs":
-                    case "Melachim":
-                    case "Chron":
-                    case "Chr":
-                    case "Cor":
-                    case "Thess":
-                    case "Thes":
-                    case "Tim":
-                    case "Tm":
-                    case "Pet":
-                    case "Pt":
-                    case "Macc":
-                    case "Mac":
-                    case "Esd":
-                    case "Samuel":
-                    case "Kings":
-                    case "Chronicles":
-                    case "Esdras":
-                    case "Maccabees":
-                    case "Corinthians":
-                    case "Thessalonians":
-                    case "Timothy":
-                    case "Peter":
-                    case "151":
-                        spaceSplit[i] = spaceSplit[i - 1] + temp;
-                        break;
-                    case "Esther":
-                        if ((spaceSplit[i - 1] == "Greek")) {
-                            spaceSplit[i] = spaceSplit[i - 1] + temp;
-                        } else {
-                            spaceSplit[i] = "Esther";
-                        }
-                        break;
-                    case "Jeremiah":
-                        let isLetter = ((spaceSplit[i - 2] + spaceSplit[i - 1]) == "LetterOf");
-
-                        if (isLetter) {
-                            spaceSplit[i] = "LetterOfJeremiah";
-                        } else {
-                            spaceSplit[i] = "Jeremiah";
-                        }
-                        break;
-                    case "Dragon":
-                        spaceSplit[i] = spaceSplit[i - 3] + spaceSplit[i - 2] +
-                            spaceSplit[i - 1] + temp;
-                        break;
-                    case "Men":
-                    case "Youths":
-                    case "Children":
-                        spaceSplit[i] = spaceSplit[i - 5] + spaceSplit[i - 4] +
-                            spaceSplit[i - 3] + spaceSplit[i - 2] +
-                            spaceSplit[i - 1] + temp;
-                        break;
-                    case "Manasses":
-                    case "Manasseh":
-                    case "Solomon":
-                    case "Songs":
-                        spaceSplit[i] = spaceSplit[i - 2] + spaceSplit[i - 1] +
-                            temp;
-                        break;
-                    case "John":
-                    case "Jn":
-                        let num = Number(spaceSplit[i - 1]);
-                        let bnum = !isNaN(Number(
-                            spaceSplit[i - 1]));
-
-                        if (spaceSplit[i - 1] && bnum && !isNaN(num) &&
-                            num > 0 && num < 4) {
-                            spaceSplit[i] = spaceSplit[i - 1] + temp;
-                        }
-                        break;
-                }
-
-                // matches book names to the index
-                // of where they are in spaceSplit
-                let book = spaceSplit[i].replace("<", "")
-                    .replace(">", "");
-
-                if (books.ot[book.toLowerCase()]) {
-                    bookNames.push(books.ot[book.toLowerCase()]);
-                    bookIndexes.push(i);
-                }
-
-                if (books.nt[book.toLowerCase()]) {
-                    bookNames.push(books.nt[book.toLowerCase()]);
-                    bookIndexes.push(i);
-                }
-
-                if (books.apo[book.toLowerCase()]) {
-                    bookNames.push(books.apo[book.toLowerCase()]);
-                    bookIndexes.push(i);
-                }
-            }
-
-            bookIndexes.forEach((index) => {
-                let verse = [];
-
-                // make sure that its proper verse structure
-                // Book chapterNum:chapterVerse
-                if (isNaN(Number(spaceSplit[index + 1])) ||
-                    isNaN(Number(spaceSplit[index + 2]))) {
-                    return;
-                }
-
-                // if it's surrounded by angle brackets
-                // we want to ignore it
-                if (spaceSplit[index].indexOf("<") != -1) return;
-
-                let angleBracketIndexes = [];
-                for (let i in spaceSplit) {
-                    if ((i < index) && (spaceSplit[i].indexOf("<") != -1))
-                        angleBracketIndexes.push(i);
-
-                    if ((i > index) && (spaceSplit[i].indexOf(">") != -1))
-                        angleBracketIndexes.push(i);
-                }
-
-                if (angleBracketIndexes.length == 2)
-                    if (angleBracketIndexes[0] < index &&
-                        angleBracketIndexes[1] > index)
-                        return;
-
-                // organize our variables correctly
-                let book = spaceSplit[index];
-                let chapter = spaceSplit[index + 1];
-                let startingVerse = spaceSplit[index + 2];
-
-                // ignore any other angle brackets
-                // as we've already properly detected
-                // whether they surround the verse
-                try {
-                    book = spaceSplit[index].replace("<", "");
-                    book = book.replace(">", "");
-
-                    chapter = spaceSplit[index + 1].replace("<", "");
-                    chapter = chapter.replace(">", "");
-
-                    startingVerse = spaceSplit[index + 2].replace("<", "");
-                    startingVerse = startingVerse.replace(">", "");
-                } catch (e) { /* this won't be a problem */ }
-
-                // this becomes our verse array
-                // ex. [ "Genesis", "1", "1" ]
-                verse.push(book);
-                verse.push(chapter);
-                verse.push(startingVerse);
-
-                // check if there's an ending verse
-                // if so, add it to the verse array
-                if (spaceSplit[index + 3] != undefined) {
-                    if (spaceSplit[index + 3].indexOf(">") != -1) return;
-                    if (!isNaN(Number(spaceSplit[index + 3]))) {
-                        if (Number(spaceSplit[index + 3]) >
-                            Number(spaceSplit[index + 2])) {
-                            let endingVerse = spaceSplit[index + 3].replace("<", "");
-                            endingVerse = endingVerse.replace(">", "");
-                            verse.push(endingVerse);
-                        }
-                    } else {
-                        if (availableVersions.indexOf(spaceSplit[index + 3]) != -1) {
-                            spaceSplit[index + 3] = spaceSplit[index + 3].toUpperCase();
-                            let version = spaceSplit[index + 3].replace("<", "");
-                            version = version.replace(">", "");
-                            verse.push("v - " + version);
-                        }
-                    }
-                }
-
-                if (spaceSplit[index + 4] != undefined) {
-                    if (isNaN(Number(spaceSplit[index + 4]))) {
-                        spaceSplit[index + 4] = spaceSplit[index + 4].toUpperCase();
-                        if (availableVersions.indexOf(spaceSplit[index + 4]) != -1) {
-                            let version = spaceSplit[index + 4].replace("<", "");
-                            version = version.replace(">", "");
-                            verse.push("v - " + version);
-                        }
-
-                    } else if (spaceSplit[index + 4].indexOf(">") != -1) {
-                        return;
-                    }
-                }
-
-                // the alphabet organization may be
-                // unnecessary, but i put it in as a
-                // safeguard
-                verses[alphabet[verseCount]] = verse;
-                verseCount++;
-            });
-
-            // we don't want to flood a server
-            if (verseCount > 6) {
-                let responses = ["spamming me, really?", "no spam pls",
-                    "no spam, am good bot", "be nice to me",
-                    "don't spam me, i'm a good bot", "hey buddy, get your own " +
-                    "bot to spam"
-                ];
-                let randomIndex = Math.floor(Math.random() * (4 - 0)) + 0;
-
-                channel.send(responses[randomIndex]);
-
-                central.logMessage("warn", sender, source,
-                    "spam attempt - verse count: " + verseCount);
+                central.logMessage("err", sender, source, e.message);
                 return;
             }
-
-            // lets formulate a verse reference
-            // (yes, we tokenize the message, only to make
-            // another verse reference; this is so we process
-            // an actual verse, not something else)
-            // the result of this ends up being "Genesis 1:1"
-            // in line with our current example
-            for (let i = 0; i < Object.keys(verses).length; i++) {
-                let properString;
-                let verse = verses[alphabet[i]];
-
-                for (let k = 0; k < verse.length; k++) {
-                    if (typeof verse[k] != "undefined") {
-                        verse[k] = verse[k].replaceAll(/[^a-zA-Z0-9:]/g, "");
-                    }
-                }
-
-                if (isNaN(Number(verse[1])) ||
-                    isNaN(Number(verse[2]))) {
-                    return;
-                }
-
-                if (verse.length > 4) {
-                    if (isNaN(Number(verse[3]))) {
-                        return;
-                    }
-                }
-
-                if (verse.length <= 3) {
-                    properString = verse[0] + " " + verse[1] +
-                        ":" + verse[2];
-                } else {
-                    if (verse[3] != undefined) {
-                        if (verse[3].startsWith("v")) {
-                            properString = verse[0] + " " + verse[1] + ":" +
-                                verse[2] + " | v: " + verse[3].substr(1);
-                        }
-                    }
-
-                    if (verse[4] != undefined) {
-                        if (verse[4].startsWith("v")) {
-                            properString = verse[0] + " " + verse[1] + ":" +
-                                verse[2] + "-" + verse[3] + " | v: " + verse[4].substr(1);
-                        } else {
-                            if (verse[3].startsWith("v")) {
-                                properString = verse[0] + " " + verse[1] + ":" +
-                                    verse[2] + " | v: " + verse[3].substr(1);
-                            } else {
-                                properString = verse[0] + " " + verse[1] + ":" +
-                                    verse[2] + "-" + verse[3];
-                            }
-                        }
-                    }
-
-                    if (properString === undefined) {
-                        properString = verse[0] + " " + verse[1] + ":" +
-                            verse[2] + "-" + verse[3];
-                    }
-                }
-
-                // and now we begin the descent of
-                // returning the result to the sender
-                // by getting the proper version to process
-                central.getVersion(rawSender, (data) => {
-                    let version = language.defversion;
-                    let headings = "enable";
-                    let verseNumbers = "enable";
-
-                    if (data) {
-                        if (data[0].hasOwnProperty('version')) {
-                            // RIP HWP (a while ago - January 1st, 2018)
-                            if (data[0].version == "HWP") version = "NRSV";
-                            else version = data[0].version;
-                        }
-                        if (data[0].hasOwnProperty('headings')) {
-                            headings = data[0].headings;
-                        }
-                        if (data[0].hasOwnProperty('verseNumbers')) {
-                            verseNumbers = data[0].verseNumbers;
-                        }
-                    }
-
-                    if (properString.split(" | v: ")[1] != undefined) {
-                        version = properString.split(" | v: ")[1];
-                        properString = properString.split(" | v: ")[0];
-                    }
-
-                    central.versionDB.find({
-                        "abbv": version
-                    }, (err, docs) => {
-                        if (docs) {
-                            bookNames.forEach((book) => {
-                                // now once we have our version
-                                // make sure that the version we're using
-                                // has the books we want (organized by testament/canon)
-                                // TODO: change APO to DEU
-                                let isOT = false;
-                                let isNT = false;
-                                let isAPO = false;
-
-                                for (let index in books.ot) {
-                                    if (books.ot[index] == book) {
-                                        isOT = true;
-                                    }
-                                }
-
-                                if (!docs[0].hasOT && isOT) {
-                                    central.logMessage("info", sender, source,
-                                        "this sender is trying to use the OT " +
-                                        "with a version that doesn't have it.");
-
-                                    let response =
-                                        language.rawobj.otnotsupported;
-                                    response = response.replace(
-                                        "<version>", docs[0].name);
-
-                                    let response2 =
-                                        language.rawobj.otnotsupported2;
-                                    response2 = response2.replace(
-                                        "<setversion>",
-                                        language.rawobj.commands.setversion);
-
-                                    channel.send(response);
-                                    channel.send(response2);
-
-                                    return;
-                                }
-
-                                for (let index in books.nt) {
-                                    if (books.nt[index] == book) {
-                                        isNT = true;
-                                    }
-                                }
-
-                                if (!docs[0].hasNT && isNT) {
-                                    central.logMessage(
-                                        "info", sender, source,
-                                        "this sender is trying to use the NT " +
-                                        "with a version that doesn't have it.");
-
-                                    let response =
-                                        language.rawobj.ntnotsupported;
-                                    response = response.replace(
-                                        "<version>", docs[0].name);
-
-                                    let response2 =
-                                        language.rawobj.ntnotsupported2;
-                                    response2 = response2.replace(
-                                        "<setversion>",
-                                        language.rawobj.commands.setversion);
-
-                                    channel.send(response);
-                                    channel.send(response2);
-
-                                    return;
-                                }
-
-                                for (let index in books.apo) {
-                                    if (books.apo[index] == book) {
-                                        isAPO = true;
-                                    }
-                                }
-
-                                if (!docs[0].hasAPO && isAPO) {
-                                    central.logMessage(
-                                        "info", sender, source,
-                                        "this sender is trying to use the APO " +
-                                        "with a version that doesn't have it.");
-
-                                    let response =
-                                        language.rawobj.aponotsupported;
-                                    response = response.replace(
-                                        "<version>", docs[0].name);
-
-                                    let response2 =
-                                        language.rawobj.aponotsupported2;
-                                    response2 = response2.replace(
-                                        "<setversion>",
-                                        language.rawobj.commands.setversion);
-
-                                    channel.send(response);
-                                    channel.send(response2);
-
-                                    return;
-                                }
-                            });
-
-                            // now we ask our bibleGateway bridge
-                            // to nicely provide us with a verse object
-                            // to send back; the last step of the process
-                            if (version != "REV") {
-                                bibleGateway.getResult(
-                                        properString, version, headings, verseNumbers)
-                                    .then((result) => {
-                                        result.forEach((object) => {
-                                            let content =
-                                                "```Dust\n" + object.title + "\n\n" +
-                                                object.text + "```";
-
-                                            let responseString =
-                                                "**" + object.passage + " - " +
-                                                object.version + "**\n\n" + content;
-
-                                            if (responseString.length < 2000) {
-                                                central.logMessage(
-                                                    "info", sender, source,
-                                                    properString);
-                                                channel.send(responseString);
-                                            } else if (responseString.length > 2000 && responseString.length < 3500) {
-                                                central.logMessage(
-                                                    "info", sender, source,
-                                                    properString);
-
-                                                let splitText = central.splitter(object.text);
-
-                                                let content1 = "```Dust\n" + object.title + "\n\n" + splitText.first + "```";
-                                                let responseString1 = "**" + object.passage + " - " + object.version + "**\n\n" + content1;
-                                                let content2 = "```Dust\n " + splitText.second + "```";
-
-                                                channel.send(responseString1);
-                                                channel.send(content2);
-
-                                            } else {
-                                                central.logMessage(
-                                                    "info", sender, source, "length of " +
-                                                    properString +
-                                                    " is too long for me");
-                                                channel.send(
-                                                    language.rawobj.passagetoolong);
-                                            }
-                                        });
-                                    }).catch((err) => {
-                                        central.logMessage(
-                                            "err", "global", "bibleGateway", err);
-                                    });
-                            } else {
-                                rev.getResult(properString, version, headings, verseNumbers)
-                                    .then((result) => {
-                                        result.forEach((object) => {
-                                            let content =
-                                                "```Dust\n" + object.title + "\n\n" +
-                                                object.text + "```";
-
-                                            let responseString =
-                                                "**" + object.passage + " - " +
-                                                object.version + "**\n\n" + content;
-
-                                            if (responseString.length < 2000) {
-                                                central.logMessage(
-                                                    "info", sender, source,
-                                                    properString);
-                                                channel.send(responseString);
-                                            } else if (responseString.length > 2000 && responseString.length < 3500) {
-                                                central.logMessage(
-                                                    "info", sender, source,
-                                                    properString);
-
-                                                let splitText = central.splitter(object.text);
-
-                                                let content1 = "```Dust\n" + object.title + "\n\n" + splitText.first + "```";
-                                                let responseString1 = "**" + object.passage + " - " + object.version + "**\n\n" + content1;
-                                                let content2 = "```Dust\n " + splitText.second + "```";
-
-                                                channel.send(responseString1);
-                                                channel.send(content2);
-
-                                            } else {
-                                                central.logMessage(
-                                                    "info", sender, source, "length of " +
-                                                    properString +
-                                                    " is too long for me");
-                                                channel.send(
-                                                    language.rawobj.passagetoolong);
-                                            }
-                                        });
-                                    }).catch((err) => {
-                                        central.logMessage(
-                                            "err", "global", "rev", err);
-                                    });
-                            }
-                        }
-                    });
-                });
-            };
         }
     });
 });

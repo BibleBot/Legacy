@@ -1,7 +1,6 @@
 let request = require("request");
 let cheerio = require("cheerio");
-//import { SynchronousPromise } from "synchronous-promise";
-import central from "./central";
+import central from "../central";
 
 // code partially ripped from @toffebjorkskog's node-biblegateway-api
 // because i'm impatient (sorry love you)

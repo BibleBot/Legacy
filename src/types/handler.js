@@ -5,8 +5,7 @@
 let possibleEvents = {
     COMMAND_EVENT: 0,
     VERSE_EVENT: 1,
-    PREFERENCE_EVENT: 2,
-    NO_EVENT: 3,
+    NO_EVENT: 2,
 }
 
 /**
@@ -21,7 +20,8 @@ export default class {
 	/**
 	 * Creates a Handler object.
 	 * 
-	 * @param {string} handling The type of event that this handler will be handling. Options are COMMAND_EVENT, VERSE_EVENT, PREFERENCE_EVENT, or NO_EVENT.
+	 * @param {string} handling The type of event that this handler will be handling.
+     * Options are COMMAND_EVENT, VERSE_EVENT, or NO_EVENT.
 	 */
     constructor(handling) {
         if (typeof handling != "string") {
@@ -30,7 +30,7 @@ export default class {
 
         let index = Object.keys(possibleEvents).indexOf(handling);
         if (index == -1) {
-            return Error("argument must be COMMAND_EVENT, VERSE_EVENT, PREFERENCE_EVENT, or NO_EVENT");
+            return Error("argument must be COMMAND_EVENT, VERSE_EVENT, or NO_EVENT");
         }
 
         this.eventsHandling = index;
