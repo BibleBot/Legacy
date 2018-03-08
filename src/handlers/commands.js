@@ -14,7 +14,7 @@ const commandMap = {
     "versenumbers": 1,
     "languages": 0,
     "setlanguage": 1,
-    "languages": 0,
+    "language": 0,
     "allusers": 0,
     "users": 0,
     "servers": 0,
@@ -105,7 +105,7 @@ export default class CommandHandler extends Handler {
         if (properCommand.ok) {
             if (!isOwnerCommand(properCommand.orig, lang)) {
                 if (properCommand.orig != commands.headings && properCommand.orig != commands.versenumbers) {
-                    const requiredArguments = commandMap[command];
+                    const requiredArguments = commandMap[properCommand.orig];
 
                     // let's avoid a TypeError!
                     if (args == null) {

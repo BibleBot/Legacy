@@ -64,7 +64,7 @@ export default {
     },
     languages: {
         setLanguage: (user, language, callback) => {
-            if (central.languages.isLanguage(language)) {
+            if (central.languages[language]) {
                 central.db.find({
                     "id": user.id
                 }, function(err, doc) {
@@ -90,7 +90,7 @@ export default {
                     }
                 });
             } else {
-                callback(null);
+                return callback(null);
             }
         },
 
@@ -110,14 +110,14 @@ export default {
             });
         },
 
-        getLanguages: () => {
-            let languages = [];
+        getLanguages: (callback) => {
+            let array = [];
 
-            for (let lang in central.languages) {
-                languages.push({ name: languages[lang].name, object_name: lang });
+            for (const lang in central.languages) {
+                array.push({ name: central.languages[lang].getName(), object_name: lang });
             }
 
-            return languages.sort();
+            return callback(array);
         }
     },
     formatting: {

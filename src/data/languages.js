@@ -48,13 +48,5 @@ export default {
     "tagalog": new Language("Tagalog", tagalog, "FSV"),
     "turkish": new Language("Türkçe", turkish, "NRSV"),
     "spanish": new Language("Español", spanish, "NVI"),
-    "swedish": new Language("Svenska", swedish, "SV1917"),
-
-    isLanguage: (language) => {
-        if (this[language]) {
-            return true;
-        }
-
-        return false;
-    }
+    "swedish": new Language("Svenska", swedish, "SV1917")
 };
