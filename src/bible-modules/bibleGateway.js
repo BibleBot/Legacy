@@ -32,16 +32,16 @@ function purifyText(text) {
 
 // take a guess at what this does
 export function getRandomVerse(version, headings, verseNumbers) {
-    let url = "https://dailyverses.net/random-bible-verse";
+    const url = "https://dailyverses.net/random-bible-verse";
 
-    let promise = new Promise((resolve, reject) => {
+    const promise = new Promise((resolve, reject) => {
         request(url, (err, resp, body) => {
             if (err !== null) {
                 reject(err);
             }
 
-            let $ = cheerio.load(body);
-            let verse = $(".bibleChapter a").first().text();
+            const $ = cheerio.load(body);
+            const verse = $(".bibleChapter a").first().text();
 
             // yep, we load up the **whole**
             // dailyverses page, just to send the reference
@@ -49,11 +49,11 @@ export function getRandomVerse(version, headings, verseNumbers) {
             getResult(verse, version, headings, verseNumbers)
                 .then((result) => {
                     result.forEach((object) => {
-                        let content =
+                        const content =
                             "```Dust\n" + object.title + "\n\n" +
                             object.text + "```";
 
-                        let responseString = "**" + object.passage + " - " +
+                        const responseString = "**" + object.passage + " - " +
                             object.version + "**\n\n" +
                             content;
 
@@ -73,27 +73,27 @@ export function getRandomVerse(version, headings, verseNumbers) {
 }
 
 export function getVOTD(version, headings, verseNumbers) {
-    let url =
+    const url =
         "https://www.biblegateway.com/reading-plans/verse-of-the-day/next";
 
-    let promise = new Promise((resolve, reject) => {
+    const promise = new Promise((resolve, reject) => {
         request(url, (err, resp, body) => {
             if (err !== null) {
                 reject(err);
             }
 
-            let $ = cheerio.load(body);
-            let verse = $(".rp-passage-display").text();
+            const $ = cheerio.load(body);
+            const verse = $(".rp-passage-display").text();
 
             // same thing as getRandomVerse()
             getResult(verse, version, headings, verseNumbers)
                 .then((result) => {
                     result.forEach((object) => {
-                        let content =
+                        const content =
                             "```Dust\n" + object.title + "\n\n" +
                             object.text + "```";
 
-                        let responseString = "**" + object.passage + " - " +
+                        const responseString = "**" + object.passage + " - " +
                             object.version + "**\n\n" +
                             content;
 
@@ -113,25 +113,25 @@ export function getVOTD(version, headings, verseNumbers) {
 }
 export function getResult(query, version, headings, verseNumbers) {
     // formulate a URL based on what we have
-    let url = "https://www.biblegateway.com/passage/?search=" + query +
+    const url = "https://www.biblegateway.com/passage/?search=" + query +
         "&version=" + version + "&interface=print";
 
-    let promise = new Promise((resolve, reject) => {
+    const promise = new Promise((resolve, reject) => {
         request(url, (err, resp, body) => {
             if (err !== null) {
                 reject(err);
             }
 
-            let verses = [];
+            const verses = [];
 
-            let $ = cheerio.load(body);
+            const $ = cheerio.load(body);
 
             // we work through `.result-text-style-normal`
             // as Bible Gateway has all of its text inside it
             // it's the one container that has everything we need
             // inside
             $(".result-text-style-normal").each(function() {
-                let verse = $(this);
+                const verse = $(this);
 
                 if (headings == "disable") {
                     $(".result-text-style-normal h3").each(function() {
@@ -184,7 +184,7 @@ export function getResult(query, version, headings, verseNumbers) {
                 $(".footnotes").html("");
 
                 // formulate a nice verseObject to send back
-                let verseObject = {
+                const verseObject = {
                     "passage": verse.find(".passage-display-bcv").text(),
                     "version": verse.find(".passage-display-version").text(),
                     "title": title.slice(0, -3),

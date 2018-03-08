@@ -131,7 +131,7 @@ export default {
         "malachi": "Malachi",
         "mal": "Malachi"
     },
-    
+
     "nt": {
         "matthew": "Matthew", // New Testament
         "mathew": "Matthew",
@@ -254,7 +254,7 @@ export default {
         "belandthedragon": "Bel and the Dragon",
         "bel": "Bel and the Dragon"
     },
-    
+
     isBook: (book) => {
         if (this[book]) {
             return true;

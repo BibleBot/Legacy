@@ -3,7 +3,7 @@
  * necessary properties for the version database.
  * 
  * @author Elliott Pardee (vypr)
-*/
+ */
 export default class {
     /**
      * Create a Version object to be later

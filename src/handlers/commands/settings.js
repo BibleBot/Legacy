@@ -52,7 +52,7 @@ export default {
 
         getVersions: (callback) => {
             central.versionDB.find({}, function(err, docs) {
-                let versions = [];
+                const versions = [];
 
                 for (let doc in docs) {
                     versions.push(docs[doc].abbv);
@@ -111,10 +111,13 @@ export default {
         },
 
         getLanguages: (callback) => {
-            let array = [];
+            const array = [];
 
             for (const lang in central.languages) {
-                array.push({ name: central.languages[lang].getName(), object_name: lang });
+                array.push({
+                    name: central.languages[lang].getName(),
+                    object_name: lang
+                });
             }
 
             return callback(array);

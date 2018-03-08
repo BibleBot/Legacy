@@ -15,14 +15,14 @@ let possibleEvents = {
  * This is simply a basic layout.
  * 
  * @author Elliott Pardee (vypr)
-*/
+ */
 export default class {
-	/**
-	 * Creates a Handler object.
-	 * 
-	 * @param {string} handling The type of event that this handler will be handling.
+    /**
+     * Creates a Handler object.
+     * 
+     * @param {string} handling The type of event that this handler will be handling.
      * Options are COMMAND_EVENT, VERSE_EVENT, or NO_EVENT.
-	 */
+     */
     constructor(handling) {
         if (typeof handling != "string") {
             return TypeError("argument must be a string");

@@ -17,7 +17,7 @@ export function tokenize(msg) {
         });
     } else {
         msg.split(":").forEach((item) => {
-            let split = item.split(" ");
+            const split = item.split(" ");
 
             split.forEach((item) => {
                 array.push(item);
@@ -81,7 +81,7 @@ export function checkForNumberedBooks(item, array, index) {
             }
             break;
         case "Jeremiah":
-            let isLetter = ((array[index - 2] + array[index - 1]) == "LetterOf");
+            const isLetter = ((array[index - 2] + array[index - 1]) == "LetterOf");
 
             if (isLetter) {
                 array[index] = "LetterOfJeremiah";
@@ -109,8 +109,8 @@ export function checkForNumberedBooks(item, array, index) {
             break;
         case "John":
         case "Jn":
-            let num = Number(array[index - 1]);
-            let bnum = !isNaN(Number(
+            const num = Number(array[index - 1]);
+            const bnum = !isNaN(Number(
                 array[index - 1]));
 
             if (array[index - 1] && bnum && !isNaN(num) &&
@@ -137,7 +137,7 @@ export function createVerseObject(array, bookIndex, availableVersions) {
     // we want to ignore it
     if (array[bookIndex].indexOf("<") != -1) return "invalid";
 
-    let angleBracketIndexes = [];
+    const angleBracketIndexes = [];
     for (let i in array) {
         if ((i < bookIndex) && (array[i].indexOf("<") != -1))
             angleBracketIndexes.push(i);

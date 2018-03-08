@@ -39,7 +39,7 @@ export default class VerseHandler extends Handler {
 
                     // matches book names to the index
                     // of where they are in split
-                    let book = split[i].replace("<", "")
+                    const book = split[i].replace("<", "")
                         .replace(">", "");
 
                     if (books.ot[book.toLowerCase()]) {
@@ -82,12 +82,12 @@ export default class VerseHandler extends Handler {
 
                 // we don't want to flood a server
                 if (verseCount > 6) {
-                    let responses = ["spamming me, really?", "no spam pls",
+                    const responses = ["spamming me, really?", "no spam pls",
                         "no spam, am good bot", "be nice to me",
                         "don't spam me, i'm a good bot", "hey buddy, get your own " +
                         "bot to spam"
                     ];
-                    let randomIndex = Math.floor(Math.random() * (4 - 0)) + 0;
+                    const randomIndex = Math.floor(Math.random() * (4 - 0)) + 0;
 
                     return callback(responses[randomIndex]);
                 }
@@ -99,7 +99,7 @@ export default class VerseHandler extends Handler {
                 // the result of this ends up being "Genesis 1:1"
                 // in line with our current example
                 for (let i = 0; i < Object.keys(verses).length; i++) {
-                    let verse = verses[i];
+                    const verse = verses[i];
                     let reference = utils.createReferenceString(verse);
 
                     // and now we begin the descent of
@@ -241,11 +241,11 @@ export default class VerseHandler extends Handler {
                                                 reference, version, headings, verseNumbers)
                                             .then((result) => {
                                                 result.forEach((object) => {
-                                                    let content =
+                                                    const content =
                                                         "```Dust\n" + object.title + "\n\n" +
                                                         object.text + "```";
 
-                                                    let responseString =
+                                                    const responseString =
                                                         "**" + object.passage + " - " +
                                                         object.version + "**\n\n" + content;
 
@@ -257,11 +257,11 @@ export default class VerseHandler extends Handler {
                                                             message: responseString
                                                         });
                                                     } else if (responseString.length > 2000 && responseString.length < 3500) {
-                                                        let splitText = central.splitter(object.text);
+                                                        const splitText = central.splitter(object.text);
 
-                                                        let content1 = "```Dust\n" + object.title + "\n\n" + splitText.first + "```";
-                                                        let responseString1 = "**" + object.passage + " - " + object.version + "**\n\n" + content1;
-                                                        let content2 = "```Dust\n " + splitText.second + "```";
+                                                        const content1 = "```Dust\n" + object.title + "\n\n" + splitText.first + "```";
+                                                        const responseString1 = "**" + object.passage + " - " + object.version + "**\n\n" + content1;
+                                                        const content2 = "```Dust\n " + splitText.second + "```";
 
                                                         return callback({
                                                             level: "info",
@@ -287,11 +287,11 @@ export default class VerseHandler extends Handler {
                                         rev.getResult(reference, version, headings, verseNumbers)
                                             .then((result) => {
                                                 result.forEach((object) => {
-                                                    let content =
+                                                    const content =
                                                         "```Dust\n" + object.title + "\n\n" +
                                                         object.text + "```";
 
-                                                    let responseString =
+                                                    const responseString =
                                                         "**" + object.passage + " - " +
                                                         object.version + "**\n\n" + content;
 
@@ -303,11 +303,11 @@ export default class VerseHandler extends Handler {
                                                             message: responseString
                                                         });
                                                     } else if (responseString.length > 2000 && responseString.length < 3500) {
-                                                        let splitText = central.splitter(object.text);
+                                                        const splitText = central.splitter(object.text);
 
-                                                        let content1 = "```Dust\n" + object.title + "\n\n" + splitText.first + "```";
-                                                        let responseString1 = "**" + object.passage + " - " + object.version + "**\n\n" + content1;
-                                                        let content2 = "```Dust\n " + splitText.second + "```";
+                                                        const content1 = "```Dust\n" + object.title + "\n\n" + splitText.first + "```";
+                                                        const responseString1 = "**" + object.passage + " - " + object.version + "**\n\n" + content1;
+                                                        const content2 = "```Dust\n " + splitText.second + "```";
 
                                                         return callback({
                                                             level: "info",

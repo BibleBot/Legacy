@@ -42,17 +42,20 @@ function isCommand(command, lang) {
 
     // eval is not in the language files, as it's just a wrapper
     if (command == "eval") {
-        return { ok: true, orig: "eval" };
+        result = {
+            ok: true,
+            orig: "eval"
+        };
+    } else {
+        Object.keys(commands).forEach((originalCommandName) => {
+            if (commands[originalCommandName] == command) {
+                result = {
+                    ok: true,
+                    orig: originalCommandName
+                };
+            }
+        });
     }
-
-    Object.keys(commands).forEach((originalCommandName) => {
-        if (commands[originalCommandName] == command) {
-            result = {
-                ok: true,
-                orig: originalCommandName
-            };
-        }
-    });
 
     return result;
 }

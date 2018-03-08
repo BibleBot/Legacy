@@ -99,7 +99,7 @@ bot.on("message", (raw) => {
             try {
                 commandHandler.processCommand(command, args, language, rawSender, (res) => {
                     let originalCommand;
-                    
+
                     if (!res.announcement) {
                         channel.send(res.message);
 
@@ -120,24 +120,24 @@ bot.on("message", (raw) => {
                         bot.guilds.forEach((value) => {
                             if (value.name == "Discord Bots" ||
                                 value.name == "Discord Bot List") return;
-            
+
                             let sent = false;
-                            let ch = value.channels.findAll("type", "text");
-                            let preferred = ["misc", "bots", "meta", "hangout", "fellowship", "lounge", "congregation", "general",
+                            const ch = value.channels.findAll("type", "text");
+                            const preferred = ["misc", "bots", "meta", "hangout", "fellowship", "lounge", "congregation", "general",
                                 "taffer", "family_text", "staff"
                             ];
-            
+
                             for (let i = 0; i < preferred.length; i++) {
                                 if (!sent) {
                                     let receiver = ch.find(val => val.name === preferred[i]);
-            
+
                                     if (receiver) {
                                         receiver.send(res.message.replace(
                                             "+" + language.commands.announce + " ", ""
                                         )).catch(() => {
                                             // do nothing
                                         });
-            
+
                                         sent = true;
                                     }
                                 }
