@@ -20,7 +20,7 @@
     "setlanguagesuccess": "Set language successfully.",
     "setlanguagefail": "Failed to set language, see +<languages>.",
 
-    "languageused": "You are using <the default language (replace with the language name)>. Use `+<setlanguage>` to set a different language.",
+    "languageused": "You are using Language. Use `+<setlanguage>` to set a different language.",
     "nolanguageused": "I couldn't find your name in my database, have you used `+<setlanguage>` yet?",
     "languages": "I support",
 
