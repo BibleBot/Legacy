@@ -64,8 +64,8 @@ export default {
             "second": second
         };
     },
-    logMessage: (level, sender, channel, message) => {
-        let content = "<" + sender + "@" + channel + "> " + message;
+    logMessage: (level, shard, sender, channel, message) => {
+        let content = "<" + sender + "@" + channel + " on shard " + shard + "> " + message;
 
         switch (level) {
             case "debug":

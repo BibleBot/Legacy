@@ -262,4 +262,4 @@ export default {
 
         return false;
     }
-}
+};

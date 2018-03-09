@@ -6,7 +6,7 @@ let possibleEvents = {
     COMMAND_EVENT: 0,
     VERSE_EVENT: 1,
     NO_EVENT: 2,
-}
+};
 
 /**
  * A base Handler class that can be

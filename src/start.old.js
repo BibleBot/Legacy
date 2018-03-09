@@ -144,7 +144,7 @@ bot.on("message", (raw) => {
             });
         } else if (msg == "+supporters") {
             central.logMessage("info", sender, source, "+supporters");
-            channel.send("A special thank you to CHAZER2222, Jepekula, Joseph, Soku, and anonymous donors for financially supporting BibleBot! <3")
+            channel.send("A special thank you to CHAZER2222, Jepekula, Joseph, Soku, and anonymous donors for financially supporting BibleBot! <3");
         } else if (msg == "+" + language.rawobj.commands.invite) {
             central.logMessage("info", sender, source, "+invite");
             channel.send("https://discordapp.com/oauth2/authorize?client_id=361033318273384449&scope=bot&permissions=0");
@@ -205,7 +205,7 @@ bot.on("message", (raw) => {
 
                 if (argument.indexOf("bot.token") > -1) {
                     throw "I refuse to process anything with bot.token for " +
-                        "the sake of bot security."
+                        "the sake of bot security.";
                 }
 
                 channel.send(eval(argument));
@@ -295,7 +295,7 @@ bot.on("message", (raw) => {
             response = response.replace(
                 "<invite>", language.rawobj.commands.invite);
 
-            response += "\n\n---\n"
+            response += "\n\n---\n";
 
             let second = "**Help BibleBot's development and hosting by becoming a patron on Patreon! See <https://patreon.com/BibleBot> for more information!**";
             second += "\n---\n\nJoin the BibleBot Discord server! Invite: <https://discord.gg/Ssn8KNv>\nSee <https://biblebot.vypr.space/copyrights> for any copyright-related information.";

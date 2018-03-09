@@ -27,7 +27,7 @@ function purifyText(text) {
         .replaceAll(/\s+/g, ' ');
 }
 
-export function getRandomVerse(version, headings, verseNumbers) {
+export function getRandomVerse(shard, version, headings, verseNumbers) {
     const url = "https://dailyverses.net/random-bible-verse";
 
     const promise = new Promise((resolve, reject) => {
@@ -57,7 +57,7 @@ export function getRandomVerse(version, headings, verseNumbers) {
                         }
                     });
                 }).catch((err) => {
-                    central.logMessage("err", "global", "bibleGateway", err);
+                    central.logMessage("err", shard, "global", "bibleGateway", err);
                 });
         });
     });
@@ -65,7 +65,7 @@ export function getRandomVerse(version, headings, verseNumbers) {
     return promise;
 }
 
-export function getVOTD(version, headings, verseNumbers) {
+export function getVOTD(shard, version, headings, verseNumbers) {
     const url =
         "https://www.biblegateway.com/reading-plans/verse-of-the-day/next";
 
@@ -96,7 +96,7 @@ export function getVOTD(version, headings, verseNumbers) {
                         }
                     });
                 }).catch((err) => {
-                    central.logMessage("err", "global", "bibleGateway", err);
+                    central.logMessage("err", shard, "global", "bibleGateway", err);
                 });
         });
     });
@@ -140,7 +140,7 @@ export function getResult(query, version, headings, verseNumbers) {
 
                 $(".fnmark").each(function() {
                     $(this).html("");
-                })
+                });
 
                 if (startingVerse > endingVerse) {
                     $(this).html($(this).html().split("[" + (Number(startingVerse) + 1) + "]")[0].split("[" + startingVerse + "]")[1]);
@@ -191,71 +191,6 @@ export function getResult(query, version, headings, verseNumbers) {
                 verses.push(verseObject);
 
             });
-
-            // NOTE: DO NOT TRY TO MAKE FUNCTION() INTO () =>
-            // IT WILL BREAK EVERYTHING
-            /*$(".result-text-style-normal").each(function() {
-                const verse = $(this);
-
-                if (headings == "disable") {
-                    $(".result-text-style-normal h3").each(function() {
-                        $(this).html("");
-                    });
-
-                    $(".inline-h3").each(function() {
-                        $(this).html("");
-                    });
-                }
-
-                if (verseNumbers == "disable") {
-                    $(".chapternum").each(function() {
-                        $(this).html(" ");
-                    });
-
-                    $(".versenum").each(function() {
-                        $(this).html(" ");
-                    });
-                } else {
-                    $(".chapternum").each(function() {
-                        $(this).html(
-                            "[" + $(this).text().slice(0, -1) + "] ");
-
-                    });
-
-                    $(".versenum").each(function() {
-                        $(this).html(
-                            "[" + $(this).text().slice(0, -1) + "] ");
-
-                    });
-                }
-
-                $(".crossreference").each(function() {
-                    $(this).html("");
-                });
-
-                $(".footnote").each(function() {
-                    $(this).html("");
-                });
-
-                const title = "";
-                if (headings == "enable") {
-                    verse.find("h3").each(function() {
-                        title += $(this).text() + " / ";
-                    });
-                }
-
-                $(".crossrefs").html("");
-                $(".footnotes").html("");
-
-                const verseObject = {
-                    "passage": verse.find(".passage-display-bcv").text(),
-                    "version": verse.find(".passage-display-version").text(),
-                    "title": title.slice(0, -3),
-                    "text": purifyText(verse.find("p").text())
-                };
-
-                verses.push(verseObject);
-            });*/
 
             resolve(verses);
         });

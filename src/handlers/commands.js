@@ -1,6 +1,6 @@
 import Handler from "../types/handler";
 import * as commandBridge from "./commands/commandBridge";
-import * as config from "../data/config";
+import config from "../data/config";
 
 const commandMap = {
     "versions": 0,
@@ -102,11 +102,12 @@ export default class CommandHandler extends Handler {
             this.processCommand(command, null, lang);
         }
 
-        const commands = lang.commands;
-        const properCommand = isCommand(command, lang);
+        const rawLanguage = lang.getRawObject();
+        const commands = rawLanguage.commands;
+        const properCommand = isCommand(command, rawLanguage);
 
         if (properCommand.ok) {
-            if (!isOwnerCommand(properCommand.orig, lang)) {
+            if (!isOwnerCommand(properCommand.orig, rawLanguage)) {
                 if (properCommand.orig != commands.headings && properCommand.orig != commands.versenumbers) {
                     const requiredArguments = commandMap[properCommand.orig];
 
@@ -118,14 +119,14 @@ export default class CommandHandler extends Handler {
                     }
 
                     if (args.length != requiredArguments) {
-                        const response = lang.argumentCountError
+                        const response = rawLanguage.argumentCountError
                             .replace("<command>", command)
                             .replace("<count>", requiredArguments);
 
                         throw new Error(response);
                     }
 
-                    commandBridge.runCommand(properCommand.orig, args, lang, sender, (result) => {
+                    commandBridge.runCommand(properCommand.orig, args, rawLanguage, sender, (result) => {
                         return callback(result);
                     });
                 } else {
@@ -139,12 +140,12 @@ export default class CommandHandler extends Handler {
                         });
                     }
                 } catch (e) {
-                    const response = lang.commandNotFoundError.replace("<command>", command);
+                    const response = rawLanguage.commandNotFoundError.replace("<command>", command);
                     throw new Error(response);
                 }
             }
         } else {
-            const response = lang.commandNotFoundError.replace("<command>", command);
+            const response = rawLanguage.commandNotFoundError.replace("<command>", command);
             throw new Error(response);
         }
     }

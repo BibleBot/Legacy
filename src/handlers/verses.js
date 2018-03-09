@@ -14,7 +14,7 @@ export default class VerseHandler extends Handler {
         super("VERSE_EVENT");
     }
 
-    processRawMessage(rawMessage, sender, lang, callback) {
+    processRawMessage(shard, rawMessage, sender, lang, callback) {
         settings.versions.getVersions((availableVersions) => {
             const msg = rawMessage.content;
 
@@ -106,7 +106,7 @@ export default class VerseHandler extends Handler {
                     // returning the result to the sender
                     // by getting the proper version to process
                     settings.versions.getVersion(sender, (data) => {
-                        let version = lang.defversion;
+                        let version = lang.getDefaultVersion();
                         let headings = "enable";
                         let verseNumbers = "enable";
 
@@ -281,7 +281,7 @@ export default class VerseHandler extends Handler {
                                                 });
                                             }).catch((err) => {
                                                 central.logMessage(
-                                                    "err", "global", "bibleGateway", err);
+                                                    "err", shard, "global", "bibleGateway", err);
                                             });
                                     } else {
                                         rev.getResult(reference, version, headings, verseNumbers)
@@ -327,7 +327,7 @@ export default class VerseHandler extends Handler {
                                                 });
                                             }).catch((err) => {
                                                 central.logMessage(
-                                                    "err", "global", "rev", err);
+                                                    "err", shard, "global", "rev", err);
                                             });
                                     }
                                 }

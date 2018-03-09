@@ -100,12 +100,12 @@ export default {
             }, function(err, docs) {
                 if (docs.length > 0) {
                     if (central.languages[docs[0].language]) {
-                        return callback(central.languages[docs[0].language].getRawObject());
+                        return callback(central.languages[docs[0].language]);
                     } else {
-                        return callback(central.languages.english_us.getRawObject());
+                        return callback(central.languages.english_us);
                     }
                 } else {
-                    return callback(central.languages.english_us.getRawObject());
+                    return callback(central.languages.english_us);
                 }
             });
         },
@@ -198,4 +198,4 @@ export default {
 
         }
     }
-}
+};
