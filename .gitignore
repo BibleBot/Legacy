@@ -42,6 +42,7 @@ jspm_packages
 
 # Config file
 src/data/config.js
+config.js
 
 # build directory
 build

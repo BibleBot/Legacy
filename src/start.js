@@ -1,5 +1,5 @@
 import central from "./central";
-import * as config from "./data/config";
+import config from "./data/config";
 
 import * as Discord from "discord.js";
 const bot = new Discord.Client();
