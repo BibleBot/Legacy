@@ -1,6 +1,5 @@
 const request = require("request");
 const cheerio = require("cheerio");
-import central from "../central";
 
 // code partially ripped from @toffebjorkskog's node-biblegateway-api
 // because i'm impatient (sorry love you)
@@ -27,7 +26,7 @@ function purifyText(text) {
         .replaceAll(/\s+/g, ' ');
 }
 
-export function getRandomVerse(shard, version, headings, verseNumbers) {
+export function getRandomVerse(version, headings, verseNumbers) {
     const url = "https://dailyverses.net/random-bible-verse";
 
     const promise = new Promise((resolve, reject) => {
@@ -57,7 +56,7 @@ export function getRandomVerse(shard, version, headings, verseNumbers) {
                         }
                     });
                 }).catch((err) => {
-                    central.logMessage("err", shard, "global", "bibleGateway", err);
+                    reject(err);
                 });
         });
     });
@@ -65,7 +64,7 @@ export function getRandomVerse(shard, version, headings, verseNumbers) {
     return promise;
 }
 
-export function getVOTD(shard, version, headings, verseNumbers) {
+export function getVOTD(version, headings, verseNumbers) {
     const url =
         "https://www.biblegateway.com/reading-plans/verse-of-the-day/next";
 
@@ -96,7 +95,7 @@ export function getVOTD(shard, version, headings, verseNumbers) {
                         }
                     });
                 }).catch((err) => {
-                    central.logMessage("err", shard, "global", "bibleGateway", err);
+                    reject(err);
                 });
         });
     });

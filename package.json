@@ -8,6 +8,7 @@
     "dev": "babel src -d build && node build/start.js",
     "start": "node build/start.js",
     "refresh": "git pull && babel src -d build && node build/start.js",
+    "clean": "rm -rf build && rm -rf node_modules",
     "snyk-protect": "snyk protect",
     "prepare": "npm run snyk-protect",
     "test": "snyk test"

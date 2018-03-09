@@ -38,10 +38,7 @@
     "versioninfo": "\n**<versionname>**\n\nContains Old Testament: <hasOT>\nContains New Testament: <hasNT>\nContains Apocrypha/Deuterocanon: <hasAPO>",
     "versioninfofailed": "I couldn't find that version, are you sure you used the right acronym?",
 
-    "allusers": "The number of all users spanning across all servers that BibleBot is on (not counting duplicates and bots)",
-    "users": "The number of users in this server (not counting bots)",
-    "usersfailed": "I can't find the server this channel belongs to.",
-    "usersindb": "The number of users in the database (will have a margin of error)",
+    "users": "The number of all users spanning across all servers that BibleBot is on (not counting duplicates and bots)",
 
     "servers": "BibleBot is in <count> servers.",
 
@@ -68,7 +65,7 @@
         "languages": "languages",
         "allusers": "allusers",
         "users": "users",
-        "listservers": "listservers",
+        "servers": "servers",
         "usersindb": "usersindb",
         "announce": "announce",
         "invite": "invite"

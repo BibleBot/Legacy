@@ -15,8 +15,8 @@ Installation:
 ```sh
 git clone https://git.vypr.space/BibleBot/BibleBot.git;
 npm install;
-mv src/config.example.js src/config.js;
-$EDITOR src/config.js;
+mv src/data/config.example.js src/data/config.js;
+$EDITOR src/data/config.js;
 npm run build;
 npm start;
 ```
@@ -36,8 +36,7 @@ Commands:
 * `+languages` - show all available language translations you can set
 * `+setlanguage LANG` - set a preferred language
 * `+language` - display your current language
-* `+allusers` - list all users throughout all servers (not counting duplicates or bots)
-* `+users` - list all users in the server where the message is sent
+* `+users` - list all users throughout all servers (not counting duplicates or bots)
 * `+servers` - show how many servers BibleBot is in
 * `+invite` - get the invite link for BibleBot
 
@@ -71,4 +70,4 @@ and the dotfiles do not need to have the version number updated.
 
 ### Special Thanks
 
-**adfizz, apocz, audiovideodisco, Banská Bystrica, Blubb, BonaventureSissokovitch, Buggyrcobra, Coal, DeadPixels, jznsamuel, Koockies, Mark Nunberg, Manelic, Raven Melodie, omeratagun, Sezess, sunray.steemit, SwedishMeatball, Tuonela, TySpeedy, Viva98, xnkmevaou, Zyxl** - for their hard work on helping BibleBot reach the world by translating languages :heart:
+**adfizz, apocz, audiovideodisco, Banská Bystrica, Blubb, BonaventureSissokovitch, Buggyrcobra, Coal, DeadPixels, jznsamuel, Koockies, Mark Nunberg, Manelic, Raven Melodie, omeratagun, Sezess, sunray.steemit, SwedishMeatball, Tuonela, TySpeedy, Viva98, xnkmevaou, Zyxl** and countless others for their hard work on helping BibleBot reach the world by translating languages! :heart:

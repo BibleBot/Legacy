@@ -12,40 +12,45 @@ const verseHandler = new VerseHandler();
 
 import settings from "./handlers/commands/settings";
 
+let shard;
+const totalShards = config.shards;
+
 bot.on("ready", () => {
-    central.logMessage("info", bot.shard.id, "global", "global", "connected");
+    shard = bot.shard.id + 1;
+
+    central.logMessage("info", shard, "global", "global", "connected");
 
     bot.user.setPresence({
         status: "online",
-        activity: {
-            "type": 0,
-            "name": "BibleBot v" + process.env.npm_package_version + " | Shard: " +
-                bot.shard.id + " / " + bot.shard.count,
-            "url": "https://biblebot.vypr.space"
+        game: {
+            type: 0,
+            name: "BibleBot v" + process.env.npm_package_version + " | Shard: " +
+                shard + " / " + totalShards,
+            url: "https://biblebot.vypr.space"
         }
     });
 });
 
 bot.on("debug", (debug) => {
     if (config.debug) {
-        central.logMessage("debug", bot.shard.id, "global", "global", debug);
+        central.logMessage("debug", (bot.shard.id + 1), "global", "global", debug);
     }
 });
 
 bot.on("reconnecting", () => {
-    central.logMessage("info", bot.shard.id, "global", "global", "attempting to reconnect");
+    central.logMessage("info", shard, "global", "global", "attempting to reconnect");
 });
 
 bot.on("disconnect", () => {
-    central.logMessage("info", bot.shard.id, "global", "global", "disconnected");
+    central.logMessage("info", shard, "global", "global", "disconnected");
 });
 
 bot.on("warning", (warn) => {
-    central.logMessage("warn", bot.shard.id, "global", "global", warn);
+    central.logMessage("warn", shard, "global", "global", warn);
 });
 
 bot.on("error", (e) => {
-    central.logMessage("err", bot.shard.id, "global", "global", e);
+    central.logMessage("err", shard, "global", "global", e);
 });
 
 bot.on("message", (raw) => {
@@ -101,7 +106,7 @@ bot.on("message", (raw) => {
             const rawLanguage = language.getRawObject();
 
             try {
-                commandHandler.processCommand(command, args, language, rawSender, (res) => {
+                commandHandler.processCommand(bot, command, args, language, rawSender, (res) => {
                     let originalCommand;
 
                     if (!res.announcement) {
@@ -112,6 +117,12 @@ bot.on("message", (raw) => {
                                 originalCommand = originalCommandName;
                             } else if (command == "eval") {
                                 originalCommand = "eval";
+                            } else if (command == "jepekula") {
+                                originalCommand = "jepekula";
+                            } else if (command == "joseph") {
+                                originalCommand = "joseph";
+                            } else if (command == "supporters") {
+                                originalCommand = "supporters";
                             }
                         });
                     } else {
@@ -154,10 +165,10 @@ bot.on("message", (raw) => {
                     let cleanArgs = args.toString().replaceAll(",", " ");
                     if (originalCommand == "puppet" || originalCommand == "eval" || originalCommand == "announce") cleanArgs = "";
 
-                    central.logMessage(res.level, bot.shard.id, sender, source, "+" + originalCommand + " " + cleanArgs);
+                    central.logMessage(res.level, shard, sender, source, "+" + originalCommand + " " + cleanArgs);
                 });
             } catch (e) {
-                central.logMessage("err", bot.shard.id, sender, source, e.message);
+                central.logMessage("err", shard, sender, source, e.message);
 
                 channel.send(e.message);
                 console.error(e.stack);
@@ -165,7 +176,7 @@ bot.on("message", (raw) => {
             }
         } else {
             try {
-                verseHandler.processRawMessage(bot.shard.id, raw, rawSender, language, (result) => {
+                verseHandler.processRawMessage(shard, raw, rawSender, language, (result) => {
                     if (!result.invalid) {
                         if (result.twoMessages) {
                             channel.send(result.firstMessage);
@@ -174,11 +185,11 @@ bot.on("message", (raw) => {
                             channel.send(result.message);
                         }
 
-                        central.logMessage(result.level, bot.shard.id, sender, source, result.reference);
+                        central.logMessage(result.level, shard, sender, source, result.reference);
                     }
                 });
             } catch (e) {
-                central.logMessage("err", bot.shard.id, sender, source, e.message);
+                central.logMessage("err", shard, sender, source, e.message);
                 return;
             }
         }
@@ -187,6 +198,6 @@ bot.on("message", (raw) => {
 
 
 central.logMessage(
-    "info", "global", "global", "BibleBot v" + process.env.npm_package_version +
-    " by Elliott Pardee (vypr) - shard " + bot.shard.id + " / " + bot.shard.count);
+    "info", (bot.shard.id + 1), "global", "global", "BibleBot v" + process.env.npm_package_version +
+    " by Elliott Pardee (vypr)");
 bot.login(config.token);

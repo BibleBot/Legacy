@@ -15,10 +15,14 @@ const commandMap = {
     "languages": 0,
     "setlanguage": 1,
     "language": 0,
-    "allusers": 0,
-    "users": 0,
-    "servers": 0,
+    "allusers": 1,
+    "users": 1,
+    "servers": 1,
     "invite": 0,
+
+    "jepekula": 0,
+    "joseph": 0,
+    "supporters": 0,
 
     "addversion": 5,
     "av": 5
@@ -45,6 +49,21 @@ function isCommand(command, lang) {
         result = {
             ok: true,
             orig: "eval"
+        };
+    } else if (command == "jepekula") {
+        result = {
+            ok: true,
+            orig: "jepekula"
+        };
+    } else if (command == "joseph") {
+        result = {
+            ok: true,
+            orig: "joseph"
+        };
+    } else if (command == "supporters") {
+        result = {
+            ok: true,
+            orig: "supporters"
         };
     } else {
         Object.keys(commands).forEach((originalCommandName) => {
@@ -97,7 +116,7 @@ export default class CommandHandler extends Handler {
      * @param {user object} sender The sender of the command.
      * @param {function} callback The callback.
      */
-    processCommand(command, args = null, lang, sender, callback) {
+    processCommand(bot, command, args = null, lang, sender, callback) {
         if (!Array.isArray(args)) {
             this.processCommand(command, null, lang);
         }
@@ -109,26 +128,32 @@ export default class CommandHandler extends Handler {
         if (properCommand.ok) {
             if (!isOwnerCommand(properCommand.orig, rawLanguage)) {
                 if (properCommand.orig != commands.headings && properCommand.orig != commands.versenumbers) {
+                    if (properCommand.orig != commands.servers && properCommand.orig != commands.allusers && properCommand.orig != commands.users) {
                     const requiredArguments = commandMap[properCommand.orig];
 
-                    // let's avoid a TypeError!
-                    if (args == null) {
-                        args = {
-                            length: 0
-                        };
+                        // let's avoid a TypeError!
+                        if (args == null) {
+                            args = {
+                                length: 0
+                            };
+                        }
+
+                        if (args.length != requiredArguments) {
+                            const response = rawLanguage.argumentCountError
+                                .replace("<command>", command)
+                                .replace("<count>", requiredArguments);
+
+                            throw new Error(response);
+                        }
+
+                        commandBridge.runCommand(properCommand.orig, args, rawLanguage, sender, (result) => {
+                            return callback(result);
+                        });
+                    } else {
+                        commandBridge.runCommand(properCommand.orig, [ bot ], rawLanguage, sender, (result) => {
+                            return callback(result);
+                        });
                     }
-
-                    if (args.length != requiredArguments) {
-                        const response = rawLanguage.argumentCountError
-                            .replace("<command>", command)
-                            .replace("<count>", requiredArguments);
-
-                        throw new Error(response);
-                    }
-
-                    commandBridge.runCommand(properCommand.orig, args, rawLanguage, sender, (result) => {
-                        return callback(result);
-                    });
                 } else {
                     // headings/versenumbers can take 1 or no argument
                 }

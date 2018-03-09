@@ -65,7 +65,7 @@ export default {
         };
     },
     logMessage: (level, shard, sender, channel, message) => {
-        let content = "<" + sender + "@" + channel + " on shard " + shard + "> " + message;
+        let content = "[shard " + shard + "] <" + sender + "@" + channel + "> " + message;
 
         switch (level) {
             case "debug":

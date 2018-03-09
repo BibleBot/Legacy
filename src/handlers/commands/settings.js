@@ -6,30 +6,30 @@ export default {
             version = version.toUpperCase();
 
             central.versionDB.find({
-                "abbv": version
+                abbv: version
             }, function(err, docs) {
                 if (docs.length === 0) {
                     return callback(null);
                 }
                 central.db.find({
-                    "id": user.id
+                    id: user.id
                 }, function(err, doc) {
                     if (doc.length > 0) {
                         central.db.update({
-                            "id": user.id
+                            id: user.id
                         }, {
                             $set: {
-                                "version": version
+                                version: version
                             }
                         }, {
-                            "multi": true
+                            multi: true
                         }, function(err, docs) {
                             return callback(docs);
                         });
                     } else {
                         central.db.insert({
-                            "id": user.id,
-                            "version": version
+                            id: user.id,
+                            version: version
                         }, function(err, docs) {
                             return callback(docs);
                         });
@@ -40,7 +40,7 @@ export default {
 
         getVersion: (user, callback) => {
             central.db.find({
-                "id": user.id
+                id: user.id
             }, function(err, docs) {
                 if (docs.length > 0) {
                     return callback(docs);
@@ -66,24 +66,24 @@ export default {
         setLanguage: (user, language, callback) => {
             if (central.languages[language]) {
                 central.db.find({
-                    "id": user.id
+                    id: user.id
                 }, function(err, doc) {
                     if (doc.length > 0) {
                         central.db.update({
-                            "id": user.id
+                            id: user.id
                         }, {
                             $set: {
-                                "language": language
+                                language: language
                             }
                         }, {
-                            "multi": true
+                            multi: true
                         }, function(err, docs) {
                             return callback(docs);
                         });
                     } else {
                         central.db.insert({
-                            "id": user.id,
-                            "language": language
+                            id: user.id,
+                            language: language
                         }, function(err, docs) {
                             return callback(docs);
                         });
@@ -96,7 +96,7 @@ export default {
 
         getLanguage: (user, callback) => {
             central.db.find({
-                "id": user.id
+                id: user.id
             }, function(err, docs) {
                 if (docs.length > 0) {
                     if (central.languages[docs[0].language]) {
@@ -132,24 +132,24 @@ export default {
             }
 
             central.db.find({
-                "id": user.id
+                id: user.id
             }, function(err, doc) {
                 if (doc.length > 0) {
                     central.db.update({
-                        "id": user.id
+                        id: user.id
                     }, {
                         $set: {
-                            "headings": headings
+                            headings: headings
                         }
                     }, {
-                        "multi": true
+                        multi: true
                     }, function(err, docs) {
                         return callback(docs);
                     });
                 } else {
                     central.db.insert({
-                        "id": user.id,
-                        "headings": headings
+                        id: user.id,
+                        headings: headings
                     }, function(err, docs) {
                         return callback(docs);
                     });
@@ -157,8 +157,20 @@ export default {
             });
         },
 
-        getHeadings: () => {
-
+        getHeadings: (user, callback) => {
+            central.db.find({
+                id: user.id
+            }, function(err, docs) {
+                if (docs.length > 0) {
+                    if (docs.headings) {
+                        return callback(docs.headings);
+                    } else {
+                        return callback(null);
+                    }
+                } else {
+                    return callback(null);
+                }
+            });
         },
 
         setVerseNumbers: (user, verseNumbers, callback) => {
@@ -169,24 +181,24 @@ export default {
             }
 
             central.db.find({
-                "id": user.id
+                id: user.id
             }, function(err, doc) {
                 if (doc.length > 0) {
                     central.db.update({
-                        "id": user.id
+                        id: user.id
                     }, {
                         $set: {
-                            "verseNumbers": verseNumbers
+                            verseNumbers: verseNumbers
                         }
                     }, {
-                        "multi": true
+                        multi: true
                     }, function(err, docs) {
                         return callback(docs);
                     });
                 } else {
                     central.db.insert({
-                        "id": user.id,
-                        "verseNumbers": verseNumbers
+                        id: user.id,
+                        verseNumbers: verseNumbers
                     }, function(err, docs) {
                         return callback(docs);
                     });
@@ -194,8 +206,20 @@ export default {
             });
         },
 
-        getVerseNumbers: () => {
-
+        getVerseNumbers: (user, callback) => {
+            central.db.find({
+                id: user.id
+            }, function(err, docs) {
+                if (docs.length > 0) {
+                    if (docs.verseNumbers) {
+                        return callback(docs.verseNumbers);
+                    } else {
+                        return callback(null);
+                    }
+                } else {
+                    return callback(null);
+                }
+            });
         }
     }
 };
