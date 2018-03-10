@@ -12,13 +12,25 @@
         "sourceType": "module"
     },
     "rules": {
-        "no-const-assign": "warn",
-        "no-this-before-super": "warn",
+        "no-const-assign": "error",
+        "no-this-before-super": "error",
         "no-undef": "warn",
         "no-unreachable": "warn",
         "no-unused-vars": "warn",
-        "constructor-super": "warn",
+        "constructor-super": "error",
         "valid-typeof": "warn",
-        "semi": "error"
+        "semi": "error",
+        "camelcase": "error",
+        "valid-jsdoc": "error",
+        "accessor-pairs": "error",
+        "curly": "error",
+        "eqeqeq": "error",
+        "no-sync": "error",
+        "no-buffer-constructor": "error",
+        "arrow-body-style": "error",
+        "arrow-parens": "error",
+        "brace-style": ["error", "1tbs"],
+        "no-tabs": "error",
+        "callback-return": "error"
     }
 }

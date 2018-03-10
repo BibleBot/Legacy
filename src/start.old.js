@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import central from "./central";
 
 // Discord API
@@ -79,21 +81,24 @@ bot.on("message", (raw) => {
     }
 
     central.getLanguage(rawSender, (language) => {
-        if (typeof language == "undefined") {
+        if (typeof language === "undefined") {
             language = central.languages.english_us;
         }
 
-        if ((typeof channel.guild != "undefined") &&
-            (typeof channel.name != "undefined")) {
+        if ((typeof channel.guild !== "undefined") &&
+            (typeof channel.name !== "undefined")) {
             source = channel.guild.name + "#" + channel.name;
         } else {
             source = "unknown (direct messages?)";
         }
 
-        if (sender == config.botname) return;
-        if (source.includes("Discord Bots") &&
-            raw.author.id != config.owner)
+        if (sender == config.botname) {
             return;
+        }
+        if (source.includes("Discord Bots") &&
+            raw.author.id != config.owner) {
+            return;
+        }
 
         // for verse arrays
         let alphabet = "abcdef";
@@ -108,8 +113,11 @@ bot.on("message", (raw) => {
 
                 if (data) {
                     if (data[0].hasOwnProperty('version')) {
-                        if (data[0].version == "HWP") version = "NRSV";
-                        else version = data[0].version;
+                        if (data[0].version == "HWP") {
+                            version = "NRSV";
+                        } else {
+                            version = data[0].version;
+                        }
                     }
                     if (data[0].hasOwnProperty('headings')) {
                         headings = data[0].headings;
@@ -163,7 +171,9 @@ bot.on("message", (raw) => {
             raw.author.id == config.owner) {
             bot.guilds.forEach((value) => {
                 if (value.name == "Discord Bots" ||
-                    value.name == "Discord Bot List") return;
+                    value.name == "Discord Bot List") {
+                    return;
+                }
 
                 let sent = false;
                 let ch = value.channels.findAll("type", "text");
@@ -173,7 +183,7 @@ bot.on("message", (raw) => {
 
                 for (let i = 0; i < preferred.length; i++) {
                     if (!sent) {
-                        let receiver = ch.find(val => val.name === preferred[i]);
+                        let receiver = ch.find((val) => val.name === preferred[i]);
 
                         if (receiver) {
                             receiver.send(msg.replace(
@@ -193,8 +203,8 @@ bot.on("message", (raw) => {
         } else if (msg.startsWith("+" + language.rawobj.commands.puppet + " ") &&
             raw.author.id == config.owner) {
             // requires manage messages permission (optional)
-            raw.delete().then(msg => central.logMessage("info", sender, source, msg))
-                .catch(msg => central.logMessage("info", sender, source, msg));
+            raw.delete().then((msg) => central.logMessage("info", sender, source, msg))
+                .catch((msg) => central.logMessage("info", sender, source, msg));
             channel.send(msg.replaceAll("+" +
                 language.rawobj.commands.puppet + " ", ""));
         } else if (msg.startsWith("+eval") && rawSender.id == config.owner) {
@@ -229,7 +239,9 @@ bot.on("message", (raw) => {
                 let users = guild.members.size;
 
                 guild.members.forEach((v) => {
-                    if (v.user.bot) users--;
+                    if (v.user.bot) {
+                        users--;
+                    }
                 });
 
                 central.logMessage("info", sender, source, "+users");
@@ -310,8 +322,11 @@ bot.on("message", (raw) => {
 
                 if (data) {
                     if (data[0].hasOwnProperty('version')) {
-                        if (data[0].version == "HWP") version = "NRSV";
-                        else version = data[0].version;
+                        if (data[0].version == "HWP") {
+                            version = "NRSV";
+                        } else {
+                            version = data[0].version;
+                        }
                     }
                     if (data[0].hasOwnProperty('headings')) {
                         headings = data[0].headings;
@@ -336,8 +351,11 @@ bot.on("message", (raw) => {
 
                 if (data) {
                     if (data[0].hasOwnProperty('version')) {
-                        if (data[0].version == "HWP") version = "NRSV";
-                        else version = data[0].version;
+                        if (data[0].version == "HWP") {
+                            version = "NRSV";
+                        } else {
+                            version = data[0].version;
+                        }
                     }
                     if (data[0].hasOwnProperty('headings')) {
                         headings = data[0].headings;
@@ -572,7 +590,9 @@ bot.on("message", (raw) => {
 
                 if (data) {
                     if (data[0].version) {
-                        if (data[0].version == "HWP") data[0].version = "NRSV";
+                        if (data[0].version == "HWP") {
+                            data[0].version = "NRSV";
+                        }
                         let response = language.rawobj.versionused;
 
                         response = response.replace(
@@ -753,20 +773,23 @@ bot.on("message", (raw) => {
                         let response = language.rawobj.versioninfo;
                         response = response.replace("<versionname>", data[0].name);
 
-                        if (data[0].hasOT == true)
+                        if (data[0].hasOT == true) {
                             response = response.replace("<hasOT>", language.rawobj.arguments.yes);
-                        else
+                        } else {
                             response = response.replace("<hasOT>", language.rawobj.arguments.no);
+                        }
 
-                        if (data[0].hasNT == true)
+                        if (data[0].hasNT == true) {
                             response = response.replace("<hasNT>", language.rawobj.arguments.yes);
-                        else
+                        } else {
                             response = response.replace("<hasNT>", language.rawobj.arguments.no);
+                        }
 
-                        if (data[0].hasAPO == true)
+                        if (data[0].hasAPO == true) {
                             response = response.replace("<hasAPO>", language.rawobj.arguments.yes);
-                        else
+                        } else {
                             response = response.replace("<hasAPO>", language.rawobj.arguments.no);
+                        }
 
                         raw.reply(response);
                     } else {
@@ -943,21 +966,27 @@ bot.on("message", (raw) => {
 
                 // if it's surrounded by angle brackets
                 // we want to ignore it
-                if (spaceSplit[index].indexOf("<") != -1) return;
+                if (spaceSplit[index].indexOf("<") != -1) {
+                    return;
+                }
 
                 let angleBracketIndexes = [];
                 for (let i in spaceSplit) {
-                    if ((i < index) && (spaceSplit[i].indexOf("<") != -1))
+                    if ((i < index) && (spaceSplit[i].indexOf("<") != -1)) {
                         angleBracketIndexes.push(i);
+                    }
 
-                    if ((i > index) && (spaceSplit[i].indexOf(">") != -1))
+                    if ((i > index) && (spaceSplit[i].indexOf(">") != -1)) {
                         angleBracketIndexes.push(i);
+                    }
                 }
 
-                if (angleBracketIndexes.length == 2)
+                if (angleBracketIndexes.length == 2) {
                     if (angleBracketIndexes[0] < index &&
-                        angleBracketIndexes[1] > index)
+                        angleBracketIndexes[1] > index) {
                         return;
+                    }
+                }
 
                 // organize our variables correctly
                 let book = spaceSplit[index];
@@ -987,7 +1016,9 @@ bot.on("message", (raw) => {
                 // check if there's an ending verse
                 // if so, add it to the verse array
                 if (spaceSplit[index + 3] != undefined) {
-                    if (spaceSplit[index + 3].indexOf(">") != -1) return;
+                    if (spaceSplit[index + 3].indexOf(">") != -1) {
+                        return;
+                    }
                     if (!isNaN(Number(spaceSplit[index + 3]))) {
                         if (Number(spaceSplit[index + 3]) >
                             Number(spaceSplit[index + 2])) {
@@ -1053,7 +1084,7 @@ bot.on("message", (raw) => {
                 let verse = verses[alphabet[i]];
 
                 for (let k = 0; k < verse.length; k++) {
-                    if (typeof verse[k] != "undefined") {
+                    if (typeof verse[k] !== "undefined") {
                         verse[k] = verse[k].replaceAll(/[^a-zA-Z0-9:]/g, "");
                     }
                 }
@@ -1112,8 +1143,11 @@ bot.on("message", (raw) => {
                     if (data) {
                         if (data[0].hasOwnProperty('version')) {
                             // RIP HWP (a while ago - January 1st, 2018)
-                            if (data[0].version == "HWP") version = "NRSV";
-                            else version = data[0].version;
+                            if (data[0].version == "HWP") {
+                                version = "NRSV";
+                            } else {
+                                version = data[0].version;
+                            }
                         }
                         if (data[0].hasOwnProperty('headings')) {
                             headings = data[0].headings;

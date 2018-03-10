@@ -132,7 +132,7 @@ export function getResult(query, version, headings, verseNumbers) {
             $(".result-text-style-normal").each(function() {
                 const verse = $(this);
 
-                if (headings == "disable") {
+                if (headings === "disable") {
                     $(".result-text-style-normal h3").each(function() {
                         $(this).html("");
                     });
@@ -142,7 +142,7 @@ export function getResult(query, version, headings, verseNumbers) {
                     });
                 }
 
-                if (verseNumbers == "disable") {
+                if (verseNumbers === "disable") {
                     $(".chapternum").each(function() {
                         $(this).html(" ");
                     });
@@ -173,7 +173,7 @@ export function getResult(query, version, headings, verseNumbers) {
                 });
 
                 let title = "";
-                if (headings == "enable") {
+                if (headings === "enable") {
                     verse.find("h3").each(function() {
                         title += $(this).text() + " / ";
                     });

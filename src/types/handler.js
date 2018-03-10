@@ -24,12 +24,12 @@ export default class {
      * Options are COMMAND_EVENT, VERSE_EVENT, or NO_EVENT.
      */
     constructor(handling) {
-        if (typeof handling != "string") {
+        if (typeof handling !== "string") {
             return TypeError("argument must be a string");
         }
 
         let index = Object.keys(possibleEvents).indexOf(handling);
-        if (index == -1) {
+        if (index === -1) {
             return Error("argument must be COMMAND_EVENT, VERSE_EVENT, or NO_EVENT");
         }
 

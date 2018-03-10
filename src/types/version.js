@@ -23,20 +23,19 @@ export default class {
         this.hasNT = false;
         this.hasAPO = false;
 
-        if (hasOT == "yes") {
+        if (hasOT === "yes") {
             this.hasOT = true;
         }
 
-        if (hasNT == "yes") {
+        if (hasNT === "yes") {
             this.hasNT = true;
         }
 
-        if (hasAPO == "yes") {
+        if (hasAPO === "yes") {
             this.hasAPO = true;
         }
     }
 
-    /** @returns A JSON object of the version. */
     toObject() {
         return {
             "name": this.name,
@@ -47,7 +46,6 @@ export default class {
         };
     }
 
-    /** @returns A string of the JSON object. */
     toString() {
         return JSON.stringify(this.toObject());
     }

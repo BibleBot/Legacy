@@ -26,7 +26,10 @@ export function runCommand(command, args, lang, user, callback) {
             settings.versions.getVersion(user, (data) => {
                 if (data) {
                     if (data[0].version) {
-                        if (data[0].version == "HWP") data[0].version = "NRSV";
+                        if (data[0].version === "HWP") {
+                            data[0].version = "NRSV";
+                        }
+
                         let response = lang.versionused;
 
                         response = response.replace(
@@ -92,20 +95,23 @@ export function runCommand(command, args, lang, user, callback) {
                     let response = lang.versioninfo;
                     response = response.replace("<versionname>", data[0].name);
 
-                    if (data[0].hasOT == true)
+                    if (data[0].hasOT === true) {
                         response = response.replace("<hasOT>", lang.arguments.yes);
-                    else
+                    } else {
                         response = response.replace("<hasOT>", lang.arguments.no);
+                    }
 
-                    if (data[0].hasNT == true)
+                    if (data[0].hasNT === true) {
                         response = response.replace("<hasNT>", lang.arguments.yes);
-                    else
+                    } else {
                         response = response.replace("<hasNT>", lang.arguments.no);
+                    }
 
-                    if (data[0].hasAPO == true)
+                    if (data[0].hasAPO === true) {
                         response = response.replace("<hasAPO>", lang.arguments.yes);
-                    else
+                    } else {
                         response = response.replace("<hasAPO>", lang.arguments.no);
+                    }
 
                     return callback({
                         level: "info",
@@ -175,8 +181,11 @@ export function runCommand(command, args, lang, user, callback) {
 
                 if (data) {
                     if (data[0].hasOwnProperty('version')) {
-                        if (data[0].version == "HWP") version = "NRSV";
-                        else version = data[0].version;
+                        if (data[0].version === "HWP") {
+                            version = "NRSV";
+                        } else {
+                            version = data[0].version;
+                        }
                     }
                     if (data[0].hasOwnProperty('headings')) {
                         headings = data[0].headings;
@@ -186,10 +195,10 @@ export function runCommand(command, args, lang, user, callback) {
                     }
                 }
 
-                if (version != "REV") {
+                if (version !== "REV") {
                     bibleGateway.getVOTD(version, headings, verseNumbers)
                         .then((result) => {
-                            if (result == "too long") {
+                            if (result === "too long") {
                                 return callback({
                                     level: "err",
                                     message: lang.passagetoolong
@@ -204,7 +213,7 @@ export function runCommand(command, args, lang, user, callback) {
                 } else {
                     rev.getVOTD(version, headings, verseNumbers)
                         .then((result) => {
-                            if (result == "too long") {
+                            if (result === "too long") {
                                 return callback({
                                     level: "err",
                                     message: lang.passagetoolong
@@ -230,8 +239,11 @@ export function runCommand(command, args, lang, user, callback) {
 
                 if (data) {
                     if (data[0].hasOwnProperty('version')) {
-                        if (data[0].version == "HWP") version = "NRSV";
-                        else version = data[0].version;
+                        if (data[0].version === "HWP") {
+                            version = "NRSV";
+                        } else {
+                            version = data[0].version;
+                        }
                     }
                     if (data[0].hasOwnProperty('headings')) {
                         headings = data[0].headings;
@@ -241,10 +253,10 @@ export function runCommand(command, args, lang, user, callback) {
                     }
                 }
 
-                if (version != "REV") {
+                if (version !== "REV") {
                     bibleGateway.getRandomVerse(version, headings, verseNumbers)
                         .then((result) => {
-                            if (result == "too long") {
+                            if (result === "too long") {
                                 return callback({
                                     level: "err",
                                     message: lang.passagetoolong
@@ -259,7 +271,7 @@ export function runCommand(command, args, lang, user, callback) {
                 } else {
                     rev.getRandomVerse(version, headings, verseNumbers)
                         .then((result) => {
-                            if (result == "too long") {
+                            if (result === "too long") {
                                 return callback({
                                     level: "err",
                                     message: lang.passagetoolong
@@ -275,7 +287,9 @@ export function runCommand(command, args, lang, user, callback) {
             });
             break;
         case "headings":
-            break;
+            if (args) {
+                break;
+            }
         case "versenumbers":
             break;
         case "users":
@@ -307,8 +321,11 @@ export function runCommand(command, args, lang, user, callback) {
 
                 if (data) {
                     if (data[0].hasOwnProperty('version')) {
-                        if (data[0].version == "HWP") version = "NRSV";
-                        else version = data[0].version;
+                        if (data[0].version === "HWP") {
+                            version = "NRSV";
+                        } else {
+                            version = data[0].version;
+                        }
                     }
                     if (data[0].hasOwnProperty('headings')) {
                         headings = data[0].headings;
@@ -318,7 +335,7 @@ export function runCommand(command, args, lang, user, callback) {
                     }
                 }
 
-                if (version != "REV") {
+                if (version !== "REV") {
                     bibleGateway.getResult(
                             "Mark 9:23-24", version, headings, verseNumbers)
                         .then((result) => {
@@ -361,9 +378,7 @@ export function runCommand(command, args, lang, user, callback) {
                                     });
                                 }
                             });
-                        }).catch((err) => {
-                            return callback(err);
-                        });
+                        }).catch((err) => callback(err));
                 } else {
                     rev.getResult("Mark 9:23-24", version, headings, verseNumbers)
                         .then((result) => {
@@ -406,9 +421,7 @@ export function runCommand(command, args, lang, user, callback) {
                                     });
                                 }
                             });
-                        }).catch((err) => {
-                            return callback(err);
-                        });
+                        }).catch((err) => callback(err));
                 }
             });
             break;

@@ -74,14 +74,14 @@ export function checkForNumberedBooks(item, array, index) {
             array[index] = array[index - 1] + item;
             break;
         case "Esther":
-            if ((array[index - 1] == "Greek")) {
+            if ((array[index - 1] === "Greek")) {
                 array[index] = array[index - 1] + item;
             } else {
                 array[index] = "Esther";
             }
             break;
         case "Jeremiah":
-            const isLetter = ((array[index - 2] + array[index - 1]) == "LetterOf");
+            const isLetter = ((array[index - 2] + array[index - 1]) === "LetterOf");
 
             if (isLetter) {
                 array[index] = "LetterOfJeremiah";
@@ -135,21 +135,27 @@ export function createVerseObject(array, bookIndex, availableVersions) {
 
     // if it's surrounded by angle brackets
     // we want to ignore it
-    if (array[bookIndex].indexOf("<") != -1) return "invalid";
+    if (array[bookIndex].indexOf("<") !== -1) {
+        return "invalid";
+    }
 
     const angleBracketIndexes = [];
     for (let i in array) {
-        if ((i < bookIndex) && (array[i].indexOf("<") != -1))
+        if ((i < bookIndex) && (array[i].indexOf("<") !== -1)) {
             angleBracketIndexes.push(i);
+        }
 
-        if ((i > bookIndex) && (array[i].indexOf(">") != -1))
+        if ((i > bookIndex) && (array[i].indexOf(">") !== -1)) {
             angleBracketIndexes.push(i);
+        }
     }
 
-    if (angleBracketIndexes.length == 2)
+    if (angleBracketIndexes.length === 2) {
         if (angleBracketIndexes[0] < bookIndex &&
-            angleBracketIndexes[1] > bookIndex)
+            angleBracketIndexes[1] > bookIndex) {
             return "invalid";
+        }
+    }
 
     // organize our variables correctly
     let book = array[bookIndex];
@@ -178,8 +184,10 @@ export function createVerseObject(array, bookIndex, availableVersions) {
 
     // check if there's an ending verse
     // if so, add it to the verse array
-    if (array[bookIndex + 3] != undefined) {
-        if (array[bookIndex + 3].indexOf(">") != -1) return;
+    if (array[bookIndex + 3] !== undefined) {
+        if (array[bookIndex + 3].indexOf(">") !== -1) {
+            return;
+        }
         if (!isNaN(Number(array[bookIndex + 3]))) {
             if (Number(array[bookIndex + 3]) >
                 Number(array[bookIndex + 2])) {
@@ -188,7 +196,7 @@ export function createVerseObject(array, bookIndex, availableVersions) {
                 verse.push(endingVerse);
             }
         } else {
-            if (availableVersions.indexOf(array[bookIndex + 3]) != -1) {
+            if (availableVersions.indexOf(array[bookIndex + 3]) !== -1) {
                 array[bookIndex + 3] = array[bookIndex + 3].toUpperCase();
                 let version = array[bookIndex + 3].replace("<", "");
                 version = version.replace(">", "");
@@ -197,16 +205,16 @@ export function createVerseObject(array, bookIndex, availableVersions) {
         }
     }
 
-    if (array[bookIndex + 4] != undefined) {
+    if (array[bookIndex + 4] !== undefined) {
         if (isNaN(Number(array[bookIndex + 4]))) {
             array[bookIndex + 4] = array[bookIndex + 4].toUpperCase();
-            if (availableVersions.indexOf(array[bookIndex + 4]) != -1) {
+            if (availableVersions.indexOf(array[bookIndex + 4]) !== -1) {
                 let version = array[bookIndex + 4].replace("<", "");
                 version = version.replace(">", "");
                 verse.push("v - " + version);
             }
 
-        } else if (array[bookIndex + 4].indexOf(">") != -1) {
+        } else if (array[bookIndex + 4].indexOf(">") !== -1) {
             return;
         }
     }
@@ -218,7 +226,7 @@ export function createReferenceString(verse) {
     let reference;
 
     for (let k = 0; k < verse.length; k++) {
-        if (typeof verse[k] != "undefined") {
+        if (typeof verse[k] !== "undefined") {
             verse[k] = verse[k].replaceAll(/[^a-zA-Z0-9:]/g, "");
         }
     }
@@ -238,14 +246,14 @@ export function createReferenceString(verse) {
         reference = verse[0] + " " + verse[1] +
             ":" + verse[2];
     } else {
-        if (verse[3] != undefined) {
+        if (verse[3] !== undefined) {
             if (verse[3].startsWith("v")) {
                 reference = verse[0] + " " + verse[1] + ":" +
                     verse[2] + " | v: " + verse[3].substr(1);
             }
         }
 
-        if (verse[4] != undefined) {
+        if (verse[4] !== undefined) {
             if (verse[4].startsWith("v")) {
                 reference = verse[0] + " " + verse[1] + ":" +
                     verse[2] + "-" + verse[3] + " | v: " + verse[4].substr(1);

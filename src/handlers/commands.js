@@ -25,7 +25,7 @@ const commandMap = {
     "supporters": 0,
 
     "addversion": 5,
-    "av": 5
+    "av": 5,
 };
 
 /**
@@ -36,41 +36,42 @@ const commandMap = {
  * 
  * @param {string} command The command that the user is trying to attempt.
  * @param {string} lang The language of the user.
+ * @returns {object} { ok: boolean, orig: string }
  */
 function isCommand(command, lang) {
     const commands = lang.commands;
 
     let result = {
-        ok: false
+        ok: false,
     };
 
     // eval is not in the language files, as it's just a wrapper
-    if (command == "eval") {
+    if (command === "eval") {
         result = {
             ok: true,
-            orig: "eval"
+            orig: "eval",
         };
-    } else if (command == "jepekula") {
+    } else if (command === "jepekula") {
         result = {
             ok: true,
-            orig: "jepekula"
+            orig: "jepekula",
         };
-    } else if (command == "joseph") {
+    } else if (command === "joseph") {
         result = {
             ok: true,
-            orig: "joseph"
+            orig: "joseph",
         };
-    } else if (command == "supporters") {
+    } else if (command === "supporters") {
         result = {
             ok: true,
-            orig: "supporters"
+            orig: "supporters",
         };
     } else {
         Object.keys(commands).forEach((originalCommandName) => {
-            if (commands[originalCommandName] == command) {
+            if (commands[originalCommandName] === command) {
                 result = {
                     ok: true,
-                    orig: originalCommandName
+                    orig: originalCommandName,
                 };
             }
         });
@@ -108,13 +109,15 @@ export default class CommandHandler extends Handler {
     }
 
     /**
-     * Process a command accordingly.
+     * Processes a user command.
      * 
-     * @param {string} command The command, without the prefix.
-     * @param {array of strings} args The arguments of the command (optional).
-     * @param {language object} lang The language of the user.
-     * @param {user object} sender The sender of the command.
+     * @param {object} bot The bot object.
+     * @param {string} command The command.
+     * @param {array} args The arguments of the command.
+     * @param {object} lang The language object.
+     * @param {object} sender The user object of who sent the message.
      * @param {function} callback The callback.
+     * @returns {callback} A callback.
      */
     processCommand(bot, command, args = null, lang, sender, callback) {
         if (!Array.isArray(args)) {
@@ -127,18 +130,18 @@ export default class CommandHandler extends Handler {
 
         if (properCommand.ok) {
             if (!isOwnerCommand(properCommand.orig, rawLanguage)) {
-                if (properCommand.orig != commands.headings && properCommand.orig != commands.versenumbers) {
-                    if (properCommand.orig != commands.servers && properCommand.orig != commands.allusers && properCommand.orig != commands.users) {
-                    const requiredArguments = commandMap[properCommand.orig];
+                if (properCommand.orig !== commands.headings && properCommand.orig !== commands.versenumbers) {
+                    if (properCommand.orig !== commands.servers && properCommand.orig !== commands.allusers && properCommand.orig !== commands.users) {
+                        const requiredArguments = commandMap[properCommand.orig];
 
                         // let's avoid a TypeError!
-                        if (args == null) {
+                        if (args === null) {
                             args = {
-                                length: 0
+                                length: 0,
                             };
                         }
 
-                        if (args.length != requiredArguments) {
+                        if (args.length !== requiredArguments) {
                             const response = rawLanguage.argumentCountError
                                 .replace("<command>", command)
                                 .replace("<count>", requiredArguments);
@@ -147,21 +150,39 @@ export default class CommandHandler extends Handler {
                         }
 
                         commandBridge.runCommand(properCommand.orig, args, rawLanguage, sender, (result) => {
-                            return callback(result);
+                            callback(result);
                         });
                     } else {
-                        commandBridge.runCommand(properCommand.orig, [ bot ], rawLanguage, sender, (result) => {
-                            return callback(result);
+                        commandBridge.runCommand(properCommand.orig, [bot], rawLanguage, sender, (result) => {
+                            callback(result);
                         });
                     }
                 } else {
                     // headings/versenumbers can take 1 or no argument
+                    // let's avoid a TypeError!
+                    if (args === null) {
+                        args = {
+                            length: 0,
+                        };
+                    }
+
+                    if (args.length === 0 || args.length === 1) {
+                        commandBridge.runCommand(properCommand.orig, args, lang, sender, (result) => {
+                            callback(result);
+                        });
+                    } else {
+                        const response = rawLanguage.argumentCountError
+                            .replace("<command>", command)
+                            .replace("<count>", rawLanguage.zeroOrOne);
+
+                        throw new Error(response);
+                    }
                 }
             } else {
                 try {
-                    if (sender.id == config.owner) {
+                    if (sender.id === config.owner) {
                         commandBridge.runOwnerCommand(command, args, (result) => {
-                            return callback(result);
+                            callback(result);
                         });
                     }
                 } catch (e) {

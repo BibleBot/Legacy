@@ -116,7 +116,7 @@ export default {
             for (const lang in central.languages) {
                 array.push({
                     name: central.languages[lang].getName(),
-                    object_name: lang
+                    objectName: lang
                 });
             }
 
@@ -127,7 +127,7 @@ export default {
         setHeadings: (user, headings, callback) => {
             headings = headings.toLowerCase();
 
-            if (headings != "enable" && headings != "disable") {
+            if (headings !== "enable" && headings !== "disable") {
                 return callback(null);
             }
 
@@ -176,7 +176,7 @@ export default {
         setVerseNumbers: (user, verseNumbers, callback) => {
             verseNumbers = verseNumbers.toLowerCase();
 
-            if (verseNumbers != "enable" && verseNumbers != "disable") {
+            if (verseNumbers !== "enable" && verseNumbers !== "disable") {
                 return callback(null);
             }
 

@@ -50,7 +50,7 @@ export default {
         let before = s.lastIndexOf(' <', middle);
         let after = s.indexOf(' <', middle + 1);
 
-        if (before == -1 || (after != -1 && middle - before >= after - middle)) {
+        if (before === -1 || (after !== -1 && middle - before >= after - middle)) {
             middle = after;
         } else {
             middle = before;

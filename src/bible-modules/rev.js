@@ -172,18 +172,18 @@ export function getResult(query, version, headings, verseNumbers) {
                     text = text.replace(/(\r\n|\n|\r)/gm, " ").slice(1, -1);
                 }
 
-                if (verseNumbers == "disable") {
+                if (verseNumbers === "disable") {
                     text = text.replace(/.?\[[0-9]\]/g, "");
                 }
 
-                if (headings == "disable") {
+                if (headings === "disable") {
                     title = "";
                 }
 
                 const verseObject = {
                     "passage": query,
                     "version": "Revised English Version (REV)",
-                    "title": (title == "") ? "" : title.slice(0, -3),
+                    "title": (title === "") ? "" : title.slice(0, -3),
                     "text": purifyText(text)
                 };
 

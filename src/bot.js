@@ -67,7 +67,7 @@ bot.on("message", (raw) => {
             case "vipr#4035":
                 break;
             default:
-                if (config.versionAdders.indexOf(sender) != -1) {
+                if (config.versionAdders.indexOf(sender) !== -1) {
                     break;
                 } else {
                     return;
@@ -79,27 +79,29 @@ bot.on("message", (raw) => {
         // channel.guild is used here because
         // of the possibility that DMs are being used
         // otherwise, i'd use guild.name
-        if ((typeof channel.guild != "undefined") &&
-            (typeof channel.name != "undefined")) {
+        if ((typeof channel.guild !== "undefined") &&
+            (typeof channel.name !== "undefined")) {
             source = channel.guild.name + "#" + channel.name;
         } else {
             source = "unknown (direct messages?)";
         }
 
-        if (sender == config.botname) return;
+        if (sender === config.botname) {
+            return;
+        }
         if (channel.guild.name.includes("Discord Bot")) {
-            if (raw.author.id != config.owner) {
+            if (raw.author.id !== config.owner) {
                 return;
             }
         }
 
-        if (message.charAt(0) == "+") {
+        if (message.charAt(0) === "+") {
             const command = message.substr(1).split(" ")[0];
 
             let args = message.split(" ");
             const returnValue = args.shift(); // remove the first item
 
-            if (returnValue == undefined) {
+            if (returnValue === undefined) {
                 args = null;
             }
 
@@ -113,28 +115,30 @@ bot.on("message", (raw) => {
                         channel.send(res.message);
 
                         Object.keys(rawLanguage.commands).forEach((originalCommandName) => {
-                            if (rawLanguage.commands[originalCommandName] == command) {
+                            if (rawLanguage.commands[originalCommandName] === command) {
                                 originalCommand = originalCommandName;
-                            } else if (command == "eval") {
+                            } else if (command === "eval") {
                                 originalCommand = "eval";
-                            } else if (command == "jepekula") {
+                            } else if (command === "jepekula") {
                                 originalCommand = "jepekula";
-                            } else if (command == "joseph") {
+                            } else if (command === "joseph") {
                                 originalCommand = "joseph";
-                            } else if (command == "supporters") {
+                            } else if (command === "supporters") {
                                 originalCommand = "supporters";
                             }
                         });
                     } else {
                         Object.keys(rawLanguage.commands).forEach((originalCommandName) => {
-                            if (rawLanguage.commands[originalCommandName] == command) {
+                            if (rawLanguage.commands[originalCommandName] === command) {
                                 originalCommand = originalCommandName;
                             }
                         });
 
                         bot.guilds.forEach((value) => {
-                            if (value.name == "Discord Bots" ||
-                                value.name == "Discord Bot List") return;
+                            if (value.name === "Discord Bots" ||
+                                value.name === "Discord Bot List") {
+                                return;
+                            }
 
                             let sent = false;
                             const ch = value.channels.findAll("type", "text");
@@ -144,7 +148,7 @@ bot.on("message", (raw) => {
 
                             for (let i = 0; i < preferred.length; i++) {
                                 if (!sent) {
-                                    let receiver = ch.find(val => val.name === preferred[i]);
+                                    let receiver = ch.find((val) => val.name === preferred[i]);
 
                                     if (receiver) {
                                         receiver.send(res.message.replace(
@@ -163,7 +167,9 @@ bot.on("message", (raw) => {
                     }
 
                     let cleanArgs = args.toString().replaceAll(",", " ");
-                    if (originalCommand == "puppet" || originalCommand == "eval" || originalCommand == "announce") cleanArgs = "";
+                    if (originalCommand === "puppet" || originalCommand === "eval" || originalCommand === "announce") {
+                        cleanArgs = "";
+                    }
 
                     central.logMessage(res.level, shard, sender, source, "+" + originalCommand + " " + cleanArgs);
                 });

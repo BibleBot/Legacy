@@ -64,7 +64,7 @@ export default class VerseHandler extends Handler {
 
                     verse = utils.createVerseObject(split, index, availableVersions);
 
-                    if (verse == "invalid") {
+                    if (verse === "invalid") {
                         invalid = true;
                         return callback({
                             invalid: invalid
@@ -113,8 +113,11 @@ export default class VerseHandler extends Handler {
                         if (data) {
                             if (data[0].hasOwnProperty('version')) {
                                 // RIP HWP (a while ago - January 1st, 2018)
-                                if (data[0].version == "HWP") version = "NRSV";
-                                else version = data[0].version;
+                                if (data[0].version === "HWP") {
+                                    version = "NRSV";
+                                } else {
+                                    version = data[0].version;
+                                }
                             }
                             if (data[0].hasOwnProperty('headings')) {
                                 headings = data[0].headings;
@@ -124,7 +127,7 @@ export default class VerseHandler extends Handler {
                             }
                         }
 
-                        if (reference.split(" | v: ")[1] != undefined) {
+                        if (reference.split(" | v: ")[1] !== undefined) {
                             version = reference.split(" | v: ")[1];
                             reference = reference.split(" | v: ")[0];
                         }
@@ -145,7 +148,7 @@ export default class VerseHandler extends Handler {
                                     let isAPO = false;
 
                                     for (let index in books.ot) {
-                                        if (books.ot[index] == book) {
+                                        if (books.ot[index] === book) {
                                             isOT = true;
                                         }
                                     }
@@ -174,7 +177,7 @@ export default class VerseHandler extends Handler {
                                     }
 
                                     for (let index in books.nt) {
-                                        if (books.nt[index] == book) {
+                                        if (books.nt[index] === book) {
                                             isNT = true;
                                         }
                                     }
@@ -203,7 +206,7 @@ export default class VerseHandler extends Handler {
                                     }
 
                                     for (let index in books.apo) {
-                                        if (books.apo[index] == book) {
+                                        if (books.apo[index] === book) {
                                             isAPO = true;
                                         }
                                     }
@@ -236,7 +239,7 @@ export default class VerseHandler extends Handler {
                                 // to nicely provide us with a verse object
                                 // to send back; the last step of the process
                                 if (continueProcessing) {
-                                    if (version != "REV") {
+                                    if (version !== "REV") {
                                         bibleGateway.getResult(
                                                 reference, version, headings, verseNumbers)
                                             .then((result) => {
