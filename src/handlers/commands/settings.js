@@ -165,10 +165,10 @@ export default {
                     if (docs.headings) {
                         return callback(docs.headings);
                     } else {
-                        return callback(null);
+                        return callback("enable");
                     }
                 } else {
-                    return callback(null);
+                    return callback("enable");
                 }
             });
         },

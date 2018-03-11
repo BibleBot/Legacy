@@ -42,7 +42,7 @@ Commands:
 
 Bot Owner Commands:
 
-* `+addversion versionname abbv hasOT hasNT hasAPO` - add a version (`+av`)
+* `+addversion versionname abbv hasOT hasNT hasAPO` (`+av`) - add a version
 * `+puppet message` - say something as the bot
 * `+eval javascript` - execute javascript code
 * `+announce msg` - announce a message to every server using the bot

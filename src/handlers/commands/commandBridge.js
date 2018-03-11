@@ -1,6 +1,5 @@
 import settings from "./settings";
 import central from "../../central";
-import information from "./information";
 
 import * as bibleGateway from "../../bible-modules/bibleGateway";
 import * as rev from "../../bible-modules/rev";
@@ -287,10 +286,46 @@ export function runCommand(command, args, lang, user, callback) {
             });
             break;
         case "headings":
-            if (args) {
-                break;
+            if (args.length === 1) {
+                settings.formatting.setHeadings(user, args[0], (data) => {
+                    if (data) {
+                        return callback({ level: "info", message: "**" + lang.headingssuccess + "**" });
+                    } else {
+                        return callback({ level: "err", message: "**" + lang.headingsfail + "**" });
+                    }
+                });
+            } else {
+                settings.formatting.getHeadings(user, (data) => {
+                    if (data === "enable") {
+                        const response = lang.headings.replace("<enabled/disabled>", lang.enabled);
+                        return callback({ level: "info", message: "**" + response + "**" });
+                    } else {
+                        const response = lang.headings.replace("<enabled/disabled>", lang.disabled);
+                        return callback({ level: "info", message: "**" + response + "**" });
+                    }
+                });
             }
+            break;
         case "versenumbers":
+            if (args.length === 1) {
+                settings.formatting.setVerseNumbers(user, args[0], (data) => {
+                    if (data) {
+                        return callback({ level: "info", message: "**" + lang.versenumberssuccess + "**" });
+                    } else {
+                        return callback({ level: "err", message: "**" + lang.versenumbersfail + "**" });
+                    }
+                });
+            } else {
+                settings.formatting.getVerseNumbers(user, (data) => {
+                    if (data === "enable") {
+                        const response = lang.versenumbers.replace("<enabled/disabled>", lang.enabled);
+                        return callback({ level: "info", message: "**" + response + "**" });
+                    } else {
+                        const response = lang.versenumbers.replace("<enabled/disabled>", lang.disabled);
+                        return callback({ level: "info", message: "**" + response + "**" });
+                    }
+                });
+            }
             break;
         case "users":
             let users = args[0].users;
