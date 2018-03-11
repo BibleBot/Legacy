@@ -1,5 +1,6 @@
 # TODO
 
+[ ] +biblebot - help command
 [x] +versions - show all Bible translations you can set
 [x] +setversion VER - set a preferred version
 [x] +version - display your current version
@@ -19,3 +20,7 @@
 [x] +puppet message - say something as the bot
 [x] +eval javascript - execute javascript code
 [x] +announce msg - announce a message to every server using the bot
+
+[x] Verse Processing with Bible Gateway
+[x] Verse Processing with REV
+[ ] Verse Processing with KJV 1611 w/ Deuterocanon
