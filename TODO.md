@@ -1,6 +1,6 @@
 # TODO
 
-[ ] +biblebot - help command
+[x] +biblebot - help command
 [x] +versions - show all Bible translations you can set
 [x] +setversion VER - set a preferred version
 [x] +version - display your current version
