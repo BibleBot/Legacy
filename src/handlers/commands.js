@@ -3,6 +3,7 @@ import * as commandBridge from "./commands/commandBridge";
 import config from "../data/config";
 
 const commandMap = {
+    "biblebot": 0,
     "versions": 0,
     "setversion": 1,
     "version": 0,
@@ -24,8 +25,7 @@ const commandMap = {
     "joseph": 0,
     "supporters": 0,
 
-    "addversion": 5,
-    "av": 5,
+    "addversion": 5
 };
 
 /**
@@ -87,6 +87,8 @@ function isOwnerCommand(command, lang) {
         case commands.puppet:
             return true;
         case commands.announce:
+            return true;
+        case commands.addversion:
             return true;
         case "eval":
             return true;
@@ -167,7 +169,7 @@ export default class CommandHandler extends Handler {
                     }
 
                     if (args.length === 0 || args.length === 1) {
-                        commandBridge.runCommand(properCommand.orig, args, lang, sender, (result) => {
+                        commandBridge.runCommand(properCommand.orig, args, rawLanguage, sender, (result) => {
                             callback(result);
                         });
                     } else {
@@ -181,7 +183,7 @@ export default class CommandHandler extends Handler {
             } else {
                 try {
                     if (sender.id === config.owner) {
-                        commandBridge.runOwnerCommand(command, args, (result) => {
+                        commandBridge.runOwnerCommand(command, args, rawLanguage, (result) => {
                             callback(result);
                         });
                     }

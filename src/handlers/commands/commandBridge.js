@@ -1,11 +1,58 @@
 import settings from "./settings";
 import central from "../../central";
 
+import Version from "../../types/version";
+
 import * as bibleGateway from "../../bible-modules/bibleGateway";
 import * as rev from "../../bible-modules/rev";
 
 export function runCommand(command, args, lang, user, callback) {
     switch (command) {
+        case "biblebot":
+            let response = lang.biblebot;
+            response = response.replace(
+                "<biblebotversion>", process.env.npm_package_version);
+            response = response.replace(
+                "<setversion>", lang.commands.setversion);
+            response = response.replace(
+                "<version>", lang.commands.version);
+            response = response.replace(
+                "<versions>", lang.commands.versions);
+            response = response.replace(
+                "<versioninfo>", lang.commands.versioninfo);
+            response = response.replace(
+                "<votd>", lang.commands.votd);
+            response = response.replace(
+                "<verseoftheday>", lang.commands.verseoftheday);
+            response = response.replace(
+                "<random>", lang.commands.random);
+            response = response.replace(
+                "<versenumbers>", lang.commands.versenumbers);
+            response = response.replace(
+                "<headings>", lang.commands.headings);
+            response = response.replace(
+                "<setlanguage>", lang.commands.setlanguage);
+            response = response.replace(
+                "<language>", lang.commands.language);
+            response = response.replace(
+                "<languages>", lang.commands.languages);
+            response = response.replaceAll(
+                "<enable>", lang.arguments.enable);
+            response = response.replaceAll(
+                "<disable>", lang.arguments.disable);
+            response = response.replace(
+                "<users>", lang.commands.users);
+            response = response.replace(
+                "<servers>", lang.commands.servers);
+            response = response.replace(
+                "<invite>", lang.commands.invite);
+
+            response += "\n\n---\n";
+
+            let second = "**" + lang.patreon + "**";
+            second += "\n---\n\n" + lang.joinserver + "\n" + lang.copyright;;
+
+            return callback({ level: "info", twoMessages: true, first: response, second: second });
         case "setversion":
             settings.versions.setVersion(user, args[0], (data) => {
                 if (data) {
@@ -478,7 +525,7 @@ export function runCommand(command, args, lang, user, callback) {
     }
 }
 
-export function runOwnerCommand(command, args, callback) {
+export function runOwnerCommand(command, args, lang, callback) {
     switch (command) {
         case "puppet":
             let message = "";
@@ -517,6 +564,29 @@ export function runOwnerCommand(command, args, callback) {
                 level: "info",
                 announcement: true,
                 message: m
+            });
+        case "addversion":
+            let argc = args.length;
+            let name = "";
+
+            // build the name string
+            for (let i = 0; i < (argc - 4); i++) {
+                name = name + args[i] + " ";
+            }
+
+            name = name.slice(0, -1); // remove trailing space
+            let abbv = args[argc - 4];
+            let hasOT = args[argc - 3];
+            let hasNT = args[argc - 2];
+            let hasAPO = args[argc - 1];
+
+            let newVersion = new Version(name, abbv, hasOT, hasNT, hasAPO);
+            central.versionDB.insert(newVersion.toObject(), (err) => {
+                if (err) {
+                    return callback({ level: "err", message: "**" + lang.addversionfail + "**" });
+                } else {
+                    return callback({ level: "info", message: "**" + lang.addversionsuccess + "**" });
+                }
             });
     }
 }

@@ -16,7 +16,7 @@
 [x] +servers - list all servers BibleBot is in
 [x] +invite - get the invite link for BibleBot
 
-[ ] +addversion versionname abbv hasOT hasNT hasAPO (+av) - add a version
+[x] +addversion versionname abbv hasOT hasNT hasAPO (+av) - add a version
 [x] +puppet message - say something as the bot
 [x] +eval javascript - execute javascript code
 [x] +announce msg - announce a message to every server using the bot

@@ -112,7 +112,12 @@ bot.on("message", (raw) => {
                     let originalCommand;
 
                     if (!res.announcement) {
-                        channel.send(res.message);
+                        if (res.twoMessages) {
+                            channel.send(res.first);
+                            channel.send(res.second);
+                        } else {
+                            channel.send(res.message);
+                        }
 
                         Object.keys(rawLanguage.commands).forEach((originalCommandName) => {
                             if (rawLanguage.commands[originalCommandName] === command) {
@@ -175,9 +180,7 @@ bot.on("message", (raw) => {
                 });
             } catch (e) {
                 central.logMessage("err", shard, sender, source, e.message);
-
                 channel.send(e.message);
-                console.error(e.stack);
                 return;
             }
         } else {
@@ -191,7 +194,9 @@ bot.on("message", (raw) => {
                             channel.send(result.message);
                         }
 
-                        central.logMessage(result.level, shard, sender, source, result.reference);
+                        if (result.reference) {
+                            central.logMessage(result.level, shard, sender, source, result.reference);
+                        }
                     }
                 });
             } catch (e) {
