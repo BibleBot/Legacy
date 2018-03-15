@@ -8,6 +8,7 @@ import * as utils from "./verses/utils";
 
 import * as bibleGateway from "../bible-modules/bibleGateway";
 import * as rev from "../bible-modules/rev";
+import * as kjv1611 from "../bible-modules/kjv1611";
 
 export default class VerseHandler extends Handler {
     constructor() {
@@ -44,16 +45,19 @@ export default class VerseHandler extends Handler {
 
                     if (books.ot[book.toLowerCase()]) {
                         bookNames.push(books.ot[book.toLowerCase()]);
+                        split[i] = books.ot[book.toLowerCase()];
                         bookIndexes.push(i);
                     }
 
                     if (books.nt[book.toLowerCase()]) {
                         bookNames.push(books.nt[book.toLowerCase()]);
+                        split[i] = books.nt[book.toLowerCase()];
                         bookIndexes.push(i);
                     }
 
                     if (books.apo[book.toLowerCase()]) {
                         bookNames.push(books.apo[book.toLowerCase()]);
+                        split[i] = books.apo[book.toLowerCase()];
                         bookIndexes.push(i);
                     }
                 }
@@ -239,7 +243,7 @@ export default class VerseHandler extends Handler {
                                 // to nicely provide us with a verse object
                                 // to send back; the last step of the process
                                 if (continueProcessing) {
-                                    if (version !== "REV") {
+                                    if (version !== "KJV1611" && version !== "REV") {
                                         bibleGateway.getResult(
                                                 reference, version, headings, verseNumbers)
                                             .then((result) => {
@@ -286,7 +290,7 @@ export default class VerseHandler extends Handler {
                                                 central.logMessage(
                                                     "err", shard, "global", "bibleGateway", err);
                                             });
-                                    } else {
+                                    } else if (version === "REV") {
                                         rev.getResult(reference, version, headings, verseNumbers)
                                             .then((result) => {
                                                 result.forEach((object) => {
@@ -331,6 +335,52 @@ export default class VerseHandler extends Handler {
                                             }).catch((err) => {
                                                 central.logMessage(
                                                     "err", shard, "global", "rev", err);
+                                            });
+                                    } else {
+                                        kjv1611.getResult(reference, version, headings, verseNumbers)
+                                            .then((result) => {
+                                                result.forEach((object) => {
+                                                    const content =
+                                                        "```Dust\n" + object.title + "\n\n" +
+                                                        object.text + "```";
+
+                                                    const responseString =
+                                                        "**" + object.passage + " - " +
+                                                        object.version + "**\n\n" + content;
+
+                                                    if (responseString.length < 2000) {
+                                                        return callback({
+                                                            level: "info",
+                                                            twoMessages: false,
+                                                            reference: reference,
+                                                            message: responseString
+                                                        });
+                                                    } else if (responseString.length > 2000 && responseString.length < 3500) {
+                                                        const splitText = central.splitter(object.text);
+
+                                                        const content1 = "```Dust\n" + object.title + "\n\n" + splitText.first + "```";
+                                                        const responseString1 = "**" + object.passage + " - " + object.version + "**\n\n" + content1;
+                                                        const content2 = "```Dust\n " + splitText.second + "```";
+
+                                                        return callback({
+                                                            level: "info",
+                                                            twoMessages: true,
+                                                            reference: reference,
+                                                            firstMessage: responseString1,
+                                                            secondMessage: content2
+                                                        });
+                                                    } else {
+                                                        return callback({
+                                                            level: "err",
+                                                            twoMessages: false,
+                                                            reference: reference,
+                                                            message: lang.passagetoolong
+                                                        });
+                                                    }
+                                                });
+                                            }).catch((err) => {
+                                                central.logMessage(
+                                                    "err", shard, "global", "kjv1611", err);
                                             });
                                     }
                                 }

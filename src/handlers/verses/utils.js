@@ -100,6 +100,7 @@ export function checkForNumberedBooks(item, array, index) {
                 array[index - 3] + array[index - 2] +
                 array[index - 1] + item;
             break;
+        case "Azariah":
         case "Manasses":
         case "Manasseh":
         case "Solomon":

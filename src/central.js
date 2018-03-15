@@ -47,8 +47,8 @@ export default {
     versionDB,
     splitter: (s) => {
         let middle = Math.floor(s.length / 2);
-        let before = s.lastIndexOf(' <', middle);
-        let after = s.indexOf(' <', middle + 1);
+        let before = s.lastIndexOf(' ', middle);
+        let after = s.indexOf(' ', middle + 1);
 
         if (before === -1 || (after !== -1 && middle - before >= after - middle)) {
             middle = after;

@@ -38,6 +38,7 @@
 {"name":"Vietnamese Bible: Easy-to-Read Version (BPT)","abbv":"BPT","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"HTcpQjy6i7l7sixC"}
 {"name":"1550 Stephanus New Testament (TR1550)","abbv":"TR1550","hasOT":false,"hasNT":true,"hasAPO":false,"_id":"IHseHJDfJ93JTcgc"}
 {"name":"English Standard Version (ESV)","abbv":"ESV","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"IfYgYIjhL3ZmWkdd"}
+{"name":"1611 King James Version with Deuterocanon (KJV1611)","abbv":"KJV1611","hasOT":true,"hasNT":true,"hasAPO":true,"_id":"Iq9FBmQ9jy0LcR74"}
 {"name":"1934 Vietnamese Bible (VIET)","abbv":"VIET","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"J21ZCR1cVbeckCLj"}
 {"name":"Palabra de Dios para Todos (PDT)","abbv":"PDT","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"Jgnfx0K3gbeuUSRR"}
 {"name":"Korean Living Bible (KLB)","abbv":"KLB","hasOT":true,"hasNT":true,"hasAPO":false,"_id":"JqDY26aDWhtHirs1"}

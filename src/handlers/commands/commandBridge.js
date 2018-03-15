@@ -5,6 +5,7 @@ import Version from "../../types/version";
 
 import * as bibleGateway from "../../bible-modules/bibleGateway";
 import * as rev from "../../bible-modules/rev";
+import * as kjv1611 from "../../bible-modules/kjv1611";
 
 export function runCommand(command, args, lang, user, callback) {
     switch (command) {
@@ -241,7 +242,7 @@ export function runCommand(command, args, lang, user, callback) {
                     }
                 }
 
-                if (version !== "REV") {
+                if (version !== "KJV1611" && version !== "REV") {
                     bibleGateway.getVOTD(version, headings, verseNumbers)
                         .then((result) => {
                             if (result === "too long") {
@@ -256,8 +257,23 @@ export function runCommand(command, args, lang, user, callback) {
                                 message: result
                             });
                         });
-                } else {
+                } else if (version === "REV") {
                     rev.getVOTD(version, headings, verseNumbers)
+                        .then((result) => {
+                            if (result === "too long") {
+                                return callback({
+                                    level: "err",
+                                    message: lang.passagetoolong
+                                });
+                            }
+
+                            return callback({
+                                level: "info",
+                                message: result
+                            });
+                        });
+                } else {
+                    kjv1611.getVOTD(version, headings, verseNumbers)
                         .then((result) => {
                             if (result === "too long") {
                                 return callback({
@@ -299,7 +315,7 @@ export function runCommand(command, args, lang, user, callback) {
                     }
                 }
 
-                if (version !== "REV") {
+                if (version !== "KJV1611" && version !== "REV") {
                     bibleGateway.getRandomVerse(version, headings, verseNumbers)
                         .then((result) => {
                             if (result === "too long") {
@@ -314,8 +330,23 @@ export function runCommand(command, args, lang, user, callback) {
                                 message: result
                             });
                         });
-                } else {
+                } else if (version === "REV") {
                     rev.getRandomVerse(version, headings, verseNumbers)
+                        .then((result) => {
+                            if (result === "too long") {
+                                return callback({
+                                    level: "err",
+                                    message: lang.passagetoolong
+                                });
+                            }
+
+                            return callback({
+                                level: "info",
+                                message: result
+                            });
+                        });
+                } else {
+                    kjv1611.getRandomVerse(version, headings, verseNumbers)
                         .then((result) => {
                             if (result === "too long") {
                                 return callback({
