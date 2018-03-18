@@ -32,24 +32,29 @@ bot.on("ready", () => {
 });
 
 bot.on("debug", (debug) => {
+    shard = bot.shard.id + 1;
     if (config.debug) {
         central.logMessage("debug", (bot.shard.id + 1), "global", "global", debug);
     }
 });
 
 bot.on("reconnecting", () => {
+    shard = bot.shard.id + 1;
     central.logMessage("info", shard, "global", "global", "attempting to reconnect");
 });
 
 bot.on("disconnect", () => {
+    shard = bot.shard.id + 1;
     central.logMessage("info", shard, "global", "global", "disconnected");
 });
 
 bot.on("warning", (warn) => {
+    shard = bot.shard.id + 1;
     central.logMessage("warn", shard, "global", "global", warn);
 });
 
 bot.on("error", (e) => {
+    shard = bot.shard.id + 1;
     central.logMessage("err", shard, "global", "global", e);
 });
 

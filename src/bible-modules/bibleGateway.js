@@ -29,6 +29,46 @@ function purifyText(text) {
         .replaceAll(/\s+/g, ' ');
 }
 
+export function search(version, query) {
+    let url = "https://www.biblegateway.com/quicksearch/?search=" +
+        query + "&version=" + version + "&searchtype=all&interface=print";
+
+    const searchResults = [];
+    let length = 0;
+
+    const promise = new Promise((resolve, reject) => {
+        request(url, (err, resp, body) => {
+            if (err !== null) {
+                reject(err);
+            }
+
+            const $ = cheerio.load(body);
+
+            $(".row").each(function() {
+                let result = {};
+
+                $(".bible-item-title").each(function() {
+                    const title = $(this).text();
+                    result.title = title;
+                });
+
+                $(".bible-item-text").each(function() {
+                    const text = purifyText($(this).text());
+                    result.text = text;
+                });
+
+                searchResults["result" + length++] = result;
+            });
+
+            console.log(searchResults);
+
+            resolve(searchResults);
+        });
+    });
+
+    return promise;
+}
+
 // take a guess at what this does
 export function getRandomVerse(version, headings, verseNumbers) {
     const url = "https://dailyverses.net/random-bible-verse";

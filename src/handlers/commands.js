@@ -4,6 +4,7 @@ import config from "../data/config";
 
 const commandMap = {
     "biblebot": 0,
+    "search": 1,
     "versions": 0,
     "setversion": 1,
     "version": 0,

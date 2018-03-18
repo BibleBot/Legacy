@@ -51,9 +51,48 @@ export function runCommand(command, args, lang, user, callback) {
             response += "\n\n---\n";
 
             let second = "**" + lang.patreon + "**";
-            second += "\n---\n\n" + lang.joinserver + "\n" + lang.copyright;;
+            second += "\n---\n\n" + lang.joinserver + "\n" + lang.copyright;
 
             return callback({ level: "info", twoMessages: true, first: response, second: second });
+        case "search":
+            settings.versions.getVersions((availableVersions) => {
+                settings.versions.getVersion(user, (data) => {
+                    let version;
+                    let query = "";
+
+                    if (data) {
+                        if (data[0].hasOwnProperty('version')) {
+                            if (data[0].version === "HWP") {
+                                version = "NRSV";
+                            } else {
+                                version = data[0].version;
+                            }
+                        }
+                    }
+
+                    if (availableVersions.indexOf(args[0]) > -1) {
+                        version = args[0];
+
+                        for (const i in args) {
+                            if (i !== 0) {
+                                query += args[i] + " ";
+                            }
+                        }
+                    } else {
+                        for (const i in args) {
+                            query += args[i] + " ";
+                        }
+                    }
+
+                    if (version !== "KJV1611" && version !== "REV") {
+                        bibleGateway.search(version, query).then((result) => {
+                            console.log(result);
+                        }).catch((err) => {
+                            console.log(err);
+                        });
+                    }
+                });
+            });
         case "setversion":
             settings.versions.setVersion(user, args[0], (data) => {
                 if (data) {

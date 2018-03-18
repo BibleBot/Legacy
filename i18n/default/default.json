@@ -52,6 +52,7 @@
     "disabled": "disabled",
 
     "commands": {
+        "search": "search",
         "setversion": "setversion",
         "version": "version",
         "versions": "versions",
