@@ -1,7 +1,7 @@
 # TODO
 
 [x] +biblebot - help command
-[ ] +search - search for verses by word **[NEEDS FURTHER TESTING AFTER TRANSLATIONS]**
+[x] +search - search for verses by word
 [x] +versions - show all Bible translations you can set
 [x] +setversion VER - set a preferred version
 [x] +version - display your current version

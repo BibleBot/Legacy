@@ -29,11 +29,15 @@ function purifyText(text) {
         .replaceAll(/\s+/g, ' ');
 }
 
+function removeBibleTitleInSearch(string) {
+    return string.replaceAll(/<[^>]*> /g, "");
+}
+
 export function search(version, query) {
     let url = "https://www.biblegateway.com/quicksearch/?search=" +
-        query + "&version=" + version + "&searchtype=all&interface=print";
+        query + "&version=" + version + "&searchtype=all&limit=100000&interface=print";
 
-    const searchResults = [];
+    const searchResults = {};
     let length = 0;
 
     const promise = new Promise((resolve, reject) => {
@@ -47,20 +51,20 @@ export function search(version, query) {
             $(".row").each(function() {
                 let result = {};
 
-                $(".bible-item-title").each(function() {
-                    const title = $(this).text();
-                    result.title = title;
+                $(".bible-item-extras").each(function() {
+                    $(this).html("");
                 });
 
-                $(".bible-item-text").each(function() {
-                    const text = purifyText($(this).text());
-                    result.text = text;
-                });
+                result.title = $(this).find(".bible-item-title").text();
+
+                result.text = removeBibleTitleInSearch(purifyText($(this).find(".bible-item-text").text()).slice(0, -1));
+
+                if (result.title === "" || result.title.split(" ").length > 2) {
+                    return;
+                }
 
                 searchResults["result" + length++] = result;
             });
-
-            console.log(searchResults);
 
             resolve(searchResults);
         });

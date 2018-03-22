@@ -14,6 +14,8 @@ export function runCommand(command, args, lang, user, callback) {
             response = response.replace(
                 "<biblebotversion>", process.env.npm_package_version);
             response = response.replace(
+                "<search>", lang.commands.search);
+            response = response.replace(
                 "<setversion>", lang.commands.setversion);
             response = response.replace(
                 "<version>", lang.commands.version);
@@ -86,13 +88,14 @@ export function runCommand(command, args, lang, user, callback) {
 
                     if (version !== "KJV1611" && version !== "REV") {
                         bibleGateway.search(version, query).then((result) => {
-                            console.log(result);
+                            callback(result);
                         }).catch((err) => {
-                            console.log(err);
+                            callback(err);
                         });
                     }
                 });
             });
+            break;
         case "setversion":
             settings.versions.setVersion(user, args[0], (data) => {
                 if (data) {

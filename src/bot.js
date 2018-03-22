@@ -120,6 +120,50 @@ bot.on("message", (raw) => {
                         if (res.twoMessages) {
                             channel.send(res.first);
                             channel.send(res.second);
+                        } else if (res.paged && res.pages.length !== 0) {
+                            let currentPage = 1;
+                            const totalPages = res.pages.length;
+
+                            const backwardFilter = (reaction, user) => reaction.emoji.name === "⬅" && user.id !== bot.user.id;
+                            const forwardFilter = (reaction, user) => reaction.emoji.name === "➡" && user.id !== bot.user.id;
+
+                            let backwardCollector;
+                            let forwardCollector;
+
+                            channel.send(res.pages[currentPage - 1]).then((msg) => {
+                                msg.react("⬅");
+                                central.sleep(1000);
+                                msg.react("➡");
+
+                                backwardCollector = msg.createReactionCollector(backwardFilter, { time: 120000 });
+                                forwardCollector = msg.createReactionCollector(forwardFilter, { time: 120000 });
+
+                                backwardCollector.on("collect", () => {
+                                    if (currentPage === 1) {
+                                        return;
+                                    } else {
+                                        currentPage--;
+                                        msg.edit(res.pages[currentPage - 1]);
+                                    }
+                                });
+
+                                forwardCollector.on("collect", () => {
+                                    if (currentPage === totalPages) {
+                                        return;
+                                    } else {
+                                        currentPage++;
+                                        msg.edit(res.pages[currentPage - 1]);
+                                    }
+                                });
+
+                                backwardCollector.on("end", () => {
+                                    msg.clearReactions();
+                                });
+
+                                forwardCollector.on("end", () => {
+                                    msg.clearReactions();
+                                });
+                            });
                         } else {
                             channel.send(res.message);
                         }
