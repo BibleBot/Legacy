@@ -106,7 +106,7 @@ export function runCommand(command, args, lang, user, callback) {
                 } else {
                     return callback({
                         level: "err",
-                        message: "**" + lang.setversionfail + "**"
+                        message: "**" + lang.setversionfail.replace("<versions>", lang.commands.versions) + "**"
                     });
                 }
             });
@@ -224,7 +224,7 @@ export function runCommand(command, args, lang, user, callback) {
                 } else {
                     return callback({
                         level: "err",
-                        message: "**" + lang.setlanguagefail + "**"
+                        message: "**" + lang.setlanguagefail.replace("<languages>", lang.commands.languages) + "**"
                     });
                 }
             });
@@ -411,7 +411,11 @@ export function runCommand(command, args, lang, user, callback) {
                     if (data) {
                         return callback({ level: "info", message: "**" + lang.headingssuccess + "**" });
                     } else {
-                        return callback({ level: "err", message: "**" + lang.headingsfail + "**" });
+                        return callback({
+                            level: "err",
+                            message: "**" + lang.headingsfail.replaceAll("<headings>", lang.commands.headings)
+                                .replace("<enable>", lang.arguments.enable).replace("<disable>", lang.arguments.disable) + "**"
+                        });
                     }
                 });
             } else {
@@ -432,7 +436,11 @@ export function runCommand(command, args, lang, user, callback) {
                     if (data) {
                         return callback({ level: "info", message: "**" + lang.versenumberssuccess + "**" });
                     } else {
-                        return callback({ level: "err", message: "**" + lang.versenumbersfail + "**" });
+                        return callback({
+                            level: "err",
+                            message: "**" + lang.versenumbersfail.replaceAll("<versenumbers>", lang.commands.versenumbers)
+                                .replace("<enable>", lang.arguments.enable).replace("<disable>", lang.arguments.disable) + "**"
+                        });
                     }
                 });
             } else {
