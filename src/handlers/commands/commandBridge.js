@@ -150,7 +150,14 @@ export function runCommand(command, args, lang, user, callback) {
                             callback(err);
                         });
                     } else {
-                        return callback({ level: "err", message: lang.searchNotSupported.replace("<search>", lang.commands.search) });
+                        embed = new RichEmbed();
+
+                        embed.setColor("#ff2e2e");
+                        embed.setFooter("BibleBot v" + process.env.npm_package_version, "https://cdn.discordapp.com/avatars/361033318273384449/5aad77425546f9baa5e4b5112696e10a.png");
+
+                        embed.addField("+" + lang.commands.search, lang.searchNotSupported.replace("<search>", lang.commands.search) + ".");
+
+                        return callback({ level: "err", message: embed });
                     }
                 });
             });
