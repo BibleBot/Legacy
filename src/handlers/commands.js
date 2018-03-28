@@ -2,6 +2,8 @@ import Handler from "../types/handler";
 import * as commandBridge from "./commands/commandBridge";
 import config from "../data/config";
 
+import { RichEmbed } from "discord.js";
+
 const commandMap = {
     "biblebot": 0,
     "search": 1,
@@ -61,11 +63,6 @@ function isCommand(command, lang) {
         result = {
             ok: true,
             orig: "joseph",
-        };
-    } else if (command === "supporters") {
-        result = {
-            ok: true,
-            orig: "supporters",
         };
     } else {
         Object.keys(commands).forEach((originalCommandName) => {
@@ -146,11 +143,19 @@ export default class CommandHandler extends Handler {
                             }
 
                             if (args.length !== requiredArguments) {
+                                const embed = new RichEmbed();
+                                embed.setColor("#ff2e2e");
+                                embed.setFooter("BibleBot v" + process.env.npm_package_version, "https://cdn.discordapp.com/avatars/361033318273384449/5aad77425546f9baa5e4b5112696e10a.png");
+
+                                console.log(rawLanguage);
+
                                 const response = rawLanguage.argumentCountError
                                     .replace("<command>", command)
                                     .replace("<count>", requiredArguments);
 
-                                throw new Error(response);
+                                embed.addField(lang.error, response);
+
+                                throw new Error(embed);
                             }
 
                             commandBridge.runCommand(properCommand.orig, args, rawLanguage, sender, (result) => {
@@ -175,11 +180,17 @@ export default class CommandHandler extends Handler {
                                 callback(result);
                             });
                         } else {
+                            const embed = new RichEmbed();
+                            embed.setColor("#ff2e2e");
+                            embed.setFooter("BibleBot v" + process.env.npm_package_version, "https://cdn.discordapp.com/avatars/361033318273384449/5aad77425546f9baa5e4b5112696e10a.png");
+
                             const response = rawLanguage.argumentCountError
                                 .replace("<command>", command)
                                 .replace("<count>", rawLanguage.zeroOrOne);
 
-                            throw new Error(response);
+                            embed.addField(lang.error, response);
+
+                            throw new Error(embed);
                         }
                     }
                 } else {
@@ -190,15 +201,27 @@ export default class CommandHandler extends Handler {
                     }
 
                     if (args.length === 1 && args[0].length < 4) {
-                        throw new Error(rawLanguage.queryTooShort);
+                        const embed = new RichEmbed();
+                        embed.setColor("#ff2e2e");
+                        embed.setFooter("BibleBot v" + process.env.npm_package_version, "https://cdn.discordapp.com/avatars/361033318273384449/5aad77425546f9baa5e4b5112696e10a.png");
+
+                        embed.addField(lang.error, rawLanguage.queryTooShort);
+
+                        throw new Error(embed);
                     }
 
                     if (args.length === 0) {
+                        const embed = new RichEmbed();
+                        embed.setColor("#ff2e2e");
+                        embed.setFooter("BibleBot v" + process.env.npm_package_version, "https://cdn.discordapp.com/avatars/361033318273384449/5aad77425546f9baa5e4b5112696e10a.png");
+
                         const response = rawLanguage.argumentCountErrorAL
                             .replace("<command>", command)
                             .replace("<count>", 1);
 
-                        throw new Error(response);
+                        embed.addField(lang.error, response);
+
+                        throw new Error(embed);
                     } else {
                         commandBridge.runCommand(properCommand.orig, args, rawLanguage, sender, (result) => {
                             callback(result);
@@ -213,13 +236,27 @@ export default class CommandHandler extends Handler {
                         });
                     }
                 } catch (e) {
+                    const embed = new RichEmbed();
+                    embed.setColor("#ff2e2e");
+                    embed.setFooter("BibleBot v" + process.env.npm_package_version, "https://cdn.discordapp.com/avatars/361033318273384449/5aad77425546f9baa5e4b5112696e10a.png");
+
                     const response = rawLanguage.commandNotFoundError.replace("<command>", command);
-                    throw new Error(response);
+
+                    embed.addField(lang.error, response);
+
+                    throw new Error(embed);
                 }
             }
         } else {
+            const embed = new RichEmbed();
+            embed.setColor("#ff2e2e");
+            embed.setFooter("BibleBot v" + process.env.npm_package_version, "https://cdn.discordapp.com/avatars/361033318273384449/5aad77425546f9baa5e4b5112696e10a.png");
+
             const response = rawLanguage.commandNotFoundError.replace("<command>", command);
-            throw new Error(response);
+
+            embed.addField(lang.error, response);
+
+            throw new Error(embed);
         }
     }
 }
