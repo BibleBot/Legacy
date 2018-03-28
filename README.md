@@ -1,5 +1,5 @@
 # BibleBot
-[![Help Translate on Crowdin](https://d322cqt584bo4o.cloudfront.net/biblebot/localized.svg)](https://crowdin.com/project/biblebot) [![Join us on Discord](https://img.shields.io/discord/362503610006765568.svg)](https://discord.gg/Ssn8KNv)
+[![Help Translate on Crowdin](https://d322cqt584bo4o.cloudfront.net/biblebot/localized.svg)](https://crowdin.com/project/biblebot) [![Join us on Discord](https://img.shields.io/discord/362503610006765568.svg)](https://discord.gg/Ssn8KNv) [![Discord Bots](https://discordbots.org/api/widget/lib/361033318273384449.png)](https://discordbots.org)
 
 [![Become a Patron on Patreon](https://biblebot.vypr.space/public/patreonbutton.svg)](https://patreon.com/biblebot)
 
@@ -15,8 +15,8 @@ Installation:
 ```sh
 git clone https://git.vypr.space/BibleBot/BibleBot.git;
 npm install;
-mv src/config.example.js src/config.js;
-$EDITOR src/config.js;
+mv src/data/config.example.js src/data/config.js;
+$EDITOR src/data/config.js;
 npm run build;
 npm start;
 ```
@@ -36,14 +36,17 @@ Commands:
 * `+languages` - show all available language translations you can set
 * `+setlanguage LANG` - set a preferred language
 * `+language` - display your current language
-* `+allusers` - list all users throughout all servers (not counting duplicates or bots)
-* `+users` - list all users in the server where the message is sent
-* `+listservers` - list all servers BibleBot is in
+* `+users` - list all users throughout all servers (not counting duplicates or bots)
+* `+servers` - show how many servers BibleBot is in
+* `+invite` - get the invite link for BibleBot
+* `+supporters` - the supporters of BibleBot
 
 Bot Owner Commands:
 
-* `+addversion versionname abbv hasOT hasNT hasAPO` - add a version (`+av`)
+* `+addversion versionname abbv hasOT hasNT hasAPO` (`+av`) - add a version
 * `+puppet message` - say something as the bot
+* `+eval javascript` - execute javascript code
+* `+announce msg` - announce a message to every server using the bot
 
 Invite BibleBot to your server! https://discordapp.com/api/oauth2/authorize?client_id=361033318273384449&scope=bot&permissions=0
 
@@ -68,4 +71,4 @@ and the dotfiles do not need to have the version number updated.
 
 ### Special Thanks
 
-**audiovideodisco, Blubb, Bonaventure Sissokovitch, Buggyrcobra, Coal, Koockies, Mark Nunberg, Manelic, Raven Melodie, SwedishMeatball, Tuonela, TySpeedy, Viva, xnkmevaou, Zyxl** - for their hard work on helping BibleBot reach the world by translating languages :heart:
+**adfizz, apocz, audiovideodisco, Banská Bystrica, Blubb, BonaventureSissokovitch, Buggyrcobra, Coal, DeadPixels, jznsamuel, Koockies, Mark Nunberg, Manelic, Raven Melodie, omeratagun, Sezess, sunray.steemit, SwedishMeatball, Tuonela, TySpeedy, Viva98, xnkmevaou, Zyxl** and countless others for their hard work on helping BibleBot reach the world by translating languages! :heart:

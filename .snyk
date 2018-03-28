@@ -1,0 +1,45 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.10.2
+# ignores vulnerabilities until expiry date; change duration by modifying expiry date
+ignore:
+  'npm:hoek:20180212':
+    - log4js > loggly > request > hawk > hoek:
+        reason: None given
+        expires: '2018-03-18T18:17:39.206Z'
+    - log4js > loggly > request > hawk > boom > hoek:
+        reason: None given
+        expires: '2018-03-18T18:17:39.206Z'
+    - log4js > loggly > request > hawk > cryptiles > boom > hoek:
+        reason: None given
+        expires: '2018-03-18T18:17:39.208Z'
+    - log4js > loggly > request > hawk > sntp > hoek:
+        reason: None given
+        expires: '2018-03-18T18:17:39.208Z'
+  'npm:ip:20170304':
+    - log4js > mailgun-js > proxy-agent > pac-proxy-agent > pac-resolver > ip:
+        reason: None given
+        expires: '2018-03-18T18:17:39.208Z'
+  'npm:is-my-json-valid:20180214':
+    - log4js > loggly > request > har-validator > is-my-json-valid:
+        reason: None given
+        expires: '2018-03-18T18:17:39.208Z'
+  'npm:timespan:20170907':
+    - log4js > loggly > timespan:
+        reason: None given
+        expires: '2018-03-18T18:17:39.208Z'
+  'npm:tunnel-agent:20170305':
+    - log4js > loggly > request > tunnel-agent:
+        reason: None given
+        expires: '2018-03-18T18:17:39.208Z'
+  'npm:lodash:20180130':
+    - cheerio > lodash:
+        reason: No solution available.
+        expires: '2018-04-03T14:09:02.498Z'
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  'npm:debug:20170905':
+    - log4js > mailgun-js > debug:
+        patched: '2018-02-14T11:48:58.982Z'
+  'npm:ms:20170412':
+    - log4js > mailgun-js > debug > ms:
+        patched: '2018-02-14T11:48:58.982Z'

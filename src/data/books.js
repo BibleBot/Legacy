@@ -1,4 +1,4 @@
-var books = {
+export default {
     "ot": {
         "genesis": "Genesis", // Old Testament
         "gen": "Genesis",
@@ -131,6 +131,7 @@ var books = {
         "malachi": "Malachi",
         "mal": "Malachi"
     },
+
     "nt": {
         "matthew": "Matthew", // New Testament
         "mathew": "Matthew",
@@ -198,6 +199,7 @@ var books = {
         "rev": "Revelation",
         "rv": "Revelation"
     },
+
     "apo": {
         "judith": "Judith", // Apocrypha
         "judeth": "Judith",
@@ -207,6 +209,9 @@ var books = {
         "wisdomofsolomon": "Wisdom",
         "tobit": "Tobit",
         "tob": "Tobit",
+        "bensira": "Ecclesiasticus",
+        "wisdomofyeshuabensira": "Ecclesiasticus",
+        "wisdomofjesusbensira": "Ecclesiasticus",
         "sirach": "Ecclesiasticus",
         "sir": "Ecclesiasticus",
         "ecclesiasticus": "Ecclesiasticus",
@@ -224,14 +229,14 @@ var books = {
         "4maccabees": "4 Maccabees",
         "4macc": "4 Maccabees",
         "4mac": "4 Maccabees",
-        "restofdaniel": "Prayer of Azariah",
-        "additionstodaniel": "Prayer of Azariah",
-        "adddan": "Prayer of Azariah",
-        "songofthethreechildren": "Prayer of Azariah",
+        "letterofjeremiah": "Letter of Jeremiah",
+        "songofthethreeholychildren": "Prayer of Azariah",
+        "songofthethreeyoungmen": "Prayer of Azariah",
+        "songofthethreeholyyouths": "Prayer of Azariah",
         "prayerofazariah": "Prayer of Azariah",
-        "restofesther": "Additions to Esther",
-        "additionstoesther": "Additions to Esther",
-        "addesth": "Additions to Esther",
+        "greekesther": "Greek Esther",
+        "gkesther": "Greek Esther",
+        "gkesth": "Greek Esther",
         "prayerofmanasses": "Prayer of Manasseh",
         "prayerofmanasseh": "Prayer of Manasseh",
         "manasses": "Prayer of Manasseh",
@@ -241,20 +246,20 @@ var books = {
         "1esd": "1 Esdras",
         "2esdras": "2 Esdras",
         "2esd": "2 Esdras",
+        "psalm151": "Psalm 151",
+        "psalms151": "Psalm 151",
         "storyofsusanna": "Susanna",
         "susanna": "Susanna",
         "sus": "Susanna",
         "belandthedragon": "Bel and the Dragon",
         "bel": "Bel and the Dragon"
+    },
+
+    isBook: (book) => {
+        if (this[book]) {
+            return true;
+        }
+
+        return false;
     }
 };
-
-books.isBook = function(book) {
-    if (books[book]) {
-        return true;
-    }
-
-    return false;
-};
-
-module.exports = books;
