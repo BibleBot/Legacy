@@ -24,7 +24,7 @@
     "headingsfail": "Use `+<headings> <enable>` or `+<headings> <disable>`.",
     "setlanguagesuccess": "Set language successfully.",
     "setlanguagefail": "Failed to set language, see `+<languages>`.",
-    "languageused": "You are using Language. Use `+<setlanguage>` to set a different language.",
+    "languageused": "You are using English (US). Use `+<setlanguage>` to set a different language.",
     "nolanguageused": "I couldn't find your name in my database, have you used `+<setlanguage>` yet?",
     "languages": "I support",
     "otnotsupported": "The version <version> doesn't support the Old Testament.",
