@@ -40,8 +40,7 @@ export default class VerseHandler extends Handler {
 
                     // matches book names to the index
                     // of where they are in split
-                    const book = split[i].replace("<", "")
-                        .replace(">", "");
+                    const book = split[i];
 
                     if (books.ot[book.toLowerCase()]) {
                         bookNames.push(books.ot[book.toLowerCase()]);

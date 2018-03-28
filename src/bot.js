@@ -205,9 +205,7 @@ bot.on("message", (raw) => {
                                     let receiver = ch.find((val) => val.name === preferred[i]);
 
                                     if (receiver) {
-                                        receiver.send(res.message.replace(
-                                            "+" + language.commands.announce + " ", ""
-                                        )).catch(() => {
+                                        receiver.send(res.message).catch(() => {
                                             // do nothing
                                         });
 

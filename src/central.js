@@ -1,6 +1,8 @@
 import languages from "./data/languages";
 import * as log4js from "log4js";
 
+import config from "./data/config";
+
 log4js.configure({
     appenders: {
         'out': {
@@ -45,6 +47,7 @@ export default {
     languages,
     db,
     versionDB,
+    getDividers: () => ({ first: config.dividingBrackets[0], second: config.dividingBrackets[1] }),
     splitter: (s) => {
         let middle = Math.floor(s.length / 2);
         let before = s.lastIndexOf(' ', middle);

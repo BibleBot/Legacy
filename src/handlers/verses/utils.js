@@ -1,3 +1,5 @@
+import central from "../../central";
+
 export function tokenize(msg) {
     let array = [];
 
@@ -136,17 +138,17 @@ export function createVerseObject(array, bookIndex, availableVersions) {
 
     // if it's surrounded by angle brackets
     // we want to ignore it
-    if (array[bookIndex].indexOf("<") !== -1) {
+    if (array[bookIndex].indexOf(central.getDividers().first) !== -1) {
         return "invalid";
     }
 
     const angleBracketIndexes = [];
     for (let i in array) {
-        if ((i < bookIndex) && (array[i].indexOf("<") !== -1)) {
+        if ((i < bookIndex) && (array[i].indexOf(central.getDividers().first) !== -1)) {
             angleBracketIndexes.push(i);
         }
 
-        if ((i > bookIndex) && (array[i].indexOf(">") !== -1)) {
+        if ((i > bookIndex) && (array[i].indexOf(central.getDividers().second) !== -1)) {
             angleBracketIndexes.push(i);
         }
     }
@@ -163,20 +165,6 @@ export function createVerseObject(array, bookIndex, availableVersions) {
     let chapter = array[bookIndex + 1];
     let startingVerse = array[bookIndex + 2];
 
-    // ignore any other angle brackets
-    // as we've already properly detected
-    // whether they surround the verse
-    try {
-        book = array[bookIndex].replace("<", "");
-        book = book.replace(">", "");
-
-        chapter = array[bookIndex + 1].replace("<", "");
-        chapter = chapter.replace(">", "");
-
-        startingVerse = array[bookIndex + 2].replace("<", "");
-        startingVerse = startingVerse.replace(">", "");
-    } catch (e) { /* this won't be a problem */ }
-
     // this becomes our verse array
     // ex. [ "Genesis", "1", "1" ]
     verse.push(book);
@@ -186,21 +174,21 @@ export function createVerseObject(array, bookIndex, availableVersions) {
     // check if there's an ending verse
     // if so, add it to the verse array
     if (array[bookIndex + 3] !== undefined) {
-        if (array[bookIndex + 3].indexOf(">") !== -1) {
+        if (array[bookIndex + 3].indexOf(central.getDividers().second) !== -1) {
             return;
         }
         if (!isNaN(Number(array[bookIndex + 3]))) {
             if (Number(array[bookIndex + 3]) >
                 Number(array[bookIndex + 2])) {
-                let endingVerse = array[bookIndex + 3].replace("<", "");
-                endingVerse = endingVerse.replace(">", "");
+                let endingVerse = array[bookIndex + 3].replace(central.getDividers().first, "");
+                endingVerse = endingVerse.replace(central.getDividers().second, "");
                 verse.push(endingVerse);
             }
         } else {
             if (availableVersions.indexOf(array[bookIndex + 3]) !== -1) {
                 array[bookIndex + 3] = array[bookIndex + 3].toUpperCase();
-                let version = array[bookIndex + 3].replace("<", "");
-                version = version.replace(">", "");
+                let version = array[bookIndex + 3].replace(central.getDividers().first, "");
+                version = version.replace(central.getDividers().second, "");
                 verse.push("v - " + version);
             }
         }
@@ -210,12 +198,12 @@ export function createVerseObject(array, bookIndex, availableVersions) {
         if (isNaN(Number(array[bookIndex + 4]))) {
             array[bookIndex + 4] = array[bookIndex + 4].toUpperCase();
             if (availableVersions.indexOf(array[bookIndex + 4]) !== -1) {
-                let version = array[bookIndex + 4].replace("<", "");
-                version = version.replace(">", "");
+                let version = array[bookIndex + 4].replace(central.getDividers().first, "");
+                version = version.replace(central.getDividers().second, "");
                 verse.push("v - " + version);
             }
 
-        } else if (array[bookIndex + 4].indexOf(">") !== -1) {
+        } else if (array[bookIndex + 4].indexOf(central.getDividers().second) !== -1) {
             return;
         }
     }

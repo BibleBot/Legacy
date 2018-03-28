@@ -55,7 +55,7 @@ export default {
                 const versions = [];
 
                 for (let doc in docs) {
-                    versions.push(docs[doc].abbv);
+                    versions.push(docs[doc].name);
                 }
 
                 return callback(versions.sort());
@@ -214,10 +214,10 @@ export default {
                     if (docs.verseNumbers) {
                         return callback(docs.verseNumbers);
                     } else {
-                        return callback(null);
+                        return callback("enable");
                     }
                 } else {
-                    return callback(null);
+                    return callback("enable");
                 }
             });
         }

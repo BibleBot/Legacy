@@ -2,8 +2,6 @@ import Handler from "../types/handler";
 import * as commandBridge from "./commands/commandBridge";
 import config from "../data/config";
 
-import { RichEmbed } from "discord.js";
-
 const commandMap = {
     "biblebot": 0,
     "search": 1,
@@ -203,48 +201,7 @@ export default class CommandHandler extends Handler {
                         throw new Error(response);
                     } else {
                         commandBridge.runCommand(properCommand.orig, args, rawLanguage, sender, (result) => {
-                            let query = "";
-
-                            for (const index in args) {
-                                query += args[index] + " ";
-                            }
-
-                            const pages = [];
-                            let totalPages = Math.ceil(Object.keys(result).length / 5);
-
-                            if (totalPages === 0) {
-                                totalPages++;
-                            }
-
-                            for (let i = 0; i < totalPages; i++) {
-                                const embed = new RichEmbed();
-
-                                embed.setTitle(rawLanguage.searchResults + " \"" + query.slice(0, -1) + "\"");
-                                embed.setDescription(rawLanguage.page + " " + (pages.length + 1) + " " + rawLanguage.of + " " + totalPages);
-                                embed.setColor(303102);
-                                embed.setFooter("BibleBot v" + process.env.npm_package_version, "https://cdn.discordapp.com/avatars/361033318273384449/5aad77425546f9baa5e4b5112696e10a.png");
-
-                                if (Object.keys(result).length > 0) {
-                                    let count = 0;
-                                    Object.keys(result).forEach((key) => {
-                                        if (count < 5) {
-                                            embed.addField(result[key].title, result[key].text, true);
-                                            delete result[key];
-                                            count++;
-                                        }
-                                    });
-                                } else {
-                                    embed.setTitle(rawLanguage.nothingFound.replace("<query>", query.slice(0, -1)));
-                                }
-
-                                pages.push(embed);
-                            }
-
-                            if (pages.length > 1) {
-                                return callback({ level: "info", paged: true, pages: pages });
-                            } else {
-                                return callback({ level: "err", message: pages[0] });
-                            }
+                            callback(result);
                         });
                     }
                 }

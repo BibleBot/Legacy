@@ -39,6 +39,7 @@ Commands:
 * `+users` - list all users throughout all servers (not counting duplicates or bots)
 * `+servers` - show how many servers BibleBot is in
 * `+invite` - get the invite link for BibleBot
+* `+supporters` - the supporters of BibleBot
 
 Bot Owner Commands:
 

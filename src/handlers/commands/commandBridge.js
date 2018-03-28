@@ -3,14 +3,25 @@ import central from "../../central";
 
 import Version from "../../types/version";
 
+import { RichEmbed } from "discord.js";
+
 import * as bibleGateway from "../../bible-modules/bibleGateway";
 import * as rev from "../../bible-modules/rev";
 import * as kjv1611 from "../../bible-modules/kjv1611";
 
+let embed;
+
 export function runCommand(command, args, lang, user, callback) {
     switch (command) {
         case "biblebot":
-            let response = lang.biblebot;
+            embed = new RichEmbed();
+
+            embed.setTitle(lang.biblebot.replace("<biblebotversion>", process.env.npm_package_version));
+            embed.setDescription(lang.code);
+            embed.setColor(303102);
+            embed.setFooter("BibleBot v" + process.env.npm_package_version, "https://cdn.discordapp.com/avatars/361033318273384449/5aad77425546f9baa5e4b5112696e10a.png");
+
+            let response = lang.commandlist;
             response = response.replace(
                 "<biblebotversion>", process.env.npm_package_version);
             response = response.replace(
@@ -49,13 +60,16 @@ export function runCommand(command, args, lang, user, callback) {
                 "<servers>", lang.commands.servers);
             response = response.replace(
                 "<invite>", lang.commands.invite);
+            response = response.replace(
+                "<supporters>", lang.commands.supporters);
+            response = response.replaceAll(
+                "* ", "");
 
-            response += "\n\n---\n";
+            embed.addField(lang.commandlistName, response + "\n\n**" + lang.usage + "**");
+            embed.addBlankField();
+            embed.addField(lang.links, lang.patreon + "\n" + lang.joinserver + "\n" + lang.copyright);
 
-            let second = "**" + lang.patreon + "**";
-            second += "\n---\n\n" + lang.joinserver + "\n" + lang.copyright;
-
-            return callback({ level: "info", twoMessages: true, first: response, second: second });
+            return callback({ level: "info", message: embed });
         case "search":
             settings.versions.getVersions((availableVersions) => {
                 settings.versions.getVersion(user, (data) => {
@@ -88,31 +102,89 @@ export function runCommand(command, args, lang, user, callback) {
 
                     if (version !== "KJV1611" && version !== "REV") {
                         bibleGateway.search(version, query).then((result) => {
-                            callback(result);
+                            let query = "";
+
+                            for (const index in args) {
+                                query += args[index] + " ";
+                            }
+
+                            query = query.replaceAll("\"", "");
+
+                            const pages = [];
+                            let totalPages = Math.ceil(Object.keys(result).length / 5);
+
+                            if (totalPages === 0) {
+                                totalPages++;
+                            }
+
+                            for (let i = 0; i < totalPages; i++) {
+                                embed = new RichEmbed();
+
+                                embed.setTitle(lang.searchResults + " \"" + query.slice(0, -1) + "\"");
+                                embed.setDescription(lang.page + " " + (pages.length + 1) + " " + lang.of + " " + totalPages);
+                                embed.setColor(303102);
+                                embed.setFooter("BibleBot v" + process.env.npm_package_version, "https://cdn.discordapp.com/avatars/361033318273384449/5aad77425546f9baa5e4b5112696e10a.png");
+
+                                if (Object.keys(result).length > 0) {
+                                    let count = 0;
+                                    Object.keys(result).forEach((key) => {
+                                        if (count < 5) {
+                                            embed.addField(result[key].title, result[key].text, true);
+                                            delete result[key];
+                                            count++;
+                                        }
+                                    });
+                                } else {
+                                    embed.setTitle(lang.nothingFound.replace("<query>", query.slice(0, -1)));
+                                }
+
+                                pages.push(embed);
+                            }
+
+                            if (pages.length > 1) {
+                                return callback({ level: "info", paged: true, pages: pages });
+                            } else {
+                                return callback({ level: "err", message: pages[0] });
+                            }
                         }).catch((err) => {
                             callback(err);
                         });
+                    } else {
+                        return callback({ level: "err", message: lang.searchNotSupported.replace("<search>", lang.commands.search) });
                     }
                 });
             });
             break;
         case "setversion":
             settings.versions.setVersion(user, args[0], (data) => {
+                embed = new RichEmbed();
+                embed.setColor(303102);
+                embed.setFooter("BibleBot v" + process.env.npm_package_version, "https://cdn.discordapp.com/avatars/361033318273384449/5aad77425546f9baa5e4b5112696e10a.png");
+
                 if (data) {
+                    embed.addField("+" + lang.commands.setversion, lang.setversionsuccess);
+
                     return callback({
                         level: "info",
-                        message: "**" + lang.setversionsuccess + "**"
+                        message: embed
                     });
                 } else {
+                    embed.setColor("#ff2e2e");
+                    embed.addField("+" + lang.commands.setversion, lang.setversionfail.replace("<versions>", lang.commands.versions));
+
                     return callback({
                         level: "err",
-                        message: "**" + lang.setversionfail.replace("<versions>", lang.commands.versions) + "**"
+                        message: embed
                     });
                 }
             });
             break;
         case "version":
             settings.versions.getVersion(user, (data) => {
+                embed = new RichEmbed();
+                embed.setColor(303102);
+                embed.setFooter("BibleBot v" + process.env.npm_package_version, "https://cdn.discordapp.com/avatars/361033318273384449/5aad77425546f9baa5e4b5112696e10a.png");
+
                 if (data) {
                     if (data[0].version) {
                         if (data[0].version === "HWP") {
@@ -126,9 +198,11 @@ export function runCommand(command, args, lang, user, callback) {
                         response = response.replace(
                             "<setversion>", lang.commands.setversion);
 
+                        embed.addField("+" + lang.commands.version, response);
+
                         return callback({
                             level: "info",
-                            message: "**" + response + ".**"
+                            message: embed
                         });
                     } else {
                         let response = lang.noversionused;
@@ -136,9 +210,12 @@ export function runCommand(command, args, lang, user, callback) {
                         response = response.replace(
                             "<setversion>", lang.commands.setversion);
 
+                        embed.setColor("#ff2e2e");
+                        embed.addField("+" + lang.commands.version, response);
+
                         return callback({
                             level: "err",
-                            message: "**" + response + "**"
+                            message: embed
                         });
                     }
                 } else {
@@ -147,25 +224,54 @@ export function runCommand(command, args, lang, user, callback) {
                     response = response.replace(
                         "<setversion>", lang.commands.setversion);
 
+                    embed.setColor("#ff2e2e");
+                    embed.addField("+" + lang.commands.version, response);
+
                     return callback({
                         level: "err",
-                        message: "**" + response + "**"
+                        message: embed
                     });
                 }
             });
             break;
         case "versions":
             settings.versions.getVersions((availableVersions) => {
-                let chatString = "";
+                const pages = [];
+                let totalPages = Math.ceil(availableVersions.length / 7);
 
-                for (let i in availableVersions) {
-                    chatString += availableVersions[i] + ", ";
+                if (totalPages === 0) {
+                    totalPages++;
+                }
+
+                for (let i = 0; i < totalPages; i++) {
+                    embed = new RichEmbed();
+
+                    embed.setColor(303102);
+                    embed.setFooter("BibleBot v" + process.env.npm_package_version, "https://cdn.discordapp.com/avatars/361033318273384449/5aad77425546f9baa5e4b5112696e10a.png");
+
+                    if (availableVersions.length > 0) {
+                        let count = 0;
+                        let list = "";
+
+                        for (const key in availableVersions) {
+                            if (count < 7) {
+                                list += availableVersions[key] + "\n";
+                                delete availableVersions[key];
+                                count++;
+                            }
+                        };
+
+                        embed.addField("+" + lang.commands.versions + " - " + lang.page + " " + (pages.length + 1) + " " + lang.of + " " + totalPages,
+                            list);
+
+                        pages.push(embed);
+                    }
                 }
 
                 return callback({
                     level: "info",
-                    message: "**" + lang.versions + ":**\n```" +
-                        chatString.slice(0, -2) + "```"
+                    paged: true,
+                    pages: pages
                 });
             });
             break;
@@ -175,10 +281,19 @@ export function runCommand(command, args, lang, user, callback) {
             }, (err, data) => {
                 data = data; // for some reason it won't initialize properly
 
+                embed = new RichEmbed();
+
+                embed.setColor(303102);
+                embed.setFooter("BibleBot v" + process.env.npm_package_version, "https://cdn.discordapp.com/avatars/361033318273384449/5aad77425546f9baa5e4b5112696e10a.png");
+
+
                 if (err) {
+                    embed.setColor("#ff2e2e");
+                    embed.addField("+" + lang.commands.versioninfo, lang.versioninfofailed);
+
                     return callback({
                         level: "err",
-                        message: "**" + lang.versioninfofailed + "**"
+                        message: embed
                     });
                 } else if (data.length > 0) {
                     let response = lang.versioninfo;
@@ -202,59 +317,87 @@ export function runCommand(command, args, lang, user, callback) {
                         response = response.replace("<hasAPO>", lang.arguments.no);
                     }
 
+                    embed.addField("+" + lang.commands.versioninfo, response);
+
                     return callback({
                         level: "info",
-                        message: response
+                        message: embed
                     });
                 } else {
+                    embed.setColor("#ff2e2e");
+                    embed.addField("+" + lang.commands.versioninfo, lang.versioninfofailed);
+
                     return callback({
                         level: "err",
-                        message: "**" + lang.versioninfofailed + "**"
+                        message: embed
                     });
                 }
             });
             break;
         case "setlanguage":
             settings.languages.setLanguage(user, args[0], (data) => {
+                embed = new RichEmbed();
+
+                embed.setColor(303102);
+                embed.setFooter("BibleBot v" + process.env.npm_package_version, "https://cdn.discordapp.com/avatars/361033318273384449/5aad77425546f9baa5e4b5112696e10a.png");
+
                 if (data) {
+                    embed.addField("+" + lang.commands.setlanguage, lang.setlanguagesuccess);
+
                     return callback({
                         level: "info",
-                        message: "**" + lang.setlanguagesuccess + "**"
+                        message: embed
                     });
                 } else {
+                    embed.setColor("#ff2e2e");
+                    embed.addField("+" + lang.commands.setlanguage, lang.setlanguagefail.replace("<languages>", lang.commands.languages));
+
                     return callback({
                         level: "err",
-                        message: "**" + lang.setlanguagefail.replace("<languages>", lang.commands.languages) + "**"
+                        message: embed
                     });
                 }
             });
             break;
         case "language":
             settings.languages.getLanguage(user, () => {
+                embed = new RichEmbed();
+
+                embed.setColor(303102);
+                embed.setFooter("BibleBot v" + process.env.npm_package_version, "https://cdn.discordapp.com/avatars/361033318273384449/5aad77425546f9baa5e4b5112696e10a.png");
+
                 let response = lang.languageused;
 
                 response = response.replace(
                     "<setlanguage>", lang.commands.setlanguage);
 
+                embed.addField("+" + lang.commands.language, response);
+
                 return callback({
                     level: "info",
-                    message: "**" + response + "**"
+                    message: embed
                 });
             });
             break;
         case "languages":
             settings.languages.getLanguages((availableLanguages) => {
+                embed = new RichEmbed();
+
+                embed.setColor(303102);
+                embed.setFooter("BibleBot v" + process.env.npm_package_version, "https://cdn.discordapp.com/avatars/361033318273384449/5aad77425546f9baa5e4b5112696e10a.png");
+
                 let chatString = "";
 
                 for (let i in availableLanguages) {
-                    chatString += availableLanguages[i].name + " [" +
-                        availableLanguages[i].object_name + "], ";
+                    chatString += availableLanguages[i].name + " [`" +
+                        availableLanguages[i].objectName + "`], ";
                 }
+
+                embed.addField("+" + lang.commands.languages, chatString.replaceAll(", ", "\n"));
 
                 return callback({
                     level: "info",
-                    message: "**" + lang.versions + ":**\n```" +
-                        chatString.slice(0, -2) + "```"
+                    message: embed
                 });
             });
             break;
@@ -408,24 +551,46 @@ export function runCommand(command, args, lang, user, callback) {
         case "headings":
             if (args.length === 1) {
                 settings.formatting.setHeadings(user, args[0], (data) => {
+                    embed = new RichEmbed();
+
+                    embed.setColor(303102);
+                    embed.setFooter("BibleBot v" + process.env.npm_package_version, "https://cdn.discordapp.com/avatars/361033318273384449/5aad77425546f9baa5e4b5112696e10a.png");
+
                     if (data) {
-                        return callback({ level: "info", message: "**" + lang.headingssuccess + "**" });
+                        embed.addField("+" + lang.commands.headings, lang.headingssuccess);
+
+                        return callback({ level: "info", message: embed });
                     } else {
+                        embed.setColor("#ff2e2e");
+
+                        const response = lang.headingsfail.replaceAll("<headings>", lang.commands.headings)
+                            .replace("<enable>", lang.arguments.enable).replace("<disable>", lang.arguments.disable);
+
+                        embed.addField("+" + lang.commands.headings, response);
+
                         return callback({
                             level: "err",
-                            message: "**" + lang.headingsfail.replaceAll("<headings>", lang.commands.headings)
-                                .replace("<enable>", lang.arguments.enable).replace("<disable>", lang.arguments.disable) + "**"
+                            message: embed
                         });
                     }
                 });
             } else {
                 settings.formatting.getHeadings(user, (data) => {
+                    embed = new RichEmbed();
+
+                    embed.setColor(303102);
+                    embed.setFooter("BibleBot v" + process.env.npm_package_version, "https://cdn.discordapp.com/avatars/361033318273384449/5aad77425546f9baa5e4b5112696e10a.png");
+
                     if (data === "enable") {
                         const response = lang.headings.replace("<enabled/disabled>", lang.enabled);
-                        return callback({ level: "info", message: "**" + response + "**" });
+                        embed.addField("+" + lang.commands.headings, response);
+
+                        return callback({ level: "info", message: embed });
                     } else {
                         const response = lang.headings.replace("<enabled/disabled>", lang.disabled);
-                        return callback({ level: "info", message: "**" + response + "**" });
+                        embed.addField("+" + lang.commands.headings, response);
+
+                        return callback({ level: "info", message: embed });
                     }
                 });
             }
@@ -433,29 +598,56 @@ export function runCommand(command, args, lang, user, callback) {
         case "versenumbers":
             if (args.length === 1) {
                 settings.formatting.setVerseNumbers(user, args[0], (data) => {
+                    embed = new RichEmbed();
+
+                    embed.setColor(303102);
+                    embed.setFooter("BibleBot v" + process.env.npm_package_version, "https://cdn.discordapp.com/avatars/361033318273384449/5aad77425546f9baa5e4b5112696e10a.png");
+
                     if (data) {
-                        return callback({ level: "info", message: "**" + lang.versenumberssuccess + "**" });
+                        embed.addField("+" + lang.commands.versenumbers, lang.versenumberssuccess);
+
+                        return callback({ level: "info", message: embed });
                     } else {
+                        embed.setColor("#ff2e2e");
+
+                        const response = lang.versenumbersfail.replaceAll("<versenumbers>", lang.commands.versenumbers)
+                            .replace("<enable>", lang.arguments.enable).replace("<disable>", lang.arguments.disable);
+
+                        embed.addField("+" + lang.commands.versenumbers, response);
+
                         return callback({
                             level: "err",
-                            message: "**" + lang.versenumbersfail.replaceAll("<versenumbers>", lang.commands.versenumbers)
-                                .replace("<enable>", lang.arguments.enable).replace("<disable>", lang.arguments.disable) + "**"
+                            message: embed
                         });
                     }
                 });
             } else {
                 settings.formatting.getVerseNumbers(user, (data) => {
+                    embed = new RichEmbed();
+
+                    embed.setColor(303102);
+                    embed.setFooter("BibleBot v" + process.env.npm_package_version, "https://cdn.discordapp.com/avatars/361033318273384449/5aad77425546f9baa5e4b5112696e10a.png");
+
                     if (data === "enable") {
                         const response = lang.versenumbers.replace("<enabled/disabled>", lang.enabled);
-                        return callback({ level: "info", message: "**" + response + "**" });
+                        embed.addField("+" + lang.commands.versenumbers, response);
+
+                        return callback({ level: "info", message: embed });
                     } else {
                         const response = lang.versenumbers.replace("<enabled/disabled>", lang.disabled);
-                        return callback({ level: "info", message: "**" + response + "**" });
+                        embed.addField("+" + lang.commands.versenumbers, response);
+
+                        return callback({ level: "info", message: embed });
                     }
                 });
             }
             break;
         case "users":
+            embed = new RichEmbed();
+
+            embed.setColor(303102);
+            embed.setFooter("BibleBot v" + process.env.npm_package_version, "https://cdn.discordapp.com/avatars/361033318273384449/5aad77425546f9baa5e4b5112696e10a.png");
+
             let users = args[0].users;
             let processed = 0;
 
@@ -465,15 +657,25 @@ export function runCommand(command, args, lang, user, callback) {
                 }
             });
 
+            embed.addField("+" + lang.commands.users, lang.users + ": " + processed.toString());
+
             return callback({
                 level: "info",
-                message: lang.users + ": " + processed.toString()
+                message: embed
             });
         case "servers":
+            embed = new RichEmbed();
+
+            embed.setColor(303102);
+            embed.setFooter("BibleBot v" + process.env.npm_package_version, "https://cdn.discordapp.com/avatars/361033318273384449/5aad77425546f9baa5e4b5112696e10a.png");
+
             const count = args[0].guilds.size.toString();
+
+            embed.addField("+" + lang.commands.servers, lang.servers.replace("<count>", count));
+
             return callback({
                 level: "info",
-                message: lang.servers.replace("<count>", count)
+                message: embed
             });
         case "jepekula":
             settings.versions.getVersion(user, (data) => {
@@ -594,14 +796,21 @@ export function runCommand(command, args, lang, user, callback) {
                 message: "Jesus never consecrated peanut butter and jelly sandwiches and Coca-Cola!"
             });
         case "supporters":
+            embed = new RichEmbed();
+
+            embed.setColor(303102);
+            embed.setFooter("BibleBot v" + process.env.npm_package_version, "https://cdn.discordapp.com/avatars/361033318273384449/5aad77425546f9baa5e4b5112696e10a.png");
+
+            embed.addField("+" + lang.commands.supporters, "A special thank you to CHAZER2222, Jepekula, Joseph, Soku, and anonymous donors for financially supporting BibleBot! <3");
+
             return callback({
                 level: "info",
-                message: "A special thank you to CHAZER2222, Jepekula, Joseph, Soku, and anonymous donors for financially supporting BibleBot! <3"
+                message: embed
             });
         case "invite":
             return callback({
                 level: "info",
-                message: "https://discordapp.com/oauth2/authorize?client_id=361033318273384449&scope=bot&permissions=0"
+                message: "<https://discordapp.com/oauth2/authorize?client_id=361033318273384449&scope=bot&permissions=0>"
             });
     }
 }
@@ -636,17 +845,29 @@ export function runOwnerCommand(command, args, lang, callback) {
                 });
             }
         case "announce":
+            embed = new RichEmbed();
+
+            embed.setColor(303102);
+            embed.setFooter("BibleBot v" + process.env.npm_package_version, "https://cdn.discordapp.com/avatars/361033318273384449/5aad77425546f9baa5e4b5112696e10a.png");
+
             let m = "";
             for (const argument in args) {
                 m += args[argument] + " ";
             }
 
+            embed.addField("Announcement", m.slice(0, -1));
+
             return callback({
                 level: "info",
                 announcement: true,
-                message: m
+                message: embed
             });
         case "addversion":
+            embed = new RichEmbed();
+
+            embed.setColor(303102);
+            embed.setFooter("BibleBot v" + process.env.npm_package_version, "https://cdn.discordapp.com/avatars/361033318273384449/5aad77425546f9baa5e4b5112696e10a.png");
+
             let argc = args.length;
             let name = "";
 
@@ -664,9 +885,13 @@ export function runOwnerCommand(command, args, lang, callback) {
             let newVersion = new Version(name, abbv, hasOT, hasNT, hasAPO);
             central.versionDB.insert(newVersion.toObject(), (err) => {
                 if (err) {
-                    return callback({ level: "err", message: "**" + lang.addversionfail + "**" });
+                    embed.setColor("#ff2e2e");
+                    embed.addField("+" + lang.commands.addversion, lang.addversionfail);
+
+                    return callback({ level: "err", message: embed });
                 } else {
-                    return callback({ level: "info", message: "**" + lang.addversionsuccess + "**" });
+                    embed.addField("+" + lang.commands.addversion, lang.addversionsuccess);
+                    return callback({ level: "info", message: embed });
                 }
             });
     }

@@ -34,6 +34,8 @@ function removeBibleTitleInSearch(string) {
 }
 
 export function search(version, query) {
+    query = escape(query);
+
     let url = "https://www.biblegateway.com/quicksearch/?search=" +
         query + "&version=" + version + "&searchtype=all&limit=100000&interface=print";
 
