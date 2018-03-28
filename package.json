@@ -1,44 +1,47 @@
 {
-  "name": "biblebot",
-  "version": "4.4.3",
-  "description": "A Discord bot for Bible verses.",
-  "main": "start.js",
-  "scripts": {
-    "build": "babel src -d build",
-    "dev": "babel src -d build && node build/start.js",
-    "start": "node build/start.js",
-    "refresh": "git pull && babel src -d build && node build/start.js",
-    "snyk-protect": "snyk protect",
-    "prepare": "npm run snyk-protect",
-    "test": "snyk test"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://git.vypr.space/BibleBot/BibleBot"
-  },
-  "author": "vypr",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://git.vypr.space/BibleBot/BibleBot/issues"
-  },
-  "homepage": "https://biblebot.vypr.space",
-  "dependencies": {
-    "bufferutil": "^3.0.3",
-    "cheerio": "^1.0.0-rc.2",
-    "discord.js": "^11.2.1",
-    "erlpack": "github:discordapp/erlpack",
-    "eslint": "^4.6.1",
-    "libsodium-wrappers": "^0.7.3",
-    "log4js": "^2.3.4",
-    "nedb": "^1.8.0",
-    "node-opus": "^0.2.7",
-    "request": "^2.79.0",
-    "snyk": "^1.69.7",
-    "uws": "^9.14.0"
-  },
-  "devDependencies": {
-    "babel-cli": "^6.24.1",
-    "babel-preset-env": "^1.5.2"
-  },
-  "snyk": true
+    "name": "biblebot",
+    "version": "5.0.0",
+    "description": "A Discord bot for Bible verses.",
+    "main": "start.js",
+    "scripts": {
+        "build": "babel src -d build",
+        "dev": "babel src -d build && node build/start.js",
+        "start": "node build/start.js",
+        "refresh": "git pull && babel src -d build && node build/start.js",
+        "clean": "rm -rf build && rm -rf node_modules",
+        "beautify": "eslint --fix ./src/.",
+        "snyk-protect": "snyk protect",
+        "prepare": "npm run snyk-protect",
+        "test": "snyk test"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://git.vypr.space/BibleBot/BibleBot"
+    },
+    "author": "vypr",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://git.vypr.space/BibleBot/BibleBot/issues"
+    },
+    "homepage": "https://biblebot.vypr.space",
+    "dependencies": {
+        "bufferutil": "^3.0.3",
+        "cheerio": "^1.0.0-rc.2",
+        "discord.js": "^11.2.1",
+        "erlpack": "github:discordapp/erlpack",
+        "eslint": "^4.6.1",
+        "js-beautify": "^1.7.5",
+        "libsodium-wrappers": "^0.7.3",
+        "log4js": "^2.3.4",
+        "nedb": "^1.8.0",
+        "node-opus": "^0.2.7",
+        "request": "^2.79.0",
+        "snyk": "^1.69.7",
+        "uws": "^9.14.0"
+    },
+    "devDependencies": {
+        "babel-cli": "^6.24.1",
+        "babel-preset-env": "^1.5.2"
+    },
+    "snyk": true
 }
