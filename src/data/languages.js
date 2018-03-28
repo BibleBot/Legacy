@@ -1,7 +1,5 @@
 import Language from "../types/language";
 
-const defaultLanguage = require(__dirname + "/../../i18n/default/default.json");
-
 const belarusian = require(__dirname + "/../../i18n/belarusian/belarusian.json");
 const catalan = require(__dirname + "/../../i18n/catalan/catalan.json");
 const chineseSimp = require(__dirname + "/../../i18n/chinese_simp/chinese_simp.json");
@@ -29,7 +27,6 @@ export default {
     /*
       languageNameInEnglish: new Language(languageNameInLanguage, rawObject, defaultVersion);
     */
-    "default": new Language("Default", defaultLanguage, "NRSV"),
 
     "belarusian": new Language("Беларускай", belarusian, "NRSV"),
     "catalan": new Language("Català", catalan, "NRSV"),
