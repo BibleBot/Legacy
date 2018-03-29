@@ -14,7 +14,7 @@
     "noversionused": "Я не змог знайсці ваша імя ў маёй базе дадзеных, вы ўжо выкарыстоўваеце `+<setversion>`?",
     "addversionsuccess": "Версія дададзена паспяхова.",
     "addversionfail": "Не атрымалася дадаць версію.",
-    "versenumbers": "You have verse numbers <enabled/disabled>.",
+    "versenumbers": "У вас ёсць нумары вершаў <enabled/disabled>.",
     "versenumberssuccess": "Set verse numbers successfully.",
     "versenumbersfail": "Use `+<versenumbers> <enable>` or `+<versenumbers> <disable>`.",
     "headings": "You have headings <enabled/disabled>.",
