@@ -44,7 +44,7 @@
     "nothingFound": "Нічога не знойдзена для \"<query>\"",
     "page": "Старонка",
     "of": "з",
-    "searchNotSupported": "+<search> only supports Bible Gateway versions",
+    "searchNotSupported": "+<search> падтрымліваецца толькі для прахадных версій Бібліі",
     "zeroOrOne": "0 або 1",
     "enabled": "уключана",
     "disabled": "адключана",
@@ -70,7 +70,7 @@
         "servers": "серверы",
         "announce": "анансаваць",
         "invite": "запрашаць",
-        "supporters": "supporters"
+        "supporters": "прыхільнікі"
     },
     "arguments": {
         "yes": "Так",
