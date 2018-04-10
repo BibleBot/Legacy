@@ -60,6 +60,18 @@ export default {
 
                 return callback(versions.sort());
             });
+        },
+
+        getVersionsByAcronym: (callback) => {
+            central.versionDB.find({}, function(err, docs) {
+                const versions = [];
+
+                for (let doc in docs) {
+                    versions.push(docs[doc].abbv);
+                }
+
+                return callback(versions.sort());
+            });
         }
     },
     languages: {

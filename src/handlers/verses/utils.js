@@ -11,7 +11,7 @@ export function tokenize(msg) {
                 const tempSplit = item.split(" ");
 
                 tempSplit.forEach((item) => {
-                    item = item.replaceAll(/[^a-zA-Z0-9:()"'<>|\\/;*&^%$#@!.+_?=]/g, "");
+                    item = item.replaceAll(/[^a-zA-Z0-9:()"'<>|\[\]\{\}\\/;*&^%$#@!.+_?=]/g, "");
 
                     array.push(item);
                 });
@@ -31,20 +31,48 @@ export function tokenize(msg) {
 }
 
 export function purify(msg) {
+    return msg = msg.replaceAll("(", " ( ")
+        .replaceAll(")", " ) ")
+        .replaceAll("[", " [ ")
+        .replaceAll("]", " ] ")
+        .replaceAll("{", " { ")
+        .replaceAll("}", " } ")
+        .replaceAll("<", " < ")
+        .replaceAll(">", " > ")
+        .replaceAll(/[^a-zA-Z0-9 \(\)\[\]{}<>:-]/, "")
+        .capitalizeFirstLetter();
+}
+
+export function purgeBrackets(msg) {
     return msg = msg.replaceAll("(", "")
         .replaceAll(")", "")
         .replaceAll("[", "")
         .replaceAll("]", "")
-        .replaceAll("?", "")
-        .replaceAll("_", "")
-        .replaceAll("*", "")
-        .replaceAll("-", "")
-        .replaceAll("\\", "")
-        .replaceAll("`", "")
-        .capitalizeFirstLetter();
+        .replaceAll("{", "")
+        .replaceAll("}", "")
+        .replaceAll("<", "")
+        .replaceAll(">", "")
+        .replaceAll(" ", "");
 }
 
-export function checkForNumberedBooks(item, array, index) {
+export function getDifference(a, b) {
+    let i = 0;
+    let j = 0;
+    let result = "";
+
+    while (j < b.length) {
+        if (a[i] !== b[j] || i === a.length) {
+            result += b[j];
+        } else {
+            i++;
+        }
+
+        j++;
+    }
+    return result;
+}
+
+export function parseNumberedBook(item, array, index) {
     switch (item) {
         case "Sam":
         case "Sm":
@@ -132,36 +160,36 @@ export function createVerseObject(array, bookIndex, availableVersions) {
     // make sure that its proper verse structure
     // Book chapterNum:chapterVerse
     if (isNaN(Number(array[bookIndex + 1])) ||
-        isNaN(Number(array[bookIndex + 2]))) {
-        return "invalid";
+        isNaN(Number(purgeBrackets(array[bookIndex + 2])))) {
+        return "invalid - NaN";
     }
 
     // if it's surrounded by angle brackets
     // we want to ignore it
-    if (array[bookIndex].indexOf(central.getDividers().first) !== -1) {
-        return "invalid";
+    if (array[bookIndex].indexOf(central.dividers.first) !== -1) {
+        return "invalid - found bracket at beginning";
     }
 
-    const angleBracketIndexes = [];
+    const bracketIndexes = [];
     for (let i in array) {
-        if ((i < bookIndex) && (array[i].indexOf(central.getDividers().first) !== -1)) {
-            angleBracketIndexes.push(i);
+        if ((i < bookIndex) && (array[i].indexOf(central.dividers.first) !== -1)) {
+            bracketIndexes.push(i);
         }
 
-        if ((i > bookIndex) && (array[i].indexOf(central.getDividers().second) !== -1)) {
-            angleBracketIndexes.push(i);
+        if ((i > bookIndex) && (array[i].indexOf(central.dividers.second) !== -1)) {
+            bracketIndexes.push(i);
         }
     }
 
-    if (angleBracketIndexes.length === 2) {
-        if (angleBracketIndexes[0] < bookIndex &&
-            angleBracketIndexes[1] > bookIndex) {
-            return "invalid";
+    if (bracketIndexes.length === 2) {
+        if (bracketIndexes[0] < bookIndex &&
+            bracketIndexes[1] > bookIndex) {
+            return "invalid - found bracket surrounding";
         }
     }
 
     // organize our variables correctly
-    let book = array[bookIndex];
+    let book = purgeBrackets(array[bookIndex]);
     let chapter = array[bookIndex + 1];
     let startingVerse = array[bookIndex + 2];
 
@@ -174,37 +202,41 @@ export function createVerseObject(array, bookIndex, availableVersions) {
     // check if there's an ending verse
     // if so, add it to the verse array
     if (array[bookIndex + 3] !== undefined) {
-        if (array[bookIndex + 3].indexOf(central.getDividers().second) !== -1) {
-            return;
+        if (array[bookIndex + 3].indexOf(central.dividers.second) !== -1) {
+            return "invalid - found ending bracket";
         }
+
+        array[bookIndex + 3] = purgeBrackets(array[bookIndex + 3]);
+
         if (!isNaN(Number(array[bookIndex + 3]))) {
             if (Number(array[bookIndex + 3]) >
                 Number(array[bookIndex + 2])) {
-                let endingVerse = array[bookIndex + 3].replace(central.getDividers().first, "");
-                endingVerse = endingVerse.replace(central.getDividers().second, "");
-                verse.push(endingVerse);
+                let endingVerse = array[bookIndex + 3].replace(central.dividers.first, "");
+                endingVerse = endingVerse.replace(central.dividers.second, "");
+                verse.push(purgeBrackets(endingVerse));
             }
         } else {
             if (availableVersions.indexOf(array[bookIndex + 3]) !== -1) {
                 array[bookIndex + 3] = array[bookIndex + 3].toUpperCase();
-                let version = array[bookIndex + 3].replace(central.getDividers().first, "");
-                version = version.replace(central.getDividers().second, "");
+                let version = array[bookIndex + 3].replace(central.dividers.first, "");
+                version = version.replace(central.dividers.second, "");
                 verse.push("v - " + version);
             }
         }
     }
 
     if (array[bookIndex + 4] !== undefined) {
-        if (isNaN(Number(array[bookIndex + 4]))) {
-            array[bookIndex + 4] = array[bookIndex + 4].toUpperCase();
-            if (availableVersions.indexOf(array[bookIndex + 4]) !== -1) {
-                let version = array[bookIndex + 4].replace(central.getDividers().first, "");
-                version = version.replace(central.getDividers().second, "");
-                verse.push("v - " + version);
-            }
+        if (array[bookIndex + 4].indexOf(central.dividers.second) !== -1) {
+            return "invalid - found ending bracket";
+        }
 
-        } else if (array[bookIndex + 4].indexOf(central.getDividers().second) !== -1) {
-            return;
+        array[bookIndex + 4] = purgeBrackets(array[bookIndex + 4]);
+        array[bookIndex + 4] = array[bookIndex + 4].toUpperCase();
+
+        if (availableVersions.indexOf(array[bookIndex + 4]) !== -1) {
+            let version = array[bookIndex + 4].replace(central.dividers.first, "");
+            version = version.replace(central.dividers.second, "");
+            verse.push("v - " + version);
         }
     }
 

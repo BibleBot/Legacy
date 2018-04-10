@@ -3,18 +3,18 @@ import central from "../../central";
 
 import Version from "../../types/version";
 
-import { RichEmbed } from "discord.js";
+import * as Discord from "discord.js";
 
 import * as bibleGateway from "../../bible-modules/bibleGateway";
 import * as rev from "../../bible-modules/rev";
 import * as kjv1611 from "../../bible-modules/kjv1611";
 
-let embed;
-
 export function runCommand(command, args, lang, user, callback) {
+    let embed;
+
     switch (command) {
         case "biblebot":
-            embed = new RichEmbed();
+            embed = new Discord.RichEmbed();
 
             embed.setTitle(lang.biblebot.replace("<biblebotversion>", process.env.npm_package_version));
             embed.setDescription(lang.code);
@@ -118,7 +118,7 @@ export function runCommand(command, args, lang, user, callback) {
                             }
 
                             for (let i = 0; i < totalPages; i++) {
-                                embed = new RichEmbed();
+                                embed = new Discord.RichEmbed();
 
                                 embed.setTitle(lang.searchResults + " \"" + query.slice(0, -1) + "\"");
                                 embed.setDescription(lang.page + " " + (pages.length + 1) + " " + lang.of + " " + totalPages);
@@ -157,7 +157,7 @@ export function runCommand(command, args, lang, user, callback) {
             break;
         case "setversion":
             settings.versions.setVersion(user, args[0], (data) => {
-                embed = new RichEmbed();
+                embed = new Discord.RichEmbed();
                 embed.setColor(303102);
                 embed.setFooter("BibleBot v" + process.env.npm_package_version, "https://cdn.discordapp.com/avatars/361033318273384449/5aad77425546f9baa5e4b5112696e10a.png");
 
@@ -181,7 +181,7 @@ export function runCommand(command, args, lang, user, callback) {
             break;
         case "version":
             settings.versions.getVersion(user, (data) => {
-                embed = new RichEmbed();
+                embed = new Discord.RichEmbed();
                 embed.setColor(303102);
                 embed.setFooter("BibleBot v" + process.env.npm_package_version, "https://cdn.discordapp.com/avatars/361033318273384449/5aad77425546f9baa5e4b5112696e10a.png");
 
@@ -237,14 +237,15 @@ export function runCommand(command, args, lang, user, callback) {
         case "versions":
             settings.versions.getVersions((availableVersions) => {
                 const pages = [];
-                let totalPages = Math.ceil(availableVersions.length / 7);
+                const maxResultsPerPage = 25;
+                let totalPages = Math.ceil(availableVersions.length / maxResultsPerPage);
 
                 if (totalPages === 0) {
                     totalPages++;
                 }
 
                 for (let i = 0; i < totalPages; i++) {
-                    embed = new RichEmbed();
+                    embed = new Discord.RichEmbed();
 
                     embed.setColor(303102);
                     embed.setFooter("BibleBot v" + process.env.npm_package_version, "https://cdn.discordapp.com/avatars/361033318273384449/5aad77425546f9baa5e4b5112696e10a.png");
@@ -254,7 +255,7 @@ export function runCommand(command, args, lang, user, callback) {
                         let list = "";
 
                         for (const key in availableVersions) {
-                            if (count < 7) {
+                            if (count < maxResultsPerPage) {
                                 list += availableVersions[key] + "\n";
                                 delete availableVersions[key];
                                 count++;
@@ -281,7 +282,7 @@ export function runCommand(command, args, lang, user, callback) {
             }, (err, data) => {
                 data = data; // for some reason it won't initialize properly
 
-                embed = new RichEmbed();
+                embed = new Discord.RichEmbed();
 
                 embed.setColor(303102);
                 embed.setFooter("BibleBot v" + process.env.npm_package_version, "https://cdn.discordapp.com/avatars/361033318273384449/5aad77425546f9baa5e4b5112696e10a.png");
@@ -336,7 +337,7 @@ export function runCommand(command, args, lang, user, callback) {
             break;
         case "setlanguage":
             settings.languages.setLanguage(user, args[0], (data) => {
-                embed = new RichEmbed();
+                embed = new Discord.RichEmbed();
 
                 embed.setColor(303102);
                 embed.setFooter("BibleBot v" + process.env.npm_package_version, "https://cdn.discordapp.com/avatars/361033318273384449/5aad77425546f9baa5e4b5112696e10a.png");
@@ -361,7 +362,7 @@ export function runCommand(command, args, lang, user, callback) {
             break;
         case "language":
             settings.languages.getLanguage(user, () => {
-                embed = new RichEmbed();
+                embed = new Discord.RichEmbed();
 
                 embed.setColor(303102);
                 embed.setFooter("BibleBot v" + process.env.npm_package_version, "https://cdn.discordapp.com/avatars/361033318273384449/5aad77425546f9baa5e4b5112696e10a.png");
@@ -381,7 +382,7 @@ export function runCommand(command, args, lang, user, callback) {
             break;
         case "languages":
             settings.languages.getLanguages((availableLanguages) => {
-                embed = new RichEmbed();
+                embed = new Discord.RichEmbed();
 
                 embed.setColor(303102);
                 embed.setFooter("BibleBot v" + process.env.npm_package_version, "https://cdn.discordapp.com/avatars/361033318273384449/5aad77425546f9baa5e4b5112696e10a.png");
@@ -551,7 +552,7 @@ export function runCommand(command, args, lang, user, callback) {
         case "headings":
             if (args.length === 1) {
                 settings.formatting.setHeadings(user, args[0], (data) => {
-                    embed = new RichEmbed();
+                    embed = new Discord.RichEmbed();
 
                     embed.setColor(303102);
                     embed.setFooter("BibleBot v" + process.env.npm_package_version, "https://cdn.discordapp.com/avatars/361033318273384449/5aad77425546f9baa5e4b5112696e10a.png");
@@ -576,7 +577,7 @@ export function runCommand(command, args, lang, user, callback) {
                 });
             } else {
                 settings.formatting.getHeadings(user, (data) => {
-                    embed = new RichEmbed();
+                    embed = new Discord.RichEmbed();
 
                     embed.setColor(303102);
                     embed.setFooter("BibleBot v" + process.env.npm_package_version, "https://cdn.discordapp.com/avatars/361033318273384449/5aad77425546f9baa5e4b5112696e10a.png");
@@ -598,7 +599,7 @@ export function runCommand(command, args, lang, user, callback) {
         case "versenumbers":
             if (args.length === 1) {
                 settings.formatting.setVerseNumbers(user, args[0], (data) => {
-                    embed = new RichEmbed();
+                    embed = new Discord.RichEmbed();
 
                     embed.setColor(303102);
                     embed.setFooter("BibleBot v" + process.env.npm_package_version, "https://cdn.discordapp.com/avatars/361033318273384449/5aad77425546f9baa5e4b5112696e10a.png");
@@ -623,7 +624,7 @@ export function runCommand(command, args, lang, user, callback) {
                 });
             } else {
                 settings.formatting.getVerseNumbers(user, (data) => {
-                    embed = new RichEmbed();
+                    embed = new Discord.RichEmbed();
 
                     embed.setColor(303102);
                     embed.setFooter("BibleBot v" + process.env.npm_package_version, "https://cdn.discordapp.com/avatars/361033318273384449/5aad77425546f9baa5e4b5112696e10a.png");
@@ -643,40 +644,41 @@ export function runCommand(command, args, lang, user, callback) {
             }
             break;
         case "users":
-            embed = new RichEmbed();
+            embed = new Discord.RichEmbed();
 
             embed.setColor(303102);
             embed.setFooter("BibleBot v" + process.env.npm_package_version, "https://cdn.discordapp.com/avatars/361033318273384449/5aad77425546f9baa5e4b5112696e10a.png");
 
-            let users = args[0].users;
             let processed = 0;
 
-            users.forEach((value) => {
-                if (!value.bot) {
-                    processed++;
-                }
-            });
+            args[0].shard.fetchClientValues("users.size").then((results) => {
+                processed = (results.reduce((prev, val) => prev + val, 0) - 1).toString();
+                embed.addField("+" + lang.commands.users, lang.users + ": " + processed.toString());
 
-            embed.addField("+" + lang.commands.users, lang.users + ": " + processed.toString());
-
-            return callback({
-                level: "info",
-                message: embed
+                return callback({
+                    level: "info",
+                    message: embed
+                });
             });
+            break;
         case "servers":
-            embed = new RichEmbed();
+            embed = new Discord.RichEmbed();
 
             embed.setColor(303102);
             embed.setFooter("BibleBot v" + process.env.npm_package_version, "https://cdn.discordapp.com/avatars/361033318273384449/5aad77425546f9baa5e4b5112696e10a.png");
 
-            const count = args[0].guilds.size.toString();
+            let count;
 
-            embed.addField("+" + lang.commands.servers, lang.servers.replace("<count>", count));
+            args[0].shard.fetchClientValues("guilds.size").then((results) => {
+                count = results.reduce((prev, val) => prev + val, 0).toString();
+                embed.addField("+" + lang.commands.servers, lang.servers.replace("<count>", count));
 
-            return callback({
-                level: "info",
-                message: embed
+                return callback({
+                    level: "info",
+                    message: embed
+                });
             });
+            break;
         case "jepekula":
             settings.versions.getVersion(user, (data) => {
                 // see TODO for votd and random
@@ -796,7 +798,7 @@ export function runCommand(command, args, lang, user, callback) {
                 message: "Jesus never consecrated peanut butter and jelly sandwiches and Coca-Cola!"
             });
         case "supporters":
-            embed = new RichEmbed();
+            embed = new Discord.RichEmbed();
 
             embed.setColor(303102);
             embed.setFooter("BibleBot v" + process.env.npm_package_version, "https://cdn.discordapp.com/avatars/361033318273384449/5aad77425546f9baa5e4b5112696e10a.png");
@@ -816,6 +818,7 @@ export function runCommand(command, args, lang, user, callback) {
 }
 
 export function runOwnerCommand(command, args, lang, callback) {
+    let embed;
     switch (command) {
         case "puppet":
             let message = "";
@@ -845,25 +848,18 @@ export function runOwnerCommand(command, args, lang, callback) {
                 });
             }
         case "announce":
-            embed = new RichEmbed();
-
-            embed.setColor(303102);
-            embed.setFooter("BibleBot v" + process.env.npm_package_version, "https://cdn.discordapp.com/avatars/361033318273384449/5aad77425546f9baa5e4b5112696e10a.png");
-
             let m = "";
             for (const argument in args) {
                 m += args[argument] + " ";
             }
 
-            embed.addField("Announcement", m.slice(0, -1));
-
             return callback({
                 level: "info",
                 announcement: true,
-                message: embed
+                message: m.slice(0, -1)
             });
         case "addversion":
-            embed = new RichEmbed();
+            embed = new Discord.RichEmbed();
 
             embed.setColor(303102);
             embed.setFooter("BibleBot v" + process.env.npm_package_version, "https://cdn.discordapp.com/avatars/361033318273384449/5aad77425546f9baa5e4b5112696e10a.png");

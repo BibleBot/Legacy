@@ -47,7 +47,7 @@ export default {
     languages,
     db,
     versionDB,
-    getDividers: () => ({ first: config.dividingBrackets[0], second: config.dividingBrackets[1] }),
+    dividers: { first: config.dividingBrackets[0], second: config.dividingBrackets[1] },
     splitter: (s) => {
         let middle = Math.floor(s.length / 2);
         let before = s.lastIndexOf(' ', middle);

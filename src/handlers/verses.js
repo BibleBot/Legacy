@@ -16,7 +16,7 @@ export default class VerseHandler extends Handler {
     }
 
     processRawMessage(shard, rawMessage, sender, lang, callback) {
-        settings.versions.getVersions((availableVersions) => {
+        settings.versions.getVersionsByAcronym((availableVersions) => {
             const msg = rawMessage.content;
 
             if (msg.includes(":") && msg.includes(" ")) {
@@ -35,28 +35,29 @@ export default class VerseHandler extends Handler {
                         /* it'll probably be a number anyways, if this fails */
                     }
 
-                    // this checks if there's a numbered book
-                    split[i] = utils.checkForNumberedBooks(split[i], split, i);
+                    // this parses any numbered books
+                    split[i] = utils.parseNumberedBook(split[i], split, i);
 
                     // matches book names to the index
                     // of where they are in split
-                    const book = split[i];
+                    const book = utils.purgeBrackets(split[i]);
+                    const difference = utils.getDifference(book, split[i]);
 
                     if (books.ot[book.toLowerCase()]) {
                         bookNames.push(books.ot[book.toLowerCase()]);
-                        split[i] = books.ot[book.toLowerCase()];
+                        split[i] = difference + books.ot[book.toLowerCase()];
                         bookIndexes.push(i);
                     }
 
                     if (books.nt[book.toLowerCase()]) {
                         bookNames.push(books.nt[book.toLowerCase()]);
-                        split[i] = books.nt[book.toLowerCase()];
+                        split[i] = difference + books.nt[book.toLowerCase()];
                         bookIndexes.push(i);
                     }
 
                     if (books.apo[book.toLowerCase()]) {
                         bookNames.push(books.apo[book.toLowerCase()]);
-                        split[i] = books.apo[book.toLowerCase()];
+                        split[i] = difference + books.apo[book.toLowerCase()];
                         bookIndexes.push(i);
                     }
                 }
@@ -67,11 +68,13 @@ export default class VerseHandler extends Handler {
 
                     verse = utils.createVerseObject(split, index, availableVersions);
 
-                    if (verse === "invalid") {
-                        invalid = true;
-                        return callback({
-                            invalid: invalid
-                        });
+                    if (typeof verse === "string") {
+                        if (verse.startsWith("invalid")) {
+                            invalid = true;
+                            return callback({
+                                invalid: invalid
+                            });
+                        }
                     }
 
                     // the alphabet organization may be
@@ -90,6 +93,7 @@ export default class VerseHandler extends Handler {
                         "don't spam me, i'm a good bot", "hey buddy, get your own " +
                         "bot to spam"
                     ];
+
                     const randomIndex = Math.floor(Math.random() * (4 - 0)) + 0;
 
                     return callback(responses[randomIndex]);
@@ -97,7 +101,7 @@ export default class VerseHandler extends Handler {
 
                 // lets formulate a verse reference
                 // (yes, we tokenize the message, only to make
-                // another verse reference; this is so we process
+                // another verse reference; this is so we ensure it's
                 // an actual verse, not something else)
                 // the result of this ends up being "Genesis 1:1"
                 // in line with our current example

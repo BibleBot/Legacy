@@ -112,10 +112,10 @@ bot.on("message", (raw) => {
 
             const rawLanguage = language.getRawObject();
 
-            try {
-                commandHandler.processCommand(bot, command, args, language, rawSender, (res) => {
-                    let originalCommand;
+            commandHandler.processCommand(bot, command, args, language, rawSender, (res) => {
+                let originalCommand;
 
+                if (!res.isError) {
                     if (!res.announcement) {
                         if (res.twoMessages) {
                             channel.send(res.first);
@@ -188,68 +188,87 @@ bot.on("message", (raw) => {
                             }
                         });
 
-                        bot.guilds.forEach((value) => {
+                        let evalString = `
+                        this.guilds.forEach((value) => {
+                            const RichEmbed = require("discord.js").RichEmbed;
+                            
+                            const embed = new RichEmbed();
+                            
+                            embed.setColor(303102);
+                            embed.setFooter("BibleBot v" + process.env.npm_package_version, "https://cdn.discordapp.com/avatars/361033318273384449/5aad77425546f9baa5e4b5112696e10a.png");
+                            embed.addField("Announcement", "${res.message}", false);
+
                             if (value.name === "Discord Bots" ||
                                 value.name === "Discord Bot List") {
                                 return;
                             }
 
-                            let sent = false;
-                            const ch = value.channels.findAll("type", "text");
-                            const preferred = ["misc", "bots", "meta", "hangout", "fellowship", "lounge", "congregation", "general",
-                                "taffer", "family_text", "staff"
-                            ];
+                            if (value.id !== "362503610006765568") {
+                                let sent = false;
+                                const ch = value.channels.findAll("type", "text");
+                                const preferred = ["misc", "bots", "meta", "hangout", "fellowship", "lounge", "congregation", "general",
+                                    "taffer", "family_text", "staff"
+                                ];
 
-                            for (let i = 0; i < preferred.length; i++) {
-                                if (!sent) {
-                                    let receiver = ch.find((val) => val.name === preferred[i]);
+                                for (let i = 0; i < preferred.length; i++) {
+                                    if (!sent) {
+                                        let receiver = ch.find((val) => val.name === preferred[i]);
 
-                                    if (receiver) {
-                                        receiver.send(res.message).catch(() => {
-                                            // do nothing
-                                        });
+                                        if (receiver) {
+                                            receiver.send(embed).catch(() => {
+                                                // do nothing
+                                            });
 
-                                        sent = true;
+                                            sent = true;
+                                        }
                                     }
                                 }
-                            }
-                        });
+                            } else {
+                                const ch = value.channels.findAll("type", "text");
+                                let receiver = ch.find((val) => val.name === "announcements");
 
-                        channel.send("Done.");
+                                if (receiver) {
+                                    receiver.send(embed).catch(() => {
+                                        // do nothing
+                                    });      
+                                }
+                            }
+                        });`;
+
+                        bot.shard.broadcastEval(evalString).then(() => {
+                            channel.send("Done.");
+                        }).catch(() => {
+                            // do nothing
+                        });
                     }
 
                     let cleanArgs = args.toString().replaceAll(",", " ");
-                    if (originalCommand === "puppet" || originalCommand === "eval" || originalCommand === "announce") {
+                    if (originalCommand === "puppet" ||
+                        originalCommand === "eval" ||
+                        originalCommand === "announce") {
                         cleanArgs = "";
                     }
 
                     central.logMessage(res.level, shard, sender, source, "+" + originalCommand + " " + cleanArgs);
-                });
-            } catch (e) {
-                central.logMessage("err", shard, sender, source, e.message);
-                channel.send(e.message);
-                return;
-            }
+                } else {
+                    channel.send(res.return);
+                }
+            });
         } else {
-            try {
-                verseHandler.processRawMessage(shard, raw, rawSender, language, (result) => {
-                    if (!result.invalid) {
-                        if (result.twoMessages) {
-                            channel.send(result.firstMessage);
-                            channel.send(result.secondMessage);
-                        } else {
-                            channel.send(result.message);
-                        }
-
-                        if (result.reference) {
-                            central.logMessage(result.level, shard, sender, source, result.reference);
-                        }
+            verseHandler.processRawMessage(shard, raw, rawSender, language, (result) => {
+                if (!result.invalid) {
+                    if (result.twoMessages) {
+                        channel.send(result.firstMessage);
+                        channel.send(result.secondMessage);
+                    } else {
+                        channel.send(result.message);
                     }
-                });
-            } catch (e) {
-                central.logMessage("err", shard, sender, source, e.message);
-                return;
-            }
+
+                    if (result.reference) {
+                        central.logMessage(result.level, shard, sender, source, result.reference);
+                    }
+                }
+            });
         }
     });
 });

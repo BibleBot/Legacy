@@ -47,7 +47,7 @@
     "versioninfo": "\n**<versionname>**\n\nContains Old Testament: <hasOT>\nContains New Testament: <hasNT>\nContains Apocrypha/Deuterocanon: <hasAPO>",
     "versioninfofailed": "I couldn't find that version, are you sure you used the right acronym?",
 
-    "users": "The number of all users spanning across all servers that BibleBot is on (not counting duplicates and bots)",
+    "users": "The number of users spanning across all servers that BibleBot is on (without duplicates)",
     "servers": "BibleBot is in <count> servers.",
 
     "argumentCountError": "+<command> requires <count> arguments.",
