@@ -34,7 +34,7 @@
     "passagetoolong": "Ce passage est trop long pour que je le cite, désolé.",
     "votdcantprocess": "Aujourd'hui le VDJ ne peut pas être cité, visitez <https://www.biblegateway.com/> pour voir le VDJ.",
     "versioninfo": "\n**<versionname>**\n\nContient l'Ancien Testament : <hasOT>\nContient le Nouveau Testament : <hasNT>\nContient l'Apocryphe / le Deutérocanon : <hasAPO>",
-    "versioninfofailed": "Je n'ai pas trouvé cette version, êtes-vous sûr d'avoir utilisé le bon acronyme ?",
+    "versioninfofailed": "Je n'ai pas trouvé cette version, êtes-vous sûr d'avoir utilisé le bon acronyme?",
     "users": "Le nombre d'utilisateurs sur tous les serveurs sur lesquels BibleBot est activé (sans doublons)",
     "servers": "BibleBot est dans <count> serveurs.",
     "argumentCountError": "+<command> requiert <count> arguments.",
