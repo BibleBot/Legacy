@@ -1,7 +1,7 @@
 {
     "biblebot": "BibleBot v<biblebotversion> 作者：Elliott Pardee (vypr)",
     "code": "源代码：<https://git.vypr.space/BibleBot/BibleBot>",
-    "commandlist": "* `+<search> 字词` - 搜索 (支持Bible Gateway各版本)\n* `+<setversion> ABBV` - 将版本设置为 ABBV\n* `+<version>` - 查看已设置的版本\n* `+<versions>` - 列出所有版本\n* `+<versioninfo> VER`- 读取有关版本的信息, 使用首字母缩写\n* `+<random>` - 随机圣经金句\n* `+<verseoftheday>` 或 `+<votd>` - 获取当天的金句\n* `+<headings> <enable>/<disable>` - 启用或禁用主题标题\n* `+<versenumbers> <enable>/<disable>` - 启用或禁用在每行上显示的经节\n* `+<language>` - 显示当前语言 (若有设置；默认: 英语)\n* `+<setlanguage> LANG` - 将首选语言设置为LANG\n* `+<languages>` - 列出所有语言\n* `+<users>` - 列出所有服务器中的所有用户 (不计重复项或漫游器)\n* `+<servers>` - 列出 BibleBot 所在的服务器\n* `+<invite>` - 获取 BibleBot 邀请链接\n* `+<supporters>` - Biblebot 支持者",
+    "commandlist": "* `+<search> 字词` - 搜索 (支持Bible Gateway各版本)\n* `+<setversion> 版本缩写` - 将版本设置为\"版本缩写\"\n* `+<version>` - 查看已设置的版本\n* `+<versions>` - 列出所有版本\n* `+<versioninfo> 版本`- 读取有关版本的信息, 使用首字母缩写\n* `+<random>` - 随机圣经金句\n* `+<verseoftheday>` 或 `+<votd>` - 获取当天的金句\n* `+<headings> <enable>/<disable>` - 启用或禁用主题标题\n* `+<versenumbers> <enable>/<disable>` - 启用或禁用在每行上显示的经节\n* `+<language>` - 显示当前语言 (若有设置；默认: 英语)\n* `+<setlanguage> 语言` - 将首选语言设置为\"语言\"\n* `+<languages>` - 列出所有语言\n* `+<users>` - 列出所有服务器中的所有用户 (不计重复项或漫游器)\n* `+<servers>` - 列出 BibleBot 所在的服务器\n* `+<invite>` - 获取 BibleBot 邀请链接\n* `+<supporters>` - Biblebot 支持者",
     "usage": "用法：输入圣经句子编号即可",
     "commandlistName": "命令",
     "links": "链接",
