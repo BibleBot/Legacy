@@ -23,7 +23,7 @@
     "headingsfail": "Defnydd `+<headings> <enable>` neu `+<headings> <disable>`.",
     "setlanguagesuccess": "Gosod iaith yn llwyddiannus.",
     "setlanguagefail": "Methiant at cadw iaith, defnydd `+<languages>`.",
-    "languageused": "Ydych yn defnyddio iaith. Defnydd '+<setlanguage>' at osod iaith wahanol.",
+    "languageused": "Ydych yn defnyddio Cymraeg. Defnydd '+<setlanguage>' at osod iaith wahanol.",
     "nolanguageused": "Dwi ni allai ffeindio dy enw ar y database, wyt ti defnydd `+<setlanguage>` eto?",
     "otnotsupported": "Y fersiwn <version> ewigod ddim cynnal yr Hen Dyst.",
     "ntnotsupported": "Y fersiwn <version> ewigod ddim cynnal yr Newydd Dyst.",
