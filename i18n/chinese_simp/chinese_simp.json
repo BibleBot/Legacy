@@ -1,7 +1,7 @@
 {
-    "biblebot": "BibleBot v<biblebotversion> by Elliott Pardee (vypr)",
-    "code": "Code: <https://git.vypr.space/BibleBot/BibleBot>",
-    "commandlist": "+<search> - 搜索（支持Bible Gateway各版本）\n+<setversion> ABBV - 将版本设置为 ABBV \n+<version> - 查看已设置的版本 \n+<versions> - 列出所有版本\n+<versioninfo> - 读取有关版本的信息, 使用首字母缩写\n+<random> - 随机圣经金句\n+<verseoftheday> 或 +<votd> - 获取当天的金句\n+<headings> <enable>/<disable> - 启用或禁用主题标题 \n+<versenumbers> <enable>/<disable> - 启用或禁用在每行上显示的经节 \n+<language> - 显示当前语言（若有设置；默认: 英语）\n+<setlanguage> LANG - 将首选语言设置为LANG \n+<languages> - 列出所有语言 \n+<users> - 列出所有服务器中的所有用户（不计算重复项或漫游器）\n+<servers> - 列出 BibleBot 所在的服务器\n+<invite> - 获取 BibleBot 邀请链接\n+<supporters> - Biblebot 支持者",
+    "biblebot": "BibleBot v<biblebotversion> 作者：Elliott Pardee (vypr)",
+    "code": "源代码：<https://git.vypr.space/BibleBot/BibleBot>",
+    "commandlist": "+<search> - 搜索 (支持Bible Gateway各版本)\n+<setversion> ABBV - 将版本设置为 ABBV \n+<version> - 查看已设置的版本 \n+<versions> - 列出所有版本\n+<versioninfo> - 读取有关版本的信息, 使用首字母缩写\n+<random> - 随机圣经金句\n+<verseoftheday> 或 +<votd> - 获取当天的金句\n+<headings> <enable>/<disable> - 启用或禁用主题标题 \n+<versenumbers> <enable>/<disable> - 启用或禁用在每行上显示的经节 \n+<language> - 显示当前语言 (若有设置；默认: 英语)\n+<setlanguage> LANG - 将首选语言设置为LANG \n+<languages> - 列出所有语言 \n+<users> - 列出所有服务器中的所有用户 (不计重复项或漫游器)\n+<servers> - 列出 BibleBot 所在的服务器\n+<invite> - 获取 BibleBot 邀请链接\n+<supporters> - Biblebot 支持者",
     "usage": "用法：输入圣经句子编号即可",
     "commandlistName": "命令",
     "links": "链接",
@@ -47,10 +47,10 @@
     "of": "的",
     "searchNotSupported": "+<search> 只支持 Bible Gateway 各圣经版本",
     "zeroOrOne": "0 或 1",
-    "enabled": "enabled",
-    "disabled": "disabled",
+    "enabled": "已启用",
+    "disabled": "已禁用",
     "commands": {
-        "search": "search",
+        "search": "搜索​​​​",
         "setversion": "设定版本",
         "version": "版本",
         "versions": "版本",
@@ -68,10 +68,10 @@
         "language": "语言",
         "languages": "语言",
         "users": "用户",
-        "servers": "servers",
+        "servers": "服务器",
         "announce": "发布",
         "invite": "邀请",
-        "supporters": "supporters"
+        "supporters": "支持者"
     },
     "arguments": {
         "yes": "是",
