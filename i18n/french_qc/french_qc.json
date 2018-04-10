@@ -1,7 +1,7 @@
 {
     "biblebot": "BibleBot v<biblebotversion> par Elliott Pardee (vypr)",
     "code": "Code : <https://git.vypr.space/BibleBot/BibleBot>",
-    "commandlist": "* `+<search> requête` - rechercher en utilisant des mots-clés (uniquement dans les versions de Bible Gateway)\n* `+<setversion> ABBV` - définir la version préférée sur ABBV\n* `+<version>` - voir la version que vous avez définie\n* `+<versions>` - voir les versions supportées\n* `+<versioninfo> VER` - lire les informations à propos d'une version, en utilisant l'acronyme\n* `+<random>` - obtenir un verset aléatoire de la Bible\n* `+<verseoftheday>` (`+<votd>`) - obtenir le verset du jour\n* `+<headings> <enable>/<disable>` -activer ou désactiver les en-têtes de sujet\n* `+<versenumbers> <enable>/<disable>` - activer ou désactiver les numéros de versets\n* `+<language>` - voir votre langue actuelle, si elle est définie (par défaut : anglais)\n* `+<setlanguage> LANG` - définir la langue préférée sur LANG\n* `+<languages>` - voir les langues supportées\n* `+<users>` - liste de tous les utilisateurs sur tous les serveurs (sans compter les doublons ou les bots)\n* `+<servers>` - montrer le nombre de serveurs dans lesquels BibleBot est activé\n* `+<invite>` - obtenir le lien d'invitation pour BibleBot\n* `+<supporters>` - les soutiens de BibleBot",
+    "commandlist": "* `+<search> requête` - rechercher en utilisant des mots-clés (seulement dans les versions de Bible Gateway)\n* `+<setversion> ABBV` - définir la version préférée sur ABBV\n* `+<version>` - voir la version que vous avez définie\n* `+<versions>` - voir les versions supportées\n* `+<versioninfo> VER` - lire les informations à propos d'une version, en utilisant l'acronyme\n* `+<random>` - obtenir un verset aléatoire de la Bible\n* `+<verseoftheday>` (`+<votd>`) - obtenir le verset du jour\n* `+<headings> <enable>/<disable>` -activer ou désactiver les en-têtes de sujet\n* `+<versenumbers> <enable>/<disable>` - activer ou désactiver les numéros de versets\n* `+<language>` - voir votre langue actuelle, si elle est définie (par défaut : anglais)\n* `+<setlanguage> LANG` - définir la langue préférée sur LANG\n* `+<languages>` - voir les langues supportées\n* `+<users>` - liste de tous les utilisateurs sur tous les serveurs (sans compter les doublons ou les bots)\n* `+<servers>` - montrer le nombre de serveurs dans lesquels BibleBot est activé\n* `+<invite>` - obtenir le lien d'invitation pour BibleBot\n* `+<supporters>` - les soutiens de BibleBot",
     "usage": "Pour l'utiliser, il suffit de dire un verset de la Bible. Je m'occupe du reste.",
     "commandlistName": "Commandes",
     "links": "Liens",
@@ -35,7 +35,7 @@
     "votdcantprocess": "Aujourd'hui le VDJ ne peut pas être cité, visitez <https://www.biblegateway.com/> pour voir le VDJ.",
     "versioninfo": "\n**<versionname>**\n\nContient l'Ancien Testament : <hasOT>\nContient le Nouveau Testament : <hasNT>\nContient l'Apocryphe / le Deutérocanon : <hasAPO>",
     "versioninfofailed": "Je n'ai pas trouvé cette version, êtes-vous sûr d'avoir utilisé le bon acronyme?",
-    "users": "Le nombre d'utilisateurs sur tous les serveurs sur lesquels BibleBot est activé (sans doublons)",
+    "users": "Le nombre d'utilisateurs répartis sur tous les serveurs sur lesquels BibleBot est activé (sans doublons)",
     "servers": "BibleBot est dans <count> serveurs.",
     "argumentCountError": "+<command> requiert <count> arguments.",
     "argumentCountErrorAL": "+<command> requiert au moins <count> arguments.",
