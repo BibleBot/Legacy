@@ -1,4 +1,4 @@
-export default {
+module.exports = {
     "ot": {
         "genesis": "Genesis", // Old Testament
         "gen": "Genesis",
@@ -131,6 +131,7 @@ export default {
         "malachi": "Malachi",
         "mal": "Malachi"
     },
+
     "nt": {
         "matthew": "Matthew", // New Testament
         "mathew": "Matthew",
@@ -198,6 +199,7 @@ export default {
         "rev": "Revelation",
         "rv": "Revelation"
     },
+
     "apo": {
         "judith": "Judith", // Apocrypha
         "judeth": "Judith",
@@ -228,10 +230,10 @@ export default {
         "4macc": "4 Maccabees",
         "4mac": "4 Maccabees",
         "letterofjeremiah": "Letter of Jeremiah",
-        "songofthethreeholychildren": "Song of The Three Young Men",
-        "songofthethreeyoungmen": "Song of The Three Young Men",
-        "songofthethreeholyyouths": "Song of The Three Young Men",
-        "prayerofazariah": "Song of The Three Young Men",
+        "songofthethreeholychildren": "Prayer of Azariah",
+        "songofthethreeyoungmen": "Prayer of Azariah",
+        "songofthethreeholyyouths": "Prayer of Azariah",
+        "prayerofazariah": "Prayer of Azariah",
         "greekesther": "Greek Esther",
         "gkesther": "Greek Esther",
         "gkesth": "Greek Esther",
@@ -252,6 +254,7 @@ export default {
         "belandthedragon": "Bel and the Dragon",
         "bel": "Bel and the Dragon"
     },
+
     isBook: (book) => {
         if (this[book]) {
             return true;
@@ -259,4 +262,4 @@ export default {
 
         return false;
     }
-}
+};

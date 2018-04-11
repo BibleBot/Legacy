@@ -1,31 +1,21 @@
-import * as languages from "./languages";
-import * as log4js from "log4js";
+const languages = require("./data/languages");
+const consola = require("consola");
 
-log4js.configure({
-    appenders: {
-        'out': {
-            type: 'console',
-            layout: {
-                type: 'coloured'
-            }
-        }
-    },
-    categories: {
-        default: {
-            appenders: ['out'],
-            level: 'debug'
-        }
-    }
-});
+const config = require("./data/config");
 
-let logger = log4js.getLogger();
+consola.level = 5;
 
 String.prototype.replaceAll = function(target, replacement) {
     return this.split(target).join(replacement);
 };
 
+String.prototype.capitalizeFirstLetter = function() {
+    return this.charAt(0).toUpperCase() + this.slice(1);
+};
+
 // For user version preferences
-let Datastore = require("nedb"); // for some reason this is unimportable
+const Datastore = require("nedb");
+
 let db = new Datastore({
     filename: './databases/db',
     autoload: true,
@@ -37,16 +27,17 @@ let versionDB = new Datastore({
     autoload: true
 });
 
-export default {
+module.exports = {
     languages,
     db,
     versionDB,
+    dividers: { first: config.dividingBrackets[0], second: config.dividingBrackets[1] },
     splitter: (s) => {
         let middle = Math.floor(s.length / 2);
-        let before = s.lastIndexOf(' <', middle);
-        let after = s.indexOf(' <', middle + 1);
+        let before = s.lastIndexOf(' ', middle);
+        let after = s.indexOf(' ', middle + 1);
 
-        if (before == -1 || (after != -1 && middle - before >= after - middle)) {
+        if (before === -1 || (after !== -1 && middle - before >= after - middle)) {
             middle = after;
         } else {
             middle = before;
@@ -60,176 +51,33 @@ export default {
             "second": second
         };
     },
-    capitalizeFirstLetter: (string) => {
-        return string.charAt(0).toUpperCase() + string.slice(1);
-    },
-    logMessage: (level, sender, channel, message) => {
-        let content = "<" + sender + "@" + channel + "> " + message;
+    logMessage: (level, shard, sender, channel, message) => {
+        let content = "[shard " + shard + "] <" + sender + "@" + channel + "> " + message;
 
         switch (level) {
+            case "start":
+                consola.start(content);
+                break;
             case "debug":
-                logger.debug(content);
+                consola.debug(content);
                 break;
             case "info":
-                logger.info(content);
+                consola.info(content);
                 break;
             case "err":
-                logger.error(content);
+                consola.error(content);
                 break;
             case "warn":
-                logger.warn(content);
+                consola.warn(content);
                 break;
         }
     },
-    setLanguage: (user, language, callback) => {
-        if (languages.isLanguage(language)) {
-            db.find({
-                "id": user.id
-            }, function(err, doc) {
-                if (doc.length > 0) {
-                    db.update({
-                        "id": user.id
-                    }, {
-                        $set: {
-                            "language": language
-                        }
-                    }, {
-                        "multi": true
-                    }, function(err, docs) {
-                        return callback(docs);
-                    });
-                } else {
-                    db.insert({
-                        "id": user.id,
-                        "language": language
-                    }, function(err, docs) {
-                        return callback(docs);
-                    });
-                }
-            });
-        } else {
-            callback(null);
+    sleep: (milliseconds) => {
+        const start = new Date().getTime();
+        for (let i = 0; i < 1e7; i++) {
+            if ((new Date().getTime() - start) > milliseconds) {
+                break;
+            }
         }
-    },
-    setVersion: (user, version, callback) => {
-        version = version.toUpperCase();
-
-        versionDB.find({
-            "abbv": version
-        }, function(err, docs) {
-            if (docs.length === 0) {
-                return callback(null);
-            }
-            db.find({
-                "id": user.id
-            }, function(err, doc) {
-                if (doc.length > 0) {
-                    db.update({
-                        "id": user.id
-                    }, {
-                        $set: {
-                            "version": version
-                        }
-                    }, {
-                        "multi": true
-                    }, function(err, docs) {
-                        return callback(docs);
-                    });
-                } else {
-                    db.insert({
-                        "id": user.id,
-                        "version": version
-                    }, function(err, docs) {
-                        return callback(docs);
-                    });
-                }
-            });
-        });
-    },
-    setHeadings: (user, headings, callback) => {
-        headings = headings.toLowerCase();
-
-        if (headings != "enable" && headings != "disable") {
-            return callback(null);
-        }
-
-        db.find({
-            "id": user.id
-        }, function(err, doc) {
-            if (doc.length > 0) {
-                db.update({
-                    "id": user.id
-                }, {
-                    $set: {
-                        "headings": headings
-                    }
-                }, {
-                    "multi": true
-                }, function(err, docs) {
-                    return callback(docs);
-                });
-            } else {
-                db.insert({
-                    "id": user.id,
-                    "headings": headings
-                }, function(err, docs) {
-                    return callback(docs);
-                });
-            }
-        });
-    },
-    setVerseNumbers: (user, verseNumbers, callback) => {
-        verseNumbers = verseNumbers.toLowerCase();
-
-        if (verseNumbers != "enable" && verseNumbers != "disable") {
-            return callback(null);
-        }
-
-        db.find({
-            "id": user.id
-        }, function(err, doc) {
-            if (doc.length > 0) {
-                db.update({
-                    "id": user.id
-                }, {
-                    $set: {
-                        "verseNumbers": verseNumbers
-                    }
-                }, {
-                    "multi": true
-                }, function(err, docs) {
-                    return callback(docs);
-                });
-            } else {
-                db.insert({
-                    "id": user.id,
-                    "verseNumbers": verseNumbers
-                }, function(err, docs) {
-                    return callback(docs);
-                });
-            }
-        });
-    },
-    getVersion: (user, callback) => {
-        db.find({
-            "id": user.id
-        }, function(err, docs) {
-            if (docs.length > 0) {
-                return callback(docs);
-            } else {
-                return callback(null);
-            }
-        });
-    },
-    getLanguage: (user, callback) => {
-        db.find({
-            "id": user.id
-        }, function(err, docs) {
-            if (docs.length > 0) {
-                return callback(languages[docs[0].language]);
-            } else {
-                return callback(languages.english_us);
-            }
-        });
     }
 };
