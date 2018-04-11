@@ -39,7 +39,7 @@
     "servers": "Tha BibleBot ann an <count> servers.",
     "argumentCountError": "+<command> feumach <count> argamaidean.",
     "argumentCountErrorAL": "+<command> feumach co-dhiù <count> argamaidean.",
-    "commandNotFoundError": "+<command> is not a valid command.",
+    "commandNotFoundError": "+<command> chan e comharra dhligheach a th 'ann.",
     "queryTooShort": "Your search query must be longer than 3 characters.",
     "searchResults": "Search results for",
     "nothingFound": "Nothing found for \"<query>\"",
