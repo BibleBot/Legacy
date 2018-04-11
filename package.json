@@ -4,11 +4,9 @@
     "description": "A Discord bot for Bible verses.",
     "main": "start.js",
     "scripts": {
-        "build": "babel src -d build",
-        "dev": "babel src -d build && node build/start.js",
-        "start": "node build/start.js",
-        "refresh": "git pull && babel src -d build && node build/start.js",
-        "clean": "rm -rf build && rm -rf node_modules",
+        "start": "node src/start.js",
+        "refresh": "git pull && node src/start.js",
+        "clean": "rm -rf node_modules",
         "beautify": "eslint --fix ./src/.",
         "snyk-protect": "snyk protect",
         "prepare": "npm run snyk-protect",
@@ -27,11 +25,10 @@
     "dependencies": {
         "bufferutil": "^3.0.3",
         "cheerio": "^1.0.0-rc.2",
+        "consola": "^1.2.0",
         "discord.js": "^11.2.1",
         "erlpack": "discordapp/erlpack",
-        "eslint": "^4.6.1",
         "libsodium-wrappers": "^0.7.3",
-        "log4js": "^2.3.4",
         "nedb": "^1.8.0",
         "node-opus": "^0.2.7",
         "request": "^2.79.0",
@@ -40,8 +37,7 @@
         "zlib-sync": "^0.1.4"
     },
     "devDependencies": {
-        "babel-cli": "^6.24.1",
-        "babel-preset-env": "^1.5.2",
+        "eslint": "^4.6.1",
         "yarn": "^1.5.1"
     },
     "snyk": true

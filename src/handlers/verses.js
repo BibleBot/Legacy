@@ -1,16 +1,16 @@
-import Handler from "../types/handler";
-import books from "../data/books";
+const Handler = require("./../types/handler");
+const books = require("./../data/books");
 
-import settings from "./commands/settings";
-import central from "../central";
+const settings = require("./commands/settings");
+const central = require("../central");
 
-import * as utils from "./verses/utils";
+const utils = require("./verses/utils");
 
-import * as bibleGateway from "../bible-modules/bibleGateway";
-import * as rev from "../bible-modules/rev";
-import * as kjv1611 from "../bible-modules/kjv1611";
+const bibleGateway = require("./../bible-modules/bibleGateway");
+const rev = require("./../bible-modules/rev");
+const kjv1611 = require("./../bible-modules/kjv1611");
 
-export default class VerseHandler extends Handler {
+module.exports = class VerseHandler extends Handler {
     constructor() {
         super("VERSE_EVENT");
     }
@@ -394,4 +394,4 @@ export default class VerseHandler extends Handler {
             }
         });
     }
-}
+};

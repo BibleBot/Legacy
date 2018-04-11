@@ -1,8 +1,8 @@
-import Handler from "../types/handler";
-import * as commandBridge from "./commands/commandBridge";
-import config from "../data/config";
+const Handler = require("./../types/handler");
+const commandBridge = require("./commands/commandBridge");
+const config = require("../data/config");
 
-import * as Discord from "discord.js";
+const Discord = require("discord.js");
 
 const commandMap = {
     "biblebot": 0,
@@ -102,7 +102,7 @@ function isOwnerCommand(command, lang) {
  * @author Elliott Pardee (vypr)
  * @extends Handler
  */
-export default class CommandHandler extends Handler {
+module.exports = class CommandHandler extends Handler {
     constructor() {
         super("COMMAND_EVENT");
     }
@@ -279,4 +279,4 @@ export default class CommandHandler extends Handler {
             return callback({ isError: true, return: embed });
         }
     }
-}
+};

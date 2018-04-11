@@ -1,16 +1,16 @@
-import central from "./central";
-import config from "./data/config";
+const central = require("./central");
+const config = require("./data/config");
 
-import * as Discord from "discord.js";
+const Discord = require("discord.js");
 const bot = new Discord.Client();
 
-import CommandHandler from "./handlers/commands";
-import VerseHandler from "./handlers/verses";
+const CommandHandler = require("./handlers/commands");
+const VerseHandler = require("./handlers/verses");
 
 const commandHandler = new CommandHandler();
 const verseHandler = new VerseHandler();
 
-import settings from "./handlers/commands/settings";
+const settings = require("./handlers/commands/settings");
 
 let shard;
 const totalShards = config.shards;
@@ -34,7 +34,7 @@ bot.on("ready", () => {
 bot.on("debug", (debug) => {
     shard = bot.shard.id + 1;
     if (config.debug) {
-        central.logMessage("debug", (bot.shard.id + 1), "global", "global", debug);
+        central.logMessage("debug", shard, "global", "global", debug);
     }
 });
 
@@ -59,6 +59,16 @@ bot.on("error", (e) => {
 });
 
 bot.on("message", (raw) => {
+    bot.user.setPresence({
+        status: "online",
+        game: {
+            type: 0,
+            name: "BibleBot v" + process.env.npm_package_version + " | Shard: " +
+                shard + " / " + totalShards,
+            url: "https://biblebot.vypr.space"
+        }
+    });
+
     // taking the raw message object and making it more usable
     let rawSender = raw.author;
     let sender = rawSender.username + "#" + rawSender.discriminator;
@@ -251,7 +261,14 @@ bot.on("message", (raw) => {
 
                     central.logMessage(res.level, shard, sender, source, "+" + originalCommand + " " + cleanArgs);
                 } else {
+                    Object.keys(rawLanguage.commands).forEach((originalCommandName) => {
+                        if (rawLanguage.commands[originalCommandName] === command) {
+                            originalCommand = originalCommandName;
+                        }
+                    });
+
                     channel.send(res.return);
+                    central.logMessage("err", shard, sender, source, "+" + command);
                 }
             });
         } else {
@@ -275,6 +292,6 @@ bot.on("message", (raw) => {
 
 
 central.logMessage(
-    "info", (bot.shard.id + 1), "global", "global", "BibleBot v" + process.env.npm_package_version +
+    "start", (bot.shard.id + 1), "global", "global", "BibleBot v" + process.env.npm_package_version +
     " by Elliott Pardee (vypr)");
 bot.login(config.token);

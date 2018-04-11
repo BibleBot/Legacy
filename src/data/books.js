@@ -1,4 +1,4 @@
-export default {
+module.exports = {
     "ot": {
         "genesis": "Genesis", // Old Testament
         "gen": "Genesis",

@@ -1,26 +1,9 @@
-import languages from "./data/languages";
-import * as log4js from "log4js";
+const languages = require("./data/languages");
+const consola = require("consola");
 
-import config from "./data/config";
+const config = require("./data/config");
 
-log4js.configure({
-    appenders: {
-        'out': {
-            type: 'console',
-            layout: {
-                type: 'coloured'
-            }
-        }
-    },
-    categories: {
-        default: {
-            appenders: ['out'],
-            level: 'debug'
-        }
-    }
-});
-
-let logger = log4js.getLogger();
+consola.level = 5;
 
 String.prototype.replaceAll = function(target, replacement) {
     return this.split(target).join(replacement);
@@ -31,7 +14,8 @@ String.prototype.capitalizeFirstLetter = function() {
 };
 
 // For user version preferences
-let Datastore = require("nedb"); // for some reason this is unimportable
+const Datastore = require("nedb");
+
 let db = new Datastore({
     filename: './databases/db',
     autoload: true,
@@ -43,7 +27,7 @@ let versionDB = new Datastore({
     autoload: true
 });
 
-export default {
+module.exports = {
     languages,
     db,
     versionDB,
@@ -71,17 +55,20 @@ export default {
         let content = "[shard " + shard + "] <" + sender + "@" + channel + "> " + message;
 
         switch (level) {
+            case "start":
+                consola.start(content);
+                break;
             case "debug":
-                logger.debug(content);
+                consola.debug(content);
                 break;
             case "info":
-                logger.info(content);
+                consola.info(content);
                 break;
             case "err":
-                logger.error(content);
+                consola.error(content);
                 break;
             case "warn":
-                logger.warn(content);
+                consola.warn(content);
                 break;
         }
     },
@@ -93,6 +80,4 @@ export default {
             }
         }
     }
-
-
 };
