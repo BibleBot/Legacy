@@ -1,4 +1,4 @@
-export default class {
+module.exports = class {
     constructor(name, rawobj, defversion) {
         this.name = name;
         this.rawobj = rawobj;
@@ -35,4 +35,4 @@ export default class {
     toString() {
         return JSON.stringify(this.toObject());
     }
-}
+};

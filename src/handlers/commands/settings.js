@@ -1,6 +1,6 @@
-import central from "../../central";
+const central = require("./../../central");
 
-export default {
+module.exports = {
     versions: {
         setVersion: (user, version, callback) => {
             version = version.toUpperCase();
@@ -56,6 +56,18 @@ export default {
 
                 for (let doc in docs) {
                     versions.push(docs[doc].name);
+                }
+
+                return callback(versions.sort());
+            });
+        },
+
+        getVersionsByAcronym: (callback) => {
+            central.versionDB.find({}, function(err, docs) {
+                const versions = [];
+
+                for (let doc in docs) {
+                    versions.push(docs[doc].abbv);
                 }
 
                 return callback(versions.sort());
@@ -162,8 +174,8 @@ export default {
                 id: user.id
             }, function(err, docs) {
                 if (docs.length > 0) {
-                    if (docs.headings) {
-                        return callback(docs.headings);
+                    if (docs[0].headings) {
+                        return callback(docs[0].headings);
                     } else {
                         return callback("enable");
                     }
@@ -211,8 +223,8 @@ export default {
                 id: user.id
             }, function(err, docs) {
                 if (docs.length > 0) {
-                    if (docs.verseNumbers) {
-                        return callback(docs.verseNumbers);
+                    if (docs[0].verseNumbers) {
+                        return callback(docs[0].verseNumbers);
                     } else {
                         return callback("enable");
                     }

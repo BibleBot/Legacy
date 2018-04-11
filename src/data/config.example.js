@@ -1,5 +1,5 @@
 // rename to config.js
-export default {
+module.exports = {
     // owner's ID
     owner: "",
 

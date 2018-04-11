@@ -1,16 +1,16 @@
-import central from "./central";
-import config from "./data/config";
+const central = require("./central");
+const config = require("./data/config");
 
-import * as Discord from "discord.js";
+const Discord = require("discord.js");
 const bot = new Discord.Client();
 
-import CommandHandler from "./handlers/commands";
-import VerseHandler from "./handlers/verses";
+const CommandHandler = require("./handlers/commands");
+const VerseHandler = require("./handlers/verses");
 
 const commandHandler = new CommandHandler();
 const verseHandler = new VerseHandler();
 
-import settings from "./handlers/commands/settings";
+const settings = require("./handlers/commands/settings");
 
 let shard;
 const totalShards = config.shards;
@@ -34,7 +34,7 @@ bot.on("ready", () => {
 bot.on("debug", (debug) => {
     shard = bot.shard.id + 1;
     if (config.debug) {
-        central.logMessage("debug", (bot.shard.id + 1), "global", "global", debug);
+        central.logMessage("debug", shard, "global", "global", debug);
     }
 });
 
@@ -59,6 +59,16 @@ bot.on("error", (e) => {
 });
 
 bot.on("message", (raw) => {
+    bot.user.setPresence({
+        status: "online",
+        game: {
+            type: 0,
+            name: "BibleBot v" + process.env.npm_package_version + " | Shard: " +
+                shard + " / " + totalShards,
+            url: "https://biblebot.vypr.space"
+        }
+    });
+
     // taking the raw message object and making it more usable
     let rawSender = raw.author;
     let sender = rawSender.username + "#" + rawSender.discriminator;
@@ -112,10 +122,10 @@ bot.on("message", (raw) => {
 
             const rawLanguage = language.getRawObject();
 
-            try {
-                commandHandler.processCommand(bot, command, args, language, rawSender, (res) => {
-                    let originalCommand;
+            commandHandler.processCommand(bot, command, args, language, rawSender, (res) => {
+                let originalCommand;
 
+                if (!res.isError) {
                     if (!res.announcement) {
                         if (res.twoMessages) {
                             channel.send(res.first);
@@ -188,74 +198,100 @@ bot.on("message", (raw) => {
                             }
                         });
 
-                        bot.guilds.forEach((value) => {
+                        let evalString = `
+                        this.guilds.forEach((value) => {
+                            const RichEmbed = require("discord.js").RichEmbed;
+                            
+                            const embed = new RichEmbed();
+                            
+                            embed.setColor(303102);
+                            embed.setFooter("BibleBot v" + process.env.npm_package_version, "https://cdn.discordapp.com/avatars/361033318273384449/5aad77425546f9baa5e4b5112696e10a.png");
+                            embed.addField("Announcement", "${res.message}", false);
+
                             if (value.name === "Discord Bots" ||
                                 value.name === "Discord Bot List") {
                                 return;
                             }
 
-                            let sent = false;
-                            const ch = value.channels.findAll("type", "text");
-                            const preferred = ["misc", "bots", "meta", "hangout", "fellowship", "lounge", "congregation", "general",
-                                "taffer", "family_text", "staff"
-                            ];
+                            if (value.id !== "362503610006765568") {
+                                let sent = false;
+                                const ch = value.channels.findAll("type", "text");
+                                const preferred = ["misc", "bots", "meta", "hangout", "fellowship", "lounge", "congregation", "general",
+                                    "taffer", "family_text", "staff"
+                                ];
 
-                            for (let i = 0; i < preferred.length; i++) {
-                                if (!sent) {
-                                    let receiver = ch.find((val) => val.name === preferred[i]);
+                                for (let i = 0; i < preferred.length; i++) {
+                                    if (!sent) {
+                                        let receiver = ch.find((val) => val.name === preferred[i]);
 
-                                    if (receiver) {
-                                        receiver.send(res.message).catch(() => {
-                                            // do nothing
-                                        });
+                                        if (receiver) {
+                                            receiver.send(embed).catch(() => {
+                                                // do nothing
+                                            });
 
-                                        sent = true;
+                                            sent = true;
+                                        }
                                     }
                                 }
-                            }
-                        });
+                            } else {
+                                const ch = value.channels.findAll("type", "text");
+                                let receiver = ch.find((val) => val.name === "announcements");
 
-                        channel.send("Done.");
+                                if (receiver) {
+                                    receiver.send(embed).catch(() => {
+                                        // do nothing
+                                    });      
+                                }
+                            }
+                        });`;
+
+                        bot.shard.broadcastEval(evalString).then(() => {
+                            channel.send("Done.");
+                        }).catch(() => {
+                            // do nothing
+                        });
                     }
 
                     let cleanArgs = args.toString().replaceAll(",", " ");
-                    if (originalCommand === "puppet" || originalCommand === "eval" || originalCommand === "announce") {
+                    if (originalCommand === "puppet" ||
+                        originalCommand === "eval" ||
+                        originalCommand === "announce") {
                         cleanArgs = "";
                     }
 
                     central.logMessage(res.level, shard, sender, source, "+" + originalCommand + " " + cleanArgs);
-                });
-            } catch (e) {
-                central.logMessage("err", shard, sender, source, e.message);
-                channel.send(e.message);
-                return;
-            }
-        } else {
-            try {
-                verseHandler.processRawMessage(shard, raw, rawSender, language, (result) => {
-                    if (!result.invalid) {
-                        if (result.twoMessages) {
-                            channel.send(result.firstMessage);
-                            channel.send(result.secondMessage);
-                        } else {
-                            channel.send(result.message);
+                } else {
+                    Object.keys(rawLanguage.commands).forEach((originalCommandName) => {
+                        if (rawLanguage.commands[originalCommandName] === command) {
+                            originalCommand = originalCommandName;
                         }
+                    });
 
-                        if (result.reference) {
-                            central.logMessage(result.level, shard, sender, source, result.reference);
-                        }
+                    channel.send(res.return);
+                    central.logMessage("err", shard, sender, source, "+" + command);
+                }
+            });
+        } else {
+            verseHandler.processRawMessage(shard, raw, rawSender, language, (result) => {
+                if (!result.invalid) {
+                    if (result.twoMessages) {
+                        channel.send(result.firstMessage);
+                        channel.send(result.secondMessage);
+                    } else {
+                        channel.send(result.message);
                     }
-                });
-            } catch (e) {
-                central.logMessage("err", shard, sender, source, e.message);
-                return;
-            }
+
+                    if (result.reference) {
+                        central.logMessage(result.level, shard, sender, source, result.reference);
+                    }
+                }
+            });
         }
     });
 });
 
 
 central.logMessage(
-    "info", (bot.shard.id + 1), "global", "global", "BibleBot v" + process.env.npm_package_version +
+    "start", (bot.shard.id + 1), "global", "global", "BibleBot v" + process.env.npm_package_version +
     " by Elliott Pardee (vypr)");
 bot.login(config.token);

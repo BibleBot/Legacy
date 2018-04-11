@@ -1,7 +1,7 @@
-import config from "./data/config";
+const config = require("./data/config.js");
 
-import * as Discord from "discord.js";
-const shardingManager = new Discord.ShardingManager("./build/bot.js", {
+const Discord = require("discord.js");
+const shardingManager = new Discord.ShardingManager("./src/bot.js", {
     totalShards: config.shards
 });
 

@@ -1,8 +1,8 @@
-import Handler from "../types/handler";
-import * as commandBridge from "./commands/commandBridge";
-import config from "../data/config";
+const Handler = require("./../types/handler");
+const commandBridge = require("./commands/commandBridge");
+const config = require("../data/config");
 
-import { RichEmbed } from "discord.js";
+const Discord = require("discord.js");
 
 const commandMap = {
     "biblebot": 0,
@@ -19,9 +19,8 @@ const commandMap = {
     "languages": 0,
     "setlanguage": 1,
     "language": 0,
-    "allusers": 1,
-    "users": 1,
-    "servers": 1,
+    "users": 0,
+    "servers": 0,
     "invite": 0,
 
     "jepekula": 0,
@@ -103,7 +102,7 @@ function isOwnerCommand(command, lang) {
  * @author Elliott Pardee (vypr)
  * @extends Handler
  */
-export default class CommandHandler extends Handler {
+module.exports = class CommandHandler extends Handler {
     constructor() {
         super("COMMAND_EVENT");
     }
@@ -132,7 +131,7 @@ export default class CommandHandler extends Handler {
             if (!isOwnerCommand(properCommand.orig, rawLanguage)) {
                 if (properCommand.orig !== commands.search) {
                     if (properCommand.orig !== commands.headings && properCommand.orig !== commands.versenumbers) {
-                        if (properCommand.orig !== commands.servers && properCommand.orig !== commands.allusers && properCommand.orig !== commands.users) {
+                        if (properCommand.orig !== commands.servers && properCommand.orig !== commands.users) {
                             const requiredArguments = commandMap[properCommand.orig];
 
                             // let's avoid a TypeError!
@@ -143,25 +142,46 @@ export default class CommandHandler extends Handler {
                             }
 
                             if (args.length !== requiredArguments) {
-                                const embed = new RichEmbed();
+                                const embed = new Discord.RichEmbed();
                                 embed.setColor("#ff2e2e");
                                 embed.setFooter("BibleBot v" + process.env.npm_package_version, "https://cdn.discordapp.com/avatars/361033318273384449/5aad77425546f9baa5e4b5112696e10a.png");
-
-                                console.log(rawLanguage);
 
                                 const response = rawLanguage.argumentCountError
                                     .replace("<command>", command)
                                     .replace("<count>", requiredArguments);
 
-                                embed.addField(lang.error, response);
+                                embed.addField(rawLanguage.error, response);
 
-                                throw new Error(embed);
+                                return callback({ isError: true, return: embed });
                             }
 
                             commandBridge.runCommand(properCommand.orig, args, rawLanguage, sender, (result) => {
                                 callback(result);
                             });
                         } else {
+                            const requiredArguments = commandMap[properCommand.orig];
+
+                            // let's avoid a TypeError!
+                            if (args === null) {
+                                args = {
+                                    length: 0,
+                                };
+                            }
+
+                            if (args.length !== requiredArguments) {
+                                const embed = new Discord.RichEmbed();
+                                embed.setColor("#ff2e2e");
+                                embed.setFooter("BibleBot v" + process.env.npm_package_version, "https://cdn.discordapp.com/avatars/361033318273384449/5aad77425546f9baa5e4b5112696e10a.png");
+
+                                const response = rawLanguage.argumentCountError
+                                    .replace("<command>", command)
+                                    .replace("<count>", requiredArguments);
+
+                                embed.addField(rawLanguage.error, response);
+
+                                return callback({ isError: true, return: embed });
+                            }
+
                             commandBridge.runCommand(properCommand.orig, [bot], rawLanguage, sender, (result) => {
                                 callback(result);
                             });
@@ -180,7 +200,7 @@ export default class CommandHandler extends Handler {
                                 callback(result);
                             });
                         } else {
-                            const embed = new RichEmbed();
+                            const embed = new Discord.RichEmbed();
                             embed.setColor("#ff2e2e");
                             embed.setFooter("BibleBot v" + process.env.npm_package_version, "https://cdn.discordapp.com/avatars/361033318273384449/5aad77425546f9baa5e4b5112696e10a.png");
 
@@ -188,9 +208,9 @@ export default class CommandHandler extends Handler {
                                 .replace("<command>", command)
                                 .replace("<count>", rawLanguage.zeroOrOne);
 
-                            embed.addField(lang.error, response);
+                            embed.addField(rawLanguage.error, response);
 
-                            throw new Error(embed);
+                            return callback({ isError: true, return: embed });
                         }
                     }
                 } else {
@@ -201,17 +221,17 @@ export default class CommandHandler extends Handler {
                     }
 
                     if (args.length === 1 && args[0].length < 4) {
-                        const embed = new RichEmbed();
+                        const embed = new Discord.RichEmbed();
                         embed.setColor("#ff2e2e");
                         embed.setFooter("BibleBot v" + process.env.npm_package_version, "https://cdn.discordapp.com/avatars/361033318273384449/5aad77425546f9baa5e4b5112696e10a.png");
 
-                        embed.addField(lang.error, rawLanguage.queryTooShort);
+                        embed.addField(rawLanguage.error, rawLanguage.queryTooShort);
 
-                        throw new Error(embed);
+                        return callback({ isError: true, return: embed });
                     }
 
                     if (args.length === 0) {
-                        const embed = new RichEmbed();
+                        const embed = new Discord.RichEmbed();
                         embed.setColor("#ff2e2e");
                         embed.setFooter("BibleBot v" + process.env.npm_package_version, "https://cdn.discordapp.com/avatars/361033318273384449/5aad77425546f9baa5e4b5112696e10a.png");
 
@@ -219,9 +239,9 @@ export default class CommandHandler extends Handler {
                             .replace("<command>", command)
                             .replace("<count>", 1);
 
-                        embed.addField(lang.error, response);
+                        embed.addField(rawLanguage.error, response);
 
-                        throw new Error(embed);
+                        return callback({ isError: true, return: embed });
                     } else {
                         commandBridge.runCommand(properCommand.orig, args, rawLanguage, sender, (result) => {
                             callback(result);
@@ -236,27 +256,27 @@ export default class CommandHandler extends Handler {
                         });
                     }
                 } catch (e) {
-                    const embed = new RichEmbed();
+                    const embed = new Discord.RichEmbed();
                     embed.setColor("#ff2e2e");
                     embed.setFooter("BibleBot v" + process.env.npm_package_version, "https://cdn.discordapp.com/avatars/361033318273384449/5aad77425546f9baa5e4b5112696e10a.png");
 
                     const response = rawLanguage.commandNotFoundError.replace("<command>", command);
 
-                    embed.addField(lang.error, response);
+                    embed.addField(rawLanguage.error, response);
 
-                    throw new Error(embed);
+                    return callback({ isError: true, return: embed });
                 }
             }
         } else {
-            const embed = new RichEmbed();
+            const embed = new Discord.RichEmbed();
             embed.setColor("#ff2e2e");
             embed.setFooter("BibleBot v" + process.env.npm_package_version, "https://cdn.discordapp.com/avatars/361033318273384449/5aad77425546f9baa5e4b5112696e10a.png");
 
             const response = rawLanguage.commandNotFoundError.replace("<command>", command);
 
-            embed.addField(lang.error, response);
+            embed.addField(rawLanguage.error, response);
 
-            throw new Error(embed);
+            return callback({ isError: true, return: embed });
         }
     }
-}
+};

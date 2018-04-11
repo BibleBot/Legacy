@@ -4,7 +4,7 @@
  * 
  * @author Elliott Pardee (vypr)
  */
-export default class {
+module.exports = class {
     /**
      * Create a Version object to be later
      * inserted into the database.

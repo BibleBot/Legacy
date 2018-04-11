@@ -16,7 +16,7 @@ let possibleEvents = {
  * 
  * @author Elliott Pardee (vypr)
  */
-export default class {
+module.exports = class {
     /**
      * Creates a Handler object.
      * 
@@ -35,4 +35,4 @@ export default class {
 
         this.eventsHandling = index;
     }
-}
+};
