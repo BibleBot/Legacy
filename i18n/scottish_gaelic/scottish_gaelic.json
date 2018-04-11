@@ -38,7 +38,7 @@
     "users": "Cia mheud neach-cleachdaidh anns a h-uile buidheann a tha anns a BibleBot (gun leth-bhreacan)",
     "servers": "Tha BibleBot ann an <count> servers.",
     "argumentCountError": "+<command> feumach <count> argamaidean.",
-    "argumentCountErrorAL": "+<command> requires at least <count> arguments.",
+    "argumentCountErrorAL": "+<command> feumach co-dhiù <count> argamaidean.",
     "commandNotFoundError": "+<command> is not a valid command.",
     "queryTooShort": "Your search query must be longer than 3 characters.",
     "searchResults": "Search results for",
