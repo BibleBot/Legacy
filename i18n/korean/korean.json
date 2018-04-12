@@ -1,9 +1,9 @@
 {
     "biblebot": "BibleBot v<biblebotversion> 으로 Elliott Pardee (vypr)",
     "code": "코드: <https://git.vypr.space/BibleBot/BibleBot>",
-    "commandlist": "* `+<search> query` - search using keywords (only in Bible Gateway versions)\n* `+<setversion> ABBV` - set preferred version to ABBV\n* `+<version>` - see what version you've set\n* `+<versions>` - see the supported versions\n* `+<versioninfo> VER` - read information about a version, using the acronym\n* `+<random>` - get a random Bible verse\n* `+<verseoftheday>` (`+<votd>`) - get the verse of the day\n* `+<headings> <enable>/<disable>` - enable or disable topic headings\n* `+<versenumbers> <enable>/<disable>` - enable or disable verse numbers\n* `+<language>` - see your current language, if one is set (default: english)\n* `+<setlanguage> LANG` - set preferred language to LANG\n* `+<languages>` - see the supported languages\n* `+<users>` - list all users throughout all servers (not counting duplicates or bots)\n* `+<servers>` - show how many servers BibleBot is in\n* `+<invite>` - get the invite link for BibleBot\n* `+<supporters>` - the supporters of BibleBot",
-    "usage": "To use it, just say a Bible verse. I'll handle the rest.",
-    "commandlistName": "Commands",
+    "commandlist": "* `+<search> 검색어` - 키워드를 사용하여 검색 (Bible Gateway 버전 전용)\n* `+<setversion> ABBV` - 기본 버전을 ABBV로 설정하십시오\n* `+<version>` - 설정 한 버전 확인\n* `+<versions>` - 지원되는 버전보기\n* `+<versioninfo> VER` - 버전에 대한 정보 읽기 (머리 글자 어 사용)\n* `+<random>` - 무작위 성경 구절\n* `+<verseoftheday>` (`+<votd>`) - 오늘의 성경 구절\n* `+<headings> <enable>/<disable>` - 주제 제목을 사용 가능 또는 사용 불가능하게하십시오\n* `+<versenumbers> <enable>/<disable>` - 구절 번호를 사용 또는 사용하지 않도록 설정\n* `+<language>` - 한 세트가있는 경우 현재 언어를 확인하십시오 (기본값 : 영어)\n* `+<setlanguage> 한국어` - 기본 언어가 한국어로 설정되었습니다\n* `+<languages>` - 지원되는 모든 언어보기\n* `+<users>` - 모든 서버의 모든 사용자 나열 (중복 및 로봇 포함되지 않음)\n* `+<servers>` - BibleBot가있는 서버\n* `+<invite>` - BibleBot에 대한 초대 링크\n* `+<supporters>` - BibleBot의 지지자들",
+    "usage": "이 봇을 사용하려면 성경 구절을 입력하십시오. 나머지는 내가 다룰거야.",
+    "commandlistName": "명령들",
     "links": "Links",
     "error": "Error",
     "patreon": "Patreon: <https://patreon.com/BibleBot>",
