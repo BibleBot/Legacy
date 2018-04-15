@@ -45,8 +45,8 @@
     "nothingFound": "Nothing found for \"<query>\"",
     "page": "Página",
     "of": "of",
-    "searchNotSupported": "+<search> only supports Bible Gateway versions",
-    "zeroOrOne": "0 or 1",
+    "searchNotSupported": "+<search> versão não suportada pela Bíblia Gateway",
+    "zeroOrOne": "0 ou 1",
     "enabled": "ativo",
     "disabled": "desactivado",
     "commands": {
