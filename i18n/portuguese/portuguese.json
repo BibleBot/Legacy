@@ -48,9 +48,9 @@
     "searchNotSupported": "+<search> only supports Bible Gateway versions",
     "zeroOrOne": "0 or 1",
     "enabled": "enabled",
-    "disabled": "disabled",
+    "disabled": "desactivado",
     "commands": {
-        "search": "search",
+        "search": "pesquisar",
         "setversion": "defversao",
         "version": "versao",
         "versions": "versoes",
