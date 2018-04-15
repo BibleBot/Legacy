@@ -67,9 +67,9 @@
         "setlanguage": "deflingua",
         "language": "lingua",
         "languages": "linguas",
-        "users": "users",
-        "servers": "servers",
-        "announce": "announce",
+        "users": "usuários",
+        "servers": "servidor",
+        "announce": "aviso",
         "invite": "convite",
         "supporters": "supporters"
     },
