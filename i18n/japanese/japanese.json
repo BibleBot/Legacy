@@ -54,29 +54,29 @@
         "setversion": "バージョンセット",
         "version": "バージョン",
         "versions": "バージョンリスト",
-        "votd": "votd",
-        "verseoftheday": "verseoftheday",
-        "random": "random",
-        "biblebot": "biblebot",
-        "addversion": "addversion",
-        "versioninfo": "versioninfo",
+        "votd": "knm",
+        "verseoftheday": "今日のみことば",
+        "random": "ランダム",
+        "biblebot": "バイブルボット",
+        "addversion": "バージョン追加",
+        "versioninfo": "バージョン情報",
         "versenumbers": "versenumbers",
         "headings": "headings",
         "puppet": "puppet",
         "leave": "leave",
-        "setlanguage": "setlanguage",
-        "language": "language",
-        "languages": "languages",
+        "setlanguage": "言語セット",
+        "language": "言語",
+        "languages": "言語リスト",
         "users": "ユーザ",
         "servers": "サーバー",
-        "announce": "announce",
+        "announce": "お知らせ",
         "invite": "招待URL",
-        "supporters": "supporters"
+        "supporters": "支持者"
     },
     "arguments": {
         "yes": "はい",
         "no": "いいえ",
-        "enable": "enable",
-        "disable": "disable"
+        "enable": "有効",
+        "disable": "無効"
     }
 }
