@@ -37,7 +37,7 @@
     "versioninfofailed": "I couldn't find that version, are you sure you used the right acronym?",
     "users": "The number of users spanning across all servers that BibleBot is on (without duplicates)",
     "servers": "BibleBot is in <count> servers.",
-    "argumentCountError": "+<command> requires <count> arguments.",
+    "argumentCountError": "+<command> は引き数を <count> 必要とします。",
     "argumentCountErrorAL": "+<command> requires at least <count> arguments.",
     "commandNotFoundError": "+<command> は有効なコマンドではありません。",
     "queryTooShort": "検索クエリーは３字以上で入力してください。",
@@ -46,7 +46,7 @@
     "page": "Page",
     "of": "of",
     "searchNotSupported": "+<search> は「Bible Gateway」にある翻訳バージョンしかサポートしていません。",
-    "zeroOrOne": "0 or 1",
+    "zeroOrOne": "０または１",
     "enabled": "enabled",
     "disabled": "disabled",
     "commands": {
