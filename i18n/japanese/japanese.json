@@ -51,9 +51,9 @@
     "disabled": "disabled",
     "commands": {
         "search": "search",
-        "setversion": "setversion",
-        "version": "version",
-        "versions": "versions",
+        "setversion": "バージョンセット",
+        "version": "バージョン",
+        "versions": "バージョンリスト",
         "votd": "votd",
         "verseoftheday": "verseoftheday",
         "random": "random",
