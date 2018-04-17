@@ -35,7 +35,7 @@
     "votdcantprocess": "今日の KNM を読み込みできませんでした。<https://www.biblegateway.com/> を見てください。",
     "versioninfo": "\n**<versionname>**\n\n旧約が含まれます： <hasOT>\n新約が含まれます： <hasNT>\nアポクリファ／第二正典が含まれます： <hasAPO>",
     "versioninfofailed": "そのバージョンが見つかりませんでした。略を確認してください。",
-    "users": "バイブルボットが接続しているサーバーの総ユーザー数（重複したユーザを除いて）",
+    "users": "バイブルボットが接続しているサーバーの総ユーザ数（重複したユーザを除いて）",
     "servers": "バイブルボットは <count> のサーバーに入っています。",
     "argumentCountError": "+<command> は引き数を <count> 必要とします。",
     "argumentCountErrorAL": "+<command> は <count> 以上の引き数が必要です。",
