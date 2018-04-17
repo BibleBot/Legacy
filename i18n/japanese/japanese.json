@@ -70,12 +70,12 @@
         "users": "ユーザ",
         "servers": "サーバー",
         "announce": "announce",
-        "invite": "invite",
+        "invite": "招待",
         "supporters": "supporters"
     },
     "arguments": {
-        "yes": "Yes",
-        "no": "No",
+        "yes": "はい",
+        "no": "いいえ",
         "enable": "enable",
         "disable": "disable"
     }
