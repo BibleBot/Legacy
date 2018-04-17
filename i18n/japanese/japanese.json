@@ -15,8 +15,8 @@
     "noversionused": "ユーザが見つかりませんでした。`+<setversion>` でバージョンを設定しましたか？",
     "addversionsuccess": "バージョンを追加しました。",
     "addversionfail": "バージョンを追加できませんでした。",
-    "versenumbers": "You have verse numbers <enabled/disabled>.",
-    "versenumberssuccess": "Set verse numbers successfully.",
+    "versenumbers": "節番号が <enabled/disabled>。",
+    "versenumberssuccess": "節番号を有効にしました。",
     "versenumbersfail": "`+<versenumbers> <enable>` または `+<versenumbers> <disable>` を使ってください。",
     "headings": "サブタイトルが <enabled/disabled>。",
     "headingssuccess": "サブタイトルを有効にしました。",
@@ -54,13 +54,13 @@
         "setversion": "バージョンセット",
         "version": "バージョン",
         "versions": "バージョンリスト",
-        "votd": "knm",
+        "votd": "votd",
         "verseoftheday": "今日のみことば",
         "random": "ランダム",
         "biblebot": "バイブルボット",
         "addversion": "バージョン追加",
         "versioninfo": "バージョン情報",
-        "versenumbers": "versenumbers",
+        "versenumbers": "節番号",
         "headings": "サブタイトル",
         "puppet": "puppet",
         "leave": "leave",
@@ -76,7 +76,7 @@
     "arguments": {
         "yes": "はい",
         "no": "いいえ",
-        "enable": "有効にする",
-        "disable": "無効にする"
+        "enable": "有効",
+        "disable": "無効"
     }
 }
