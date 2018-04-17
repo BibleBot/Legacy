@@ -14,7 +14,7 @@
     "versionused": "ただいま <version> が設定されています。バージョンの設定を変更するには `+<setversion>` を使ってください。",
     "noversionused": "I couldn't find your name in my database, have you used `+<setversion>` yet?",
     "addversionsuccess": "バージョンを追加しました。",
-    "addversionfail": "バージョンの追加に失敗しました。",
+    "addversionfail": "バージョンを追加できませんでした。",
     "versenumbers": "You have verse numbers <enabled/disabled>.",
     "versenumberssuccess": "Set verse numbers successfully.",
     "versenumbersfail": "Use `+<versenumbers> <enable>` or `+<versenumbers> <disable>`.",
@@ -70,7 +70,7 @@
         "users": "ユーザ",
         "servers": "サーバー",
         "announce": "announce",
-        "invite": "招待",
+        "invite": "招待URL",
         "supporters": "supporters"
     },
     "arguments": {
