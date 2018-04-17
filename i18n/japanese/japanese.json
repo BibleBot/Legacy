@@ -71,12 +71,12 @@
         "servers": "サーバー",
         "announce": "お知らせ",
         "invite": "招待URL",
-        "supporters": "支持者"
+        "supporters": "サポーター"
     },
     "arguments": {
         "yes": "はい",
         "no": "いいえ",
-        "enable": "有効",
-        "disable": "無効"
+        "enable": "有効にする",
+        "disable": "無効にする"
     }
 }
