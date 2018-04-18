@@ -2,7 +2,7 @@
     "biblebot": "バイブルボット v<biblebotversion> 作者：Elliot Pardee（vypr）",
     "code": "コード： <https://git.vypr.space/BibleBot/BibleBot>",
     "commandlist": "* `+<search> クエリー` - キーワードーで検索する（Bible Gatewayの聖書バージョンのみ）\n* `+<setversion> ABBV` - 使うバージョンをABBVとして設定する\n* `+<version>` - 使っているバージョンを確認する\n* `+<versions>` - サポートされているバージョンの一覧を見る\n* `+<versioninfo> 略` - バージョン情報を見る（略を使ってください）\n* `+<random>` - ランダムな聖句を発言する\n* `+<verseoftheday>` (`+<votd>`) - 今日のみことばを貼り付ける\n* `+<headings> <enable>/<disable>` - サブタイトルの表示を有効化または無効化にする\n* `+<versenumbers> <enable>/<disable>` - 節番号の表示を有効化または無効化にする\n* `+<language>` - 言語設定を確認する（デフォルト：英語）\n* `+<setlanguage> 言語` - 使う言語を設定する\n* `+<languages>` - サポートされている言語の一覧を見る\n* `+<users>` - サーバー上のユーザの人数を表示する（重複したユーザとボットを除いて） 　\n* `+<servers>` - バイブルボットが接続しているサーバーの数を表示する\n* `+<invite>` - 招待URLを貼り付ける\n* `+<supporters>` - バイブルボットのサーポーター",
-    "usage": "ボットの使い方について、聖句の章と節をそのまま発言して後は私に任せてください。",
+    "usage": "ボットの使い方について、聖句の章と節をそのまま言って後は私に任せてください。",
     "commandlistName": "コマンド",
     "links": "リンク",
     "error": "エラー",
