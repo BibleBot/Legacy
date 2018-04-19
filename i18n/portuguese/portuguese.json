@@ -3,7 +3,7 @@
     "code": "Code: <https://git.vypr.space/BibleBot/BibleBot>",
     "commandlist": "* `+<search> query` - search using keywords (only in Bible Gateway versions)\n* `+<setversion> ABBV` - set preferred version to ABBV\n* `+<version>` - see what version you've set\n* `+<versions>` - see the supported versions\n* `+<versioninfo> VER` - read information about a version, using the acronym\n* `+<random>` - get a random Bible verse\n* `+<verseoftheday>` (`+<votd>`) - get the verse of the day\n* `+<headings> <enable>/<disable>` - enable or disable topic headings\n* `+<versenumbers> <enable>/<disable>` - enable or disable verse numbers\n* `+<language>` - see your current language, if one is set (default: english)\n* `+<setlanguage> LANG` - set preferred language to LANG\n* `+<languages>` - see the supported languages\n* `+<users>` - list all users throughout all servers (not counting duplicates or bots)\n* `+<servers>` - show how many servers BibleBot is in\n* `+<invite>` - get the invite link for BibleBot\n* `+<supporters>` - the supporters of BibleBot",
     "usage": "To use it, just say a Bible verse. I'll handle the rest.",
-    "commandlistName": "Commands",
+    "commandlistName": "Comandos",
     "links": "Links",
     "error": "Error",
     "patreon": "Patreon: <https://patreon.com/BibleBot>",
@@ -42,9 +42,9 @@
     "commandNotFoundError": "+<command> comando não válido.",
     "queryTooShort": "Your search query must be longer than 3 characters.",
     "searchResults": "Search results for",
-    "nothingFound": "Nothing found for \"<query>\"",
+    "nothingFound": "Sem resultados para \"<query>\"",
     "page": "Página",
-    "of": "of",
+    "of": "de",
     "searchNotSupported": "+<search> versão não suportada pela Bíblia Gateway",
     "zeroOrOne": "0 ou 1",
     "enabled": "ativo",
@@ -71,7 +71,7 @@
         "servers": "servidor",
         "announce": "aviso",
         "invite": "convite",
-        "supporters": "supporters"
+        "supporters": "suporte"
     },
     "arguments": {
         "yes": "Sim",
