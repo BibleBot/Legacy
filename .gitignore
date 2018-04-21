@@ -41,7 +41,8 @@ jspm_packages
 .node_repl_history
 
 # Config file
-src/config.js
+src/data/config.js
+config.js
 
 # build directory
 build
