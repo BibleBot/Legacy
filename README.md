@@ -1,12 +1,9 @@
-# BibleBot
-[![Help Translate on Crowdin](https://d322cqt584bo4o.cloudfront.net/biblebot/localized.svg)](https://crowdin.com/project/biblebot) [![Join us on Discord](https://img.shields.io/discord/362503610006765568.svg)](https://discord.gg/Ssn8KNv) [![Discord Bots](https://discordbots.org/api/widget/lib/361033318273384449.png)](https://discordbots.org)
-
-[![Become a Patron on Patreon](https://biblebot.vypr.space/public/patreonbutton.svg)](https://patreon.com/biblebot)
-
-[![Feature Requests](https://feathub.com/BibleBot/BibleBot?format=svg)](https://feathub.com/BibleBot/BibleBot)   
+# BibleBo 
 A Discord bot for Bible verses.
 
 To use it, just say a Bible verse.
+
+### Note: This project has been superceded by [the new Python version](https://github.com/BibleBot/BibleBot) after some troubles with WebSockets.
 
 ---
 
@@ -46,8 +43,6 @@ Bot Owner Commands:
 * `+addversion versionname abbv hasOT hasNT hasAPO` - add a version (`+av`)
 * `+puppet message` - say something as the bot
 * `+eval javascript` - execute javascript code
-
-Invite BibleBot to your server! https://discordapp.com/api/oauth2/authorize?client_id=361033318273384449&scope=bot&permissions=0
 
 ---
 
