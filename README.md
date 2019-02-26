@@ -1,9 +1,9 @@
-# BibleBo 
+### Note: This project has been superceded by [the new Python version](https://github.com/BibleBot/BibleBot) after some troubles with WebSockets.
+
+# BibleBot
 A Discord bot for Bible verses.
 
 To use it, just say a Bible verse.
-
-### Note: This project has been superceded by [the new Python version](https://github.com/BibleBot/BibleBot) after some troubles with WebSockets.
 
 ---
 
