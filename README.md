@@ -1,4 +1,4 @@
-### Note: This project has been superceded by [the new Python version](https://github.com/BibleBot/BibleBot) after some troubles with WebSockets.
+### THIS REPOSITORY IS NO LONGER MAINTAINED, THIS EXISTS SOLELY FOR HISTORICAL VALUE.
 
 # BibleBot
 A Discord bot for Bible verses.
